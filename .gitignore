@@ -5,4 +5,8 @@
 .DS_Store
 .quarto
 
+<<<<<<< HEAD
 /.quarto/
+=======
+data/
+>>>>>>> 828e18e16ca38e7e40a06c9a0530274ad8771d3b
