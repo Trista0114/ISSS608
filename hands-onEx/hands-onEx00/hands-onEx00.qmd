@@ -22,18 +22,18 @@ pacman::p_load(tidyverse)
 Code chunk below uses read_csv() of reader to import REALIS2019.csv into r environment as a tibble data.frame.
 
 ```{r}
-realis_csv <- read.csv("C:/Trista0114/ISSS608/hands-onEx/data/REALIS2019.csv")
+realis_csv <- read.csv("C:/Trista0114/ISSS608/hands-onEx/hands-onEx00/data/REALIS2019.csv")
 
 ```
 
 ```{r}
-realis2019 <- read_csv("C:/Trista0114/ISSS608/hands-onEx/data/REALIS2019.csv")
+realis2019 <- read_csv("C:/Trista0114/ISSS608/hands-onEx/hands-onEx00/data/REALIS2019.csv")
 ```
 
 
 ```{r}
 
-popdata_fat <- read_csv("C:/Trista0114/ISSS608/hands-onEx/data/PopData2019_fat.csv")
+popdata_fat <- read_csv("C:/Trista0114/ISSS608/hands-onEx/hands-onEx00/data/REALIS2019.csv")
 ```
 
 
