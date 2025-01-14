@@ -1,0 +1,43 @@
+---
+---
+title: "Hands-on Exercise 01: A Layered Grammar of Graphics: ggplot2 methods"
+author: "Chen.PengWei"
+date-modified: "last-modified"
+execute:
+  echo: true
+  eval: true
+  warning: false
+  freeze: true
+---
+
+1 Learning outcome
+
+In this chapter, you will learn the basic principles and essential components of ggplot2. At the same time, you will gain hands-on experience on using these components to plot statistical graphics based on the principle of Layered Grammar of Graphics.
+
+2 Getting started
+
+2.1 Installing and loading the required libraries
+
+Before we get started, it is important for us to ensure that the required R packages have been installed.
+
+::: callout-note
+The code chunk on the right assumes that you already have `pacman` package installed.\
+If not, please go ahead install `pacman` first.
+:::
+
+```{r}
+exam_data <- read_csv("C:/Trista0114/ISSS608/hands-onEx/hands-onEx01/Exam_data.csv")
+```
+
+##Essential Grammatical Elements in ggplot2: data
+
+```{r}
+ggplot(data = exam_data)
+```
+
+##Essential Grammatical Elements in ggplot2: Aesthetic mappings
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x= MATHS))
+```
