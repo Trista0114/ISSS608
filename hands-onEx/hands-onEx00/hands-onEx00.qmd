@@ -1,6 +1,6 @@
 ---
 title: "Hands-on Exercise 00: Working with tidyverse"
-author: "Chen.PengWea"
+author: "Chen.PengWei"
 date-modified: "last-modified"
 execute:
   echo: true
