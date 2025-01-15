@@ -14,116 +14,67 @@
     "text": "這是一個測試文件。"
   },
   {
+    "objectID": "hands-onEx/hands-onEx01/hands-onEx01.html",
+    "href": "hands-onEx/hands-onEx01/hands-onEx01.html",
+    "title": "Hands-on Exercise 01: A Layered Grammar of Graphics-ggplot2 methods",
+    "section": "",
+    "text": "In this chapter, you will learn the basic principles and essential components of ggplot2. At the same time, you will gain hands-on experience on using these components to plot statistical graphics based on the principle of Layered Grammar of Graphics."
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx01/hands-onEx01.html#learning-outcome",
+    "href": "hands-onEx/hands-onEx01/hands-onEx01.html#learning-outcome",
+    "title": "Hands-on Exercise 01: A Layered Grammar of Graphics-ggplot2 methods",
+    "section": "",
+    "text": "In this chapter, you will learn the basic principles and essential components of ggplot2. At the same time, you will gain hands-on experience on using these components to plot statistical graphics based on the principle of Layered Grammar of Graphics."
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx01/hands-onEx01.html#getting-started",
+    "href": "hands-onEx/hands-onEx01/hands-onEx01.html#getting-started",
+    "title": "Hands-on Exercise 01: A Layered Grammar of Graphics-ggplot2 methods",
+    "section": "2. Getting started",
+    "text": "2. Getting started\n\n2.1 Installing and loading the required libraries\nBefore we get started, it is important for us to ensure that the required R packages have been installed.\n\n\n\n\n\n\nnote\n\n\n\nThe code chunk on the right assumes that you already have pacman package installed. If not, please go ahead install pacman first.\n\n\n\npacman::p_load(tidyverse)\n\n\n\n2.2 Importing data\n\nThe code chunk below imports exam_data.csv into R environment by using read_csv() function of readr package.\nreadr is one of the tidyverse package.\n\n\nexam_data &lt;- read_csv(\"C:/Trista0114/ISSS608/hands-onEx/hands-onEx01/Exam_data.csv\")\n\nYear end examination grades of a cohort of primary 3 students from a local school. There are a total of seven attributes. Four of them are categorical data type and the other three are in continuous data type.\n\nThe categorical attributes are: ID, CLASS, GENDER and RACE.\nThe continuous attributes are: MATHS, ENGLISH and SCIENCE."
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx01/hands-onEx01.html#introducing-ggplot",
+    "href": "hands-onEx/hands-onEx01/hands-onEx01.html#introducing-ggplot",
+    "title": "Hands-on Exercise 01: A Layered Grammar of Graphics-ggplot2 methods",
+    "section": "3. Introducing ggplot",
+    "text": "3. Introducing ggplot\nggplot is an R package for declaratively creating data-driven graphics based on The Grammar of Graphics.It is also part of the tidyverse family specially designed for visual exploration and communication.\n\n3.1 R Graphics VS ggplot\n\nR Graphicsggplots2\n\n\n\nhist(exam_data$MATHS)\n\n\n\n\n\n\n\n\n\n\n\nggplot(data=exam_data, aes(x = MATHS)) +\n  geom_histogram(bins=10, \n                 boundary = 100,\n                 color=\"black\", \n                 fill=\"grey\") +\n  ggtitle(\"Distribution of Maths scores\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nImportant\n\n\n\nWhy ggplot is more recommended than R graphics?\nThe transferable skills from ggplot2 are not the idiosyncrasies of plotting syntax, but a powerful way of thinking about visualisation, as a way of mapping between variables and the visual properties of geometric objects that you can perceive.\n by Hadley Wickham"
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx01/hands-onEx01.html#grammar-of-graphics",
+    "href": "hands-onEx/hands-onEx01/hands-onEx01.html#grammar-of-graphics",
+    "title": "Hands-on Exercise 01: A Layered Grammar of Graphics-ggplot2 methods",
+    "section": "4. Grammar of Graphics",
+    "text": "4. Grammar of Graphics\nGrammar of Graphics is a general scheme for data visualization which breaks up graphs into semantic components such as scales and layers. It was introduced by Leland Wilkinson (1999) Grammar of Graphics, Springer.\nThere are two principles in Grammar of Graphics, they are:\n\nGraphics = distinct layers of grammatical elements\nMeaningful plots through aesthetic mapping\n\nA good grammar of graphics will allow us to gain insight into the composition of complicated graphics, and reveal unexpected connections between seemingly different graphics (Cox 1978). It also provides a strong foundation for understanding a diverse range of graphics. Furthermore, it may also help guide us on what a well-formed or correct graphic looks like, but there will still be many grammatically correct but nonsensical graphics.\n\nReference: Hadley Wickham (2010) “A layered grammar of graphics.” Journal of Computational and Graphical Statistics, vol. 19, no. 1, pp. 3–28.\nA short description of each building block are as follows:\n\nData: The dataset being plotted.\nAesthetics take attributes of the data and use them to influence visual characteristics, such as position, colours, size, shape, or transparency.\nGeometrics: The visual elements used for our data, such as point, bar or line.\nFacets split the data into subsets to create multiple variations of the same graph (paneling, multiple plots).\nStatistics, statiscal transformations that summarise data (e.g. mean, confidence intervals).\nCoordinate systems define the plane on which data are mapped on the graphic.\nThemes modify all non-data components of a plot, such as main title, sub-title, y-aixs title, or legend background."
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx01/hands-onEx01.html#essential-grammatical-elements-in-ggplot2-data",
+    "href": "hands-onEx/hands-onEx01/hands-onEx01.html#essential-grammatical-elements-in-ggplot2-data",
+    "title": "Hands-on Exercise 01: A Layered Grammar of Graphics-ggplot2 methods",
+    "section": "5. Essential Grammatical Elements in ggplot2: data",
+    "text": "5. Essential Grammatical Elements in ggplot2: data\nLet us call the ggplot() function using the code chunk on the right.\n\nggplot(data = exam_data)"
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx01/hands-onEx01.html#essential-grammatical-elements-in-ggplot2-aesthetic-mappings",
+    "href": "hands-onEx/hands-onEx01/hands-onEx01.html#essential-grammatical-elements-in-ggplot2-aesthetic-mappings",
+    "title": "Hands-on Exercise 01: A Layered Grammar of Graphics-ggplot2 methods",
+    "section": "6. Essential Grammatical Elements in ggplot2: Aesthetic mappings",
+    "text": "6. Essential Grammatical Elements in ggplot2: Aesthetic mappings\nThe aesthetic mappings take attributes of the data and and use them to influence visual characteristics, such as position, colour, size, shape, or transparency. Each visual characteristic can thus encode an aspect of the data and be used to convey information. All aesthetics of a plot are specified in the aes() function call.\n\nggplot(data=exam_data, \n       aes(x= MATHS))\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nggplot includes the x-axis and the axis’s label."
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx01/hands-onEx01.html#essential-grammatical-elements-in-ggplot2-geom",
+    "href": "hands-onEx/hands-onEx01/hands-onEx01.html#essential-grammatical-elements-in-ggplot2-geom",
+    "title": "Hands-on Exercise 01: A Layered Grammar of Graphics-ggplot2 methods",
+    "section": "7. Essential Grammatical Elements in ggplot2: geom",
+    "text": "7. Essential Grammatical Elements in ggplot2: geom\nGeometric objects are the actual marks we put on a plot. Examples include:\n\ngeom_point for drawing individual points (e.g., a scatter plot)\ngeom_line for drawing lines (e.g., for a line charts) geom_smooth for drawing smoothed lines (e.g., for simple trends or approximations)\ngeom_bar for drawing bars (e.g., for bar charts)\ngeom_histogram for drawing binned values (e.g. a histogram)\ngeom_polygon for drawing arbitrary shapes\ngeom_map for drawing polygons in the shape of a map! (You can access the data to use for these maps by using the map_data() function).\n\n\nA plot must have at least one geom; there is no upper limit. You can add a geom to a plot using the + operator.\n\n7.1 Geom_bar\nThe code chunk below plots a bar chart by using geom_bar().\n\nggplot(data=exam_data, \n       aes(x=RACE)) +\n  geom_bar()\n\n\n\n\n\n\n\n\n\n\n7.2 Geom_dotplot\nIn a dot plot, the width of a dot corresponds to the bin width (or maximum width, depending on the binning algorithm), and dots are stacked, with each dot representing one observation.\nIn the code chunk below, geom_dotplot() of ggplot2 is used to plot a dot plot.\n\nggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot(dotsize = 0.5)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nBe warned\n\n\n\nThe y scale is not very useful, in fact it is very misleading.\n\n\nThe code chunk below performs the following two steps:\n\nscale_y_continuous() is used to turn off the y-axis, and\nbinwidth argument is used to change the binwidth to 2.5.\n\n\nggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot(binwidth=2.5,         \n               dotsize = 0.5) +      \n  scale_y_continuous(NULL,           \n                     breaks = NULL)  \n\n\n\n\n\n\n\n\n\ny-axis disappear and decrease the misunderstanding\n\n\n\n7.3 Geom_histogram\nIn the code chunk below, geom_histogram() is used to create a simple histogram by using values in MATHS field of exam_data.\n\nggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_histogram()   \n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nThe default bin is 30.\n\n\n\n\n7.4 Modifying a geometric object by changing geom()\n\nbins argument is used to change the number of bins to 20\nfill argument is used to shade the histogram with light blue color\ncolor argument is used to change the outline colour of the bars in black\n\n\nggplot(data=exam_data, \n       aes(x= MATHS)) + \n  geom_histogram(bins=20,\n                 color=\"black\",\n                 fill=\"light blue\")\n\n\n\n\n\n\n\n\n\n\n7.5 Modifying a geometric object by changing aes()\n\nThe code chunk below changes the interior colour of the histogram (i.e. fill) by using sub-group of aesthetic(). This approach can be used to colour, fill and alpha of the geometric.\n\nggplot(data=exam_data, \n       aes(x= MATHS, \n           fill = GENDER)) +\n  geom_histogram(bins=20, \n                 color=\"grey30\")\n\n\n\n\n\n\n\n\n\n\n7.6 Geom-density()\nIt is a useful alternative to the histogram for continuous data that comes from an underlying smooth distribution.\n\nggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_density()           \n\n\n\n\n\n\n\n\nThe code chunk below plots two kernel density lines by using colour or fill arguments of aes()\n\nggplot(data=exam_data, \n       aes(x = MATHS, \n           colour = GENDER)) +\n  geom_density()\n\n\n\n\n\n\n\n\n\n\n7.7 Geom_boxplot\ngeom_boxplot() displays continuous value list. It visualises five summary statistics (the median, two hinges and two whiskers), and all “outlying” points individually.\n\nggplot(data=exam_data, \n       aes(y = MATHS,       \n           x= GENDER)) +    \n  geom_boxplot()            \n\n\n\n\n\n\n\n\nNotches are used in box plots to help visually assess whether the medians of distributions differ. If the notches do not overlap, this is evidence that the medians are different.\nThe code chunk below plots the distribution of Maths scores by gender in notched plot instead of boxplot.\n\nggplot(data=exam_data, \n       aes(y = MATHS, \n           x= GENDER)) +\n  geom_boxplot(notch=TRUE)\n\n\n\n\n\n\n\n\n\n\n7.8 Geom_violin\ngeom_violin is designed for creating violin plot. Violin plots are a way of comparing multiple data distributions. \n\nggplot(data=exam_data, \n       aes(y = MATHS, \n           x= GENDER)) +\n  geom_violin()\n\n\n\n\n\n\n\n\n\n\n7.9 Geom_point()\ngeom_point() is especially useful for creating scatterplot.\n\nggplot(data=exam_data, \n       aes(x= MATHS, \n           y=ENGLISH)) +\n  geom_point()            \n\n\n\n\n\n\n\n\n\n\n7.10 Geom objects can be combined\n\nggplot(data=exam_data, \n       aes(y = MATHS, \n           x= GENDER)) +\n  geom_boxplot() +                    \n  geom_point(position=\"jitter\", \n             size = 0.5)"
+  },
+  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
     "section": "",
     "text": "I am Peng Wei. This is course page of ISSS608."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "ISSS608-Chen,Peng-Wei",
-    "section": "",
-    "text": "Hi, I am Peng-Wei, a student in the Master of IT in Business program at SMU. Welcome to my course work in ISSS608 Visual Analytics and Applications\n\nStep by Step: My Journey in Data Analytics and Visualization\nBelow is a screenshot from one of my favorite games, The Forest. It reminds me of the journey of building a home, one tree at a time, with an axe in hand. Similarly, data analytics and visualization require patience, attention to detail, and steady progress. Every step I take in this course is like cutting down a tree to build a stronger foundation in analytics.\n\n&gt; “Just like building this home in The Forest, data analytics is a journey where each step matters.” —\n\nExplore my work: - Hands-on Exercises - In-class Exercises - Take-home Exercises"
-  },
-  {
-    "objectID": "hands-on Ex/hands-on Ex00.html",
-    "href": "hands-on Ex/hands-on Ex00.html",
-    "title": "Hands-on Exercise 00: Working with tidyverse",
-    "section": "",
-    "text": "Load tidyverse onto r environment by using the code chunk below.\n\npacman::p_load(tidyverse)"
-  },
-  {
-    "objectID": "hands-on Ex/hands-on Ex00.html#getting-started",
-    "href": "hands-on Ex/hands-on Ex00.html#getting-started",
-    "title": "Hands-on Exercise 00: Working with tidyverse",
-    "section": "",
-    "text": "Load tidyverse onto r environment by using the code chunk below.\n\npacman::p_load(tidyverse)"
-  },
-  {
-    "objectID": "hands-on Ex/hands-on Ex00.html#importing-data",
-    "href": "hands-on Ex/hands-on Ex00.html#importing-data",
-    "title": "Hands-on Exercise 00: Working with tidyverse",
-    "section": "Importing data",
-    "text": "Importing data\nCode chunk below uses read_csv() of reader to import REALIS2019.csv into r environment as a tibble data.frame.\n\nrealis_csv &lt;- read.csv(\"C:/pw2/ISSS608- Chen,Peng-Wei/hands-on Ex/data/REALIS2019.csv\")\n\n\nrealis2019 &lt;- read_csv(\"C:/pw2/ISSS608- Chen,Peng-Wei/hands-on Ex/data/REALIS2019.csv\")\n\n\npopdata_fat &lt;- read_csv(\"C:/pw2/ISSS608- Chen,Peng-Wei/hands-on Ex/data/PopData2019_fat.csv\")"
-  },
-  {
-    "objectID": "hands-on Ex/hands-on Ex00.html#pivoting-data",
-    "href": "hands-on Ex/hands-on Ex00.html#pivoting-data",
-    "title": "Hands-on Exercise 00: Working with tidyverse",
-    "section": "Pivoting data",
-    "text": "Pivoting data\n\npopdata_long &lt;- popdata_fat %&gt;%\n  pivot_longer(c(3:21),\n               names_to = \"Age Group\",\n               values_to = \"Population\") \n\n\nwrite_rds(popdata_long, 'rds/popdata_long.rds')"
-  },
-  {
-    "objectID": "hands-on Ex/hands-on Ex00.html#working-with-dplyr",
-    "href": "hands-on Ex/hands-on Ex00.html#working-with-dplyr",
-    "title": "Hands-on Exercise 00: Working with tidyverse",
-    "section": "working with dplyr",
-    "text": "working with dplyr\n\nrealis2019_selected &lt;- realis2019 %&gt;%\n  select(`Project Name`,\n         `Transacted Price ($)`,\n         `Unit Price ($ psm)`,\n         `Property Type`)\n realis2019_selected\n\n# A tibble: 19,515 × 4\n   `Project Name`    `Transacted Price ($)` `Unit Price ($ psm)` `Property Type`\n   &lt;chr&gt;                              &lt;dbl&gt;                &lt;dbl&gt; &lt;chr&gt;          \n 1 PEIRCE VIEW                       840000                 7434 Condominium    \n 2 FLORIDA PARK                     3040000                 9737 Semi-Detached …\n 3 BULLION PARK                      860000                11467 Condominium    \n 4 CASTLE GREEN                     1000000                 9346 Condominium    \n 5 HAPPY ESTATE                     7000000                10183 Semi-Detached …\n 6 TEACHER'S HOUSIN…                2880000                12659 Terrace House  \n 7 THE PANORAMA                     1510000                16064 Condominium    \n 8 THE PANORAMA                      710000                16905 Condominium    \n 9 CHIP THYE GARDEN                 2800000                13500 Terrace House  \n10 TEACHER'S HOUSIN…                2300000                 9935 Terrace House  \n# ℹ 19,505 more rows\n\n\n\nrealis2019_selected &lt;- realis2019 %&gt;%\n  select(- `Address`, -`Unit Price ($ psf)`, \n         -`Nett Price($)`, -`Completion Date`, \n         -`Tenure`)\nrealis2019_selected\n\n# A tibble: 19,515 × 15\n   `Project Name`           `No. of Units` `Area (sqm)` `Type of Area`\n   &lt;chr&gt;                             &lt;dbl&gt;        &lt;dbl&gt; &lt;chr&gt;         \n 1 PEIRCE VIEW                           1          113 Strata        \n 2 FLORIDA PARK                          1          312 Land          \n 3 BULLION PARK                          1           75 Strata        \n 4 CASTLE GREEN                          1          107 Strata        \n 5 HAPPY ESTATE                          1          687 Land          \n 6 TEACHER'S HOUSING ESTATE              1          228 Land          \n 7 THE PANORAMA                          1           94 Strata        \n 8 THE PANORAMA                          1           42 Strata        \n 9 CHIP THYE GARDEN                      1          207 Land          \n10 TEACHER'S HOUSING ESTATE              1          232 Land          \n# ℹ 19,505 more rows\n# ℹ 11 more variables: `Transacted Price ($)` &lt;dbl&gt;,\n#   `Unit Price ($ psm)` &lt;dbl&gt;, `Sale Date` &lt;chr&gt;, `Property Type` &lt;chr&gt;,\n#   `Type of Sale` &lt;chr&gt;, `Purchaser Address Indicator` &lt;chr&gt;,\n#   `Postal District` &lt;dbl&gt;, `Postal Sector` &lt;dbl&gt;, `Postal Code` &lt;dbl&gt;,\n#   `Planning Region` &lt;chr&gt;, `Planning Area` &lt;chr&gt;\n\n\n\nworking with filter() of dplyr\n\nrealis2019_filtered &lt;- realis2019_selected %&gt;%\n  filter(`Property Type` ==\"Condominium\" |\n           `Property Type`== \"Apartment\") %&gt;%\n  filter(`Type of Sale` == \"New Sale\") %&gt;%\n  filter(`Unit Price ($ psm)` &lt;= 13000)\n\n\n\nall in one\n\nrealis2019_end &lt;- realis2019 %&gt;%\n  select(`Project Name`,\n         `Transacted Price ($)`,\n         `Type of Sale`,\n         `Unit Price ($ psm)`,\n         `Property Type`) %&gt;%\n  filter(`Property Type` ==\"Condominium\" |\n           `Property Type`== \"Apartment\") %&gt;%\n  filter(`Type of Sale` == \"New Sale\") %&gt;%\n  filter(`Unit Price ($ psm)` &lt;= 13000)"
-  },
-  {
-    "objectID": "hands-on Ex/hands-on Ex00.html#quarto",
-    "href": "hands-on Ex/hands-on Ex00.html#quarto",
-    "title": "Hands-on Exercise 00: Working with tidyverse",
-    "section": "Quarto",
-    "text": "Quarto\nQuarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org."
-  },
-  {
-    "objectID": "hands-on Ex/hands-on Ex00.html#running-code",
-    "href": "hands-on Ex/hands-on Ex00.html#running-code",
-    "title": "Hands-on Exercise 00: Working with tidyverse",
-    "section": "Running Code",
-    "text": "Running Code\nWhen you click the Render button a document will be generated that includes both content and the output of embedded code. You can embed code like this:\n\n1 + 1\n\n[1] 2\n\n\nYou can add options to executable code like this\n\n\n[1] 4\n\n\nThe echo: false option disables the printing of code (only output is displayed)."
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx00.html",
-    "href": "hands-onEx/hands-onEx00.html",
-    "title": "Hands-on Exercise 00: Working with tidyverse",
-    "section": "",
-    "text": "Load tidyverse onto r environment by using the code chunk below.\n\npacman::p_load(tidyverse)"
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx00.html#getting-started",
-    "href": "hands-onEx/hands-onEx00.html#getting-started",
-    "title": "Hands-on Exercise 00: Working with tidyverse",
-    "section": "",
-    "text": "Load tidyverse onto r environment by using the code chunk below.\n\npacman::p_load(tidyverse)"
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx00.html#importing-data",
-    "href": "hands-onEx/hands-onEx00.html#importing-data",
-    "title": "Hands-on Exercise 00: Working with tidyverse",
-    "section": "Importing data",
-    "text": "Importing data\nCode chunk below uses read_csv() of reader to import REALIS2019.csv into r environment as a tibble data.frame.\n\nrealis_csv &lt;- read.csv(\"C:/Trista0114/ISSS608/hands-onEx/data/REALIS2019.csv\")\n\n\nrealis2019 &lt;- read_csv(\"C:/Trista0114/ISSS608/hands-onEx/data/REALIS2019.csv\")\n\n\npopdata_fat &lt;- read_csv(\"C:/Trista0114/ISSS608/hands-onEx/data/PopData2019_fat.csv\")"
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx00.html#pivoting-data",
-    "href": "hands-onEx/hands-onEx00.html#pivoting-data",
-    "title": "Hands-on Exercise 00: Working with tidyverse",
-    "section": "Pivoting data",
-    "text": "Pivoting data\n\npopdata_long &lt;- popdata_fat %&gt;%\n  pivot_longer(c(3:21),\n               names_to = \"Age Group\",\n               values_to = \"Population\") \n\n\nwrite_rds(popdata_long, 'rds/popdata_long.rds')"
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx00.html#working-with-dplyr",
-    "href": "hands-onEx/hands-onEx00.html#working-with-dplyr",
-    "title": "Hands-on Exercise 00: Working with tidyverse",
-    "section": "working with dplyr",
-    "text": "working with dplyr\n\nrealis2019_selected &lt;- realis2019 %&gt;%\n  select(`Project Name`,\n         `Transacted Price ($)`,\n         `Unit Price ($ psm)`,\n         `Property Type`)\n realis2019_selected\n\n# A tibble: 19,515 × 4\n   `Project Name`    `Transacted Price ($)` `Unit Price ($ psm)` `Property Type`\n   &lt;chr&gt;                              &lt;dbl&gt;                &lt;dbl&gt; &lt;chr&gt;          \n 1 PEIRCE VIEW                       840000                 7434 Condominium    \n 2 FLORIDA PARK                     3040000                 9737 Semi-Detached …\n 3 BULLION PARK                      860000                11467 Condominium    \n 4 CASTLE GREEN                     1000000                 9346 Condominium    \n 5 HAPPY ESTATE                     7000000                10183 Semi-Detached …\n 6 TEACHER'S HOUSIN…                2880000                12659 Terrace House  \n 7 THE PANORAMA                     1510000                16064 Condominium    \n 8 THE PANORAMA                      710000                16905 Condominium    \n 9 CHIP THYE GARDEN                 2800000                13500 Terrace House  \n10 TEACHER'S HOUSIN…                2300000                 9935 Terrace House  \n# ℹ 19,505 more rows\n\n\n\nrealis2019_selected &lt;- realis2019 %&gt;%\n  select(- `Address`, -`Unit Price ($ psf)`, \n         -`Nett Price($)`, -`Completion Date`, \n         -`Tenure`)\nrealis2019_selected\n\n# A tibble: 19,515 × 15\n   `Project Name`           `No. of Units` `Area (sqm)` `Type of Area`\n   &lt;chr&gt;                             &lt;dbl&gt;        &lt;dbl&gt; &lt;chr&gt;         \n 1 PEIRCE VIEW                           1          113 Strata        \n 2 FLORIDA PARK                          1          312 Land          \n 3 BULLION PARK                          1           75 Strata        \n 4 CASTLE GREEN                          1          107 Strata        \n 5 HAPPY ESTATE                          1          687 Land          \n 6 TEACHER'S HOUSING ESTATE              1          228 Land          \n 7 THE PANORAMA                          1           94 Strata        \n 8 THE PANORAMA                          1           42 Strata        \n 9 CHIP THYE GARDEN                      1          207 Land          \n10 TEACHER'S HOUSING ESTATE              1          232 Land          \n# ℹ 19,505 more rows\n# ℹ 11 more variables: `Transacted Price ($)` &lt;dbl&gt;,\n#   `Unit Price ($ psm)` &lt;dbl&gt;, `Sale Date` &lt;chr&gt;, `Property Type` &lt;chr&gt;,\n#   `Type of Sale` &lt;chr&gt;, `Purchaser Address Indicator` &lt;chr&gt;,\n#   `Postal District` &lt;dbl&gt;, `Postal Sector` &lt;dbl&gt;, `Postal Code` &lt;dbl&gt;,\n#   `Planning Region` &lt;chr&gt;, `Planning Area` &lt;chr&gt;\n\n\n\nworking with filter() of dplyr\n\nrealis2019_filtered &lt;- realis2019_selected %&gt;%\n  filter(`Property Type` ==\"Condominium\" |\n           `Property Type`== \"Apartment\") %&gt;%\n  filter(`Type of Sale` == \"New Sale\") %&gt;%\n  filter(`Unit Price ($ psm)` &lt;= 13000)\n\n\n\nall in one\n\nrealis2019_end &lt;- realis2019 %&gt;%\n  select(`Project Name`,\n         `Transacted Price ($)`,\n         `Type of Sale`,\n         `Unit Price ($ psm)`,\n         `Property Type`) %&gt;%\n  filter(`Property Type` ==\"Condominium\" |\n           `Property Type`== \"Apartment\") %&gt;%\n  filter(`Type of Sale` == \"New Sale\") %&gt;%\n  filter(`Unit Price ($ psm)` &lt;= 13000)"
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx00.html#quarto",
-    "href": "hands-onEx/hands-onEx00.html#quarto",
-    "title": "Hands-on Exercise 00: Working with tidyverse",
-    "section": "Quarto",
-    "text": "Quarto\nQuarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org."
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx00.html#running-code",
-    "href": "hands-onEx/hands-onEx00.html#running-code",
-    "title": "Hands-on Exercise 00: Working with tidyverse",
-    "section": "Running Code",
-    "text": "Running Code\nWhen you click the Render button a document will be generated that includes both content and the output of embedded code. You can embed code like this:\n\n1 + 1\n\n[1] 2\n\n\nYou can add options to executable code like this\n\n\n[1] 4\n\n\nThe echo: false option disables the printing of code (only output is displayed)."
   },
   {
     "objectID": "hands-onEx/hands-onEx00/hands-onEx00.html",
@@ -175,73 +126,10 @@
     "text": "Running Code\nWhen you click the Render button a document will be generated that includes both content and the output of embedded code. You can embed code like this:\n\n1 + 1\n\n[1] 2\n\n\nYou can add options to executable code like this\n\n\n[1] 4\n\n\nThe echo: false option disables the printing of code (only output is displayed)."
   },
   {
-    "objectID": "hands-onEx/hands-onEx01/hands-onEx01.html",
-    "href": "hands-onEx/hands-onEx01/hands-onEx01.html",
-    "title": "Hands-on Exercise 01: A Layered Grammar of Graphics-ggplot2 methods",
-    "section": "",
-    "text": "In this chapter, you will learn the basic principles and essential components of ggplot2. At the same time, you will gain hands-on experience on using these components to plot statistical graphics based on the principle of Layered Grammar of Graphics."
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx01/hands-onEx01.html#learning-outcome",
-    "href": "hands-onEx/hands-onEx01/hands-onEx01.html#learning-outcome",
-    "title": "Hands-on Exercise 01: A Layered Grammar of Graphics-ggplot2 methods",
-    "section": "",
-    "text": "In this chapter, you will learn the basic principles and essential components of ggplot2. At the same time, you will gain hands-on experience on using these components to plot statistical graphics based on the principle of Layered Grammar of Graphics."
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx01/hands-onEx01.html#getting-started",
-    "href": "hands-onEx/hands-onEx01/hands-onEx01.html#getting-started",
-    "title": "Hands-on Exercise 01: A Layered Grammar of Graphics-ggplot2 methods",
-    "section": "2. Getting started",
-    "text": "2. Getting started\n\n2.1 Installing and loading the required libraries\nBefore we get started, it is important for us to ensure that the required R packages have been installed.\n\n\n\n\n\n\nnote\n\n\n\nThe code chunk on the right assumes that you already have pacman package installed. If not, please go ahead install pacman first.\n\n\n\npacman::p_load(tidyverse)\n\n\n\n2.2 Importing data\n\nThe code chunk below imports exam_data.csv into R environment by using read_csv() function of readr package.\nreadr is one of the tidyverse package.\n\n\nexam_data &lt;- read_csv(\"C:/Trista0114/ISSS608/hands-onEx/hands-onEx01/Exam_data.csv\")\n\nYear end examination grades of a cohort of primary 3 students from a local school. There are a total of seven attributes. Four of them are categorical data type and the other three are in continuous data type.\n\nThe categorical attributes are: ID, CLASS, GENDER and RACE.\nThe continuous attributes are: MATHS, ENGLISH and SCIENCE."
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx01/hands-onEx01.html#introducing-ggplot",
-    "href": "hands-onEx/hands-onEx01/hands-onEx01.html#introducing-ggplot",
-    "title": "Hands-on Exercise 01: A Layered Grammar of Graphics-ggplot2 methods",
-    "section": "3. Introducing ggplot",
-    "text": "3. Introducing ggplot\nggplot is an R package for declaratively creating data-driven graphics based on The Grammar of Graphics.It is also part of the tidyverse family specially designed for visual exploration and communication.\n\n3.1 R Graphics VS ggplot\n\nR Graphicsggplots2\n\n\n\nhist(exam_data$MATHS)\n\n\n\n\n\n\n\n\n\n\n\nggplot(data=exam_data, aes(x = MATHS)) +\n  geom_histogram(bins=10, \n                 boundary = 100,\n                 color=\"black\", \n                 fill=\"grey\") +\n  ggtitle(\"Distribution of Maths scores\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nImportant\n\n\n\nWhy ggplot is more recommended than R graphics?\nThe transferable skills from ggplot2 are not the idiosyncrasies of plotting syntax, but a powerful way of thinking about visualisation, as a way of mapping between variables and the visual properties of geometric objects that you can perceive.\n by Hadley Wickham"
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx01/hands-onEx01.html#essential-grammatical-elements-in-ggplot2-data",
-    "href": "hands-onEx/hands-onEx01/hands-onEx01.html#essential-grammatical-elements-in-ggplot2-data",
-    "title": "Hands-on Exercise 01: A Layered Grammar of Graphics-ggplot2 methods",
-    "section": "5. Essential Grammatical Elements in ggplot2: data",
-    "text": "5. Essential Grammatical Elements in ggplot2: data\nLet us call the ggplot() function using the code chunk on the right.\n\nggplot(data = exam_data)"
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx01/hands-onEx01.html#essential-grammatical-elements-in-ggplot2-aesthetic-mappings",
-    "href": "hands-onEx/hands-onEx01/hands-onEx01.html#essential-grammatical-elements-in-ggplot2-aesthetic-mappings",
-    "title": "Hands-on Exercise 01: A Layered Grammar of Graphics-ggplot2 methods",
-    "section": "6. Essential Grammatical Elements in ggplot2: Aesthetic mappings",
-    "text": "6. Essential Grammatical Elements in ggplot2: Aesthetic mappings\nThe aesthetic mappings take attributes of the data and and use them to influence visual characteristics, such as position, colour, size, shape, or transparency. Each visual characteristic can thus encode an aspect of the data and be used to convey information. All aesthetics of a plot are specified in the aes() function call.\n\nggplot(data=exam_data, \n       aes(x= MATHS))\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nggplot includes the x-axis and the axis’s label."
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx01/hands-onEx01.html#important",
-    "href": "hands-onEx/hands-onEx01/hands-onEx01.html#important",
-    "title": "Hands-on Exercise 01: A Layered Grammar of Graphics-ggplot2 methods",
-    "section": "Important",
-    "text": "Important\nWhy ggplot2 is recommended than R graphics?\n\nThe transferable skills from ggplot2 are not the idiosyncrasies of plotting syntax, but a powerful way of thinking about visualisation, as a way of mapping between variables and the visual properties of geometric objects that you can perceive.\nby Hadley Wickham"
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx01/hands-onEx01.html#grammar-of-graphics",
-    "href": "hands-onEx/hands-onEx01/hands-onEx01.html#grammar-of-graphics",
-    "title": "Hands-on Exercise 01: A Layered Grammar of Graphics-ggplot2 methods",
-    "section": "4. Grammar of Graphics",
-    "text": "4. Grammar of Graphics\nGrammar of Graphics is a general scheme for data visualization which breaks up graphs into semantic components such as scales and layers. It was introduced by Leland Wilkinson (1999) Grammar of Graphics, Springer.\nThere are two principles in Grammar of Graphics, they are:\n\nGraphics = distinct layers of grammatical elements\nMeaningful plots through aesthetic mapping\n\nA good grammar of graphics will allow us to gain insight into the composition of complicated graphics, and reveal unexpected connections between seemingly different graphics (Cox 1978). It also provides a strong foundation for understanding a diverse range of graphics. Furthermore, it may also help guide us on what a well-formed or correct graphic looks like, but there will still be many grammatically correct but nonsensical graphics.\n\nReference: Hadley Wickham (2010) “A layered grammar of graphics.” Journal of Computational and Graphical Statistics, vol. 19, no. 1, pp. 3–28.\nA short description of each building block are as follows:\n\nData: The dataset being plotted.\nAesthetics take attributes of the data and use them to influence visual characteristics, such as position, colours, size, shape, or transparency.\nGeometrics: The visual elements used for our data, such as point, bar or line.\nFacets split the data into subsets to create multiple variations of the same graph (paneling, multiple plots).\nStatistics, statiscal transformations that summarise data (e.g. mean, confidence intervals).\nCoordinate systems define the plane on which data are mapped on the graphic.\nThemes modify all non-data components of a plot, such as main title, sub-title, y-aixs title, or legend background."
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx01/hands-onEx01.html#essential-grammatical-elements-in-ggplot2-geom",
-    "href": "hands-onEx/hands-onEx01/hands-onEx01.html#essential-grammatical-elements-in-ggplot2-geom",
-    "title": "Hands-on Exercise 01: A Layered Grammar of Graphics-ggplot2 methods",
-    "section": "7. Essential Grammatical Elements in ggplot2: geom",
-    "text": "7. Essential Grammatical Elements in ggplot2: geom\nGeometric objects are the actual marks we put on a plot. Examples include:\n\ngeom_point for drawing individual points (e.g., a scatter plot)\ngeom_line for drawing lines (e.g., for a line charts) geom_smooth for drawing smoothed lines (e.g., for simple trends or approximations)\ngeom_bar for drawing bars (e.g., for bar charts)\ngeom_histogram for drawing binned values (e.g. a histogram)\ngeom_polygon for drawing arbitrary shapes\ngeom_map for drawing polygons in the shape of a map! (You can access the data to use for these maps by using the map_data() function).\n\n\nA plot must have at least one geom; there is no upper limit. You can add a geom to a plot using the + operator.\n\n7.1 Geom_bar\nThe code chunk below plots a bar chart by using geom_bar().\n\nggplot(data=exam_data, \n       aes(x=RACE)) +\n  geom_bar()\n\n\n\n\n\n\n\n\n\n\n7.2 Geom_dotplot\nIn a dot plot, the width of a dot corresponds to the bin width (or maximum width, depending on the binning algorithm), and dots are stacked, with each dot representing one observation.\nIn the code chunk below, geom_dotplot() of ggplot2 is used to plot a dot plot.\n\nggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot(dotsize = 0.5)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nBe warned\n\n\n\nThe y scale is not very useful, in fact it is very misleading.\n\n\nThe code chunk below performs the following two steps:\n\nscale_y_continuous() is used to turn off the y-axis, and\nbinwidth argument is used to change the binwidth to 2.5.\n\n\nggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_dotplot(binwidth=2.5,         \n               dotsize = 0.5) +      \n  scale_y_continuous(NULL,           \n                     breaks = NULL)  \n\n\n\n\n\n\n\n\n\ny-axis disappear and decrease the misunderstanding\n\n\n\n7.3 Geom_histogram\nIn the code chunk below, geom_histogram() is used to create a simple histogram by using values in MATHS field of exam_data.\n\nggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_histogram()   \n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nThe default bin is 30.\n\n\n\n\n7.4 Modifying a geometric object by changing geom()\n\nbins argument is used to change the number of bins to 20\nfill argument is used to shade the histogram with light blue color\ncolor argument is used to change the outline colour of the bars in black\n\n\nggplot(data=exam_data, \n       aes(x= MATHS)) + \n  geom_histogram(bins=20,\n                 color=\"black\",\n                 fill=\"light blue\")\n\n\n\n\n\n\n\n\n\n\n7.5 Modifying a geometric object by changing aes()\n\nThe code chunk below changes the interior colour of the histogram (i.e. fill) by using sub-group of aesthetic(). This approach can be used to colour, fill and alpha of the geometric.\n\nggplot(data=exam_data, \n       aes(x= MATHS, \n           fill = GENDER)) +\n  geom_histogram(bins=20, \n                 color=\"grey30\")\n\n\n\n\n\n\n\n\n\n\n7.6 Geom-density()\nIt is a useful alternative to the histogram for continuous data that comes from an underlying smooth distribution.\n\nggplot(data=exam_data, \n       aes(x = MATHS)) +\n  geom_density()           \n\n\n\n\n\n\n\n\nThe code chunk below plots two kernel density lines by using colour or fill arguments of aes()\n\nggplot(data=exam_data, \n       aes(x = MATHS, \n           colour = GENDER)) +\n  geom_density()\n\n\n\n\n\n\n\n\n\n\n7.7 Geom_boxplot\ngeom_boxplot() displays continuous value list. It visualises five summary statistics (the median, two hinges and two whiskers), and all “outlying” points individually.\n\nggplot(data=exam_data, \n       aes(y = MATHS,       \n           x= GENDER)) +    \n  geom_boxplot()            \n\n\n\n\n\n\n\n\nNotches are used in box plots to help visually assess whether the medians of distributions differ. If the notches do not overlap, this is evidence that the medians are different.\nThe code chunk below plots the distribution of Maths scores by gender in notched plot instead of boxplot.\n\nggplot(data=exam_data, \n       aes(y = MATHS, \n           x= GENDER)) +\n  geom_boxplot(notch=TRUE)\n\n\n\n\n\n\n\n\n\n\n7.8 Geom_violin\ngeom_violin is designed for creating violin plot. Violin plots are a way of comparing multiple data distributions. \n\nggplot(data=exam_data, \n       aes(y = MATHS, \n           x= GENDER)) +\n  geom_violin()\n\n\n\n\n\n\n\n\n\n\n7.9 Geom_point()\ngeom_point() is especially useful for creating scatterplot.\n\nggplot(data=exam_data, \n       aes(x= MATHS, \n           y=ENGLISH)) +\n  geom_point()            \n\n\n\n\n\n\n\n\n\n\n7.10 Geom objects can be combined\n\nggplot(data=exam_data, \n       aes(y = MATHS, \n           x= GENDER)) +\n  geom_boxplot() +                    \n  geom_point(position=\"jitter\", \n             size = 0.5)"
-  },
-  {
-    "objectID": "index.html#step-by-step",
-    "href": "index.html#step-by-step",
+    "objectID": "index.html",
+    "href": "index.html",
     "title": "ISSS608-Chen,Peng-Wei",
-    "section": "Step by Step",
-    "text": "Step by Step\n\nBelow is a screenshot from one of my favorite games, The Forest. It reminds me of the journey of building a home, one tree at a time, with an axe in hand. Similarly, data analytics and visualization require patience, attention to detail, and steady progress. Every step I take in this course is like cutting down a tree to build a stronger foundation in analytics. \n &gt; “Just like building this home in The Forest, data analytics is a journey where each step matters.” —"
+    "section": "",
+    "text": "Hi, I am Peng-Wei, a student in the Master of IT in Business program at SMU. Welcome to my course work in ISSS608 Visual Analytics and Applications\n\nStep by Step: My Journey in Data Analytics and Visualization\nBelow is a screenshot from one of my favorite games, The Forest. It reminds me of the journey of building a home, one tree at a time, with an axe in hand. Similarly, data analytics and visualization require patience, attention to detail, and steady progress. Every step I take in this course is like cutting down a tree to build a stronger foundation in analytics.\n\n&gt; “Just like building this home in The Forest, data analytics is a journey where each step matters.” —\n\nExplore my work: - Hands-on Exercises - In-class Exercises - Take-home Exercises"
   }
 ]
