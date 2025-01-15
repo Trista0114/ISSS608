@@ -1,6 +1,5 @@
 project:
   type: website
-<<<<<<< HEAD
 website:
   title: "ISSS608-Coursework"
   navbar:
@@ -9,7 +8,7 @@ website:
         menu:
           - text: "Hands-on Exercise 0"
             href: hands-onEx/hands-onEx00.html
-          - text: "Hands-on Exercise 0"
+          - text: "A Layered Grammar of Graphics-ggplot2 methods"
             href: hands-onEx/hands-onEx01.html
       - text: "In-class Exercise"
         menu:
@@ -24,27 +23,13 @@ website:
         text: Home
       - href: about.qmd
         text: About
-=======
-
-website:
-  title: "ISSS608- Chen,Peng-Wei"
-  navbar:
-    left:
-      - href: index.qmd
-        text: Home
-      - about.qmd
-
->>>>>>> 828e18e16ca38e7e40a06c9a0530274ad8771d3b
 format:
   html:
     theme:
       - cosmo
       - brand
     css: styles.css
-<<<<<<< HEAD
-=======
     toc: true
-
 editor: visual
->>>>>>> 828e18e16ca38e7e40a06c9a0530274ad8771d3b
+
 

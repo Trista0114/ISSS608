@@ -1,5 +1,19 @@
 ---
-title: "ISSS608- Chen,Peng-Wei"
+title: "ISSS608-Chen,Peng-Wei"
 ---
 
-welcome to **ISSS608 Visual Analytics and Applications** **![](Screenshot%202024-06-06%20013811.png)**
+Hi, I am Peng-Wei, a student in the Master of IT in Business program at SMU. Welcome to my course work in ISSS608 Visual Analytics and Applications
+
+::: {style="background-color: #f9f9f9; color: #000; padding: 20px;"}
+**Step by Step: My Journey in Data Analytics and Visualization**
+
+Below is a screenshot from one of my favorite games, [The Forest](https://store.steampowered.com/app/242760/The_Forest/). It reminds me of the journey of building a home, one tree at a time, with an axe in hand. Similarly, data analytics and visualization require patience, attention to detail, and steady progress. Every step I take in this course is like cutting down a tree to build a stronger foundation in analytics.
+
+![](images/Screenshot%202024-06-06%20013811.png)
+
+\> *“Just like building this home in The Forest, data analytics is a journey where each step matters.”* —
+:::
+
+Explore my work: - [Hands-on Exercises](hands-onEx/hands-onEx00.html) - [In-class Exercises](In-Class_Ex1.html) - [Take-home Exercises](Take-home_Ex1.html)
+
+------------------------------------------------------------------------

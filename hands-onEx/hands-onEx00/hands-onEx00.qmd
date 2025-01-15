@@ -8,7 +8,6 @@ execute:
   warning: false
   freeze: true
 ---
-
 ## Getting started
 
 Load tidyverse onto r environment by using the code chunk below.
@@ -33,7 +32,7 @@ realis2019 <- read_csv("C:/Trista0114/ISSS608/hands-onEx/hands-onEx00/data/REALI
 
 ```{r}
 
-popdata_fat <- read_csv("C:/Trista0114/ISSS608/hands-onEx/hands-onEx00/data/REALIS2019.csv")
+popdata_fat <- read_csv("C:/Trista0114/ISSS608/hands-onEx/hands-onEx00/data/PopData2019_fat.csv")
 ```
 
 
@@ -100,23 +99,4 @@ realis2019_end <- realis2019 %>%
   filter(`Type of Sale` == "New Sale") %>%
   filter(`Unit Price ($ psm)` <= 13000)
 ```
-## Quarto
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
-
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
-```{r}
-1 + 1
-```
-
-You can add options to executable code like this
-
-```{r}
-#| echo: false
-2 * 2
-```
-
-The `echo: false` option disables the printing of code (only output is displayed).
