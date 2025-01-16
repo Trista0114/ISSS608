@@ -7,8 +7,6 @@ execute:
   eval: true
   warning: false
   freeze: true
-footer:
-  left:'<a href="hands-onEx/hands-onEx00/hands-onEx00.qmd">Hands-on Exercise 00</a>''
 ---
 
 ## 1. Learning outcome
@@ -309,7 +307,7 @@ ggplot(data=exam_data,
 
 ```
 
-## **8. Essential Grammatical Elements in ggplot2: stat**
+## 8. Essential Grammatical Elements in ggplot2: stat
 
 The [Statistics functions](https://ggplot2.tidyverse.org/reference/#stats) statistically transform data, usually as some form of summary. For example:
 
@@ -321,7 +319,7 @@ The [Statistics functions](https://ggplot2.tidyverse.org/reference/#stats) stati
 
     -   add a `geom_()` function and override the default stat.
 
-### **8.1 Working with `stat()`**
+### 8.1 Working with `stat()`
 
 The boxplots below are incomplete because the positions of the means were not shown.
 
@@ -331,7 +329,7 @@ ggplot(data=exam_data,
   geom_boxplot()
 ```
 
-### **8.2 Working with stat - the *stat_summary()* method**
+### 8.2 Working with stat - the *stat_summary()* method
 
 The code chunk below adds mean values by using [`stat_summary()`](https://ggplot2.tidyverse.org/reference/stat_summary.html) function and overriding the default geom.
 
@@ -345,7 +343,7 @@ ggplot(data=exam_data,
                size=4)               
 ```
 
-### **8.3 Working with stat - the `geom()` method**
+### 8.3 Working with stat - the `geom()` method
 
 The code chunk below adding mean values by using `geom_()` function and overriding the default stat.
 
@@ -359,7 +357,7 @@ ggplot(data=exam_data,
              size=4)          
 ```
 
-### **8.4 Adding a best fit curve on a scatterplot?**
+### 8.4 Adding a best fit curve on a scatterplot?
 
 The scatterplot below shows the relationship of Maths and English grades of pupils. The interpretability of this graph can be improved by adding a best fit curve. Below are the graph with and without the curve.
 
@@ -404,11 +402,11 @@ ggplot(data=exam_data,
 -   **`method = "glm"`**: Uses a **Generalized Linear Model** for fitting.
 -   **`method = "gam"`**: Uses a **Generalized Additive Model** for fitting, which requires the `mgcv` package.
 
-## **9. Essential Grammatical Elements in ggplot2: Facets**
+## 9. Essential Grammatical Elements in ggplot2: Facets
 
 Facetting generates small multiples (sometimes also called trellis plot), each displaying a different subset of the data. They are an alternative to aesthetics for displaying additional discrete variables. ggplot2 supports two types of factes, namely: [`facet_grid()`](https://ggplot2.tidyverse.org/reference/facet_grid.html) and [`facet_wrap`](https://ggplot2.tidyverse.org/reference/facet_wrap.html)`.`
 
-### **9.1 Working with `facet_wrap()`**
+### 9.1 Working with `facet_wrap()`
 
 [`facet_wrap`](https://ggplot2.tidyverse.org/reference/facet_wrap.html) wraps a 1d sequence of panels into 2d. This is generally a better use of screen space than facet_grid because most displays are roughly rectangular.
 
@@ -419,7 +417,7 @@ ggplot(data=exam_data,
     facet_wrap(~ CLASS)
 ```
 
-### **9.2 `facet_grid()` function**
+### 9.2 `facet_grid()` function
 
 [`facet_grid()`](https://ggplot2.tidyverse.org/reference/facet_grid.html) forms a matrix of panels defined by row and column facetting variables. It is most useful when you have two discrete variables, and all combinations of the variables exist in the data.
 
@@ -430,7 +428,7 @@ ggplot(data=exam_data,
     facet_grid(~ CLASS)
 ```
 
-## **10. Essential Grammatical Elements in ggplot2: Coordinates**
+## 10. Essential Grammatical Elements in ggplot2: Coordinates
 
 The *Coordinates* functions map the position of objects onto the plane of the plot. There are a number of different possible coordinate systems to use, they are:
 
@@ -439,7 +437,7 @@ The *Coordinates* functions map the position of objects onto the plane of the 
 -   [\[\`coord_fixed()\`\]](https://ggplot2.tidyverse.org/reference/coord_fixed.html){target="_blank"}: a cartesian system with a "fixed" aspect ratio (e.g. 1.78 for a "widescreen" plot).
 -   [\[\`coord_quickmap()\`\]](https://ggplot2.tidyverse.org/reference/coord_map.html){target="_blank"}: a coordinate system that approximates a good aspect ratio for maps.
 
-### **10.1 Working with Coordinate**
+### 10.1 Working with Coordinate
 
 ```{r}
 ggplot(data=exam_data, 
@@ -456,7 +454,7 @@ ggplot(data=exam_data,
   coord_flip()
 ```
 
-### **10.2 Changing the y- and x-axis range-** `coord_cartesian()`
+### 10.2 Changing the y- and x-axis range- `coord_cartesian()`
 
 The scatterplot on the right is slightly misleading because the y-aixs and x-axis range are not equal.
 
@@ -480,7 +478,7 @@ ggplot(data=exam_data,
 
 ```
 
-## **11. Essential Grammatical Elements in ggplot2: themes**
+## 11. Essential Grammatical Elements in ggplot2: themes
 
 Themes control elements of the graph not related to the data. For example:
 
@@ -493,7 +491,7 @@ Built-in themes include: - `theme_gray()` (default) - `theme_bw()` - `theme_clas
 
 A list of theme can be found at this [link](https://ggplot2.tidyverse.org/reference/ggtheme.html). Each theme element can be conceived of as either a line (e.g. x-axis), a rectangle (e.g. graph background), or text (e.g. axis title).
 
-### **11.1 Working with theme**
+### 11.1 Working with theme
 
 Using `theme_gray()`.
 
@@ -525,7 +523,7 @@ ggplot(data=exam_data,
   theme_minimal()
 ```
 
-## **12. Reference**
+## 12. Reference
 
 -   Hadley Wickham (2023) [**ggplot2: Elegant Graphics for Data Analysis**](https://ggplot2-book.org/). Online 3rd edition.
 
