@@ -7,6 +7,8 @@ execute:
   eval: true
   warning: false
   freeze: true
+footer:
+  left:'<a href="hands-onEx/hands-onEx00/hands-onEx00.qmd">Hands-on Exercise 00</a>''
 ---
 
 ## 1. Learning outcome
@@ -304,4 +306,235 @@ ggplot(data=exam_data,
   geom_boxplot() +                    
   geom_point(position="jitter", 
              size = 0.5)        
+
 ```
+
+## **8. Essential Grammatical Elements in ggplot2: stat**
+
+The [Statistics functions](https://ggplot2.tidyverse.org/reference/#stats) statistically transform data, usually as some form of summary. For example:
+
+-   frequency of values of a variable (bar graph)
+    -   a mean
+    -   a confidence limit
+-   There are two ways to use these functions:
+    -   add a `stat_()` function and override the default geom, or
+
+    -   add a `geom_()` function and override the default stat.
+
+### **8.1 Working with `stat()`**
+
+The boxplots below are incomplete because the positions of the means were not shown.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(y = MATHS, x= GENDER)) +
+  geom_boxplot()
+```
+
+### **8.2 Working with stat - the *stat_summary()* method**
+
+The code chunk below adds mean values by using [`stat_summary()`](https://ggplot2.tidyverse.org/reference/stat_summary.html) function and overriding the default geom.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(y = MATHS, x= GENDER)) +
+  geom_boxplot() +
+  stat_summary(geom = "point",       
+               fun = "mean",         
+               colour ="red",        
+               size=4)               
+```
+
+### **8.3 Working with stat - the `geom()` method**
+
+The code chunk below adding mean values by using `geom_()` function and overriding the default stat.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(y = MATHS, x= GENDER)) +
+  geom_boxplot() +
+  geom_point(stat="summary",        
+             fun="mean",           
+             colour="red",          
+             size=4)          
+```
+
+### **8.4 Adding a best fit curve on a scatterplot?**
+
+The scatterplot below shows the relationship of Maths and English grades of pupils. The interpretability of this graph can be improved by adding a best fit curve. Below are the graph with and without the curve.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x= MATHS, y=ENGLISH)) +
+  geom_point()
+
+```
+
+ [`geom_smooth()`](https://ggplot2.tidyverse.org/reference/geom_smooth.html) is used to plot a best fit curve on the scatterplot.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x= MATHS, y=ENGLISH)) +
+  geom_point() +
+  geom_smooth(linewidth=0.5)
+```
+
+::: callout-note
+## Note
+
+-   The default method used is *loess*.
+
+    **LOESS** (Locally Estimated Scatterplot Smoothing) is a non-parametric regression method used to smooth scatterplot data points, particularly when exploring non-linear relationship. It is suitable for samll to medium sized datasets.
+:::
+
+The default smoothing method can be overridden. The `lm` value represents a **linear model**. When `method="lm"`, `geom_smooth()` uses linear regression to fit a straight line that shows the linear trend in the data.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x= MATHS, 
+           y=ENGLISH)) +
+  geom_point() +
+  geom_smooth(method=lm, 
+              linewidth=0.5)
+```
+
+**Other Options for `method`**
+
+-   **`method = "loess"`**: This is the default value, suitable for small and medium-sized datasets and is used for fitting non-linear trends.
+-   **`method = "glm"`**: Uses a **Generalized Linear Model** for fitting.
+-   **`method = "gam"`**: Uses a **Generalized Additive Model** for fitting, which requires the `mgcv` package.
+
+## **9. Essential Grammatical Elements in ggplot2: Facets**
+
+Facetting generates small multiples (sometimes also called trellis plot), each displaying a different subset of the data. They are an alternative to aesthetics for displaying additional discrete variables. ggplot2 supports two types of factes, namely: [`facet_grid()`](https://ggplot2.tidyverse.org/reference/facet_grid.html) and [`facet_wrap`](https://ggplot2.tidyverse.org/reference/facet_wrap.html)`.`
+
+### **9.1 Working with `facet_wrap()`**
+
+[`facet_wrap`](https://ggplot2.tidyverse.org/reference/facet_wrap.html) wraps a 1d sequence of panels into 2d. This is generally a better use of screen space than facet_grid because most displays are roughly rectangular.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x= MATHS)) +
+  geom_histogram(bins=20) +
+    facet_wrap(~ CLASS)
+```
+
+### **9.2 `facet_grid()` function**
+
+[`facet_grid()`](https://ggplot2.tidyverse.org/reference/facet_grid.html) forms a matrix of panels defined by row and column facetting variables. It is most useful when you have two discrete variables, and all combinations of the variables exist in the data.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x= MATHS)) +
+  geom_histogram(bins=20) +
+    facet_grid(~ CLASS)
+```
+
+## **10. Essential Grammatical Elements in ggplot2: Coordinates**
+
+The *Coordinates* functions map the position of objects onto the plane of the plot. There are a number of different possible coordinate systems to use, they are:
+
+-   [\[\`coord_cartesian()\`\]](https://ggplot2.tidyverse.org/reference/coord_cartesian.html){target="_blank"}: the default cartesian coordinate systems, where you specify x and y values (e.g. allows you to zoom in or out).
+-   [\[\`coord_flip()\`\]](https://ggplot2.tidyverse.org/reference/coord_flip.html){target="_blank"}: a cartesian system with the x and y flipped.
+-   [\[\`coord_fixed()\`\]](https://ggplot2.tidyverse.org/reference/coord_fixed.html){target="_blank"}: a cartesian system with a "fixed" aspect ratio (e.g. 1.78 for a "widescreen" plot).
+-   [\[\`coord_quickmap()\`\]](https://ggplot2.tidyverse.org/reference/coord_map.html){target="_blank"}: a coordinate system that approximates a good aspect ratio for maps.
+
+### **10.1 Working with Coordinate**
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x=RACE)) +
+  geom_bar()
+```
+
+The code chunk below flips the horizontal bar chart into vertical bar chart by using `coord_flip()`.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x=RACE)) +
+  geom_bar() +
+  coord_flip()
+```
+
+### **10.2 Changing the y- and x-axis range-** `coord_cartesian()`
+
+The scatterplot on the right is slightly misleading because the y-aixs and x-axis range are not equal.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x= MATHS, y=ENGLISH)) +
+  geom_point() +
+  geom_smooth(method=lm, size=0.5)
+```
+
+The code chunk below fixed both the y-axis and x-axis range from 0-100.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x= MATHS, y=ENGLISH)) +
+  geom_point() +
+  geom_smooth(method=lm, 
+              size=0.5) +  
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+
+```
+
+## **11. Essential Grammatical Elements in ggplot2: themes**
+
+Themes control elements of the graph not related to the data. For example:
+
+-   background colour
+-   size of fonts
+-   gridlines
+-   colour of labels
+
+Built-in themes include: - `theme_gray()` (default) - `theme_bw()` - `theme_classic()`
+
+A list of theme can be found at this [link](https://ggplot2.tidyverse.org/reference/ggtheme.html). Each theme element can be conceived of as either a line (e.g. x-axis), a rectangle (e.g. graph background), or text (e.g. axis title).
+
+### **11.1 Working with theme**
+
+Using `theme_gray()`.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x=RACE)) +
+  geom_bar() +
+  coord_flip() +
+  theme_gray()
+```
+
+A horizontal bar chart plotted using `theme_classic()`.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x=RACE)) +
+  geom_bar() +
+  coord_flip() +
+  theme_classic()
+```
+
+A horizontal bar chart plotted using `theme_minimal()`.
+
+```{r}
+ggplot(data=exam_data, 
+       aes(x=RACE)) +
+  geom_bar() +
+  coord_flip() +
+  theme_minimal()
+```
+
+## **12. Reference**
+
+-   Hadley Wickham (2023) [**ggplot2: Elegant Graphics for Data Analysis**](https://ggplot2-book.org/). Online 3rd edition.
+
+-   Winston Chang (2013) [**R Graphics Cookbook 2nd edition**](https://r-graphics.org/). Online version.
+
+-   Healy, Kieran (2019) [**Data Visualization: A practical introduction**](https://socviz.co/). Online version
+
+-   [Learning ggplot2 on Paper – Components](https://henrywang.nl/learning-ggplot2-on-paper-components/)
+
+-   [Learning ggplot2 on Paper – Layer](https://henrywang.nl/learning-ggplot2-on-paper-layer/)
+
+-   [Learning ggplot2 on Paper – Scale](https://henrywang.nl/tag/learning-ggplot2-on-paper/)
