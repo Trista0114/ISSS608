@@ -1,5 +1,6 @@
 ---
 title: "Hands-on Exercise 01: A Layered Grammar of Graphics-ggplot2 methods"
+prev: hands-onEx/hands-onEx00/hands-onEx00.qmd
 author: "Chen.PengWei"
 date-modified: "last-modified"
 execute:

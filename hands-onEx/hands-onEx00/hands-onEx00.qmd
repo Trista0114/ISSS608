@@ -1,5 +1,6 @@
 ---
 title: "Hands-on Exercise 00: Working with tidyverse"
+next: hands-onEx/hands-onEx01/hands-onEx01.qmd
 author: "Chen.PengWei"
 date-modified: "last-modified"
 execute:
@@ -8,6 +9,7 @@ execute:
   warning: false
   freeze: true
 ---
+
 ## Getting started
 
 Load tidyverse onto r environment by using the code chunk below.
@@ -29,12 +31,10 @@ realis_csv <- read.csv("C:/Trista0114/ISSS608/hands-onEx/hands-onEx00/data/REALI
 realis2019 <- read_csv("C:/Trista0114/ISSS608/hands-onEx/hands-onEx00/data/REALIS2019.csv")
 ```
 
-
 ```{r}
 
 popdata_fat <- read_csv("C:/Trista0114/ISSS608/hands-onEx/hands-onEx00/data/PopData2019_fat.csv")
 ```
-
 
 ## Pivoting data
 
@@ -46,12 +46,10 @@ popdata_long <- popdata_fat %>%
                values_to = "Population") 
 ```
 
-
 ```{r}
 
 write_rds(popdata_long, 'rds/popdata_long.rds')
 ```
-
 
 ```{r}
 #| echo: FALSE
@@ -60,6 +58,7 @@ popdata_long <- read_rds("rds/popdata_long.rds")
 ```
 
 ## working with dplyr
+
 ```{r}
 realis2019_selected <- realis2019 %>%
   select(`Project Name`,
@@ -86,7 +85,9 @@ realis2019_filtered <- realis2019_selected %>%
   filter(`Type of Sale` == "New Sale") %>%
   filter(`Unit Price ($ psm)` <= 13000)
 ```
+
 ### all in one
+
 ```{r}
 realis2019_end <- realis2019 %>%
   select(`Project Name`,
@@ -99,4 +100,3 @@ realis2019_end <- realis2019 %>%
   filter(`Type of Sale` == "New Sale") %>%
   filter(`Unit Price ($ psm)` <= 13000)
 ```
-
