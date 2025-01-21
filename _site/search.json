@@ -291,7 +291,7 @@
     "href": "hands-onEx/hands-onEx02/hands-onEx02.html",
     "title": "Hands-on Exercise 02: Beyond ggplot2 Fundamentals",
     "section": "",
-    "text": "In this chapter, you will be introduced to several ggplot2 extensions for creating more elegant and effective statistical graphics. By the end of this exercise, you will be able to:\n\ncontrol the placement of annotation on a graph by using functions provided in ggrepel package,\ncreate professional publication quality figure by using functions provided in ggthemes and hrbrthemes packages,\nplot composite figure by combining ggplot2 graphs by using patchwork package."
+    "text": "In this chapter, you will be introduced to several ggplot2 extensions for creating more elegant and effective statistical graphics. By the end of this exercise, you will be able to:\n\ncontrol the placement of annotation on a graph by using functions provided in ggrepel package,\ncreate professional publication quality figure by using functions provided in ggthemes and hrbrthemes packages,\nplot composite figure by combining ggplot2 graphs by using patchwork package.\n\n\n\n\n\n\n\nQuick Overview\n\n\n\n\nggrepel\nreplace  geom_text() by geom_text_repel() and geom_label() by geom_label_repelto avoid the overlap\nggplot2 themes\nthemes_gray(), theme_bw(), theme_economist…,change the style of the graph\nhrbthems\nuse theme_ipsumto change axis title size, base size and grid\nPathwork: combine the graph\n\nuse +, / , | , ()\nuse plot_annotation to auto-tagging\nuse inset_element() to insert the graph\ncombine pathchwork and ggtheme (e.g pathework & theme_stata)"
   },
   {
     "objectID": "hands-onEx/hands-onEx02/hands-onEx02.html#working-with-ggrepel",

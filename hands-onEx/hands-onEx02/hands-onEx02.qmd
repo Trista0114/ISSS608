@@ -20,6 +20,29 @@ In this chapter, you will be introduced to several ggplot2 extensions for creati
 -   create professional publication quality figure by using functions provided in ggthemes and hrbrthemes packages,
 -   plot composite figure by combining ggplot2 graphs by using patchwork package.
 
+::: callout-tip
+## Quick Overview
+
+-   **ggrepel**\
+    replace  `geom_text()` by **`geom_text_repel()`** and `geom_label()` by **`geom_label_repel`**to avoid the overlap
+
+-   **ggplot2 themes\
+    **`themes_gray()`, `theme_bw()`, `theme_economist`...,change the style of the graph
+
+-   **hrbthems\
+    **use `theme_ipsum`to change axis title size, base size and grid
+
+-   **Pathwork: combine the graph**
+
+    -   use +, / , \| , ()
+
+    -   use plot_annotation to auto-tagging
+
+    -   use inset_element() to insert the graph
+
+    -   combine pathchwork and ggtheme (e.g pathework & theme_stata)
+:::
+
 # 2. Getting started
 
 ------------------------------------------------------------------------
