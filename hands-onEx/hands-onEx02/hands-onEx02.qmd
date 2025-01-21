@@ -38,7 +38,7 @@ In this chapter, you will be introduced to several ggplot2 extensions for creati
 
     -   use plot_annotation to auto-tagging
 
-    -   use inset_element() to insert the graph
+    -   use `inset_element()` to insert the graph
 
     -   combine pathchwork and ggtheme (e.g pathework & theme_stata)
 :::
