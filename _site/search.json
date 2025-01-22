@@ -305,7 +305,7 @@
     "href": "hands-onEx/hands-onEx02/hands-onEx02.html#working-with-ggtheme-package",
     "title": "Hands-on Exercise 02: Beyond ggplot2 Fundamentals",
     "section": "4.1 Working with ggtheme package",
-    "text": "4.1 Working with ggtheme package\nggthemes provides ‘ggplot2’ themes that replicate the look of plots by Edward Tufte, Stephen Few, Fivethirtyeight, The Economist, ‘Stata’, ‘Excel’, and The Wall Street Journal, among others.\n\nThe EconomistStataExcelThe Wall Street Journal / theme_wsj()\n\n\n\nggplot(data=exam_data, \n             aes(x = MATHS)) +\n  geom_histogram(bins=20, \n                 boundary = 100,\n                 color=\"grey25\", \n                 fill=\"grey90\") +\n  ggtitle(\"Distribution of Maths scores\") +\n  theme_economist()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEdward Tufte / theme_tufte()FiveThirtyEight / theme_fivethirtyeight()"
+    "text": "4.1 Working with ggtheme package\nggthemes provides ‘ggplot2’ themes that replicate the look of plots by Edward Tufte, Stephen Few, Fivethirtyeight, The Economist, ‘Stata’, ‘Excel’, and The Wall Street Journal, among others. Learn more from this vignette.\n\nStataExcelThe Wall Street Journal / theme_wsj()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nEdward Tufte / theme_tufte()FiveThirtyEight / theme_fivethirtyeight()"
   },
   {
     "objectID": "hands-onEx/hands-onEx02/hands-onEx02.html#working-with-hrbthems-package",

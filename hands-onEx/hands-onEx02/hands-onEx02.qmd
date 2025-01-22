@@ -207,11 +207,9 @@ ggplot(data=exam_data,
 
 ## 4.1 Working with ggtheme package
 
-[**ggthemes**](https://cran.r-project.org/web/packages/ggthemes/) provides [‘ggplot2’ themes](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/) that replicate the look of plots by Edward Tufte, Stephen Few, [Fivethirtyeight](https://fivethirtyeight.com/), [The Economist](https://www.economist.com/graphic-detail), ‘Stata’, ‘Excel’, and [The Wall Street Journal](https://www.pinterest.com/wsjgraphics/wsj-graphics/), among others.
+[**ggthemes**](https://cran.r-project.org/web/packages/ggthemes/) provides [‘ggplot2’ themes](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/) that replicate the look of plots by Edward Tufte, Stephen Few, [Fivethirtyeight](https://fivethirtyeight.com/), [The Economist](https://www.economist.com/graphic-detail), ‘Stata’, ‘Excel’, and [The Wall Street Journal](https://www.pinterest.com/wsjgraphics/wsj-graphics/), among others. Learn more from [this vignette](https://yutannihilation.github.io/allYourFigureAreBelongToUs/ggthemes/).
 
 ::: panel-tabset
-## The Economist
-
 ```{r}
 ggplot(data=exam_data, 
              aes(x = MATHS)) +
@@ -293,7 +291,7 @@ ggplot(data = exam_data, aes(x = MATHS)) +
 
 ## 4.2 Working with hrbthems package
 
-[**hrbrthemes**](https://cinc.rud.is/web/packages/hrbrthemes/) package provides a base theme that focuses on typographic elements, including where various labels are placed as well as the fonts that are used.
+**hrbrthemes** package provides a base theme that focuses on typographic elements, including where various labels are placed as well as the fonts that are used.
 
 ```{r}
 ggplot(data=exam_data, 
