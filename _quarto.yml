@@ -21,10 +21,11 @@ website:
           - text: "Take-home Exercise 1"
             href: Take-home_Ex1.html
     right:
-      - icon: "bi bi-house-fill"  # 使用 Bootstrap icon 顯示 house-fill 圖標
+      - icon: "bi bi-house-fill" 
         href: index.qmd
         text: Home
-      - href: about.qmd
+      - icon: "bi bi-File-earmark-person"
+        href: about.qmd
         text: About
 
 format:
@@ -34,7 +35,7 @@ format:
       - brand
     css: styles.css
     toc: true
-    # 引入 Bootstrap Icons 的 CDN
+   
     extra_resources:
       - https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css
 editor: visual
