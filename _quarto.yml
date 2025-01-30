@@ -14,6 +14,8 @@ website:
             href: hands-onEx/hands-onEx02/hands-onEx02.html
           - text: "Programming Interactive Data Visualisation with R"
             href: hands-onEx/hands-onEx03/hands-onEx03.html
+          - text: "Programming Animated Statistical Graphics with R"
+            href: hands-onEx/hands-onEx03-2/hands-onEx03-2.html
       - text: "In-class Exercise"
         menu:
           - text: "In-class Exercise 1"
