@@ -18,7 +18,7 @@ In this hands-on exercise, you will learn how to create interactive data visuali
 
 # 2. Getting Started
 
-:::: panel-tabset
+::: panel-tabset
 ## Installing libraries
 
 First, write a code chunk to check, install and launch the following R packages:
@@ -52,15 +52,14 @@ exam_data <- read_csv("C:/Trista0114/ISSS608/hands-onEx/hands-onEx01/Exam_data.c
 
 ## Understanding data
 
-::: panel-tabset
 There are a total of seven attributes in the exam_data tibble data frame. Four of them are categorical data type and the other three are in continuous data type.
 
 -   The categorical attributes are: ID, CLASS, GENDER and RACE.
+
 -   The continuous attributes are: MATHS, ENGLISH and SCIENCE
 
-![](images/螢幕擷取畫面%202025-01-15%20135148.png)
+    ![](images/螢幕擷取畫面%202025-01-15%20135148.png)
 :::
-::::
 
 # 3. Interactive Data Visualisation - ggiraph methods
 
