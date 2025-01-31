@@ -2,6 +2,20 @@ project:
   type: website
 website:
   title: "ISSS608-Coursework"
+  sidebar:
+    style: "floating"
+    search: true
+    contents:
+      - section: "The Building Block"
+        contents:
+          - text: "A Layered Grammar of Graphics: ggplot2 methods"
+            href: hands-onEx/hands-onEx01/hands-onEx01.qmd
+          - text: "Beyond ggplot2 Fundamentals"
+            href: hands-onEx/hands-onEx02/hands-onEx02.qmd
+          - text: "Programming Interactive Data Visualisation with R"
+            href: hands-onEx/hands-onEx03/hands-onEx03.qmd
+          - text: "Programming Animated Statistical Graphics with R"
+            href: hands-onEx/hands-onEx03-2/hands-onEx03-2.qmd
   navbar:
     left:
       - text: "Hands-on Exercise"
