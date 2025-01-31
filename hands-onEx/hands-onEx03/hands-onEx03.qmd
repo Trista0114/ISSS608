@@ -16,6 +16,30 @@ execute:
 
 In this hands-on exercise, you will learn how to create interactive data visualisation by using functions provided by **ggiraph** and **plotlyr** packages.
 
+::: callout-note
+## Summary
+
+-   **Tooltip effect:** by using `geom_dotplot_interactive()` and  [`girafe()`](https://davidgohel.github.io/ggiraph/reference/girafe.html)
+
+    -   5.1 customized tooltip style:  [`opts_tooltip()`](https://davidgohel.github.io/ggiraph/reference/opts_tooltip.html)
+
+    -   5.2 statistics on tooltip: `stat_summary`
+
+    -   5.3 5.4 `data_id` and styling hover effect
+
+    -   5.5 Combining tooltip and hover effect ( showing the click information and the hover effect at the same time)
+
+    -   5.6 hotlink interactivity: `onclick`
+
+    -   5.7 Multiple Views between several plots : `girafe`, `patchwork`
+
+-   Interactive scatter plot: **`plot_ly()`,`ggplotly()`**
+
+    -   6.4 Multiple Views between several plots with plotly:[`highlight_key()`](https://www.rdocumentation.org/packages/plotly/versions/4.9.2/topics/highlight_key) ,[*subplot()*](https://plotly.com/r/subplots/) 
+
+-   Show data and plots together as HTML: `DT::datatable()`, crosstalk package
+:::
+
 # 2. Getting Started
 
 ::: panel-tabset
@@ -81,7 +105,7 @@ If it used within a **shiny application**, elements associated with an id (data_
 
 Below shows a typical code chunk to plot an interactive statistical graph by using **ggiraph** package. Notice that the code chunk consists of two parts. First, an ggplot object will be created. Next, [`girafe()`](https://davidgohel.github.io/ggiraph/reference/girafe.html) of **ggiraph** will be used to create an interactive svg object.
 
-```{r}
+```{r,eval=FALSE}
 p <- ggplot(data=exam_data, 
        aes(x = MATHS)) +
   geom_dotplot_interactive(
@@ -128,7 +152,7 @@ girafe(
 
 The content of the tooltip can be customised by including a list object as shown in the code chunk below.
 
-```{r}
+```{r,eval=FALSE}
 exam_data$tooltip <- c(paste0(     
   "Name = ", exam_data$ID,         
   "\n Class = ", exam_data$CLASS)) 
@@ -206,7 +230,7 @@ girafe(
 
 Notice that the background colour of the tooltip is black and the font colour is white and bold. After the changes, the background is white and the font colour is black.
 
-Refer to [Customizing girafe objects](https://2%20%20customizing%20girafe%20animations/) to learn more about how to customise ggiraph.
+Refer to  [Customizing girafe objects](https://www.ardata.fr/ggiraph-book/customize.html)  to learn more about how to customise ggiraph.
 
 ## 5.2 Displaying statistics on tooltip
 
