@@ -1,5 +1,5 @@
 ---
-title: "Hands-on Exercise 3-2: Programming Animated Statistical Graphics with R"
+title: "Hands-on Exercise 03-2: Programming Animated Statistical Graphics with R"
 prev: hands-onEx/hands-onEx03/hands-onEx03.qmd
 author: "Chen.PengWei"
 date-modified: "last-modified"
