@@ -17,7 +17,4 @@ Below is a screenshot from one of my favorite games, [The Forest](https://store
 Explore my work: - [Hands-on Exercises](hands-onEx/hands-onEx01/hands-onEx01.qmd) - [In-class Exercises](In-Class_Ex1.html) - [Take-home Exercises](Take-home_Ex/Take-home_Ex1/Take-home_Ex1.qmd)
 
 
-:::
-
-
 ------------------------------------------------------------------------
