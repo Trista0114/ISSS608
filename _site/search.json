@@ -890,5 +890,242 @@
       "Visual Analytics",
       "Visualising Distribution"
     ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html",
+    "href": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html",
+    "title": "Hands-on Exercise 04-2: Visual Statistical Analysis",
+    "section": "",
+    "text": "In this hands-on exercise, you will gain hands-on experience on using:\n\nggstatsplot package to create visual graphics with rich statistical information,\nperformance package to visualise model diagnostics, and\nparameters package to visualise model parameters",
+    "crumbs": [
+      "Home",
+      "Visual Analytics",
+      "Visual Statistical Analysis"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#one-sample-test",
+    "href": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#one-sample-test",
+    "title": "Hands-on Exercise 04-2: Visual Statistical Analysis",
+    "section": "4.1 One-sample test",
+    "text": "4.1 One-sample test\ngghistostats() is used to to build an visual of one-sample test on English scores.\nPerforms a Bayesian one-sample test to see if the mean differs from 60, and displays the test results and other statistical information on the chart.\n\nset.seed(1234)\n\ngghistostats(\n  data = Exam_data,\n  x = ENGLISH,\n  type = \"bayes\",\n  test.value = 60,\n  xlab = \"English scores\"\n)",
+    "crumbs": [
+      "Home",
+      "Visual Analytics",
+      "Visual Statistical Analysis"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#bayes-factor",
+    "href": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#bayes-factor",
+    "title": "Hands-on Exercise 04-2: Visual Statistical Analysis",
+    "section": "4.2 Bayes Factor",
+    "text": "4.2 Bayes Factor\n\nA Bayes factor is the ratio of the likelihood of one particular hypothesis to the likelihood of another. It can be interpreted as a measure of the strength of evidence in favor of one theory among two competing theories.\nThat’s because the Bayes factor gives us a way to evaluate the data in favor of a null hypothesis, and to use external information to do so. It tells us what the weight of the evidence is in favor of a given hypothesis.\nWhen we are comparing two hypotheses, H1 (the alternate hypothesis) and H0 (the null hypothesis), the Bayes Factor is often written as B10. It can be defined mathematically as\n\n\nThe Schwarz criterion is one of the easiest ways to calculate rough approximation of the Bayes Factor.\nA Bayes Factor can be any positive number. One of the most common interpretations is this one—first proposed by Harold Jeffereys (1961) and slightly modified by Lee and Wagenmakers in 2013:",
+    "crumbs": [
+      "Home",
+      "Visual Analytics",
+      "Visual Statistical Analysis"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#two-sample-mean-test-ggbetweenstats",
+    "href": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#two-sample-mean-test-ggbetweenstats",
+    "title": "Hands-on Exercise 04-2: Visual Statistical Analysis",
+    "section": "4.3 Two-sample mean test: ggbetweenstats()",
+    "text": "4.3 Two-sample mean test: ggbetweenstats()\nggbetweenstats() is used to build a visual for two-sample mean test of Maths scores by gender.\n\nggbetweenstats(\n  data = Exam_data,\n  x = GENDER, \n  y = MATHS,\n  type = \"np\",#a nonparametric test should be used.\n  messages = FALSE\n)\n\n\n\n\n\n\n\n\nDefault information: - statistical details - Bayes Factor - sample sizes - distribution summary",
+    "crumbs": [
+      "Home",
+      "Visual Analytics",
+      "Visual Statistical Analysis"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#oneway-anova-test-ggbetweenstats",
+    "href": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#oneway-anova-test-ggbetweenstats",
+    "title": "Hands-on Exercise 04-2: Visual Statistical Analysis",
+    "section": "4.4 Oneway ANOVA Test: ggbetweenstats()",
+    "text": "4.4 Oneway ANOVA Test: ggbetweenstats()\nggbetweenstats() is used to build a visual for One-way ANOVA test on English score by race.\npairwise.display = \"s\"\n\n“ns” → only non-significant\n“s” → only significant\n“all” → everything\n\np.adjust.method = \"fdr\"\n\nSets the method to adjust p-values in multiple comparisons to “FDR” (False Discovery Rate), helping control for multiple testing errors.\n\n\nggbetweenstats(\n  data = Exam_data,\n  x = RACE, \n  y = ENGLISH,\n  type = \"p\", #parametric test \n  mean.ci = TRUE, \n  pairwise.comparisons = TRUE, # additional pairwise tests (e.g., pairwise t-tests) between each pair of groups\n  pairwise.display = \"s\",\n  p.adjust.method = \"fdr\",\n  messages = FALSE\n)",
+    "crumbs": [
+      "Home",
+      "Visual Analytics",
+      "Visual Statistical Analysis"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#ggbetweenstats---summary-of-tests",
+    "href": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#ggbetweenstats---summary-of-tests",
+    "title": "Hands-on Exercise 04-2: Visual Statistical Analysis",
+    "section": "4.5 ggbetweenstats - Summary of tests",
+    "text": "4.5 ggbetweenstats - Summary of tests\n\n\n\n\n\n\n\nGenerally, when the data conforms to the normal distribution, use the parametric test; when the data is obviously skewed, choose the non-parametric or robust test.",
+    "crumbs": [
+      "Home",
+      "Visual Analytics",
+      "Visual Statistical Analysis"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#significant-test-of-correlation-ggscatterstats",
+    "href": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#significant-test-of-correlation-ggscatterstats",
+    "title": "Hands-on Exercise 04-2: Visual Statistical Analysis",
+    "section": "4.6 Significant Test of Correlation: ggscatterstats()",
+    "text": "4.6 Significant Test of Correlation: ggscatterstats()\nggscatterstats() is used to build a visual for Significant Test of Correlation between Maths scores and English scores.\n\nThere is a high positive correlation (r = 0.83) between mathematics scores and English scores, and the statistical significance is extremely strong ( 𝑝 ≪ 0.05 p≪0.05).\nImprovements in math scores are often accompanied by improvements in English scores.\n\n\nggscatterstats(\n  data = Exam_data,\n  x = MATHS,\n  y = ENGLISH,\n  marginal = FALSE,\n  )",
+    "crumbs": [
+      "Home",
+      "Visual Analytics",
+      "Visual Statistical Analysis"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#significant-test-of-association-depedence-ggbarstats-methods",
+    "href": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#significant-test-of-association-depedence-ggbarstats-methods",
+    "title": "Hands-on Exercise 04-2: Visual Statistical Analysis",
+    "section": "4.7 Significant Test of Association (Depedence) : ggbarstats() methods",
+    "text": "4.7 Significant Test of Association (Depedence) : ggbarstats() methods\nMaths scores is binned into a 4-class variable by using cut(). ggbarstats() is used to build a visual for Significant Test of Association.\n\nexam1 &lt;- Exam_data %&gt;% \n  mutate(MATHS_bins = \n           cut(MATHS, \n               breaks = c(0,60,75,85,100))\n)\nggbarstats(exam1, \n           x = MATHS_bins, \n           y = GENDER)"
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#multiple-regression-model-using-lm",
+    "href": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#multiple-regression-model-using-lm",
+    "title": "Hands-on Exercise 04-2: Visual Statistical Analysis",
+    "section": "5.2 Multiple Regression Model using lm()",
+    "text": "5.2 Multiple Regression Model using lm()\nThe code chunk below is used to calibrate a multiple linear regression model by using lm() to find the factors of influencing Price.\n\nmodel &lt;- lm(Price ~ Age_08_04 + Mfg_Year + KM + \n              Weight + Guarantee_Period, data = car_resale)\nmodel\n\n\nCall:\nlm(formula = Price ~ Age_08_04 + Mfg_Year + KM + Weight + Guarantee_Period, \n    data = car_resale)\n\nCoefficients:\n     (Intercept)         Age_08_04          Mfg_Year                KM  \n      -2.637e+06        -1.409e+01         1.315e+03        -2.323e-02  \n          Weight  Guarantee_Period  \n       1.903e+01         2.770e+01  \n\n\n✅ There is a negative correlation between vehicle age (Age_08_04) and mileage (KM). The older the vehicle and the more it is driven, the lower the price.\n✅ Manufacturing year (Mfg_Year), weight (Weight) and warranty period (Guarantee_Period) are positively correlated. The newer, heavier the car, the longer the warranty period, the higher the price."
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#model-diagnostic-checking-for-multicolinearity",
+    "href": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#model-diagnostic-checking-for-multicolinearity",
+    "title": "Hands-on Exercise 04-2: Visual Statistical Analysis",
+    "section": "5.3 Model Diagnostic: checking for multicolinearity",
+    "text": "5.3 Model Diagnostic: checking for multicolinearity\ncheck_collinearity()\nMulticollinearity occurs when two or more independent variables in a regression model are highly correlated, leading to instability in coefficient estimates and reducing interpretability.\n\n\n\n\n\n\nNote\n\n\n\n\nVIF (Variance Inflation Factor): Measures how much the variance of a coefficient is inflated due to multicollinearity.\n\nVIF &lt; 5 → Low or acceptable correlation.\nVIF &gt; 10 → Severe multicollinearity (problematic).\nVIF &gt; 30 → Extremely high multicollinearity (must be addressed).\n\n\n\n\n\ncheck_collinearity(model)\n\n# Check for Multicollinearity\n\nLow Correlation\n\n             Term  VIF     VIF 95% CI Increased SE Tolerance Tolerance 95% CI\n               KM 1.46 [ 1.37,  1.57]         1.21      0.68     [0.64, 0.73]\n           Weight 1.41 [ 1.32,  1.51]         1.19      0.71     [0.66, 0.76]\n Guarantee_Period 1.04 [ 1.01,  1.17]         1.02      0.97     [0.86, 0.99]\n\nHigh Correlation\n\n      Term   VIF     VIF 95% CI Increased SE Tolerance Tolerance 95% CI\n Age_08_04 31.07 [28.08, 34.38]         5.57      0.03     [0.03, 0.04]\n  Mfg_Year 31.16 [28.16, 34.48]         5.58      0.03     [0.03, 0.04]\n\n\n\ncheck_c &lt;- check_collinearity(model)\nplot(check_c)\n\n\n\n\n\n\n\n\nPlease remove one variable to eliminate redundancy.",
+    "crumbs": [
+      "Home",
+      "Visual Analytics",
+      "Visual Statistical Analysis"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#model-diagnostic-checking-normality-assumption",
+    "href": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#model-diagnostic-checking-normality-assumption",
+    "title": "Hands-on Exercise 04-2: Visual Statistical Analysis",
+    "section": "5.4 Model Diagnostic: checking normality assumption",
+    "text": "5.4 Model Diagnostic: checking normality assumption\ncheck_normality()\nThe Q-Q plot compares the distribution of residuals against a theoretical normal distribution. If residuals are normally distributed, the points should fall along the diagonal line.\n\nmodel1 &lt;- lm(Price ~ Age_08_04 + KM + \n              Weight + Guarantee_Period, data = car_resale)\n\n\ncheck_n &lt;- check_normality(model1)\n\n\nplot(check_n)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nWhat impact will have on regression models?\nIf the residuals do not comply with normality, it may affect the accuracy of the p-value and confidence interval, making the hypothesis testing results unreliable. If the number of samples is n &gt; 30, the regression results may still be valid according to the central limit theorem (CLT), but further checking is recommended.",
+    "crumbs": [
+      "Home",
+      "Visual Analytics",
+      "Visual Statistical Analysis"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#model-diagnostic-check-model-for-homogeneity-of-variances",
+    "href": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#model-diagnostic-check-model-for-homogeneity-of-variances",
+    "title": "Hands-on Exercise 04-2: Visual Statistical Analysis",
+    "section": "5.5 Model Diagnostic: Check model for homogeneity of variances",
+    "text": "5.5 Model Diagnostic: Check model for homogeneity of variances\ncheck_heteroscedasticity()\nThe residuals should be randomly scattered around 0 with no clear pattern.\n\nCurrent plot observations:\n\nResiduals increase in spread as fitted values increase.\nThe green trend line curves upward.\nThis suggests heteroscedasticity (non-constant variance).\n\n\n\ncheck_h &lt;- check_heteroscedasticity(model1)\nplot(check_h)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nSolution:\nVariable transformation: taking the log of the price (log transformation)\nWhen the variation increases with the predicted value, it usually means that the data has a “multiplicative effect”. You can try log transformation Price to stabilize the variation.",
+    "crumbs": [
+      "Home",
+      "Visual Analytics",
+      "Visual Statistical Analysis"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#model-diagnostic-complete-check",
+    "href": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#model-diagnostic-complete-check",
+    "title": "Hands-on Exercise 04-2: Visual Statistical Analysis",
+    "section": "5.6 Model Diagnostic: Complete check",
+    "text": "5.6 Model Diagnostic: Complete check\ncheck_model\n\ncheck_model(model1)",
+    "crumbs": [
+      "Home",
+      "Visual Analytics",
+      "Visual Statistical Analysis"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#visualising-regression-parameters-see-methods",
+    "href": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#visualising-regression-parameters-see-methods",
+    "title": "Hands-on Exercise 04-2: Visual Statistical Analysis",
+    "section": "5.7 Visualising Regression Parameters: see methods",
+    "text": "5.7 Visualising Regression Parameters: see methods\nRed Points: Negative coefficients (negative impact on Price).\nBlue Points: Positive coefficients (positive impact on Price).\n\nplot(parameters(model1))\n\n\n\n\n\n\n\n\n\nThe confidence interval of KM might overlap with zero.\nThe negative effect of Age_08_04 makes sense, but it could be correlated with Mfg_Year (previously identified multicollinearity issue).\nIf a variable’s confidence interval crosses zero, it might be redundant and could be removed from the model.",
+    "crumbs": [
+      "Home",
+      "Visual Analytics",
+      "Visual Statistical Analysis"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#visualising-regression-parameters-ggcoefstats-methods",
+    "href": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#visualising-regression-parameters-ggcoefstats-methods",
+    "title": "Hands-on Exercise 04-2: Visual Statistical Analysis",
+    "section": "5.8 Visualising Regression Parameters: ggcoefstats() methods",
+    "text": "5.8 Visualising Regression Parameters: ggcoefstats() methods\nggcoefstats()\n\nggcoefstats(model1, \n            output = \"plot\")\n\n\n\n\n\n\n\n\nAIC & BIC\n\nAIC = 24,915, BIC = 24,946\nLower values indicate a better model fit while penalizing complexity.\nThese can be compared with alternative models to determine which regression model performs best.\n\n\n\n\n\n\n\n\n\n\n\n\nCoefficient (β)\nt-value\np-value\nSignificance\n\n\n\n\nGuarantee_Period\n26.82\n2.13\n0.03\n✅ Significant (p &lt; 0.05\n\n\nWeight\n19.72\n25.53\n8.74e-104\n✅ Highly significant\n\n\nKM (Mileage)\n-0.02\n-20.04\n5.98e-79\n✅ Highly significant\n\n\nAge_08_04 (Car Age)\n-119.49\n-43.29\n2.10e-262\n✅ Highly significant"
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#conclusion",
+    "href": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#conclusion",
+    "title": "Hands-on Exercise 04-2: Visual Statistical Analysis",
+    "section": "5.9 Conclusion",
+    "text": "5.9 Conclusion\n\nWhy is the p-value of KM less than 0.05?\nIn the graph (the result of 5.8 ggcoefstats()), the variable KM has a p-value of 5.98e-79 (very small), which means that it is statistically significant for Price. However, in the previous plot (5.7 plot(parameters(model1))), the coefficient plot for KM looks close to 0, which can lead to confusion.\nPossible Reasons\n\nSmall coefficient but low variability can lead to a very small p-value\n\nIf the variability of KM in the dataset is low (i.e., most values are concentrated in a narrow range), statistical tests may still detect KM as a stable and significant predictor, leading to a very small p-value.\nThis suggests that mileage has a consistent effect on price, but the effect size is small.\n\nEffect of Variable Units\n\nKM is likely measured in kilometers, and its values may be large (e.g., 10,000+ km).\nFor example, if a car has 100,000 km, the impact on price would be: 100,000×(−0.02)=−2,000100,000 (-0.02) = -2,000100,000×(−0.02)=−2,000\nThis means driving an extra 100,000 km could reduce the price by 2,000, which is practically significant.\n\nLarge Sample Size\n\nIf the dataset contains a large number of observations (n is large), even tiny effects can be detected as statistically significant.\n\n\n\n\n\n\n\n\nImportant\n\n\n\nKM has a very small p-value (statistically significant), but this does not necessarily mean it has a large impact on Price. Practical interpretation is essential rather than relying solely on p-values.",
+    "crumbs": [
+      "Home",
+      "Visual Analytics",
+      "Visual Statistical Analysis"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#reference",
+    "href": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#reference",
+    "title": "Hands-on Exercise 04-2: Visual Statistical Analysis",
+    "section": "5.10 Reference",
+    "text": "5.10 Reference\nPart of the content of this pages were generated by ChatGPT and Kam, T.S. (2023). Visual Statistical Analysis.",
+    "crumbs": [
+      "Home",
+      "Visual Analytics",
+      "Visual Statistical Analysis"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#significant-test-of-association-depedence-ggbarstats",
+    "href": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#significant-test-of-association-depedence-ggbarstats",
+    "title": "Hands-on Exercise 04-2: Visual Statistical Analysis",
+    "section": "4.7 Significant Test of Association (Depedence) : ggbarstats()",
+    "text": "4.7 Significant Test of Association (Depedence) : ggbarstats()\nMaths scores is binned into a 4-class variable by using cut(). ggbarstats() is used to build a visual for Significant Test of Association.\n\nThere is no significant relationship between individuality and the distribution of mathematics scores (p = 0.79, Cramér’s V ≈ 0).\nThe proportions of girls and boys in each performance range are similar, indicating that the correlation between mathematics performance and gender is low in this data set.\n\n\nexam1 &lt;- Exam_data %&gt;% \n  mutate(MATHS_bins = \n           cut(MATHS, \n               breaks = c(0,60,75,85,100))\n)\nggbarstats(exam1, \n           x = MATHS_bins, \n           y = GENDER)",
+    "crumbs": [
+      "Home",
+      "Visual Analytics",
+      "Visual Statistical Analysis"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#getting-started-1",
+    "href": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#getting-started-1",
+    "title": "Hands-on Exercise 04-2: Visual Statistical Analysis",
+    "section": "5.1 Getting Started",
+    "text": "5.1 Getting Started\n\nInstalling librariesImporting data\n\n\n\npacman::p_load(readxl, performance, parameters, see)\n\n\n\nNotice that the output object car_resale is a tibble data frame.\n\ncar_resale &lt;- read_xls(\"C:/Trista0114/ISSS608/hands-onEx/hands-onEx04-2/ToyotaCorolla.xls\", \n                       \"data\")\ncar_resale\n\n# A tibble: 1,436 × 38\n      Id Model    Price Age_08_04 Mfg_Month Mfg_Year     KM Quarterly_Tax Weight\n   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;         &lt;dbl&gt;  &lt;dbl&gt;\n 1    81 TOYOTA … 18950        25         8     2002  20019           100   1180\n 2     1 TOYOTA … 13500        23        10     2002  46986           210   1165\n 3     2 TOYOTA … 13750        23        10     2002  72937           210   1165\n 4     3  TOYOTA… 13950        24         9     2002  41711           210   1165\n 5     4 TOYOTA … 14950        26         7     2002  48000           210   1165\n 6     5 TOYOTA … 13750        30         3     2002  38500           210   1170\n 7     6 TOYOTA … 12950        32         1     2002  61000           210   1170\n 8     7  TOYOTA… 16900        27         6     2002  94612           210   1245\n 9     8 TOYOTA … 18600        30         3     2002  75889           210   1245\n10    44 TOYOTA … 16950        27         6     2002 110404           234   1255\n# ℹ 1,426 more rows\n# ℹ 29 more variables: Guarantee_Period &lt;dbl&gt;, HP_Bin &lt;chr&gt;, CC_bin &lt;chr&gt;,\n#   Doors &lt;dbl&gt;, Gears &lt;dbl&gt;, Cylinders &lt;dbl&gt;, Fuel_Type &lt;chr&gt;, Color &lt;chr&gt;,\n#   Met_Color &lt;dbl&gt;, Automatic &lt;dbl&gt;, Mfr_Guarantee &lt;dbl&gt;,\n#   BOVAG_Guarantee &lt;dbl&gt;, ABS &lt;dbl&gt;, Airbag_1 &lt;dbl&gt;, Airbag_2 &lt;dbl&gt;,\n#   Airco &lt;dbl&gt;, Automatic_airco &lt;dbl&gt;, Boardcomputer &lt;dbl&gt;, CD_Player &lt;dbl&gt;,\n#   Central_Lock &lt;dbl&gt;, Powered_Windows &lt;dbl&gt;, Power_Steering &lt;dbl&gt;, …",
+    "crumbs": [
+      "Home",
+      "Visual Analytics",
+      "Visual Statistical Analysis"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#multiple-regression-model-lm",
+    "href": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#multiple-regression-model-lm",
+    "title": "Hands-on Exercise 04-2: Visual Statistical Analysis",
+    "section": "5.2 Multiple Regression Model: lm()",
+    "text": "5.2 Multiple Regression Model: lm()\nThe code chunk below is used to calibrate a multiple linear regression model by using lm() to find the factors that influences the Price.\n\nmodel &lt;- lm(Price ~ Age_08_04 + Mfg_Year + KM + \n              Weight + Guarantee_Period, data = car_resale)\nmodel\n\n\nCall:\nlm(formula = Price ~ Age_08_04 + Mfg_Year + KM + Weight + Guarantee_Period, \n    data = car_resale)\n\nCoefficients:\n     (Intercept)         Age_08_04          Mfg_Year                KM  \n      -2.637e+06        -1.409e+01         1.315e+03        -2.323e-02  \n          Weight  Guarantee_Period  \n       1.903e+01         2.770e+01  \n\n\n✅ There is a negative correlation between vehicle age (Age_08_04) and mileage (KM). The older the vehicle and the more it is driven, the lower the price.\n\n✅ Manufacturing year (Mfg_Year), weight (Weight) and warranty period (Guarantee_Period) are positively correlated. The newer, heavier the car, the longer the warranty period, the higher the price.",
+    "crumbs": [
+      "Home",
+      "Visual Analytics",
+      "Visual Statistical Analysis"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#visualising-regression-parameters-ggcoefstats",
+    "href": "hands-onEx/hands-onEx04-2/hands-onEx04-2.html#visualising-regression-parameters-ggcoefstats",
+    "title": "Hands-on Exercise 04-2: Visual Statistical Analysis",
+    "section": "5.8 Visualising Regression Parameters: ggcoefstats()",
+    "text": "5.8 Visualising Regression Parameters: ggcoefstats()\nggcoefstats()\n\nggcoefstats(model1, \n            output = \"plot\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\nAIC & BIC\n\nAIC = 24,915, BIC = 24,946\nLower values indicate a better model fit while penalizing complexity.\nThese can be compared with alternative models to determine which regression model performs best.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCoefficient (β)\nt-value\np-value\nSignificance\n\n\n\n\nGuarantee_Period\n26.82\n2.13\n0.03\n✅ Significant (p &lt; 0.05\n\n\nWeight\n19.72\n25.53\n8.74e-104\n✅ Highly significant\n\n\nKM (Mileage)\n-0.02\n-20.04\n5.98e-79\n✅ Highly significant\n\n\nAge_08_04 (Car Age)\n-119.49\n-43.29\n2.10e-262\n✅ Highly significant",
+    "crumbs": [
+      "Home",
+      "Visual Analytics",
+      "Visual Statistical Analysis"
+    ]
   }
 ]

@@ -1,0 +1,373 @@
+---
+title: "Hands-on Exercise 04-2: Visual Statistical Analysis"
+author: "Chen.PengWei"
+date-modified: "last-modified"
+execute:
+  echo: true
+  eval: true
+  warning: false
+  freeze: true
+---
+
+# 1. Learning Outcome
+
+------------------------------------------------------------------------
+
+In this hands-on exercise, you will gain hands-on experience on using:
+
+-   ggstatsplot package to create visual graphics with rich **statistical information**,
+
+-   performance package to visualise **model diagnostics**, and
+
+-   parameters package to **visualise model parameters**
+
+# 2. Visual Statistical Analysis with ggstatsplot
+
+------------------------------------------------------------------------
+
+[**ggstatsplot**](https://indrajeetpatil.github.io/ggstatsplot/index.html) ![](https://r4va.netlify.app/chap10/img/image1.jpg){width="36" height="41"} is an extension of [**ggplot2**](https://ggplot2.tidyverse.org/) package for creating graphics with details from statistical tests included in the information-rich plots themselves.
+
+For all statistical tests reported in the plots, the default template abides by the \[APA\](https://my.ilstu.edu/\~jhkahn/apastats.html) gold standard for statistical reporting. For example, here are results from a robust t-test:
+
+![](images/image9.jpg)
+
+# 3. Getting Started
+
+::: panel-tabset
+## Installing libraries
+
+In this exercise, **ggstatsplot** and **tidyverse** will be used.
+
+```{r}
+pacman::p_load(ggstatsplot, tidyverse)
+```
+
+## Importing data
+
+```{r}
+Exam_data <- read_csv("C:/Trista0114/ISSS608/hands-onEx/hands-onEx01/Exam_data.csv")
+```
+
+## Understanding data
+
+The detail of attribute description is also show in the previous exercise.
+
+```{r}
+Exam_data
+```
+:::
+
+# 4. Stat test by using ggstatsplot
+
+------------------------------------------------------------------------
+
+## 4.1 One-sample test
+
+[*gghistostats()*](https://indrajeetpatil.github.io/ggstatsplot/reference/gghistostats.html) is used to to build an visual of one-sample test on English scores.
+
+Performs a Bayesian one-sample test to see if the mean differs from 60, and displays the test results and other statistical information on the chart.
+
+```{r}
+set.seed(1234)
+
+gghistostats(
+  data = Exam_data,
+  x = ENGLISH,
+  type = "bayes",
+  test.value = 60,
+  xlab = "English scores"
+)
+```
+
+## 4.2 Bayes Factor
+
+-   A Bayes factor is the ratio of the likelihood of one particular hypothesis to the likelihood of another. It can be interpreted as a measure of the strength of evidence in favor of one theory among two competing theories.
+
+-   That’s because the Bayes factor gives us a way to evaluate the data in favor of a null hypothesis, and to use external information to do so. It tells us what the weight of the evidence is in favor of a given hypothesis.
+
+-   When we are comparing two hypotheses, H1 (the alternate hypothesis) and H0 (the null hypothesis), the Bayes Factor is often written as B10. It can be defined mathematically as
+
+![](images/clipboard-3407754228.jpeg){width="576"}
+
+The [**Schwarz criterion**](https://www.statisticshowto.com/bayesian-information-criterion/) is one of the easiest ways to calculate rough approximation of the Bayes Factor.
+
+A **Bayes Factor** can be any positive number. One of the most common interpretations is this one—first proposed by Harold Jeffereys (1961) and slightly modified by [Lee and Wagenmakers](https://www-tandfonline-com.libproxy.smu.edu.sg/doi/pdf/10.1080/00031305.1999.10474443?needAccess=true) in 2013:
+
+![](images/image11.jpg){width="655"}
+
+## 4.3 Two-sample mean test: *`ggbetweenstats()`*
+
+[*ggbetweenstats()*](https://indrajeetpatil.github.io/ggstatsplot/reference/ggbetweenstats.html) is used to build a visual for two-sample mean test of Maths scores by gender.
+
+```{r}
+ggbetweenstats(
+  data = Exam_data,
+  x = GENDER, 
+  y = MATHS,
+  type = "np",#a nonparametric test should be used.
+  messages = FALSE
+)
+```
+
+Default information: - statistical details - Bayes Factor - sample sizes - distribution summary
+
+## 4.4 Oneway ANOVA Test: *`ggbetweenstats()`*
+
+[*ggbetweenstats()*](https://indrajeetpatil.github.io/ggstatsplot/reference/ggbetweenstats.html) is used to build a visual for One-way ANOVA test on English score by race.
+
+`pairwise.display = "s"`
+
+-   “ns” → only non-significant
+-   “s” → only significant
+-   “all” → everything
+
+`p.adjust.method = "fdr"`
+
+-   Sets the method to adjust p-values in multiple comparisons to “FDR” (False Discovery Rate), helping control for multiple testing errors.
+
+```{r}
+ggbetweenstats(
+  data = Exam_data,
+  x = RACE, 
+  y = ENGLISH,
+  type = "p", #parametric test 
+  mean.ci = TRUE, 
+  pairwise.comparisons = TRUE, # additional pairwise tests (e.g., pairwise t-tests) between each pair of groups
+  pairwise.display = "s",
+  p.adjust.method = "fdr",
+  messages = FALSE
+)
+```
+
+## 4.5 ggbetweenstats - Summary of tests
+
+![![](images/image13.jpg)](images/image12.jpg)
+
+![](images/image14.jpg)
+
+Generally, when the data conforms to the normal distribution, use the parametric test; when the data is obviously skewed, choose the non-parametric or robust test.
+
+## 4.6 Significant Test of Correlation: *`ggscatterstats()`*
+
+[*ggscatterstats()*](https://indrajeetpatil.github.io/ggstatsplot/reference/ggscatterstats.html) is used to build a visual for Significant Test of Correlation between Maths scores and English scores.
+
+-   There is a high positive correlation (r = 0.83) between mathematics scores and English scores, and the statistical significance is extremely strong ( 𝑝 ≪ 0.05 p≪0.05).
+-   Improvements in math scores are often accompanied by improvements in English scores.
+
+```{r}
+ggscatterstats(
+  data = Exam_data,
+  x = MATHS,
+  y = ENGLISH,
+  marginal = FALSE,
+  )
+```
+
+## 4.7 Significant Test of Association (Depedence) : *`ggbarstats()`* 
+
+Maths scores is binned into a 4-class variable by using [*cut()*](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/cut). [*ggbarstats()*](https://indrajeetpatil.github.io/ggstatsplot/reference/ggbarstats.html) is used to build a visual for Significant Test of Association.
+
+-   There is no significant relationship between individuality and the distribution of mathematics scores (p = 0.79, Cramér's V ≈ 0).
+-   The proportions of girls and boys in each performance range are similar, indicating that the correlation between mathematics performance and gender is low in this data set.
+
+```{r}
+exam1 <- Exam_data %>% 
+  mutate(MATHS_bins = 
+           cut(MATHS, 
+               breaks = c(0,60,75,85,100))
+)
+ggbarstats(exam1, 
+           x = MATHS_bins, 
+           y = GENDER)
+```
+
+# 5. Visualising Models
+
+------------------------------------------------------------------------
+
+In this section, you will learn how to visualise model diagnostic and model parameters by using parameters package.
+
+-   Toyota Corolla case study will be used. The purpose of study is to build a model to discover factors affecting prices of used-cars by taking into consideration a set of explanatory variables.
+
+## 5.1 Getting Started
+
+::: panel-tabset
+## Installing libraries
+
+```{r}
+pacman::p_load(readxl, performance, parameters, see)
+```
+
+## Importing data
+
+Notice that the output object `car_resale` is a tibble data frame.
+
+```{r}
+car_resale <- read_xls("C:/Trista0114/ISSS608/hands-onEx/hands-onEx04-2/ToyotaCorolla.xls", 
+                       "data")
+car_resale
+```
+:::
+
+## 5.2 Multiple Regression Model: `lm()`
+
+The code chunk below is used to calibrate a multiple linear regression model by using *lm() to find the factors that influences the Price.*
+
+```{r}
+model <- lm(Price ~ Age_08_04 + Mfg_Year + KM + 
+              Weight + Guarantee_Period, data = car_resale)
+model
+```
+
+✅ There is a negative correlation between vehicle **age (Age_08_04)** and **mileage (KM)**. The older the vehicle and the more it is driven, the lower the price.\
+\
+✅ Manufacturing year **(Mfg_Year)**, weight **(Weight)** and warranty period **(Guarantee_Period)** are positively correlated. The newer, heavier the car, the longer the warranty period, the higher the price.
+
+## 5.3 Model Diagnostic: checking for multicolinearity
+
+`check_collinearity()`
+
+Multicollinearity occurs when two or more independent variables in a regression model are highly correlated, leading to instability in coefficient estimates and reducing interpretability.
+
+::: callout-note
+-   **VIF (Variance Inflation Factor)**: Measures how much the variance of a coefficient is inflated due to multicollinearity.
+
+    -   **VIF \< 5** → Low or acceptable correlation.
+
+    -   **VIF \> 10** → Severe multicollinearity (problematic).
+
+    -   **VIF \> 30** → Extremely high multicollinearity (must be addressed).
+:::
+
+```{r}
+check_collinearity(model)
+```
+
+```{r}
+check_c <- check_collinearity(model)
+plot(check_c)
+```
+
+Please **remove one variable** to eliminate redundancy.
+
+## 5.4 Model Diagnostic: checking normality assumption
+
+*`check_normality()`*
+
+**The Q-Q plot** compares the distribution of residuals against a theoretical normal distribution. If residuals are normally distributed, the points should **fall along the diagonal line**.
+
+```{r}
+model1 <- lm(Price ~ Age_08_04 + KM + 
+              Weight + Guarantee_Period, data = car_resale)
+```
+
+```{r}
+check_n <- check_normality(model1)
+```
+
+```{r}
+plot(check_n)
+```
+
+::: callout-note
+**What impact will have on regression models?\
+**If the residuals do not comply with normality, it may affect the accuracy of the p-value and confidence interval, making the hypothesis testing results unreliable. If the number of samples is n \> 30, the regression results may still be valid according to the central limit theorem (CLT), but further checking is recommended.
+:::
+
+## 5.5 Model Diagnostic: Check model for homogeneity of variances
+
+*`check_heteroscedasticity()`*
+
+The residuals should be **randomly scattered** around 0 with **no clear pattern**.
+
+-   Current plot observations:
+
+    -   Residuals increase in spread as fitted values increase.
+
+    -   The green trend line curves upward.
+
+    -   This suggests heteroscedasticity (non-constant variance).
+
+```{r}
+check_h <- check_heteroscedasticity(model1)
+plot(check_h)
+```
+
+::: callout-note
+**Solution:\
+Variable transformation**: taking the log of the price (log transformation)\
+When the variation increases with the predicted value, it usually means that the data has a "multiplicative effect". You can try log transformation Price to stabilize the variation.
+:::
+
+## 5.6 Model Diagnostic: Complete check
+
+`check_model`
+
+```{r}
+check_model(model1)
+```
+
+## 5.7 Visualising Regression Parameters: see methods
+
+**Red Points**: Negative coefficients (negative impact on `Price`).\
+**Blue Points**: Positive coefficients (positive impact on `Price`).
+
+```{r}
+plot(parameters(model1))
+```
+
+-   The confidence interval of `KM` might overlap with zero.
+
+-   The **negative effect of `Age_08_04`** makes sense, but it could be correlated with `Mfg_Year` (previously identified multicollinearity issue).
+
+-   **If a variable’s confidence interval crosses zero**, it might be **redundant and could be removed** from the model.
+
+## 5.8 Visualising Regression Parameters: *`ggcoefstats()`* 
+
+*`ggcoefstats()`*
+
+```{r}
+ggcoefstats(model1, 
+            output = "plot")
+```
+
+::: callout-note
+**AIC & BIC**
+
+-   AIC = 24,915, BIC = 24,946
+-   Lower values indicate a better model fit while penalizing complexity.
+-   These can be compared with alternative models to determine which regression model performs best.
+:::
+
+|   | Coefficient (β) | t-value | p-value | Significance |
+|---------------|---------------|---------------|---------------|---------------|
+| Guarantee_Period | 26.82 | 2.13 | 0.03 | ✅ Significant (p \< 0.05 |
+| Weight | 19.72 | 25.53 | 8.74e-104 | ✅ Highly significant |
+| KM (Mileage) | -0.02 | -20.04 | 5.98e-79 | ✅ Highly significant |
+| Age_08_04 (Car Age) | -119.49 | -43.29 | 2.10e-262 | ✅ Highly significant |
+
+## 5.9 Conclusion
+
+\
+**Why is the p-value of KM less than 0.05?**\
+In the graph (the result of 5.8 ggcoefstats()), the variable KM has a p-value of 5.98e-79 (very small), which means that it is statistically significant for Price. However, in the previous plot (5.7 plot(parameters(model1))), the coefficient plot for KM looks close to 0, which can lead to confusion.
+
+**Possible Reasons**
+
+1.  **Small coefficient but low variability can lead to a very small p-value**
+    -   If the variability of `KM` in the dataset is low (i.e., most values are concentrated in a narrow range), statistical tests may still detect `KM` as a stable and significant predictor, leading to a very small p-value.
+    -   This suggests that mileage has a consistent effect on price, but the effect size is small.
+2.  **Effect of Variable Units**
+    -   `KM` is likely measured in kilometers, and its values may be large (e.g., 10,000+ km).
+    -   For example, if a car has 100,000 km, the impact on price would be: 100,000×(−0.02)=−2,000100,000 \times (-0.02) = -2,000100,000×(−0.02)=−2,000
+    -   This means driving an extra 100,000 km could reduce the price by 2,000, which is practically significant.
+3.  **Large Sample Size**
+    -   If the dataset contains a large number of observations (n is large), even tiny effects can be detected as statistically significant.
+
+::: callout-important
+`KM` has a very small p-value (statistically significant), but this does not necessarily mean it has a large impact on `Price`. **Practical interpretation is essential rather than relying solely on p-values.**
+:::
+
+## 5.10 Reference
+
+Part of the content of this pages were generated by ChatGPT and [Kam, T.S. (2023). Visual Statistical Analysis.](https://r4va.netlify.app/chap10#getting-started-1)
