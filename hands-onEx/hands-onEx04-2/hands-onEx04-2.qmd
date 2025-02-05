@@ -230,13 +230,13 @@ model
 Multicollinearity occurs when two or more independent variables in a regression model are highly correlated, leading to instability in coefficient estimates and reducing interpretability.
 
 ::: callout-note
--   **VIF (Variance Inflation Factor)**: Measures how much the variance of a coefficient is inflated due to multicollinearity.
+## VIF (Variance Inflation Factor)
 
-    -   **VIF \< 5** → Low or acceptable correlation.
+Measures how much the variance of a coefficient is inflated due to multicollinearity.
 
-    -   **VIF \> 10** → Severe multicollinearity (problematic).
-
-    -   **VIF \> 30** → Extremely high multicollinearity (must be addressed).
+-   **VIF \< 5** → Low or acceptable correlation.
+-   **VIF \> 10** → Severe multicollinearity (problematic).
+-   **VIF \> 30** → Extremely high multicollinearity (must be addressed).
 :::
 
 ```{r}
@@ -270,7 +270,9 @@ plot(check_n)
 ```
 
 ::: callout-note
-**What impact will have on regression models?\
+## What impact will have on regression models?
+
+**\
 **If the residuals do not comply with normality, it may affect the accuracy of the p-value and confidence interval, making the hypothesis testing results unreliable. If the number of samples is n \> 30, the regression results may still be valid according to the central limit theorem (CLT), but further checking is recommended.
 :::
 
@@ -294,7 +296,9 @@ plot(check_h)
 ```
 
 ::: callout-note
-**Solution:\
+## Solution
+
+**\
 Variable transformation**: taking the log of the price (log transformation)\
 When the variation increases with the predicted value, it usually means that the data has a "multiplicative effect". You can try log transformation Price to stabilize the variation.
 :::
@@ -332,7 +336,7 @@ ggcoefstats(model1,
 ```
 
 ::: callout-note
-**AIC & BIC**
+## AIC & BIC
 
 -   AIC = 24,915, BIC = 24,946
 -   Lower values indicate a better model fit while penalizing complexity.

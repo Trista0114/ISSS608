@@ -22,6 +22,8 @@ website:
             href: hands-onEx/hands-onEx04/hands-onEx04.html
           - text:  "Visual Statistical Analysis"
             href: hands-onEx/hands-onEx04-2/hands-onEx04-2.html
+          - text:  "Visualising Uncertainty"
+            href: hands-onEx/hands-onEx04-3/hands-onEx04-3.html
          
   navbar:
     left:
@@ -41,6 +43,8 @@ website:
             href: hands-onEx/hands-onEx04/hands-onEx04.html
           - text: "Visual Statistical Analysis"
             href: hands-onEx/hands-onEx04-2/hands-onEx04-2.html
+          - text:  "Visualising Uncertainty"
+            href: hands-onEx/hands-onEx04-3/hands-onEx04-3.html
       - text: "In-class Exercise"
         menu:
           - text: "In-class Exercise 1"
