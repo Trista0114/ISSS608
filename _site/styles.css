@@ -10,8 +10,8 @@
 
 /* Change navbar text hover color */
 .navbar a:hover, .navbar-brand:hover, .navbar-nav .nav-link:hover {
-    color: #f8f9fa !important; /* Light gray when hovering */
-    background-color: #7c848c !important; /* Dark Gray-Blue */
+    color: #525355 !important; /* when hovering */
+    
 }
 /* 修改下拉選單的背景顏色和字體顏色 */
 .navbar .dropdown-menu {
