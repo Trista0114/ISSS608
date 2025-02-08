@@ -60,7 +60,7 @@ Year end examination grades of a cohort of primary 3 students from a local schoo
 -   The categorical attributes are: ID, CLASS, GENDER and RACE.
 -   The continuous attributes are: MATHS, ENGLISH and SCIENCE.
 
-![](/images/螢幕擷取畫面 2025-01-30 112937.png)
+![](/images/螢幕擷取畫面%202025-01-30%20112937.png)
 :::
 
 # 3. Visualizing the uncertainty of point estimates: ggplot2 methods
@@ -442,7 +442,7 @@ This code uses ggplot2 to visualize the math scores (MATHS) of different RACE gr
 
 -   Blue jittered point (**geom_point()**): Shows the math scores for all students.
 -   Red horizontal line (**geom_hpline()**): Shows the trend for 25 samples randomly sampled from the dataset.
--   **geom_hpline()**: Draw horizontal lines representing the HOPs of each RACE population. \
+-   **geom_hpline()**: Draw horizontal lines representing the HOPs of each RACE population.\
     data = sampler(25, group = RACE) represents randomly selecting 25 samples from the exam data.
 -   Animation **(transition_states()):** HOPs will vary between different sampling results, showing the possible range of variation in the data.
 

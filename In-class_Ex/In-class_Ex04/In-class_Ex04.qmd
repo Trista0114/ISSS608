@@ -1,0 +1,26 @@
+---
+title: "In Class Exercise 4"
+author: "Chen.PengWei"
+date-modified: "last-modified"
+execute:
+  echo: true
+  eval: true
+  warning: false
+  freeze: true
+---
+
+```{r}
+pacman::p_load(haven,SmartEDA,tidyverse,tidymodels)
+```
+
+```{r}
+exam_data <- read_csv("C:/Trista0114/ISSS608/hands-onEx/hands-onEx01/Exam_data.csv")
+```
+
+```{r}
+
+ggplot(data = exam_data, 
+       aes(x = ENGLISH, y = CLASS)) + 
+  geom_boxplot()
+
+```

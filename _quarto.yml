@@ -18,7 +18,7 @@ website:
             href: hands-onEx/hands-onEx03-2/hands-onEx03-2.qmd
       - section: "Visual Analytics" 
         contents:
-          - text:  "Visualising Distribution"
+          - text:  "Visualising Distribution:ridgeline plot & raincloud plot"
             href: hands-onEx/hands-onEx04/hands-onEx04.html
           - text:  "Visual Statistical Analysis"
             href: hands-onEx/hands-onEx04-2/hands-onEx04-2.html
@@ -53,6 +53,8 @@ website:
         menu:
           - text: "In-class Exercise 1"
             href: https://public.tableau.com/views/In-class_Ex01_17371864504700/1?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link
+          - text: "In-class Exercise 1"
+            href: In-class_Ex/In-class_Ex04/In-class_Ex04.html
       - text: "Take-home Exercise"
         menu:
           - text: "Take-home Exercise 1"

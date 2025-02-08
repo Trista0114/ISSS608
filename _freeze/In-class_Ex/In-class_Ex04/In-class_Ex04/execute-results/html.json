@@ -1,0 +1,17 @@
+{
+  "hash": "29b4b20da83b40aeb9adeddca9af9a63",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"In Class Exercise 4\"\nauthor: \"Chen.PengWei\"\ndate-modified: \"last-modified\"\nexecute:\n  echo: true\n  eval: true\n  warning: false\n  freeze: true\n---\n\n::: {.cell}\n\n```{.r .cell-code}\npacman::p_load(haven,SmartEDA,tidyverse,tidymodels)\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nexam_data <- read_csv(\"C:/Trista0114/ISSS608/hands-onEx/hands-onEx01/Exam_data.csv\")\n```\n:::\n\n::: {.cell}\n\n```{.r .cell-code}\nggplot(data = exam_data, \n       aes(x = ENGLISH, y = CLASS)) + \n  geom_boxplot()\n```\n\n::: {.cell-output-display}\n![](In-class_Ex04_files/figure-html/unnamed-chunk-3-1.png){width=672}\n:::\n:::\n",
+    "supporting": [
+      "In-class_Ex04_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

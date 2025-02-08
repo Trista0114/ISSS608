@@ -153,6 +153,7 @@ Generally, when the data conforms to the normal distribution, use the parametric
 
 -   There is a high positive correlation (r = 0.83) between mathematics scores and English scores, and the statistical significance is extremely strong ( 𝑝 ≪ 0.05 p≪0.05).
 -   Improvements in math scores are often accompanied by improvements in English scores.
+-   marginal = FALSE: It is suitable to be used when we only care about the relationship between two variables and not their individual distributions.
 
 ```{r}
 ggscatterstats(
@@ -163,7 +164,7 @@ ggscatterstats(
   )
 ```
 
-## 4.7 Significant Test of Association (Depedence) : *`ggbarstats()`* 
+## 4.7 Significant Test of Association (Depedence) : *`ggbarstats()`*
 
 Maths scores is binned into a 4-class variable by using [*cut()*](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/cut). [*ggbarstats()*](https://indrajeetpatil.github.io/ggstatsplot/reference/ggbarstats.html) is used to build a visual for Significant Test of Association.
 
@@ -326,7 +327,7 @@ plot(parameters(model1))
 
 -   **If a variable’s confidence interval crosses zero**, it might be **redundant and could be removed** from the model.
 
-## 5.8 Visualising Regression Parameters: *`ggcoefstats()`* 
+## 5.8 Visualising Regression Parameters: *`ggcoefstats()`*
 
 *`ggcoefstats()`*
 

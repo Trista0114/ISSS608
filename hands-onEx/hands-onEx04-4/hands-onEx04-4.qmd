@@ -173,7 +173,7 @@ Next, the *fit.mean* is computed by using the code chunk below.
 
 This is Inverse Variance Weighting (IVW), which gives higher weight to data with small standard errors (small SE) because these data are more accurate. This can make the weighted average more robust and reduce the impact of high-variance data.
 
-![](images/螢幕擷取畫面 2025-02-06 151349.png){width="297"}
+![](images/螢幕擷取畫面%202025-02-06%20151349.png){width="297"}
 
 ```{r}
 fit.mean <- weighted.mean(df$rate, 1/df$rate.se^2)
