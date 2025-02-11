@@ -26,10 +26,17 @@ website:
             href: hands-onEx/hands-onEx04-3/hands-onEx04-3.html
           - text:  "Funnel Plots for Fair Comparisons"
             href: hands-onEx/hands-onEx04-4/hands-onEx04-4.html
-        - section: "Visualising and Analysing Multivariate Data"
-          contents:
-          - text:  "Creating Ternary Plot with R"
+            
+      - section: "Visualising and Analysing Multivariate Data"
+        contents:
+          - text: "Creating Ternary Plot with R"
             href: hands-onEx/hands-onEx05/hands-onEx05.html
+            
+      - section: "Not So Common Chart"
+        contents:
+          - text:  "Visual Correlation Analysis"
+            href: hands-onEx/hands-onEx05-2/hands-onEx05-2.html
+            
         
   navbar:
     left:
@@ -55,6 +62,8 @@ website:
             href: hands-onEx/hands-onEx04-4/hands-onEx04-4.html
           - text:  "Creating Ternary Plot with R"
             href: hands-onEx/hands-onEx05/hands-onEx05.html
+          - text:  "Visual Correlation Analysis"
+            href: hands-onEx/hands-onEx05-2/hands-onEx05-2.html
             
       - text: "In-class Exercise"
         menu:

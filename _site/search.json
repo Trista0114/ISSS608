@@ -21,6 +21,150 @@
     "text": "Hi, I am Peng-Wei, a student in the Master of IT in Business program at SMU. Welcome to my course work in ISSS608 Visual Analytics and Applications\n\nStep by Step: My Journey in Data Analytics and Visualization\nBelow is a screenshot from one of my favorite games, The Forest. It reminds me of the journey of building a home, one tree at a time, with an axe in hand. Similarly, data analytics and visualization require patience, attention to detail, and steady progress. Every step I take in this course is like cutting down a tree to build a stronger foundation in analytics.\n\n&gt; “Just like building this home in The Forest, data analytics is a journey where each step matters.” —\n\nExplore my work: - Hands-on Exercises - In-class Exercises - Take-home Exercises"
   },
   {
+    "objectID": "hands-onEx/hands-onEx05-2/hands-onEx05-2.html",
+    "href": "hands-onEx/hands-onEx05-2/hands-onEx05-2.html",
+    "title": "Hands on Exercise 05-2:Visual Correlation Analysis",
+    "section": "",
+    "text": "Correlation coefficient is a popular statistic that use to measure the type and strength of the relationship between two variables. The values of a correlation coefficient ranges between -1.0 and 1.0.\nThere are three broad reasons for computing a correlation matrix.\n\nTo reveal the relationship between high-dimensional variables pair-wisely.\nTo input into other analyses. For example, people commonly use correlation matrices as inputs for exploratory factor analysis, confirmatory factor analysis, structural equation models, and linear regression when excluding missing values pairwise.\nAs a diagnostic when checking other analyses. For example, with linear regression a high amount of correlations suggests that the linear regression’s estimates will be unreliable.\n\n\n\n\n\n\n\nThings you will learn\n\n\n\n\n3.Correlation Matrix: pairs()\n✅4.Correlation Matrix: ggcormat()\n\npatchwork to combine two\n\n✅6.Correlation Matrix using corrplot Package\n\nchanged the default and the visualization method\n\n\n\n✅ will be more often to use based on my own opinion.",
+    "crumbs": [
+      "Home",
+      "Not So Common Chart",
+      "Visual Correlation Analysis"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx05-2/hands-onEx05-2.html#building-a-basic-correlation-matrix",
+    "href": "hands-onEx/hands-onEx05-2/hands-onEx05-2.html#building-a-basic-correlation-matrix",
+    "title": "Hands on Exercise 05-2:Visual Correlation Analysis",
+    "section": "3.1 Building a basic correlation matrix",
+    "text": "3.1 Building a basic correlation matrix\nwine[,1:11]: Select the first 11 column variables of the wine data frame for plotting.\npairs(): Draw a scatter matrix, pair each variable in pairs, and generate a corresponding scatter plot.\nEach variable is paired with other variables to form a scatterplot, which is used to see the correlation between variables.\n\npairs(wine[,1:11])",
+    "crumbs": [
+      "Home",
+      "Not So Common Chart",
+      "Visual Correlation Analysis"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx05-2/hands-onEx05-2.html#drawing-the-lower-corner",
+    "href": "hands-onEx/hands-onEx05-2/hands-onEx05-2.html#drawing-the-lower-corner",
+    "title": "Hands on Exercise 05-2:Visual Correlation Analysis",
+    "section": "3.2 Drawing the lower corner",
+    "text": "3.2 Drawing the lower corner\npairs function of R Graphics provided many customisation arguments. For example, it is a common practice to show either the upper half or lower half of the correlation matrix instead of both. This is because a correlation matrix is symmetric.\nTo show the lower half of the correlation matrix, the upper.panel argument will be used as shown in the code chunk below.\n\npairs(wine[,2:12], upper.panel = NULL)\n\n\n\n\n\n\n\n\n\npairs(wine[,2:12], lower.panel = NULL)",
+    "crumbs": [
+      "Home",
+      "Not So Common Chart",
+      "Visual Correlation Analysis"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx05-2/hands-onEx05-2.html#including-with-correlation-coefficients",
+    "href": "hands-onEx/hands-onEx05-2/hands-onEx05-2.html#including-with-correlation-coefficients",
+    "title": "Hands on Exercise 05-2:Visual Correlation Analysis",
+    "section": "3.3 Including with correlation coefficients",
+    "text": "3.3 Including with correlation coefficients\nTo show the correlation coefficient of each pair of variables instead of a scatter plot, panel.cor function will be used. This will also show higher correlations in a larger font.\nThe lower panel shows a scatterplot between variables. The upper panel displays the Pearson correlation coefficient between variables, with numbers indicating the strength of the correlation.\n\npanel.cor &lt;- function(x, y, digits=2, prefix=\"\", cex.cor, ...) {\nusr &lt;- par(\"usr\")\non.exit(par(usr))\npar(usr = c(0, 1, 0, 1))\nr &lt;- abs(cor(x, y, use=\"complete.obs\"))\ntxt &lt;- format(c(r, 0.123456789), digits=digits)[1]\ntxt &lt;- paste(prefix, txt, sep=\"\")\nif(missing(cex.cor)) cex.cor &lt;- 0.8/strwidth(txt)\ntext(0.5, 0.5, txt, cex = cex.cor * (1 + r) / 2)\n}\n\npairs(wine[,2:12], \n      upper.panel = panel.cor)",
+    "crumbs": [
+      "Home",
+      "Not So Common Chart",
+      "Visual Correlation Analysis"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx05-2/hands-onEx05-2.html#the-basic-plot",
+    "href": "hands-onEx/hands-onEx05-2/hands-onEx05-2.html#the-basic-plot",
+    "title": "Hands on Exercise 05-2:Visual Correlation Analysis",
+    "section": "4.1 The basic plot",
+    "text": "4.1 The basic plot\nOn of the advantage of using ggcorrmat() over many other methods to visualise a correlation matrix is it’s ability to provide a comprehensive and yet professional statistical report as shown in the figure below.\n\nThe crossed → indicates that the correlation of the variable pair is not significant.\n\nggstatsplot::ggcorrmat(\n  data = wine, \n  cor.vars = 1:11,\n  ggcorrplot.args = list(outline.color = \"black\", \n                         hc.order = TRUE,\n                         tl.cex = 10),\n  title    = \"Correlogram for wine dataset\",\n  subtitle = \"Four pairs are no significant at p &lt; 0.05\"\n)\n\n\n\n\n\n\n\n\nthings to learn from the code chunk above:\n\ncor.vars argument is used to compute the correlation matrix needed to build the corrgram.\nggcorrplot.args argument provide additional (mostly aesthetic) arguments that will be passed to ggcorrplot::ggcorrplot function. The list should avoid any of the following arguments since they are already internally being used: corr, method, p.mat, sig.level, ggtheme, colors, lab, pch, legend.title, digits.\n\nThe sample sub-code chunk can be used to control specific component of the plot such as the font size of the x-axis, y-axis, and the statistical report.\n\nggplot.component = list(\n    theme(text=element_text(size=5),\n      axis.text.x = element_text(size = 8),\n      axis.text.y = element_text(size = 8)))",
+    "crumbs": [
+      "Home",
+      "Not So Common Chart",
+      "Visual Correlation Analysis"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx05-2/hands-onEx05-2.html#default-corrplot-package",
+    "href": "hands-onEx/hands-onEx05-2/hands-onEx05-2.html#default-corrplot-package",
+    "title": "Hands on Exercise 05-2:Visual Correlation Analysis",
+    "section": "6.1 Default Corrplot Package",
+    "text": "6.1 Default Corrplot Package\nBefore getting started, you are required to read An Introduction to corrplot Package in order to gain basic understanding of corrplot package.\nIn the code chunk below, cor() of R Stats is used to compute the correlation matrix of wine data frame.\n\nwine.cor &lt;- cor(wine[, 1:11])\n\nNext, corrplot() is used to plot the corrgram by using all the default setting as shown in the code chunk below.\n\ncorrplot(wine.cor)\n\n\n\n\n\n\n\n\nNotice that the default visual object used to plot the corrgram is circle.\n\n\n\n\n\n\nCorrgram default setting\n\n\n\n\nVisual elements: Circles are used by default to represent correlation.\nLayout: The correlation matrix is ​​a symmetric matrix.\nColor scheme: Use a diverging blue-red gradient. blue → positive correlation. red → negative correlation.\nColor intensity (saturation) represents the strength of the correlation: The darker the color → the stronger the correlation (stronger linear relationship). Lighter color → weaker correlation (weaker linear relationship).",
+    "crumbs": [
+      "Home",
+      "Not So Common Chart",
+      "Visual Correlation Analysis"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx05-2/hands-onEx05-2.html#changing-visual-elements",
+    "href": "hands-onEx/hands-onEx05-2/hands-onEx05-2.html#changing-visual-elements",
+    "title": "Hands on Exercise 05-2:Visual Correlation Analysis",
+    "section": "6.2 Changing Visual elements",
+    "text": "6.2 Changing Visual elements\nIn corrplot package, there are seven visual geometrics (parameter method) can be used to encode the attribute values. They are: circle, square, ellipse, number, shade, color and pie. You can change what you want based on the content.\n\ncorrplot(wine.cor, \n         method = \"ellipse\")",
+    "crumbs": [
+      "Home",
+      "Not So Common Chart",
+      "Visual Correlation Analysis"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx05-2/hands-onEx05-2.html#changing-layout",
+    "href": "hands-onEx/hands-onEx05-2/hands-onEx05-2.html#changing-layout",
+    "title": "Hands on Exercise 05-2:Visual Correlation Analysis",
+    "section": "6.3 Changing layout",
+    "text": "6.3 Changing layout\ncorrplor() supports three layout types, namely: “full”, “upper” or “lower”. The default is “full” which display full matrix. The default setting can be changed by using the type argument of corrplot().\n\ncorrplot(wine.cor, \n         method = \"ellipse\", \n         type=\"lower\")\n\n\n\n\n\n\n\n\nThe default layout of the corrgram can be further customised. For example, arguments diag and tl.col are used to turn off the diagonal cells and to change the axis text label colour to black colour respectively as shown in the code chunk and figure below.\n\ncorrplot(wine.cor, \n         method = \"ellipse\", \n         type=\"lower\",\n         diag = FALSE,\n         tl.col = \"black\")",
+    "crumbs": [
+      "Home",
+      "Not So Common Chart",
+      "Visual Correlation Analysis"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx05-2/hands-onEx05-2.html#changing-mixed-layout",
+    "href": "hands-onEx/hands-onEx05-2/hands-onEx05-2.html#changing-mixed-layout",
+    "title": "Hands on Exercise 05-2:Visual Correlation Analysis",
+    "section": "6.4 Changing mixed layout",
+    "text": "6.4 Changing mixed layout\nWith corrplot package, it is possible to design corrgram with mixed visual matrix of one half and numerical matrix on the other half. In order to create a coorgram with mixed layout, the corrplot.mixed(), a wrapped function for mixed visualisation style will be used.\n\ncorrplot.mixed(wine.cor, \n               lower = \"ellipse\", \n               upper = \"number\",\n               tl.pos = \"lt\",\n               diag = \"l\",\n               tl.col = \"black\")\n\n\n\n\n\n\n\n\nNotice that argument lower and upper are used to define the visualisation method used. In this case ellipse is used to map the lower half of the corrgram and numerical matrix (i.e. number) is used to map the upper half of the corrgram. The argument tl.pos, on the other, is used to specify the placement of the axis label. Lastly, the diag argument is used to specify the glyph on the principal diagonal of the corrgram.",
+    "crumbs": [
+      "Home",
+      "Not So Common Chart",
+      "Visual Correlation Analysis"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx05-2/hands-onEx05-2.html#combining-corrgram-with-the-significant-test",
+    "href": "hands-onEx/hands-onEx05-2/hands-onEx05-2.html#combining-corrgram-with-the-significant-test",
+    "title": "Hands on Exercise 05-2:Visual Correlation Analysis",
+    "section": "6.5 Combining corrgram with the significant test",
+    "text": "6.5 Combining corrgram with the significant test\nThe corrgram reveals that not all correlation pairs are statistically significant. For example the correlation between total sulfur dioxide and free surfur dioxide is statistically significant at significant level of 0.1 but not the pair between total sulfur dioxide and citric acid.\n\nwine.sig = cor.mtest(wine.cor, conf.level= .95)\n\nWe can then use the p.mat argument of corrplot function as shown in the code chunk below.\n\ncorrplot(wine.cor,\n         method = \"number\",\n         type = \"lower\",\n         diag = FALSE,\n         tl.col = \"black\",\n         tl.srt = 45,\n         p.mat = wine.sig$p,\n         sig.level = .05)",
+    "crumbs": [
+      "Home",
+      "Not So Common Chart",
+      "Visual Correlation Analysis"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx05-2/hands-onEx05-2.html#reorder-a-corrgram",
+    "href": "hands-onEx/hands-onEx05-2/hands-onEx05-2.html#reorder-a-corrgram",
+    "title": "Hands on Exercise 05-2:Visual Correlation Analysis",
+    "section": "6.6 Reorder a corrgram",
+    "text": "6.6 Reorder a corrgram\nMatrix reorder is very important for mining the hiden structure and pattern in a corrgram. By default, the order of attributes of a corrgram is sorted according to the correlation matrix (i.e. “original”). The default setting can be over-write by using the order argument of corrplot(). Currently, corrplot package support four sorting methods, they are: “AOE”, “FPC”, “hclust”, “alphabet”. More algorithms can be found in seriation package.\n\n\n\n\n\n\nOrdering Type\n\n\n\n\n“AOE” is for the angular order of the eigenvectors. (表示特徵向量的角度順序) See Michael Friendly (2002) for details.\n“FPC” for the first principal component order.\n“hclust” for hierarchical clustering order, and “hclust.method” for the agglomeration method to be used.\n\n“hclust.method” should be one of “ward”, “single”, “complete”, “average”, “mcquitty”, “median” or “centroid”.\n\n“alphabet” for alphabetical order.\n\n\n\n\nAOEFPCalphabet\n\n\n\ncorrplot.mixed(wine.cor, \n               lower = \"ellipse\", \n               upper = \"number\",\n               tl.pos = \"lt\",\n               diag = \"l\",\n               order=\"AOE\",\n               tl.col = \"black\")\n\n\n\n\n\n\n\n\n\n\n\ncorrplot.mixed(wine.cor, \n               lower = \"ellipse\", \n               upper = \"number\",\n               tl.pos = \"lt\",\n               diag = \"l\",\n               order=\"FPC\",\n               tl.col = \"black\")\n\n\n\n\n\n\n\n\n\n\n\ncorrplot.mixed(wine.cor, \n               lower = \"ellipse\", \n               upper = \"number\",\n               tl.pos = \"lt\",\n               diag = \"l\",\n               order=\"alphabet\",\n               tl.col = \"black\")\n\n\n\n\n\n\n\n\n\n\n\nIf using hclust, corrplot() can draw rectangles around the corrgram based on the results of hierarchical clustering.\n\n\n\n\n\n\nTip\n\n\n\nhclust allows corrplot() to automatically draw correlation group rectangles of variables, making it easier for us to identify which variables are more strongly correlated. This method is particularly suitable for data sets with many variables because it can clearly organize the correlation patterns between variables and avoid too cluttered information. The final effect is to use black rectangles to mark highly correlated groups of variables, improving the visual expression of data analysis!\n\n\n\ncorrplot(wine.cor, \n         method = \"ellipse\", \n         tl.pos = \"lt\",\n         tl.col = \"black\",\n         order=\"hclust\",\n         hclust.method = \"ward.D\",\n         addrect = 3)",
+    "crumbs": [
+      "Home",
+      "Not So Common Chart",
+      "Visual Correlation Analysis"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx05-2/hands-onEx05-2.html#r-packages",
+    "href": "hands-onEx/hands-onEx05-2/hands-onEx05-2.html#r-packages",
+    "title": "Hands on Exercise 05-2:Visual Correlation Analysis",
+    "section": "7.1 R packages",
+    "text": "7.1 R packages\n\nggcormat() of ggstatsplot package\nggscatmat and ggpairs of GGally.\ncorrplot. A graphical display of a correlation matrix or general matrix. It also contains some algorithms to do matrix reordering. In addition, corrplot is good at details, including choosing color, text labels, color labels, layout, etc.\ncorrgram calculates correlation of variables and displays the results graphically. Included panel functions can display points, shading, ellipses, and correlation values with confidence intervals.",
+    "crumbs": [
+      "Home",
+      "Not So Common Chart",
+      "Visual Correlation Analysis"
+    ]
+  },
+  {
     "objectID": "hands-onEx/hands-onEx04-4/hands-onEx04-4.html",
     "href": "hands-onEx/hands-onEx04-4/hands-onEx04-4.html",
     "title": "Hands-on Exercise 04-4: Funnel Plots for Fair Comparisons",
@@ -1167,32 +1311,47 @@
     ]
   },
   {
-    "objectID": "In-class_Ex/In-class_Ex04/In-class_Ex04.html",
-    "href": "In-class_Ex/In-class_Ex04/In-class_Ex04.html",
-    "title": "In Class Exercise 4",
-    "section": "",
-    "text": "pacman::p_load(haven,SmartEDA,tidyverse,tidymodels)\n\n\nexam_data &lt;- read_csv(\"C:/Trista0114/ISSS608/hands-onEx/hands-onEx01/Exam_data.csv\")\n\n\nggplot(data = exam_data, \n       aes(x = ENGLISH, y = CLASS)) + \n  geom_boxplot()"
-  },
-  {
     "objectID": "hands-onEx/hands-onEx05/hands-onEx05.html",
     "href": "hands-onEx/hands-onEx05/hands-onEx05.html",
     "title": "Hands-on Exercise 05: Creating Ternary Plot with R",
     "section": "",
-    "text": "Installing LibrariesImporting DataPreparing Data\n\n\nFor this exercise, two main R packages will be used in this hands-on exercise, they are:\n\nggtern, a ggplot extension specially designed to plot ternary diagrams. The package will be used to plot static ternary plots.\nPlotly R, an R package for creating interactive web-based graphs via plotly’s JavaScript graphing library, plotly.js . The plotly R libary contains the ggplotly function, which will convert ggplot2 figures into a Plotly object.\n\nWe will also need to ensure that selected tidyverse family packages namely: readr, dplyr and tidyr are also installed and loaded.\nIn this exercise, version 3.2.1 of ggplot2 will be installed instead of the latest version of ggplot2. This is because the current version of ggtern package is not compatible to the latest version of ggplot2.\n\npacman::p_load(plotly, ggtern, tidyverse)\n\n\n\nFor the purpose of this hands-on exercise, the Singapore Residents by Planning AreaSubzone, Age Group, Sex and Type of Dwelling, June 2000-2018 data will be used. The data set has been downloaded and included in the data sub-folder of the hands-on exercise folder. It is called respopagsex2000to2018_tidy.csv and is in csv file format.\n\n#Reading the data into R environment\npop_data &lt;- read_csv(\"data/respopagsex2000to2018_tidy.csv\") \n\n\n\nNext, use the mutate() function of dplyr package to derive three new measures, namely: young, active, and old.\n\nUse spread() to spread the AG (age group) field so that each value of AG becomes a separate column, and the corresponding Population values ​​populate these new columns\n\n#Deriving the young, economy active and old measures\nagpop_mutated &lt;- pop_data %&gt;%\n  mutate(`Year` = as.character(Year))%&gt;% \n  #Convert Year to a string type to avoid possible type errors in subsequent    operations\n  spread(AG, Population) %&gt;%\n  mutate(YOUNG = rowSums(.[4:8]))%&gt;%\n  mutate(ACTIVE = rowSums(.[9:16]))  %&gt;%\n  mutate(OLD = rowSums(.[17:21])) %&gt;%\n  mutate(TOTAL = rowSums(.[22:24])) %&gt;%\n  filter(Year == 2018)%&gt;% \n  filter(TOTAL &gt; 0)\n#Only data for 2018 is retained. Make sure the total population is greater than 0.\n\n\nagpop_mutated\n\n# A tibble: 234 × 25\n   PA         SZ       Year  `AGE0-4` `AGE05-9` `AGE10-14` `AGE15-19` `AGE20-24`\n   &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;\n 1 Ang Mo Kio Ang Mo … 2018       180       270        320        300        260\n 2 Ang Mo Kio Cheng S… 2018      1060      1080       1080       1260       1400\n 3 Ang Mo Kio Chong B… 2018       900       900       1030       1220       1380\n 4 Ang Mo Kio Kebun B… 2018       720       850       1010       1120       1230\n 5 Ang Mo Kio Sembawa… 2018       220       310        380        500        550\n 6 Ang Mo Kio Shangri… 2018       550       630        670        780        950\n 7 Ang Mo Kio Tagore   2018       260       340        430        500        640\n 8 Ang Mo Kio Townsvi… 2018       830       930        930        860       1020\n 9 Ang Mo Kio Yio Chu… 2018       160       160        220        260        350\n10 Ang Mo Kio Yio Chu… 2018       810      1070       1300       1450       1500\n# ℹ 224 more rows\n# ℹ 17 more variables: `AGE25-29` &lt;dbl&gt;, `AGE30-34` &lt;dbl&gt;, `AGE35-39` &lt;dbl&gt;,\n#   `AGE40-44` &lt;dbl&gt;, `AGE45-49` &lt;dbl&gt;, `AGE50-54` &lt;dbl&gt;, `AGE55-59` &lt;dbl&gt;,\n#   `AGE60-64` &lt;dbl&gt;, `AGE65-69` &lt;dbl&gt;, `AGE70-74` &lt;dbl&gt;, `AGE75-79` &lt;dbl&gt;,\n#   `AGE80-84` &lt;dbl&gt;, AGE85over &lt;dbl&gt;, YOUNG &lt;dbl&gt;, ACTIVE &lt;dbl&gt;, OLD &lt;dbl&gt;,\n#   TOTAL &lt;dbl&gt;"
+    "text": "Installing LibrariesImporting DataPreparing Data\n\n\nFor this exercise, two main R packages will be used in this hands-on exercise, they are:\n\nggtern, a ggplot extension specially designed to plot ternary diagrams. The package will be used to plot static ternary plots.\nPlotly R, an R package for creating interactive web-based graphs via plotly’s JavaScript graphing library, plotly.js . The plotly R libary contains the ggplotly function, which will convert ggplot2 figures into a Plotly object.\n\nWe will also need to ensure that selected tidyverse family packages namely: readr, dplyr and tidyr are also installed and loaded.\nIn this exercise, version 3.2.1 of ggplot2 will be installed instead of the latest version of ggplot2. This is because the current version of ggtern package is not compatible to the latest version of ggplot2.\n\npacman::p_load(plotly, ggtern, tidyverse)\n\n\n\nFor the purpose of this hands-on exercise, the Singapore Residents by Planning AreaSubzone, Age Group, Sex and Type of Dwelling, June 2000-2018 data will be used. The data set has been downloaded and included in the data sub-folder of the hands-on exercise folder. It is called respopagsex2000to2018_tidy.csv and is in csv file format.\n\n#Reading the data into R environment\npop_data &lt;- read_csv(\"data/respopagsex2000to2018_tidy.csv\") \n\n\n\nNext, use the mutate() function of dplyr package to derive three new measures, namely: young, active, and old.\n\nUse spread() to spread the AG (age group) field so that each value of AG becomes a separate column, and the corresponding Population values ​​populate these new columns\n\n#Deriving the young, economy active and old measures\nagpop_mutated &lt;- pop_data %&gt;%\n  mutate(`Year` = as.character(Year))%&gt;% \n  #Convert Year to a string type to avoid possible type errors in subsequent    operations\n  spread(AG, Population) %&gt;%\n  mutate(YOUNG = rowSums(.[4:8]))%&gt;%\n  mutate(ACTIVE = rowSums(.[9:16]))  %&gt;%\n  mutate(OLD = rowSums(.[17:21])) %&gt;%\n  mutate(TOTAL = rowSums(.[22:24])) %&gt;%\n  filter(Year == 2018)%&gt;% \n  filter(TOTAL &gt; 0)\n#Only data for 2018 is retained. Make sure the total population is greater than 0.\n\n\nagpop_mutated\n\n# A tibble: 234 × 25\n   PA         SZ       Year  `AGE0-4` `AGE05-9` `AGE10-14` `AGE15-19` `AGE20-24`\n   &lt;chr&gt;      &lt;chr&gt;    &lt;chr&gt;    &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;\n 1 Ang Mo Kio Ang Mo … 2018       180       270        320        300        260\n 2 Ang Mo Kio Cheng S… 2018      1060      1080       1080       1260       1400\n 3 Ang Mo Kio Chong B… 2018       900       900       1030       1220       1380\n 4 Ang Mo Kio Kebun B… 2018       720       850       1010       1120       1230\n 5 Ang Mo Kio Sembawa… 2018       220       310        380        500        550\n 6 Ang Mo Kio Shangri… 2018       550       630        670        780        950\n 7 Ang Mo Kio Tagore   2018       260       340        430        500        640\n 8 Ang Mo Kio Townsvi… 2018       830       930        930        860       1020\n 9 Ang Mo Kio Yio Chu… 2018       160       160        220        260        350\n10 Ang Mo Kio Yio Chu… 2018       810      1070       1300       1450       1500\n# ℹ 224 more rows\n# ℹ 17 more variables: `AGE25-29` &lt;dbl&gt;, `AGE30-34` &lt;dbl&gt;, `AGE35-39` &lt;dbl&gt;,\n#   `AGE40-44` &lt;dbl&gt;, `AGE45-49` &lt;dbl&gt;, `AGE50-54` &lt;dbl&gt;, `AGE55-59` &lt;dbl&gt;,\n#   `AGE60-64` &lt;dbl&gt;, `AGE65-69` &lt;dbl&gt;, `AGE70-74` &lt;dbl&gt;, `AGE75-79` &lt;dbl&gt;,\n#   `AGE80-84` &lt;dbl&gt;, AGE85over &lt;dbl&gt;, YOUNG &lt;dbl&gt;, ACTIVE &lt;dbl&gt;, OLD &lt;dbl&gt;,\n#   TOTAL &lt;dbl&gt;",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Multivariate Data",
+      "Creating Ternary Plot with R"
+    ]
   },
   {
     "objectID": "hands-onEx/hands-onEx05/hands-onEx05.html#plotting-a-static-ternary-diagram",
     "href": "hands-onEx/hands-onEx05/hands-onEx05.html#plotting-a-static-ternary-diagram",
     "title": "Hands-on Exercise 05: Creating Ternary Plot with R",
     "section": "3.1 Plotting a static ternary diagram",
-    "text": "3.1 Plotting a static ternary diagram\nUse ggtern() function of ggtern package to create a simple ternary plot\n\n#Building the static ternary plot\nggtern(data=agpop_mutated,aes(x=YOUNG,y=ACTIVE, z=OLD)) +\n  geom_point()\n\n\n\n\n\n\n\n\n\n#Building the static ternary plot\nggtern(data=agpop_mutated, aes(x=YOUNG,y=ACTIVE, z=OLD)) +\n  geom_point() +\n  labs(title=\"Population structure, 2015\") +\n  theme_rgbw()\n\n\n\n\n\n\n\n\n\nYOUNG + ACTIVE + OLD = 100% for each region, i.e. the sum of these three variables is fixed at 100%.\nIf a point is close to a corner (such as ACTIVE at the top), it means that the area has a very high proportion of economically active people and a low proportion of young and old people. If a point is close to the lower left corner (YOUNG), it means that the area has a higher proportion of young people and a lower proportion of old and economically active people. If a point is close to the lower right corner (OLD), the area has a higher proportion of older people."
+    "text": "3.1 Plotting a static ternary diagram\nUse ggtern() function of ggtern package to create a simple ternary plot\n\n#Building the static ternary plot\nggtern(data=agpop_mutated,aes(x=YOUNG,y=ACTIVE, z=OLD)) +\n  geom_point()\n\n\n\n\n\n\n\n\n\n#Building the static ternary plot\nggtern(data=agpop_mutated, aes(x=YOUNG,y=ACTIVE, z=OLD)) +\n  geom_point() +\n  labs(title=\"Population structure, 2015\") +\n  theme_rgbw()\n\n\n\n\n\n\n\n\n\nYOUNG + ACTIVE + OLD = 100% for each region, i.e. the sum of these three variables is fixed at 100%.\nIf a point is close to a corner (such as ACTIVE at the top), it means that the area has a very high proportion of economically active people and a low proportion of young and old people. If a point is close to the lower left corner (YOUNG), it means that the area has a higher proportion of young people and a lower proportion of old and economically active people. If a point is close to the lower right corner (OLD), the area has a higher proportion of older people.",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Multivariate Data",
+      "Creating Ternary Plot with R"
+    ]
   },
   {
     "objectID": "hands-onEx/hands-onEx05/hands-onEx05.html#plotting-an-interative-ternary-diagram",
     "href": "hands-onEx/hands-onEx05/hands-onEx05.html#plotting-an-interative-ternary-diagram",
     "title": "Hands-on Exercise 05: Creating Ternary Plot with R",
     "section": "3.2 Plotting an interative ternary diagram",
-    "text": "3.2 Plotting an interative ternary diagram\n\n# reusable function for creating annotation object\nlabel &lt;- function(txt) {\n  list(\n    text = txt, \n    x = 0.1, y = 1,\n    ax = 0, ay = 0,\n    xref = \"paper\", yref = \"paper\", \n    align = \"center\",\n    font = list(family = \"serif\", size = 15, color = \"white\"),\n    bgcolor = \"#b3b3b3\", bordercolor = \"black\", borderwidth = 2\n  )\n}\n\n# reusable function for axis formatting\naxis &lt;- function(txt, color) {\n  list(\n    title = list(\n      text = txt,\n      font = list(size = 14, color = color)  \n    ),\n    tickformat = \".0%\", \n    tickfont = list(size = 10, color = color)  \n  )\n} \n\n\nternaryAxes &lt;- list(\n  aaxis = axis(\"Young\",\"blue\"), \n  baxis = axis(\"Active\",\"red\"), \n  caxis = axis(\"Old\",\"green\")\n)\n\n# Initiating a plotly visualization \nplot_ly(\n  agpop_mutated, \n  a = ~YOUNG, \n  b = ~ACTIVE, \n  c = ~OLD, \n  color = I(\"black\"), \n  type = \"scatterternary\"\n) %&gt;%\n  layout(\n    annotations = label(\"Ternary Markers\"), \n    ternary = ternaryAxes\n  )"
+    "text": "3.2 Plotting an interative ternary diagram\n\n# reusable function for creating annotation object\nlabel &lt;- function(txt) {\n  list(\n    text = txt, \n    x = 0.1, y = 1,\n    ax = 0, ay = 0,\n    xref = \"paper\", yref = \"paper\", \n    align = \"center\",\n    font = list(family = \"serif\", size = 15, color = \"white\"),\n    bgcolor = \"#b3b3b3\", bordercolor = \"black\", borderwidth = 2\n  )\n}\n\n# reusable function for axis formatting\naxis &lt;- function(txt, color) {\n  list(\n    title = list(\n      text = txt,\n      font = list(size = 14, color = color)  \n    ),\n    tickformat = \".0%\", \n    tickfont = list(size = 10, color = color)  \n  )\n} \n\n\nternaryAxes &lt;- list(\n  aaxis = axis(\"Young\",\"blue\"), \n  baxis = axis(\"Active\",\"red\"), \n  caxis = axis(\"Old\",\"green\")\n)\n\n# Initiating a plotly visualization \nplot_ly(\n  agpop_mutated, \n  a = ~YOUNG, \n  b = ~ACTIVE, \n  c = ~OLD, \n  color = I(\"black\"), \n  type = \"scatterternary\"\n) %&gt;%\n  layout(\n    annotations = label(\"Ternary Markers\"), \n    ternary = ternaryAxes\n  )",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Multivariate Data",
+      "Creating Ternary Plot with R"
+    ]
+  },
+  {
+    "objectID": "In-class_Ex/In-class_Ex04/In-class_Ex04.html",
+    "href": "In-class_Ex/In-class_Ex04/In-class_Ex04.html",
+    "title": "In Class Exercise 4",
+    "section": "",
+    "text": "pacman::p_load(haven,SmartEDA,tidyverse,tidymodels)\n\n\nexam_data &lt;- read_csv(\"C:/Trista0114/ISSS608/hands-onEx/hands-onEx01/Exam_data.csv\")\n\n\nggplot(data = exam_data, \n       aes(x = ENGLISH, y = CLASS)) + \n  geom_boxplot()"
   },
   {
     "objectID": "Take-home_Ex/Take-home_Ex1/Take-home_Ex1.html",
