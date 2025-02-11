@@ -160,7 +160,7 @@ ggplot.component = list(
       axis.text.y = element_text(size = 8)))
 ```
 
-# **5. Building multiple plots**
+# 5. Building multiple plots
 
 Since ggstasplot is an extension of ggplot2, it also supports faceting. However the feature is not available in *ggcorrmat()* but in the [*grouped_ggcorrmat()*](https://indrajeetpatil.github.io/ggstatsplot/reference/grouped_ggcorrmat.html) of **ggstatsplot.**
 
