@@ -9,3 +9,15 @@ execute:
   warning: false
   freeze: true
 ---
+
+```{r}
+pacman::p_load(haven,SmartEDA,tidyverse,tidymodels)
+```
+
+```{r}
+exam_data <- read_csv("data/Ship_Performance_Dataset.csv")
+```
+
+```{r}
+exam_data
+```

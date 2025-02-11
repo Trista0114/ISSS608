@@ -1,0 +1,42 @@
+---
+title: "Hands on Exercise 05-2:Visual Correlation Analysis"
+author: "Chen.PengWei"
+date-modified: "last-modified"
+execute:
+  echo: true
+  eval: true
+  warning: false
+  free
+---
+
+# 1. Learning Outcome
+
+# 2. Getting Started
+
+::: panel-tabset
+## Installing Libraries
+
+Install and launch **corrplot**, **ggpubr**, **plotly** and **tidyverse** in RStudio.
+
+```{r}
+pacman::p_load(corrplot, ggstatsplot, tidyverse)
+```
+
+## Importing Data
+
+In this hands-on exercise, the [Wine Quality Data Set](https://archive.ics.uci.edu/ml/datasets/wine+quality) of UCI Machine Learning Repository will be used.
+
+```{r}
+wine <- read_csv("data/wine_quality.csv")
+```
+
+## Understanding Data
+
+The data set consists of 13 variables and 6497 observations. For the purpose of this exercise, we have combined the red wine and white wine data into one data file. It is called wine_quality and is in csv file format.
+
+Notice that beside quality and type, the rest of the variables are numerical and continuous data type.
+
+![](images/螢幕擷取畫面 2025-02-11 155334.png)
+:::
+
+# 3. Building Correlation Matrix: *pairs()* method

@@ -1,0 +1,154 @@
+---
+title: "Hands-on Exercise 05: Creating Ternary Plot with R"
+author: "Chen.PengWei"
+date-modified: "last-modified"
+execute:
+  echo: true
+  eval: true
+  warning: false
+  freeze: true
+---
+
+# 1. Learning Outcome
+
+------------------------------------------------------------------------
+
+Ternary plots are a way of displaying the distribution and variability of three-part compositional data. (For example, the proportion of aged, economy active and young population or sand, silt, and clay in soil.) It’s display is a triangle with sides scaled from 0 to 1.
+
+In this hands-on, you will learn how to build **ternary plot and the interactive ternary plot** programmatically using R for visualising and analysing population structure of Singapore.
+
+#  2. Getting Started
+
+::: panel-tabset
+## Installing Libraries
+
+For this exercise, two main R packages will be used in this hands-on exercise, they are:
+
+-   [**ggtern**](http://www.ggtern.com/), a ggplot extension specially designed to plot ternary diagrams. The package will be used to plot static ternary plots.
+
+-   [**Plotly R**](https://plot.ly/r/), an R package for creating interactive web-based graphs via plotly’s JavaScript graphing library, plotly.js . The **plotly R** libary contains the *ggplotly* function, which will convert **ggplot2** figures into a Plotly object.
+
+We will also need to ensure that selected **tidyverse** family packages namely: **readr**, **dplyr** and **tidyr** are also installed and loaded.
+
+In this exercise, version 3.2.1 of **ggplot2** will be installed instead of the latest version of **ggplot2**. This is because the current version of **ggtern** package is not compatible to the latest version of **ggplot2**.
+
+```{r}
+pacman::p_load(plotly, ggtern, tidyverse)
+```
+
+## Importing Data
+
+For the purpose of this hands-on exercise, the [Singapore Residents by Planning AreaSubzone, Age Group, Sex and Type of Dwelling, June 2000-2018](https://www.singstat.gov.sg/find-data/search-by-theme/population/geographic-distribution/latest-data) data will be used. The data set has been downloaded and included in the data sub-folder of the hands-on exercise folder. It is called *respopagsex2000to2018_tidy.csv* and is in csv file format.
+
+```{r}
+#Reading the data into R environment
+pop_data <- read_csv("data/respopagsex2000to2018_tidy.csv") 
+```
+
+```{r}
+pop_data
+```
+
+## Preparing Data
+
+Next, use the ***mutate()*** function of **dplyr** package to derive three new measures, namely: young, active, and old.\
+\
+Use `spread()` to spread the AG (age group) field so that each value of AG becomes a **separate column**, and the corresponding Population values ​​populate these new columns
+
+```{r}
+#Deriving the young, economy active and old measures
+agpop_mutated <- pop_data %>%
+  mutate(`Year` = as.character(Year))%>% 
+  #Convert Year to a string type to avoid possible type errors in subsequent    operations
+  spread(AG, Population) %>%
+  mutate(YOUNG = rowSums(.[4:8]))%>%
+  mutate(ACTIVE = rowSums(.[9:16]))  %>%
+  mutate(OLD = rowSums(.[17:21])) %>%
+  mutate(TOTAL = rowSums(.[22:24])) %>%
+  filter(Year == 2018)%>% 
+  filter(TOTAL > 0)
+#Only data for 2018 is retained. Make sure the total population is greater than 0.
+```
+
+Now it change successfully.
+
+```{r}
+agpop_mutated
+```
+:::
+
+# 3. Plotting Ternary Diagram with R
+
+## 3.1 Plotting a static ternary diagram
+
+Use ***ggtern()*** function of **ggtern** package to create a simple ternary plot
+
+```{r}
+#Building the static ternary plot
+ggtern(data=agpop_mutated,aes(x=YOUNG,y=ACTIVE, z=OLD)) +
+  geom_point()
+```
+
+```{r}
+#Building the static ternary plot
+ggtern(data=agpop_mutated, aes(x=YOUNG,y=ACTIVE, z=OLD)) +
+  geom_point() +
+  labs(title="Population structure, 2015") +
+  theme_rgbw()
+```
+
+-   YOUNG + ACTIVE + OLD = 100% for each region, i.e. the sum of these three variables is fixed at 100%.
+
+-   If a point is close to a corner (such as ACTIVE at the top), it means that the area has a very high proportion of economically active people and a low proportion of young and old people. If a point is close to the lower left corner (YOUNG), it means that the area has a higher proportion of young people and a lower proportion of old and economically active people. If a point is close to the lower right corner (OLD), the area has a higher proportion of older people.
+
+## 3.2 Plotting an interative ternary diagram
+
+Now there is an label when you hover the point.
+
+```{r}
+# reusable function for creating annotation object
+label <- function(txt) {
+  list(
+    text = txt, 
+    x = 0.1, y = 1,
+    ax = 0, ay = 0,
+    xref = "paper", yref = "paper", 
+    align = "center",
+    font = list(family = "serif", size = 15, color = "white"),
+    bgcolor = "#b3b3b3", bordercolor = "black", borderwidth = 2
+  )
+}
+
+# reusable function for axis formatting
+axis <- function(txt, color) {
+  list(
+    title = list(
+      text = txt,
+      font = list(size = 14, color = color)  
+    ),
+    tickformat = ".0%", 
+    tickfont = list(size = 10, color = color)  
+  )
+} 
+
+
+ternaryAxes <- list(
+  aaxis = axis("Young","blue"), 
+  baxis = axis("Active","red"), 
+  caxis = axis("Old","green")
+)
+
+# Initiating a plotly visualization 
+plot_ly(
+  agpop_mutated, 
+  a = ~YOUNG, 
+  b = ~ACTIVE, 
+  c = ~OLD, 
+  color = I("black"), 
+  type = "scatterternary"
+) %>%
+  layout(
+    annotations = label("Ternary Markers"), 
+    ternary = ternaryAxes
+  )
+```
