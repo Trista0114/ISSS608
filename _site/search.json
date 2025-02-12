@@ -21,6 +21,54 @@
     "text": "Hi, I am Peng-Wei, a student in the Master of IT in Business program at SMU. Welcome to my course work in ISSS608 Visual Analytics and Applications\n\nStep by Step: My Journey in Data Analytics and Visualization\nBelow is a screenshot from one of my favorite games, The Forest. It reminds me of the journey of building a home, one tree at a time, with an axe in hand. Similarly, data analytics and visualization require patience, attention to detail, and steady progress. Every step I take in this course is like cutting down a tree to build a stronger foundation in analytics.\n\n&gt; “Just like building this home in The Forest, data analytics is a journey where each step matters.” —\n\nExplore my work: - Hands-on Exercises - In-class Exercises - Take-home Exercises"
   },
   {
+    "objectID": "hands-onEx/hands-onEx05-4/hands-onEx05-4.html#plotting-a-simple-parallel-coordinates",
+    "href": "hands-onEx/hands-onEx05-4/hands-onEx05-4.html#plotting-a-simple-parallel-coordinates",
+    "title": "Hands on Exercise 05-4: Visual Multivariate Analysis with Parallel Coordinates Plot",
+    "section": "3.1 Plotting a simple parallel coordinates",
+    "text": "3.1 Plotting a simple parallel coordinates\n\nggparcoord(data = wh, \n           columns = c(7:12))\n\n\n\n\n\n\n\n\nNotice that only two argument namely data and columns is used. Data argument is used to map the data object (i.e. wh) and columns is used to select the columns for preparing the parallel coordinates plot.",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Multivariate Data",
+      "Visual Multivariate Analysis with Parallel Coordinates Plot"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx05-4/hands-onEx05-4.html#plotting-a-parallel-coordinates-with-boxplot",
+    "href": "hands-onEx/hands-onEx05-4/hands-onEx05-4.html#plotting-a-parallel-coordinates-with-boxplot",
+    "title": "Hands on Exercise 05-4: Visual Multivariate Analysis with Parallel Coordinates Plot",
+    "section": "3.2 Plotting a parallel coordinates with boxplot",
+    "text": "3.2 Plotting a parallel coordinates with boxplot\nThe basic parallel coordinates failed to reveal any meaning understanding of the World Happiness measures. In this section, you will learn how to makeover the plot by using a collection of arguments provided by ggparcoord().\n✅ ggparcoord() is suitable for multidimensional data visualization and can quickly compare patterns between different variables.\n✅ Use uniminmax standardization to make data more comparable and not affected by different scales.\n\nggparcoord(data = wh, \n           columns = c(7:12), \n           groupColumn = 2,\n           scale = \"uniminmax\",\n           alphaLines = 0.2,\n           boxplot = TRUE, \n           title = \"Parallel Coordinates Plot of World Happines Variables\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThings to learn form code\n\n\n\n\ngroupColumn = 2:\n\nSpecify a grouping variable (column 2: Region), to color different categories, also colour the parallel coordinates lines by region name.\n\nscale = “uniminmax”\n\nStandardization method: scale the data to the [0,1] interval to make variables of different scales more comparable\n\nalphaLines = 0.2\n\nSet line transparency (0.2) to reduce the impact of overlapping lines and make trends clearer.\n\nboxplot = TRUE\n\nAdd a boxplot at the bottom of the graph to show the distribution of each variable and help identify outliers and data ranges.",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Multivariate Data",
+      "Visual Multivariate Analysis with Parallel Coordinates Plot"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx05-4/hands-onEx05-4.html#parallel-coordinates-with-facet",
+    "href": "hands-onEx/hands-onEx05-4/hands-onEx05-4.html#parallel-coordinates-with-facet",
+    "title": "Hands on Exercise 05-4: Visual Multivariate Analysis with Parallel Coordinates Plot",
+    "section": "3.3 Parallel coordinates with facet",
+    "text": "3.3 Parallel coordinates with facet\nIn the code chunk below, facet_wrap() of ggplot2 is used to plot 10 small multiple parallel coordinates plots. Each plot represent one geographical region such as East Asia.\n\nggparcoord(data = wh, \n           columns = c(7:12), \n           groupColumn = 2,\n           scale = \"uniminmax\",\n           alphaLines = 0.2,\n           boxplot = TRUE, \n           title = \"Multiple Parallel Coordinates Plots of World Happines Variables by Region\") +\n  facet_wrap(~ Region)\n\n\n\n\n\n\n\n\nOne of the aesthetic defect of the current design is that some of the variable names overlap on x-axis.",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Multivariate Data",
+      "Visual Multivariate Analysis with Parallel Coordinates Plot"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx05-4/hands-onEx05-4.html#adjusting-x-axis-text-label-theme",
+    "href": "hands-onEx/hands-onEx05-4/hands-onEx05-4.html#adjusting-x-axis-text-label-theme",
+    "title": "Hands on Exercise 05-4: Visual Multivariate Analysis with Parallel Coordinates Plot",
+    "section": "3.4 Adjusting x-axis text label : theme()",
+    "text": "3.4 Adjusting x-axis text label : theme()\nTo make the x-axis text label easy to read, let us rotate the labels by 30 degrees. We can rotate axis text labels using theme() function. Additionally, in order to avoid the labels overlap the plot, you can use hjust to adjust the label location.\n\nggparcoord(data = wh, \n           columns = c(7:12), \n           groupColumn = 2,\n           scale = \"uniminmax\",\n           alphaLines = 0.2,\n           boxplot = TRUE, \n           title = \"Multiple Parallel Coordinates Plots of World Happines Variables by Region\") +\n  facet_wrap(~ Region) + \n  theme(axis.text.x = element_text(angle = 30,hjust=1))\n\n\n\n\n\n\n\n\n\nTo rotate x-axis text labels, we use axis.text.x as argument to theme() function. And we specify element_text(angle = 30) to rotate the x-axis text by an angle 30 degree.",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Multivariate Data",
+      "Visual Multivariate Analysis with Parallel Coordinates Plot"
+    ]
+  },
+  {
     "objectID": "hands-onEx/hands-onEx05-2/hands-onEx05-2.html",
     "href": "hands-onEx/hands-onEx05-2/hands-onEx05-2.html",
     "title": "Hands on Exercise 05-2:Visual Correlation Analysis",
@@ -1347,20 +1395,6 @@
     ]
   },
   {
-    "objectID": "In-class_Ex/In-class_Ex04/In-class_Ex04.html",
-    "href": "In-class_Ex/In-class_Ex04/In-class_Ex04.html",
-    "title": "In Class Exercise 4",
-    "section": "",
-    "text": "pacman::p_load(haven,SmartEDA,tidyverse,tidymodels)\n\n\nexam_data &lt;- read_csv(\"C:/Trista0114/ISSS608/hands-onEx/hands-onEx01/Exam_data.csv\")\n\n\nggplot(data = exam_data, \n       aes(x = ENGLISH, y = CLASS)) + \n  geom_boxplot()"
-  },
-  {
-    "objectID": "Take-home_Ex/Take-home_Ex1/Take-home_Ex1.html",
-    "href": "Take-home_Ex/Take-home_Ex1/Take-home_Ex1.html",
-    "title": "Take-home Exercise 1",
-    "section": "",
-    "text": "pacman::p_load(haven,SmartEDA,tidyverse,tidymodels)\n\n\nexam_data &lt;- read_csv(\"data/Ship_Performance_Dataset.csv\")\n\n\nexam_data\n\n# A tibble: 2,736 × 18\n   Date       Ship_Type      Route_Type   Engine_Type         Maintenance_Status\n   &lt;date&gt;     &lt;chr&gt;          &lt;chr&gt;        &lt;chr&gt;               &lt;chr&gt;             \n 1 2023-06-04 Container Ship None         Heavy Fuel Oil (HF… Critical          \n 2 2023-06-11 Fish Carrier   Short-haul   Steam Turbine       Good              \n 3 2023-06-18 Container Ship Long-haul    Diesel              Fair              \n 4 2023-06-25 Bulk Carrier   Transoceanic Steam Turbine       Fair              \n 5 2023-07-02 Fish Carrier   Transoceanic Diesel              Fair              \n 6 2023-07-09 Fish Carrier   Long-haul    Heavy Fuel Oil (HF… Fair              \n 7 2023-07-16 Fish Carrier   Transoceanic Heavy Fuel Oil (HF… Critical          \n 8 2023-07-23 Container Ship Short-haul   Diesel              Critical          \n 9 2023-07-30 None           Coastal      Heavy Fuel Oil (HF… Good              \n10 2023-08-06 Container Ship Long-haul    Diesel              Fair              \n# ℹ 2,726 more rows\n# ℹ 13 more variables: Speed_Over_Ground_knots &lt;dbl&gt;, Engine_Power_kW &lt;dbl&gt;,\n#   Distance_Traveled_nm &lt;dbl&gt;, Draft_meters &lt;dbl&gt;, Weather_Condition &lt;chr&gt;,\n#   Cargo_Weight_tons &lt;dbl&gt;, Operational_Cost_USD &lt;dbl&gt;,\n#   Revenue_per_Voyage_USD &lt;dbl&gt;, Turnaround_Time_hours &lt;dbl&gt;,\n#   Efficiency_nm_per_kWh &lt;dbl&gt;, Seasonal_Impact_Score &lt;dbl&gt;,\n#   Weekly_Voyage_Count &lt;dbl&gt;, Average_Load_Percentage &lt;dbl&gt;"
-  },
-  {
     "objectID": "hands-onEx/hands-onEx05-3/hands-onEx05-3.html",
     "href": "hands-onEx/hands-onEx05-3/hands-onEx05-3.html",
     "title": "Hands on Exercise 05-3: Heatmap for Visualising and Analysing Multivariate Data",
@@ -1479,5 +1513,19 @@
       "Visualising and Analysing Multivariate Data",
       "Heatmap for Visualising and Analysing Multivariate Data"
     ]
+  },
+  {
+    "objectID": "In-class_Ex/In-class_Ex04/In-class_Ex04.html",
+    "href": "In-class_Ex/In-class_Ex04/In-class_Ex04.html",
+    "title": "In Class Exercise 4",
+    "section": "",
+    "text": "pacman::p_load(haven,SmartEDA,tidyverse,tidymodels)\n\n\nexam_data &lt;- read_csv(\"C:/Trista0114/ISSS608/hands-onEx/hands-onEx01/Exam_data.csv\")\n\n\nggplot(data = exam_data, \n       aes(x = ENGLISH, y = CLASS)) + \n  geom_boxplot()"
+  },
+  {
+    "objectID": "Take-home_Ex/Take-home_Ex1/Take-home_Ex1.html",
+    "href": "Take-home_Ex/Take-home_Ex1/Take-home_Ex1.html",
+    "title": "Take-home Exercise 1",
+    "section": "",
+    "text": "pacman::p_load(haven,SmartEDA,tidyverse,tidymodels)\n\n\nexam_data &lt;- read_csv(\"data/Ship_Performance_Dataset.csv\")\n\n\nexam_data\n\n# A tibble: 2,736 × 18\n   Date       Ship_Type      Route_Type   Engine_Type         Maintenance_Status\n   &lt;date&gt;     &lt;chr&gt;          &lt;chr&gt;        &lt;chr&gt;               &lt;chr&gt;             \n 1 2023-06-04 Container Ship None         Heavy Fuel Oil (HF… Critical          \n 2 2023-06-11 Fish Carrier   Short-haul   Steam Turbine       Good              \n 3 2023-06-18 Container Ship Long-haul    Diesel              Fair              \n 4 2023-06-25 Bulk Carrier   Transoceanic Steam Turbine       Fair              \n 5 2023-07-02 Fish Carrier   Transoceanic Diesel              Fair              \n 6 2023-07-09 Fish Carrier   Long-haul    Heavy Fuel Oil (HF… Fair              \n 7 2023-07-16 Fish Carrier   Transoceanic Heavy Fuel Oil (HF… Critical          \n 8 2023-07-23 Container Ship Short-haul   Diesel              Critical          \n 9 2023-07-30 None           Coastal      Heavy Fuel Oil (HF… Good              \n10 2023-08-06 Container Ship Long-haul    Diesel              Fair              \n# ℹ 2,726 more rows\n# ℹ 13 more variables: Speed_Over_Ground_knots &lt;dbl&gt;, Engine_Power_kW &lt;dbl&gt;,\n#   Distance_Traveled_nm &lt;dbl&gt;, Draft_meters &lt;dbl&gt;, Weather_Condition &lt;chr&gt;,\n#   Cargo_Weight_tons &lt;dbl&gt;, Operational_Cost_USD &lt;dbl&gt;,\n#   Revenue_per_Voyage_USD &lt;dbl&gt;, Turnaround_Time_hours &lt;dbl&gt;,\n#   Efficiency_nm_per_kWh &lt;dbl&gt;, Seasonal_Impact_Score &lt;dbl&gt;,\n#   Weekly_Voyage_Count &lt;dbl&gt;, Average_Load_Percentage &lt;dbl&gt;"
   }
 ]

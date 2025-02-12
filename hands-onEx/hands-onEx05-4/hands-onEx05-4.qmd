@@ -1,0 +1,126 @@
+---
+title: "Hands on Exercise 05-4: Visual Multivariate Analysis with Parallel Coordinates Plot"
+author: "Chen.PengWei"
+date-modified: "last-modified"
+execute:
+  echo: true
+  eval: true
+  warning: false
+  freeze: true
+---
+
+# 1. Overview
+
+# 2. Getting Started
+
+::: panel-tabset
+## Installing Libraries
+
+For this exercise, the **GGally**, **parcoords**, **parallelPlot** and **tidyverse** packages will be used.
+
+```{r}
+pacman::p_load(GGally, parallelPlot, tidyverse)
+```
+
+## Importing Data
+
+n this hands-on exercise, the World Happinees 2018 (http://worldhappiness.report/ed/2018/) data will be used. The data set is download at https://s3.amazonaws.com/happiness-report/2018/WHR2018Chapter2OnlineData.xls. The original data set is in Microsoft Excel format. It has been extracted and saved in csv file called **WHData-2018.csv**.
+
+```{r}
+wh <- read_csv("data/WHData-2018.csv")
+```
+
+## Understanding Data
+
+The data set consists of 12 variables, with 2 catogory variable (Counrty and Regoin) and others 10 numeric variables.
+
+```{r}
+head(wh,10)
+```
+:::
+
+# 3. Plotting Static Parallel Coordinates Plot
+
+In this section, you will learn how to plot static parallel coordinates plot by using [`ggparcoord()`](https://ggobi.github.io/ggally/reference/ggparcoord.html) of **GGally** package. Before getting started, it is a good practice to read the function description in detail.
+
+## 3.1 Plotting a simple parallel coordinates
+
+```{r}
+ggparcoord(data = wh, 
+           columns = c(7:12))
+```
+
+Notice that only two argument namely `data` and `columns` is used. `Data` argument is used to map the data object (i.e. *wh*) and `columns` is used to select the columns for preparing the parallel coordinates plot.
+
+## 3.2 Plotting a parallel coordinates with boxplot
+
+The basic parallel coordinates failed to reveal any meaning understanding of the World Happiness measures. In this section, you will learn how to makeover the plot by using a collection of arguments provided by `ggparcoord()`.
+
+✅ ggparcoord() is suitable for multidimensional data visualization and can quickly compare patterns between different variables. \
+✅ Use uniminmax standardization to make data more comparable and not affected by different scales.
+
+```{r}
+ggparcoord(data = wh, 
+           columns = c(7:12), 
+           groupColumn = 2,
+           scale = "uniminmax",
+           alphaLines = 0.2,
+           boxplot = TRUE, 
+           title = "Parallel Coordinates Plot of World Happines Variables")
+
+```
+
+::: callout-tip
+## Things to learn form code
+
+-   groupColumn = 2:
+
+    -   Specify a grouping variable (column 2: Region), to color different categories, also colour the parallel coordinates lines by region name.
+
+-   scale = "uniminmax"
+
+    -   Standardization method: scale the data to the \[0,1\] interval to make variables of different scales more comparable
+
+-   alphaLines = 0.2
+
+    -   Set line transparency (0.2) to reduce the impact of overlapping lines and make trends clearer.
+
+-   boxplot = TRUE
+
+    -   Add a boxplot at the bottom of the graph to show the distribution of each variable and help identify outliers and data ranges.
+:::
+
+## 3.3 Parallel coordinates with facet
+
+In the code chunk below, `facet_wrap()` of **ggplot2** is used to plot 10 small multiple parallel coordinates plots. Each plot represent one geographical region such as East Asia.
+
+```{r}
+ggparcoord(data = wh, 
+           columns = c(7:12), 
+           groupColumn = 2,
+           scale = "uniminmax",
+           alphaLines = 0.2,
+           boxplot = TRUE, 
+           title = "Multiple Parallel Coordinates Plots of World Happines Variables by Region") +
+  facet_wrap(~ Region)
+```
+
+One of the aesthetic defect of the current design is that some of the variable names overlap on x-axis.
+
+## 3.4 Adjusting x-axis text label : `theme()`
+
+To make the x-axis text label easy to read, let us rotate the labels by 30 degrees. We can rotate axis text labels using `theme()` function. Additionally, in order to avoid the labels overlap the plot, you can use `hjust` to adjust the label location.
+
+```{r}
+ggparcoord(data = wh, 
+           columns = c(7:12), 
+           groupColumn = 2,
+           scale = "uniminmax",
+           alphaLines = 0.2,
+           boxplot = TRUE, 
+           title = "Multiple Parallel Coordinates Plots of World Happines Variables by Region") +
+  facet_wrap(~ Region) + 
+  theme(axis.text.x = element_text(angle = 30,hjust=1))
+```
+
+-   To rotate x-axis text labels, we use `axis.text.x` as argument to `theme()` function. And we specify `element_text(angle = 30)` to rotate the x-axis text by an angle 30 degree.

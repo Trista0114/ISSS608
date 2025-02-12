@@ -33,6 +33,8 @@ website:
             href: hands-onEx/hands-onEx05/hands-onEx05.html
           - text:  "Heatmap for Visualising and Analysing Multivariate Data"
             href: hands-onEx/hands-onEx05-3/hands-onEx05-3.html
+          - text:  "Visual Multivariate Analysis with Parallel Coordinates Plot"
+            href: hands-onEx/hands-onEx05-4/hands-onEx05-4.html
             
       - section: "Not So Common Chart"
         contents:
@@ -68,6 +70,8 @@ website:
             href: hands-onEx/hands-onEx05-2/hands-onEx05-2.html
           - text:  "Heatmap for Visualising and Analysing Multivariate Data"
             href: hands-onEx/hands-onEx05-3/hands-onEx05-3.html
+          - text:  "Visual Multivariate Analysis with Parallel Coordinates Plot"
+            href: hands-onEx/hands-onEx05-4/hands-onEx05-4.html
             
       - text: "In-class Exercise"
         menu:
