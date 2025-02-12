@@ -10,14 +10,80 @@ execute:
   freeze: true
 ---
 
+1.  Overview\
+    1.1 Background\
+    1.2 Objective
+
+    Analyze the profitability of different ship types\
+    What is the most profitable ship type?\
+    Which ship type generates the highest revenue? Which costs the least?
+
+    \
+    Analyze the trend of different ship types\
+    What is the trend of the profit in different ship type\
+    \
+    Analyze what numerical variable influence the profit the most\
+    \
+    \
+    Exploratory Data Analysis (EDA): Identify trends and patterns in ship performance and operational efficiency.\
+    Clustering Analysis: Segment ships based on performance metrics and categorical attributes.\
+
+2.  Getting started
+
+Installing Libraries
+
 ```{r}
-pacman::p_load(haven,SmartEDA,tidyverse,tidymodels)
+pacman::p_load(haven,SmartEDA,tidyverse,tidymodels,ggdist, ggridges, ggthemes,colorspace)
+```
+
+Importing Data
+
+```{r}
+ship_original <- read_csv("data/Ship_Performance_Dataset.csv")
+```
+
+Prepare data\
+Select variable and filtering data
+
+```{r}
+ship = ship_original %>% filter(Ship_Type != "None")
 ```
 
 ```{r}
-exam_data <- read_csv("data/Ship_Performance_Dataset.csv")
+ship
+```
+
+checking missing value
+
+```{r}
+colSums(is.na(ship))
+
+```
+
+create profit variable
+
+```{r}
+ship <- ship %>%
+  mutate(profit = Revenue_per_Voyage_USD - Operational_Cost_USD)
 ```
 
 ```{r}
-exam_data
+head(ship)
+```
+
+3.**Exploratory Data Analysis- ship type**
+
+3.1 ship type\
+ship type & profit
+
+```{r}
+ggplot(ship, 
+       aes(x = Ship_Type, 
+           y = profit)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA) +
+  geom_boxplot(width = .20,
+               outlier.shape = NA)
 ```

@@ -11,6 +11,26 @@ execute:
 
 # 1. Overview
 
+------------------------------------------------------------------------
+
+Parallel coordinates plot is a data visualisation specially designed for visualising and analysing multivariate, numerical data. It is ideal for comparing multiple variables together and seeing the relationships between them. 
+
+It is more common in academic research and scientific analysis, and less commonly used in commercial or public data visualization. For example, it can be used to describe the characteristics of different clusters in Customer Segmentation,. Expert opinion: Stephen Few (2006) pointed out that parallel coordinate plots are mainly used for data analysis rather than conveying information to the public. It is suitable for interactive exploration of data rather than static display.
+
+::: callout-note
+## Things you will learn
+
+-   3.1 parallel coordinates : `ggparcoord()`
+
+    -   3.2 combine with boxplot
+
+    -   3.3 use with facet: `facet_wrap()`
+
+-   4 Interactive Parallel Coordinates :`parallelPlot()`
+
+    -   4.1-4.4 Changing the default and combine with histogram
+:::
+
 # 2. Getting Started
 
 ::: panel-tabset
@@ -124,3 +144,63 @@ ggparcoord(data = wh,
 ```
 
 -   To rotate x-axis text labels, we use `axis.text.x` as argument to `theme()` function. And we specify `element_text(angle = 30)` to rotate the x-axis text by an angle 30 degree.
+
+# 4. Plotting Interactive Parallel Coordinates Plot: parallelPlot methods
+
+[**parallelPlot**](https://cran.r-project.org/web/packages/parallelPlot/) is an R package specially designed to plot a parallel coordinates plot by using ‘htmlwidgets’ package and [d3.js](https://d3js.org/). In this section, you will learn how to use functions provided in parallelPlot package to build interactive parallel coordinates plot.
+
+## 4.1 The basic plot :`parallelPlot()`
+
+```{r}
+wh <- wh %>%
+  select("Happiness score", c(7:12))
+parallelPlot(wh,
+             width = 320,
+             height = 250)
+```
+
+You can try to hover on each line. However, notice that some of the axis label are too long. You will learn how to adjust it in the further step.
+
+## 4.2 Rotate axis label
+
+In the code chunk below, `rotateTitle` argument is used to avoid overlapping axis labels.
+
+```{r}
+parallelPlot(wh,
+             rotateTitle = TRUE)
+```
+
+We can click on a variable of interest, for example Happiness score, the monotonous blue colour (default) will change a blues with different intensity colour scheme will be used. Additionally, you also can change the order of the variables by moving them!
+
+##  4.3 Changing the colour scheme: `continousCS`
+
+We can change the default blue colour scheme by using `continousCS` argument as shown in the code chunl below. "YlOrRd" is the Color Mapping of Yellow → Orange → Red. This makes the color more red for higher values ​​and more yellow for lower values.
+
+```{r}
+parallelPlot(wh,
+             continuousCS = "YlOrRd",
+             rotateTitle = TRUE)
+```
+
+## 4.4 Parallel coordinates plot with histogram: `histoVisibility`
+
+`histoVisibility` argument is used to plot histogram along the axis of each variables.
+
+`rep(TRUE, ncol(wh))`: Produces a TRUE vector with length equal to ncol(wh), indicating that all variables display histograms. Histograms provide additional information, allowing us to simultaneously observe the data distribution of variables and the relationships between variables.
+
+```{r}
+histoVisibility <- rep(TRUE, ncol(wh))
+parallelPlot(wh,
+             rotateTitle = TRUE,
+             histoVisibility = histoVisibility)
+```
+
+# 5. References
+
+-   [Kam, T.S. (2025). Visual Statistical Analysis.](https://r4va.netlify.app/chap15)
+
+-   [*ggparcoord()*](http://ggobi.github.io/ggally/reference/ggparcoord.html) of [**GGally**](http://ggobi.github.io/ggally/index.html) package
+
+-   [**parcoords** user guide](https://cran.r-project.org/web/packages/parcoords/parcoords.pdf)
+
+-   [**parallelPlot**](https://cran.r-project.org/web/packages/parallelPlot/parallelPlot.pdf)
