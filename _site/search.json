@@ -1359,5 +1359,125 @@
     "title": "Take-home Exercise 1",
     "section": "",
     "text": "pacman::p_load(haven,SmartEDA,tidyverse,tidymodels)\n\n\nexam_data &lt;- read_csv(\"data/Ship_Performance_Dataset.csv\")\n\n\nexam_data\n\n# A tibble: 2,736 × 18\n   Date       Ship_Type      Route_Type   Engine_Type         Maintenance_Status\n   &lt;date&gt;     &lt;chr&gt;          &lt;chr&gt;        &lt;chr&gt;               &lt;chr&gt;             \n 1 2023-06-04 Container Ship None         Heavy Fuel Oil (HF… Critical          \n 2 2023-06-11 Fish Carrier   Short-haul   Steam Turbine       Good              \n 3 2023-06-18 Container Ship Long-haul    Diesel              Fair              \n 4 2023-06-25 Bulk Carrier   Transoceanic Steam Turbine       Fair              \n 5 2023-07-02 Fish Carrier   Transoceanic Diesel              Fair              \n 6 2023-07-09 Fish Carrier   Long-haul    Heavy Fuel Oil (HF… Fair              \n 7 2023-07-16 Fish Carrier   Transoceanic Heavy Fuel Oil (HF… Critical          \n 8 2023-07-23 Container Ship Short-haul   Diesel              Critical          \n 9 2023-07-30 None           Coastal      Heavy Fuel Oil (HF… Good              \n10 2023-08-06 Container Ship Long-haul    Diesel              Fair              \n# ℹ 2,726 more rows\n# ℹ 13 more variables: Speed_Over_Ground_knots &lt;dbl&gt;, Engine_Power_kW &lt;dbl&gt;,\n#   Distance_Traveled_nm &lt;dbl&gt;, Draft_meters &lt;dbl&gt;, Weather_Condition &lt;chr&gt;,\n#   Cargo_Weight_tons &lt;dbl&gt;, Operational_Cost_USD &lt;dbl&gt;,\n#   Revenue_per_Voyage_USD &lt;dbl&gt;, Turnaround_Time_hours &lt;dbl&gt;,\n#   Efficiency_nm_per_kWh &lt;dbl&gt;, Seasonal_Impact_Score &lt;dbl&gt;,\n#   Weekly_Voyage_Count &lt;dbl&gt;, Average_Load_Percentage &lt;dbl&gt;"
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx05-3/hands-onEx05-3.html",
+    "href": "hands-onEx/hands-onEx05-3/hands-onEx05-3.html",
+    "title": "Hands on Exercise 05-3: Heatmap for Visualising and Analysing Multivariate Data",
+    "section": "",
+    "text": "Heatmaps are good for showing variance across multiple variables, revealing any patterns, displaying whether any variables are similar to each other, and for detecting if any correlations exist in-between them.\n\n\n\n\n\n\nThings you will learn\n\n\n\n\nCreate heatmap by using heatmap()\n4 Create interative heatmap\n4.2 Know how to do data preparation for the heatmap\n4.4/4.5 Different approach of doing heatmap\n4.6 Seriation algorithm\n4.7/4.8 Changing the default of heatmap",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Multivariate Data",
+      "Heatmap for Visualising and Analysing Multivariate Data"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx05-3/hands-onEx05-3.html#heatmap-of-r-stats",
+    "href": "hands-onEx/hands-onEx05-3/hands-onEx05-3.html#heatmap-of-r-stats",
+    "title": "Hands on Exercise 05-3: Heatmap for Visualising and Analysing Multivariate Data",
+    "section": "3.1 heatmap() of R Stats",
+    "text": "3.1 heatmap() of R Stats\nIn this sub-section, we will plot a heatmap by using heatmap() of Base Stats.\nheatmap do a reordering using clusterisation: it calculates the distance between each pair of rows and columns and try to order them by similarity. Moreover, the corresponding dendrogram are provided beside the heatmap.\n\nwh_heatmap &lt;- heatmap(wh_matrix)\n\n\n\n\n\n\n\n\n\nColor represents numerical value :\nred → small value Dark red → smaller value\nThis type of visualization helps to observe patterns between variables.\nData scope issues (Normalization necessity)\nBecause the Happiness Score has a larger value, it causes smaller values ​​of the other variables to visually look almost the same. This makes it difficult for heat maps to discern details, so normalization is required.\n\nNow use the scale to normalize.\n\nwh_heatmap &lt;- heatmap(wh_matrix,\n                      scale=\"column\",\n                      cexRow = 0.6, \n                      cexCol = 0.8,\n                      margins = c(10, 4))\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThings to learn\n\n\n\n🔹 Data has been standardized (Scaling) → improves comparability between variables\n🔹 margins ensure that labels are fully displayed\n🔹use cexRow & cexCol adjust label font size\n\n\nYou can also add Rowv=NA and Colv=NA to hide the dendrograms.\n\nwh_heatmap &lt;- heatmap(wh_matrix,\n                      scale=\"column\",\n                      cexRow = 0.6, \n                      cexCol = 0.8,\n                      margins = c(10, 4),\n                      Rowv=NA, Colv=NA)",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Multivariate Data",
+      "Heatmap for Visualising and Analysing Multivariate Data"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx05-3/hands-onEx05-3.html#working-with-heatmaply",
+    "href": "hands-onEx/hands-onEx05-3/hands-onEx05-3.html#working-with-heatmaply",
+    "title": "Hands on Exercise 05-3: Heatmap for Visualising and Analysing Multivariate Data",
+    "section": "4.1 Working with heatmaply",
+    "text": "4.1 Working with heatmaply\n\nheatmaply(mtcars)\n\n\n\n\n\nYou can zoom in, out, and pan to explore your data\n\nheatmaply(wh_matrix[, -c(1, 2, 4, 5)]) # Remove columns 1, 2, 4, 5\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\n\nDifferent from heatmap(), for heatmaply() the default horizontal dendrogram is placed on the left hand side of the heatmap.\nThe text label of each raw, on the other hand, is placed on the right hand side of the heat map.\nWhen the x-axis marker labels are too long, they will be rotated by 135 degree from the north.",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Multivariate Data",
+      "Heatmap for Visualising and Analysing Multivariate Data"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx05-3/hands-onEx05-3.html#types-of-data-trasformation-method",
+    "href": "hands-onEx/hands-onEx05-3/hands-onEx05-3.html#types-of-data-trasformation-method",
+    "title": "Hands on Exercise 05-3: Heatmap for Visualising and Analysing Multivariate Data",
+    "section": "4.2 3 types of Data trasformation method",
+    "text": "4.2 3 types of Data trasformation method\nWhen analysing multivariate data set, it is very common that the variables in the data sets includes values that reflect different types of measurement. In general, these variables’ values have their own range. In order to ensure that all the variables have comparable values, data transformation are commonly used before clustering.\nThree main data transformation methods are supported by heatmaply(), namely: scale, normalise and percentilse.\n\nScaling methodNormalising methodPercentising method\n\n\n\nWhen all variables are came from or assumed to come from some normal distribution, then scaling (i.e.: subtract the mean and divide by the standard deviation) would bring them all close to the standard normal distribution.\nIn such a case, each value would reflect the distance from the mean in units of standard deviation.\nThe scale argument in heatmaply() supports column and row scaling.\n\n\nheatmaply(wh_matrix[, -c(1, 2, 4, 5)],\n          scale = \"column\")\n\n\n\n\n\n\n\n\nWhen variables in the data comes from possibly different (and non-normal) distributions, the normalize function can be used to bring data to the 0 to 1 scale by subtracting the minimum and dividing by the maximum of all observations.\nThis preserves the shape of each variable’s distribution while making them easily comparable on the same “scale”.\n\n\nheatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]))\n\n\n\n\n\n\n\n\nThis is similar to Ranking\nThis method is similar to variable sorting, but instead of simply retaining the ranking value. Instead, scaling (normalization) is performed by the maximum ranking value, converting all data to a scale between 0 and 1.\nConvert data using ECDF (Empirical CDF)\nECDF calculates the cumulative percentage of each variable value in the data, that is, the relative position of the data point in the overall data..\nBenefits of percentize() function\nTo make the data more intuitive: the number for each value represents how many observations are less than or equal to that value, similar to a cumulative percentage.\n\nApplies to variables at different scales: For example, let’s say we have Income and Age, which have different numerical ranges. Comparing their values ​​directly makes no sense, but through percentile conversion, both become normalized values ​​between 0 and 1, allowing for a fairer comparison.\n\n\n\nheatmaply(percentize(wh_matrix[, -c(1, 2, 4, 5)]))",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Multivariate Data",
+      "Heatmap for Visualising and Analysing Multivariate Data"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx05-3/hands-onEx05-3.html#clustering-algorithm",
+    "href": "hands-onEx/hands-onEx05-3/hands-onEx05-3.html#clustering-algorithm",
+    "title": "Hands on Exercise 05-3: Heatmap for Visualising and Analysing Multivariate Data",
+    "section": "4.3 Clustering algorithm",
+    "text": "4.3 Clustering algorithm\nheatmaply supports a variety of hierarchical clustering algorithm. The main arguments provided are:\n1. distfun (Distance Calculation Function)\nPurpose: Determines how distances (dissimilarities) between rows and columns are computed for clustering.\nDefault: \"dist\" (uses the dist() function for distance calculation).\nOptions:\n\n\"pearson\", \"spearman\", \"kendall\" → Correlation-based distances\n\"dist\" → Uses dist() for standard distance calculation (default).\nUse cases:\n\nNumerical variables → \"euclidean\" (Euclidean distance) is commonly used.\nCorrelation analysis → \"pearson\" is useful for clustering based on variable correlations.\n\n\n\n2. hclustfun (Hierarchical Clustering Function)\nPurpose: Defines the function used to perform hierarchical clustering, applied when Rowv or Colv are not dendrograms.\nDefault: \"hclust\" (uses hclust() for hierarchical clustering).\nUse cases:\n\nIf you want to use a different hierarchical clustering algorithm, you can replace hclust() with functions like agnes() or diana().\n\n\n3. dist_method (Distance Calculation Method)\nPurpose: When distfun is set to \"dist\", this parameter defines the distance metric to be used.\nDefault: NULL (defaults to \"euclidean\").\nOptions:\n\n\"euclidean\" → Euclidean distance (default).\n\"maximum\" → Maximum distance.\n\"manhattan\" → Manhattan distance (L1 norm).\n\"canberra\" → Canberra distance (sensitive to small values).\n\"binary\" → Binary distance.\n\"minkowski\" → Minkowski distance (generalized p-norm).\n\nUse cases:\n\nIf variables have different scales, \"manhattan\" or \"canberra\" may be better suited.\nFor binary (0/1) variables, \"binary\" is recommended.\n\n\n4. hclust_method (Clustering Method)\nPurpose: Defines the method used for hierarchical clustering in hclust().\nDefault: NULL (defaults to \"complete\" linkage).\nOptions:\n\n\"ward.D\", \"ward.D2\" → Ward’s minimum variance method.\n\"single\" → Single linkage (nearest neighbor).\n\"complete\" → Complete linkage (farthest neighbor, default).\n\"average\" → UPGMA (Unweighted Pair Group Method with Arithmetic Mean).\n\"mcquitty\" → WPGMA (Weighted Pair Group Method with Arithmetic Mean).\n\"median\" → WPGMC (Weighted Pair Group Method with Centroid).\n\"centroid\" → UPGMC (Unweighted Pair Group Method with Centroid).\n\nUse cases:\n\nward.D2 is commonly used as it minimizes within-cluster variance, producing compact clusters.\ncomplete (farthest neighbor) works well for datasets with varying distances between points.\nsingle (nearest neighbor) can be affected by outliers and may produce chain-like clusters.\n\nIn general, a clustering model can be calibrated either manually or statistically.",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Multivariate Data",
+      "Heatmap for Visualising and Analysing Multivariate Data"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx05-3/hands-onEx05-3.html#manual-approach",
+    "href": "hands-onEx/hands-onEx05-3/hands-onEx05-3.html#manual-approach",
+    "title": "Hands on Exercise 05-3: Heatmap for Visualising and Analysing Multivariate Data",
+    "section": "4.4 Manual approach",
+    "text": "4.4 Manual approach\nIn the code chunk below, the heatmap is plotted by using hierachical clustering algorithm with “Euclidean distance” and “ward.D” method.\n\nheatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),\n          dist_method = \"euclidean\",\n          hclust_method = \"ward.D\")",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Multivariate Data",
+      "Heatmap for Visualising and Analysing Multivariate Data"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx05-3/hands-onEx05-3.html#statistical-approach",
+    "href": "hands-onEx/hands-onEx05-3/hands-onEx05-3.html#statistical-approach",
+    "title": "Hands on Exercise 05-3: Heatmap for Visualising and Analysing Multivariate Data",
+    "section": "4.5 Statistical approach",
+    "text": "4.5 Statistical approach\nIn order to determine the best clustering method and number of cluster the dend_expend() and find_k() functions of dendextend package will be used.\nFirst, the dend_expend() will be used to determine the recommended clustering method to be used.\n\nwh_d &lt;- dist(normalize(wh_matrix[, -c(1, 2, 4, 5)]), method = \"euclidean\")\ndend_expend(wh_d)[[3]]\n\n  dist_methods hclust_methods     optim\n1      unknown         ward.D 0.6137851\n2      unknown        ward.D2 0.6289186\n3      unknown         single 0.4774362\n4      unknown       complete 0.6434009\n5      unknown        average 0.6701688\n6      unknown       mcquitty 0.5020102\n7      unknown         median 0.5901833\n8      unknown       centroid 0.6338734\n\n\nThe output table shows that “average” method should be used because it gave the high optimum value.\nNext, find_k() is used to determine the optimal number of cluster.\n\nwh_clust &lt;- hclust(wh_d, method = \"average\")\nnum_k &lt;- find_k(wh_clust)\nplot(num_k)\n\n\n\n\n\n\n\n\nFigure above shows that k=3 would be good. With reference to the statistical analysis results, we can prepare the code chunk as shown below.\n\nheatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),\n          dist_method = \"euclidean\",\n          hclust_method = \"average\",\n          k_row = 3)",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Multivariate Data",
+      "Heatmap for Visualising and Analysing Multivariate Data"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx05-3/hands-onEx05-3.html#seriation",
+    "href": "hands-onEx/hands-onEx05-3/hands-onEx05-3.html#seriation",
+    "title": "Hands on Exercise 05-3: Heatmap for Visualising and Analysing Multivariate Data",
+    "section": "4.6 Seriation",
+    "text": "4.6 Seriation\n\nHierarchical Clustering itself does not determine the order of rows and columns\n\nFor example, for three items A, B, C, if the clustering result is ((A+B)+C), we know that C will not be between A and B, but the order of A and B can still change (ABC or BAC).\nThis affects the readability of the heatmap, as different arrangements can make the visualization clearer or more confusing.\n\nheatmaply uses the seriation suite to optimize sorting\nIt optimizes the order of rows and columns to minimize the sum of distances between adjacent labels, similar to the “restricted traveling salesman problem” (TSP).\nOptimal Leaf Ordering (OLO) solves this problem\n\nOLO first performs clustering and then flips the branches of the tree structure to ensure that similar items are arranged together and the distance between adjacent items is minimized.\nThis makes the visualization of the heat map more intuitive and makes patterns easier to identify.\n\n\n\nheatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),\n          seriate = \"OLO\")\n\n\n\n\n\nThe default options is “OLO” (Optimal leaf ordering) which optimizes the above criterion (in O(n^4)).\n\nGWMean\n\n\nAnother option is “GW” (Gruvaeus and Wainer) which aims for the same goal but uses a potentially faster heuristic. The result is not that complete as the OLO, but it is faster and suitable for large data volumes.\n\nheatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),\n          seriate = \"GW\")\n\n\n\n\n\n\n\nThe option “mean” gives the output we would get by default from heatmap functions in other packages such as gplots::heatmap.2.\n\nheatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),\n          seriate = \"mean\")\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMethod\nMain Features\nApplicable Scenarios\n\n\n\n\nOptimal Leaf Ordering (OLO)\nMinimizes the total dissimilarity between adjacent leaf nodes in hierarchical clustering\nSuitable for ordering hierarchical clustering results\n\n\nGruvaeus and Wainer (GW)\nA fast approximation of OLO\nSuitable for large datasets\n\n\nEigenvector-based Seriation\nOrders data based on the leading eigenvector\nLinear relationship data\n\n\nTSP Approach\nFinds the shortest Hamiltonian path\nWhen a globally optimal ordering is needed",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Multivariate Data",
+      "Heatmap for Visualising and Analysing Multivariate Data"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx05-3/hands-onEx05-3.html#working-with-colour-palettes",
+    "href": "hands-onEx/hands-onEx05-3/hands-onEx05-3.html#working-with-colour-palettes",
+    "title": "Hands on Exercise 05-3: Heatmap for Visualising and Analysing Multivariate Data",
+    "section": "4.7 Working with colour palettes",
+    "text": "4.7 Working with colour palettes\nAdditionally, you can use other colour palettes in order to improve the aestheticness and visual friendliness of the heatmap. For example, use the color blue in the code.\n\nheatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),\n          seriate = \"none\",\n          colors = Blues)",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Multivariate Data",
+      "Heatmap for Visualising and Analysing Multivariate Data"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx05-3/hands-onEx05-3.html#the-finishing-touch",
+    "href": "hands-onEx/hands-onEx05-3/hands-onEx05-3.html#the-finishing-touch",
+    "title": "Hands on Exercise 05-3: Heatmap for Visualising and Analysing Multivariate Data",
+    "section": "4.8 The finishing touch",
+    "text": "4.8 The finishing touch\nBeside providing a wide collection of arguments for meeting the statistical analysis needs, heatmaply also provides many plotting features to ensure cartographic quality heatmap can be produced.\nIn the code chunk below the following arguments are used:\n\nk_row is used to produce 5 groups.\nmargins is used to change the top margin to 60 and row margin to 200.\nfontsizw_row and fontsize_col are used to change the font size for row and column labels to 4.\nmain is used to write the main title of the plot.\nxlab and ylab are used to write the x-axis and y-axis labels respectively.\n\n\nheatmaply(normalize(wh_matrix[, -c(1, 2, 4, 5)]),\n          Colv=NA,\n          seriate = \"none\",\n          colors = Blues,\n          k_row = 5,\n          margins = c(NA,200,60,NA),\n          fontsize_row = 4,\n          fontsize_col = 5,\n          main=\"World Happiness Score and Variables by Country, 2018 \\nDataTransformation using Normalise Method\",\n          xlab = \"World Happiness Indicators\",\n          ylab = \"World Countries\"\n          )",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Multivariate Data",
+      "Heatmap for Visualising and Analysing Multivariate Data"
+    ]
   }
 ]

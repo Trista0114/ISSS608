@@ -1,5 +1,5 @@
 ---
-title: "Hands on Exercise 05-2:Visual Correlation Analysis"
+title: "Hands on Exercise 05-2: Visual Correlation Analysis"
 author: "Chen.PengWei"
 date-modified: "last-modified"
 execute:

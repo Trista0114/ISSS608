@@ -31,6 +31,8 @@ website:
         contents:
           - text: "Creating Ternary Plot with R"
             href: hands-onEx/hands-onEx05/hands-onEx05.html
+          - text:  "Heatmap for Visualising and Analysing Multivariate Data"
+            href: hands-onEx/hands-onEx05-3/hands-onEx05-3.html
             
       - section: "Not So Common Chart"
         contents:
@@ -64,12 +66,14 @@ website:
             href: hands-onEx/hands-onEx05/hands-onEx05.html
           - text:  "Visual Correlation Analysis"
             href: hands-onEx/hands-onEx05-2/hands-onEx05-2.html
+          - text:  "Heatmap for Visualising and Analysing Multivariate Data"
+            href: hands-onEx/hands-onEx05-3/hands-onEx05-3.html
             
       - text: "In-class Exercise"
         menu:
           - text: "In-class Exercise 1"
             href: https://public.tableau.com/views/In-class_Ex01_17371864504700/1?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link
-          - text: "In-class Exercise 1"
+          - text: "In-class Exercise 4"
             href: In-class_Ex/In-class_Ex04/In-class_Ex04.html
       - text: "Take-home Exercise"
         menu:
