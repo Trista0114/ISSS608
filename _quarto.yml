@@ -35,6 +35,8 @@ website:
             href: hands-onEx/hands-onEx05-3/hands-onEx05-3.html
           - text:  "Visual Multivariate Analysis with Parallel Coordinates Plot"
             href: hands-onEx/hands-onEx05-4/hands-onEx05-4.html
+          - text:  "Treemap Visualisation with R"
+            href: hands-onEx/hands-onEx05-5/hands-onEx05-5.html
             
       - section: "Not So Common Chart"
         contents:
@@ -72,6 +74,8 @@ website:
             href: hands-onEx/hands-onEx05-3/hands-onEx05-3.html
           - text:  "Visual Multivariate Analysis with Parallel Coordinates Plot"
             href: hands-onEx/hands-onEx05-4/hands-onEx05-4.html
+          - text:  "Treemap Visualisation with R"
+            href: hands-onEx/hands-onEx05-5/hands-onEx05-5.html
             
       - text: "In-class Exercise"
         menu:
