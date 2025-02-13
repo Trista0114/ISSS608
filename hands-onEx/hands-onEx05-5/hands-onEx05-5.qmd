@@ -365,7 +365,7 @@ ggplot(data=realis2018_selected,
   geom_treemap_subgroup_border(colour = "gray20")
 ```
 
-# 5. Designing Interactive Treemap :d3treeR
+# 5. Designing Interactive Treemap :`d3treeR`
 
 ## 5.1 Installing *d3treeR* package
 
