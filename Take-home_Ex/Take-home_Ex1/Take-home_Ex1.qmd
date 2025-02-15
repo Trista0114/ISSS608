@@ -1,5 +1,5 @@
 ---
-title: "Take-home Exercise 1"
+title: "Take-home Exercise 1: Creating data visualisation: Ship Performance in the Gulf of Guinea"
 author: "Chen.PengWei"
 date: "February 1, 2025"
 date-modified: "last-modified"
@@ -10,57 +10,124 @@ execute:
   freeze: true
 ---
 
-1.  Overview\
-    1.1 Background\
-    1.2 Objective
+# 1. Overview
 
-    Analyze the profitability of different ship types\
-    What is the most profitable ship type?\
-    Which ship type generates the highest revenue? Which costs the least?
+## 1.1 Background
 
-    \
-    Analyze the trend of different ship types\
-    What is the trend of the profit in different ship type\
-    \
-    Analyze what numerical variable influence the profit the most\
-    \
-    \
-    Exploratory Data Analysis (EDA): Identify trends and patterns in ship performance and operational efficiency.\
-    Clustering Analysis: Segment ships based on performance metrics and categorical attributes.\
+Shipping plays an important role in global trade, facilitating the movement of goods across countries. It is crucial to understanding the profitability of different ship types and the relationship between profit and others variables. Various factors, such as operational costs, voyage revenue and fuel efficiency, may influence a ship’s profitability.
 
-2.  Getting started
+This study is a **practice of data visualization** based on the **business perspective**. Instead of building the model, this study will focus more on how to interpret insights and turn it into the visualization chart. The dataset used in this study is **synthetically generated** and is **not sourced from actual shipping companies or vessels**. The goal in this report is to find how different ship types perform in terms of profit, revenue and cost efficiency by using Exploratory Data Analysis (EDA).
 
-Installing Libraries
+The dataset be used is from Kaggle, ["Ship Performance Clustering Dataset"](https://www.kaggle.com/datasets/jeleeladekunlefijabi/ship-performance-clustering-dataset), provides various performance metrics, including operational costs, voyage revenue, speed, engine power, and fuel efficiency, enabling a comprehensive practice.
+
+## 1.2 Objective
+
+This take-home exercise is aim to do the following analysis by using **Exploratory Data Analysis (EDA) methods** and **ggplot2 functions** :
+
+1️⃣ Profitability Analysis of Different Ship Types
+
+-   Identify which ship type is the most profitable.
+
+-   Determine which ship type generates the highest revenue.
+
+-   Analyze which ship type incurs the lowest operational costs.
+
+2️⃣ Trend Analysis & Profitability Trends
+
+-   Examine ship type trends across different ship types to identify potential performance patterns.
+
+3️⃣ Key Influences on Profitability
+
+-   Use Exploratory Data Analysis (EDA) to uncover relationships between profit and operational metrics.
+
+# 2. Getting Started
+
+::: panel-tabset
+## Installing Libraries
 
 ```{r}
-pacman::p_load(haven,SmartEDA,tidyverse,tidymodels,ggdist, ggridges, ggthemes,colorspace)
+pacman::p_load(ggplot2,dplyr,DT,crosstalk,patchwork,plotlyhaven,SmartEDA,tidyverse,tidymodels,ggdist,ggridges, ggthemes,colorspace,scales,ggiraph,ggExtra,ggstatsplot)
 ```
 
-Importing Data
+## Importing Data
+
+The Ship Performance Dataset is a synthetic yet realistic collection of data designed to represent key operational metrics and attributes of various ship types in the Gulf of Guinea from Kaggle, ["Ship Performance Clustering Dataset"](https://www.kaggle.com/datasets/jeleeladekunlefijabi/ship-performance-clustering-dataset).
 
 ```{r}
 ship_original <- read_csv("data/Ship_Performance_Dataset.csv")
 ```
 
-Prepare data\
-Select variable and filtering data
+## Understanding Data
+
+The data set consists of 18 variables and 2736 observations. The variables including 12 numerical data and 6 Categorical data. We will do data filtering in the further step and most of the EDA will be associated with profit and ship type, which means not all the variables will be used to analyse in this case.
+
+**Numerical Variable**
+
+-   Speed_Over_Ground_knots: Average speed of the ship over water (in knots).
+
+-   Engine_Power_kW: Engine power output (in kilowatts).
+
+-   Distance_Traveled_nm: Total distance traveled by the ship (in nautical miles).
+
+-   Operational_Cost_USD: Total operational cost per voyage (in USD).
+
+-   Revenue_per_Voyage_USD: Revenue generated per voyage (in USD).
+
+-   Efficiency_nm_per_kWh: Energy efficiency calculated in nautical miles per kilowatt-hour.
+
+-   Draft_meters
+
+-   Cargo_Weight_tons
+
+-   Turnaround_Time_hours
+
+-   Seasonal_Impact_Score
+
+-   Weekly_Voyage_Count
+
+-   Average_Load_Percentage
+
+**Categorical Variable**
+
+-   Ship_Type: Type of ship (e.g., Tanker, Container Ship, Fish Carrier, Bulk Carrier).
+
+-   Route_Type: Shipping route type (e.g., Short-haul, Long-haul, Transoceanic).
+
+-   Engine_Type: Type of engine (e.g., Diesel, Heavy Fuel Oil).
+
+-   Maintenance_Status: Maintenance condition of the ship (e.g., Fair, Critical, Good).
+
+-   Weather_Condition: Prevailing weather conditions during voyages (e.g., Calm, Moderate, Rough).
+
+-   Date: From June 2023 to June 2024
+
+```{r}
+ship_original
+```
+:::
+
+## 2.1 Prepare data
+
+::: panel-tabset
+## Filtering Data
+
+Before diving into the profitability analysis of different ship types, we will first filter out the ship type that is "None" which has no meaning and do not contribute to the analysis. There are the total of 136 rows with "None" as the ship type, accounting for around 5% in this dataset.
 
 ```{r}
 ship = ship_original %>% filter(Ship_Type != "None")
 ```
 
-```{r}
-ship
-```
+## Checking Missing Value
 
-checking missing value
+As the result from the code, there is no missing value in this dataset.
 
 ```{r}
 colSums(is.na(ship))
-
 ```
 
-create profit variable
+## Creating variable : profit
+
+By analysis the profitability, we need to caculate the variable "profit" by using Revenue_per_Voyage_USD - Operational_Cost_USD. After adding this variable, the updated dataset contains **2,600 rows** and **19 variables**, including the newly created **"profit"** column.
 
 ```{r}
 ship <- ship %>%
@@ -68,22 +135,273 @@ ship <- ship %>%
 ```
 
 ```{r}
-head(ship)
+ship
 ```
+:::
 
 3.**Exploratory Data Analysis- ship type**
 
 3.1 ship type\
-ship type & profit
+ship type & profit\
+some of the profit is negative
 
 ```{r}
-ggplot(ship, 
-       aes(x = Ship_Type, 
-           y = profit)) +
-  stat_halfeye(adjust = 0.5,
-               justification = -0.2,
-               .width = 0,
-               point_colour = NA) +
-  geom_boxplot(width = .20,
-               outlier.shape = NA)
+ggplot(ship, aes(x = Ship_Type, y = profit)) +
+  stat_halfeye(adjust = 0.5, 
+               justification = -0.1, 
+               .width = 0, 
+               point_colour = NA, 
+               fill = "gray", 
+               alpha = 0.5) +  # 設定透明度
+  geom_boxplot(width = 0.20, 
+               fill = "white", 
+               color = "black") +  
+  stat_summary(fun = mean,  
+               geom = "point", 
+               size = 1, 
+               color = "red",
+               fill = "red") +
+  labs(title = "Profit Distribution by Ship Type",
+       x = "Ship Type", y = "Profit (USD)") +
+  theme_minimal() + theme(plot.title = element_text(hjust = 0.5))
+
+```
+
+ship type & avg profit
+
+```{r}
+ship_avg_profit <- as.data.frame(ship) %>%
+  group_by(Ship_Type) %>%
+  summarise(Average_Profit = mean(profit, na.rm = TRUE))
+
+y_min <- floor(min(ship_avg_profit$Average_Profit) / 1000) * 1000 
+y_max <- ceiling(max(ship_avg_profit$Average_Profit) / 1000) * 1000  
+y_breaks <- seq(y_min, y_max, by = 5000)  
+y_lower_limit <- y_min - 5000  
+
+
+tooltip <- function(y, accuracy = 1) {
+  profit <- scales::number(y, accuracy = accuracy, big.mark = ",")
+  paste("Average Profit: ", profit, "USD")
+}
+
+gg_point <- ggplot(data = ship_avg_profit, 
+                   aes(x = Ship_Type, y = Average_Profit)) +
+  geom_col_interactive(aes(tooltip = tooltip(Average_Profit)),  
+                       fill = "lightblue") + 
+  scale_y_continuous(breaks = y_breaks, labels = scales::comma) + 
+
+  coord_cartesian(ylim = c(y_lower_limit, y_max)) + 
+  labs(title = "Average Profit by Ship Type", 
+       x = "Ship Type", y = "Average Profit (USD)") +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 10, angle = 0, hjust = 1),  
+    axis.text.x = element_text(size = 12), 
+    plot.title = element_text(hjust = 0.5, size = 14, face = "bold") 
+  )
+
+
+girafe(ggobj = gg_point, width_svg = 8, height_svg = 8 * 0.618)
+
+```
+
+```{r}
+ship_avg_data <- (ship) %>%
+  group_by(Ship_Type) %>%
+  summarise(
+    Avg_Revenue = mean(Revenue_per_Voyage_USD, na.rm = TRUE),
+    Avg_Cost = mean(Operational_Cost_USD, na.rm = TRUE)
+  )
+
+y_min_cost <- floor(min(ship_avg_data$Avg_Cost) / 1000) * 1000
+y_max_cost <- ceiling(max(ship_avg_data$Avg_Cost) / 1000) * 1000
+y_breaks_cost <- seq(y_min_cost, y_max_cost, by = 2000)
+
+y_min_revenue <- floor(min(ship_avg_data$Avg_Revenue) / 1000) * 1000
+y_max_revenue <- ceiling(max(ship_avg_data$Avg_Revenue) / 1000) * 1000
+y_breaks_revenue <- seq(y_min_revenue, y_max_revenue, by = 10000)
+
+
+p1 <- ggplot((ship_avg_data), 
+             aes(x = Ship_Type, y = Avg_Cost)) +
+  geom_col_interactive(
+    aes(tooltip = paste0( "Avg Revenue: ", scales::comma(Avg_Revenue), " USD",
+                         "\nAvg Cost: ", scales::comma(Avg_Cost), " USD"),
+        data_id = Ship_Type),
+    fill = "salmon"
+  ) +
+  scale_y_continuous(breaks = y_breaks_cost, labels = scales::comma) +  
+  coord_cartesian(ylim = c(y_min_cost - 500, y_max_cost)) +  
+  labs(title = "Average Operational Cost", x = "Ship Type", y = "Avg Cost (USD)") +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 10, angle = 0, hjust = 1),
+    axis.text.x = element_text(size = 5, angle = 0),
+    plot.title = element_text(hjust = 0.5, size = 10, face = "bold"),
+    axis.title.x = element_text(size = 10),  
+    axis.title.y = element_text(size = 10)
+  )
+
+p2 <- ggplot((ship_avg_data), 
+             aes(x = Ship_Type, y = Avg_Revenue)) +
+  geom_col_interactive(
+    aes(tooltip = paste0("Avg Revenue: ", scales::comma(Avg_Revenue), " USD",
+                         "\nAvg Cost: ", scales::comma(Avg_Cost), " USD"),
+        data_id = Ship_Type),
+    fill = "lightblue"
+  ) +
+  scale_y_continuous(breaks = y_breaks_revenue, labels = scales::comma) +  
+  coord_cartesian(ylim = c(y_min_revenue - 5000, y_max_revenue)) +  
+  labs(title = "Average Revenue per Voyage", x = "Ship Type", y = "Avg Revenue (USD)") +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 10, angle = 0, hjust = 1),
+    axis.text.x = element_text(size = 5, angle = 0),
+    plot.title = element_text(hjust = 0.5, size = 10, face = "bold"),
+    axis.title.x = element_text(size = 10), 
+    axis.title.y = element_text(size = 10)
+  )
+girafe(
+  code = print(p1 + p2), 
+  width_svg = 6,
+  height_svg = 3,
+  options = list(
+    opts_hover(css = "fill: salmon,lightblue"),
+    opts_hover_inv(css = "opacity: 0.3"),
+    opts_selection(type = "single") 
+  )
+)
+ 
+```
+
+negative profit
+
+```{r}
+p <- ggplot(data = negative_profit_counts, 
+            aes(x = Ship_Type, y = Negative_Profit_Count)) +
+  geom_col_interactive(
+    aes(tooltip = paste0("Number of Negative Profit Voyages: ", scales::comma(Negative_Profit_Count)),
+        data_id = Ship_Type),  
+    fill = "salmon"
+  ) +
+  scale_y_continuous(labels = scales::comma) +  
+  labs(
+    title = "Number of Negative Profit Voyages by Ship Type",
+    x = "Ship Type",
+    y = "Number of Voyages with Negative Profit"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
+    axis.text.x = element_text(size = 12, vjust = 1, hjust = 0.5),  
+    axis.text.y = element_text(size = 10),
+    axis.title.x = element_text(size = 14),  
+    axis.title.y = element_text(size = 14),
+    legend.position = "none"
+  )
+
+
+girafe(
+  ggobj = p, 
+  width_svg = 8, 
+  height_svg = 8 * 0.618,
+  options = list(
+    opts_hover(css = "fill: salmon;"),    
+    opts_hover_inv(css = "opacity: 0.3;")  
+  )
+)
+
+```
+
+time trend
+
+```{r}
+
+ship_count <- ship %>%
+  group_by(Date, Ship_Type) %>%
+  summarise(Count = n(), .groups = "drop")
+
+# 繪製折線圖
+p <- ggplot(ship_count, aes(x = Date, y = Count, color = Ship_Type)) +
+  geom_line(size = 1) +
+  scale_x_date(date_labels = "%Y-%m", date_breaks = "2 months") +  
+  labs(
+    title = "Count of Ship by Date",
+    x = "Date",
+    y = "Count of Ship"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
+    axis.text.y = element_text(size = 10),
+    legend.title = element_text(size = 12),
+    legend.text = element_text(size = 10)
+  )
+
+# 使用 ggMarginal() 添加邊際直方圖 (以 count 為主)
+ggMarginal(p, type = "histogram", margins = "y", fill = "gray", bins = 20)
+```
+
+```{r}
+ship_bin <- ship %>%
+  mutate(profit_bins = cut(profit,
+                           breaks = c(min(profit, na.rm = TRUE), 0, 60, 75, 85, 100, max(profit, na.rm = TRUE)),
+                           include.lowest = TRUE,  # ✅ 確保最低值包含在內
+                           labels = c("Negative", "0-60", "60-75", "75-85", "85-100", "Above 100")))  # ✅ 加上適當的標籤
+
+# ✅ 避免 NA 值影響繪圖
+ship_bin <- ship_bin %>% filter(!is.na(profit_bins))
+
+# ✅ 繪製統計長條圖
+ggbarstats(
+  data = ship_bin,
+  x = profit_bins,
+  y = Ship_Type,
+  title = "Distribution of Profit Bins by Ship Type"
+)
+```
+
+There is no relationship between revenue and cost.
+
+```{r}
+ggscatterstats(
+  data = ship,
+  x = Operational_Cost_USD,
+  y = Revenue_per_Voyage_USD,
+  marginal = FALSE,
+  )
+ 
+```
+
+There is also no realtionship between Efficiency_nm_per_kWh and profit.
+
+```{r}
+ggscatterstats(
+  data = ship,
+  x = Efficiency_nm_per_kWh,
+  y = profit,
+  marginal = FALSE,
+  )
+```
+
+The relationship between each variable.
+
+```{r}
+ggstatsplot::ggcorrmat(
+  data = ship,
+  cor.vars = 1:18,
+  ggcorrplot.args = list(
+    outline.color = "black", 
+    hc.order = TRUE, 
+    tl.cex = 8,       # ✅ 縮小標籤字體
+    tl.srt = 45,      # ✅ 旋轉標籤以避免重疊
+    insig = "pch",    # ✅ 保留所有數值，但用透明度區分不顯著
+
+    lab_size = 3      # ✅ 控制數值大小，避免重疊
+  ),
+  title = "Correlogram for Ship Dataset",
+  subtitle = "All correlation coefficients are shown"
+)
 ```
