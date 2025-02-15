@@ -83,6 +83,8 @@ website:
             href: https://public.tableau.com/views/In-class_Ex01_17371864504700/1?:language=en-US&:sid=&:display_count=n&:origin=viz_share_link
           - text: "In-class Exercise 4"
             href: In-class_Ex/In-class_Ex04/In-class_Ex04.html
+          - text: "In-class Exercise 5"
+            href: In-class_Ex/In-class_Ex05/In-class_Ex05.html
       - text: "Take-home Exercise"
         menu:
           - text: "Take-home Exercise 1"
