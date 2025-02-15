@@ -16,13 +16,13 @@ execute:
 
 Shipping plays an important role in global trade, facilitating the movement of goods across countries. It is crucial to understanding the profitability of different ship types and the relationship between profit and others variables. Various factors, such as operational costs, voyage revenue and fuel efficiency, may influence a ship’s profitability.
 
-This study is a **practice of data visualization** based on the **business perspective**. Instead of building the model, this study will focus more on how to interpret insights and turn it into the visualization chart. The dataset used in this study is **synthetically generated** and is **not sourced from actual shipping companies or vessels**. The goal in this report is to find how different ship types perform in terms of profit, revenue and cost efficiency by using Exploratory Data Analysis (EDA).
+This study is a practice of data visualization based on the business perspective. Instead of building the model, this study will focus more on how to interpret insights and turn it into the visualization chart. The dataset used in this study is synthetically generated and is not sourced from actual shipping companies or vessels. The goal in this report is to find how different ship types perform in terms of profit, revenue and cost efficiency by using Exploratory Data Analysis (EDA).
 
 The dataset be used is from Kaggle, ["Ship Performance Clustering Dataset"](https://www.kaggle.com/datasets/jeleeladekunlefijabi/ship-performance-clustering-dataset), provides various performance metrics, including operational costs, voyage revenue, speed, engine power, and fuel efficiency, enabling a comprehensive practice.
 
 ## 1.2 Objective
 
-The entire report is based on a business perspective, which means that all of the charts will focus on profitability. This take-home exercise is aim to do the following analysis by using **Exploratory Data Analysis (EDA) methods** and **ggplot2 functions** :
+The entire report is based on a business perspective, which means that all of the charts will focus on profitability. This take-home exercise is aim to do the following analysis by using Exploratory Data Analysis (EDA) methods and ggplot2 functions :
 
 1️⃣ Profitability Analysis of Different Ship Types
 
@@ -61,7 +61,7 @@ ship_original <- read_csv("data/Ship_Performance_Dataset.csv")
 
 The data set consists of 18 variables and 2736 observations. The variables including 12 numerical data and 6 Categorical data. We will do data filtering in the further step and most of the EDA will be associated with profit and ship type, which means not all the variables will be used to analyse in this case.
 
-**Numerical Variable**
+Numerical Variable
 
 -   Speed_Over_Ground_knots: Average speed of the ship over water (in knots).
 
@@ -87,7 +87,7 @@ The data set consists of 18 variables and 2736 observations. The variables inclu
 
 -   Average_Load_Percentage
 
-**Categorical Variable**
+Categorical Variable
 
 -   Ship_Type: Type of ship (e.g., Tanker, Container Ship, Fish Carrier, Bulk Carrier).
 
@@ -127,7 +127,7 @@ colSums(is.na(ship))
 
 ## Creating variable : profit
 
-By analysis the profitability, we need to caculate the variable "profit" by using Revenue_per_Voyage_USD - Operational_Cost_USD. After adding this variable, the updated dataset contains **2,600 rows** and **19 variables**, including the newly created **"profit"** column.
+By analysis the profitability, we need to caculate the variable "profit" by using Revenue_per_Voyage_USD - Operational_Cost_USD. After adding this variable, the updated dataset contains 2,600 rows and 19 variables, including the newly created "profit" column.
 
 ```{r}
 ship <- ship %>%
@@ -139,7 +139,7 @@ head(ship,10)
 ```
 :::
 
-# 3. **Exploratory Data Analysis**
+# 3. Exploratory Data Analysis
 
 ## 3.1 Distribution and box plot of profit by ship type
 
@@ -339,7 +339,7 @@ p1 <- ggplot(data = negative_profit_counts,
             vjust = -0.5, size = 3) +
   scale_fill_manual(values = ship_colors) +
   scale_y_continuous(labels = scales::comma) +  
-  coord_cartesian(ylim = c(lower_limit, upper_limit)) +  # 設定 Y 軸範圍
+  coord_cartesian(ylim = c(lower_limit, upper_limit)) +  
   labs(
     title = "Number of Negative Profit Voyages by Ship Type",
     x = "Ship Type",
@@ -347,11 +347,11 @@ p1 <- ggplot(data = negative_profit_counts,
   ) +
   theme_minimal() +
   theme(
-    plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
-    axis.text.x = element_text(size = 10, vjust = 1, hjust = 0.5),
-    axis.text.y = element_text(size = 10),
-    axis.title.x = element_text(size = 14),
-    axis.title.y = element_text(size = 14)
+    plot.title = element_text(hjust = 0.5, size = 9, face = "bold"),
+    axis.text.x = element_text(size = 6, angle = 0, hjust = 0.5),
+    axis.text.y = element_text(size = 7),
+    axis.title.x = element_text(size = 8),
+    axis.title.y = element_text(size = 8)
   )
 
 ship_bin <- ship %>%
@@ -361,6 +361,7 @@ ship_bin <- ship %>%
                            include.lowest = TRUE))  
 
 ship_bin <- ship_bin %>% filter(!is.na(profit_bins))
+
 
 p2 <- ggbarstats(
   data = ship_bin,
@@ -373,7 +374,13 @@ p2 <- ggbarstats(
   ggplot2::scale_y_continuous(labels = scales::percent_format(scale = 1)) +
   ggplot2::scale_fill_manual(values = c("Negative" = "salmon", "Positive" = "lightblue")) + 
   ggplot2::theme(
-    plot.title = ggplot2::element_text(hjust = 0.5, size = 14, face = "bold")
+    plot.title = ggplot2::element_text(hjust = 0.5, size = 9,face = "bold"), 
+    axis.title.x = ggplot2::element_text(size = 9),  
+    axis.title.y = ggplot2::element_text(size = 9),  
+    axis.text.x = ggplot2::element_text(size = 6,hjust = 0.5),  
+    axis.text.y = ggplot2::element_text(size = 8),  
+    legend.text = ggplot2::element_text(size = 9),  
+    legend.title = ggplot2::element_text(size = 9)  
   )
 
 p1 + p2
@@ -460,7 +467,6 @@ This suggests that Tankers experience frequent but moderate losses, while Bulk C
 ```{r}
 #| echo: false
 
-
 negative_profit_ship <- ship %>%
   filter(profit < 0) %>%  
   mutate(Ship_Type = factor(Ship_Type, 
@@ -479,7 +485,7 @@ p3 <- ggplot(negative_profit_ship,
   ) +
   theme_minimal() +
   theme(
-    plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
+    plot.title = element_text(hjust = 0.5, size = 9, face = "bold"),
     axis.title.x = element_text(size = 12),
     axis.title.y = element_text(size = 12),
     legend.position = "none"  
@@ -511,9 +517,10 @@ p4 <- ggplot(negative_profit_ship, aes(x = Ship_Type, y = profit, fill = Ship_Ty
             vjust = 1.5, size = 4, color = "black") + 
   theme_minimal() +
   theme(
-    plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
-    axis.title.x = element_text(size = 12),
+    plot.title = element_text(hjust = 0.5, size = 9, face = "bold"),
+    axis.title.x = element_text(size = 8),
     axis.title.y = element_text(size = 12),
+    axis.text.x = ggplot2::element_text(size = 6,hjust = 0.5),
     legend.position = "none"
   )
 
@@ -542,7 +549,7 @@ p3 <- ggplot(negative_profit_ship,
   ) +
   theme_minimal() +
   theme(
-    plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
+    plot.title = element_text(hjust = 0.5, size = 9, face = "bold"),
     axis.title.x = element_text(size = 12),
     axis.title.y = element_text(size = 12),
     legend.position = "none"  
@@ -574,7 +581,7 @@ p4 <- ggplot(negative_profit_ship, aes(x = Ship_Type, y = profit, fill = Ship_Ty
             vjust = 1.5, size = 4, color = "black") + 
   theme_minimal() +
   theme(
-    plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
+    plot.title = element_text(hjust = 0.5, size = 9, face = "bold"),
     axis.title.x = element_text(size = 12),
     axis.title.y = element_text(size = 12),
     legend.position = "none"
