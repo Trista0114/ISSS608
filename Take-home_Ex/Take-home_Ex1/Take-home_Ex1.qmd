@@ -1,5 +1,6 @@
 ---
-title: "Take-home Exercise 1: Creating data visualisation: Ship Performance in the Gulf of Guinea"
+title: "Take-home Exercise 1: 
+Creating data visualisation: Ship Performance in the Gulf of Guinea"
 author: "Chen.PengWei"
 date: "February 1, 2025"
 date-modified: "last-modified"
@@ -12,13 +13,15 @@ execute:
 
 # 1. Overview
 
-## 1.1 Background
+## 1.1 Background⛵**🌍**
 
+::: {.callout-note style="background-color: #E8ECF1; border-left: 6px solid #90A4AE; padding: 15px; border-radius: 12px; box-shadow: 6px 6px 8px rgba(0,0,0,0.15);" appearance="simple" icon="false"}
 Shipping plays an important role in global trade, facilitating the movement of goods across countries. It is crucial to understanding the profitability of different ship types and the relationship between profit and others variables. Various factors, such as operational costs, voyage revenue and fuel efficiency, may influence a ship’s profitability.
 
 This study is a practice of data visualization based on the business perspective. Instead of building the model, this study will focus more on how to interpret insights and turn it into the visualization chart. The dataset used in this study is synthetically generated and is not sourced from actual shipping companies or vessels. The goal in this report is to find how different ship types perform in terms of profit, revenue and cost efficiency by using Exploratory Data Analysis (EDA).
 
 The dataset be used is from Kaggle, ["Ship Performance Clustering Dataset"](https://www.kaggle.com/datasets/jeleeladekunlefijabi/ship-performance-clustering-dataset), provides various performance metrics, including operational costs, voyage revenue, speed, engine power, and fuel efficiency, enabling a comprehensive practice.
+:::
 
 ## 1.2 Objective
 
@@ -28,17 +31,13 @@ The entire report is based on a business perspective, which means that all of th
 
 -   Identify which ship type is the most profitable.
 
--   Determine which ship type generates the highest revenue.
+-   Analyze which ship type incurs the highest loss.
 
--   Analyze which ship type incurs the lowest operational costs.
+-   Analyze the investability in different ship type.
 
-2️⃣ Trend Analysis & Profitability Trends
+2️⃣ Key Influences on Profitability
 
--   Examine ship type trends across different ship types to identify potential performance patterns.
-
-3️⃣ Key Influences on Profitability
-
--   Use Exploratory Data Analysis (EDA) to uncover relationships between profit and operational metrics.
+-   Use Exploratory Data Analysis (EDA) to uncover relationships between profit and others metrics.
 
 # 2. Getting Started
 
@@ -46,7 +45,7 @@ The entire report is based on a business perspective, which means that all of th
 ## Installing Libraries
 
 ```{r}
-pacman::p_load(ggplot2,dplyr,DT,crosstalk,patchwork,plotlyhaven,SmartEDA,tidyverse,tidymodels,ggdist,ggridges, ggthemes,colorspace,scales,ggiraph,ggExtra,ggstatsplot,gridExtra,plotly)
+pacman::p_load(ggplot2,dplyr,patchwork,tidyverse,tidymodels,ggdist,ggridges, ggthemes,colorspace,scales,ggiraph,ggstatsplot)
 ```
 
 ## Importing Data
@@ -141,7 +140,7 @@ head(ship,10)
 
 # 3. Exploratory Data Analysis
 
-## 3.1 Distribution and box plot of profit by ship type
+## 3.1 Distribution and box plot of Profit by ship type
 
 The box plot and the distribution shows the profit across four different ship types: Bulk Carrier, Container Ship, Fish Carrier, and Tanker. The plot illustrates that all four ship types have a negative profit, which is an important point and will be discussed in further steps. Despite some variations, the overall profit distributions is similar across ship types, suggesting no big differences in profitability. The median and mean profit for each ship type remains positive and have just slightly differences.
 
@@ -200,7 +199,7 @@ ggplot(ship, aes(x = Ship_Type, y = profit)) +
 ```
 :::
 
-## 3.2 Bar chart of average profit by ship type
+## 3.2 Bar chart of Average Profit by ship type
 
 In the overall point of view in this data, every ship type earn the money. While the differences in profitability among the ship types are not highly significant, Fish Carriers appear to be the most profitable, followed by Container Ships and Bulk Carriers, with Tankers having the lowest average profit. The gap between Fish Carriers and Tanker is around 20,000 USD. Hover to the chart and you can see the tooltip.
 
@@ -305,11 +304,11 @@ girafe(ggobj = gg_point, width_svg = 8, height_svg = 8 * 0.618,
 ```
 :::
 
-## 3.3 Percentage and the numbers of negative profit in ship type
+## 3.3 Percentage and the numbers of Negative Profit in ship type
 
 The bar chart displays the number of negative profit voyages for each ship type. The ranking of ship types in terms of negative profit voyages remains consistent with previous analyses of the average profit in ship type. The stacked bar chart illustrates the distribution of profit bins for each ship type, showing the proportion of positive and negative profits within each category. Since the total number of ships in each category is relatively balanced, the percentage of negative profit voyages across ship types does not demonstrate a significant difference.
 
-Overall, while the absolute number of negative profit voyages varies slightly, each ship type experiences a comparable proportion of negative profits, which highlight the idea that profitability challenges are somewhat evenly distributed across ship categories.
+Overall, there is just a slightly difference in the number of negative profit in ship type, which highlight the idea that profitability challenges are somewhat evenly distributed across ship categories.
 
 ::: panel-tabset
 ## The plot
@@ -317,7 +316,7 @@ Overall, while the absolute number of negative profit voyages varies slightly, e
 ```{r}
 #| echo: false
 negative_profit_counts <- ship %>%
-  filter(profit < 0) %>%  
+  filter(profit <= 0) %>%  
   group_by(Ship_Type) %>%
   summarise(
     Negative_Profit_Count = n(),
@@ -332,7 +331,7 @@ upper_limit <- max(negative_profit_counts$Negative_Profit_Count) * 1.1
 p1 <- ggplot(data = negative_profit_counts, 
              aes(x = Ship_Type, y = Negative_Profit_Count, fill = Ship_Type)) +
   geom_col_interactive(
-    aes(tooltip = paste0("Number of Negative Profit Voyages: ", scales::comma(Negative_Profit_Count))),
+    aes(tooltip = paste0("Number of Negative and Zero Profit Voyages: ", scales::comma(Negative_Profit_Count))),
     show.legend = FALSE
   ) +
   geom_text(aes(label = scales::comma(Negative_Profit_Count)),  
@@ -341,13 +340,13 @@ p1 <- ggplot(data = negative_profit_counts,
   scale_y_continuous(labels = scales::comma) +  
   coord_cartesian(ylim = c(lower_limit, upper_limit)) +  
   labs(
-    title = "Number of Negative Profit Voyages by Ship Type",
+    title = "Number of Negative and Zero Profit Voyages by Ship Type",
     x = "Ship Type",
-    y = "Number of Voyages with Negative Profit"
+    y = "Number of Voyages with Negative and Zero Profit"
   ) +
   theme_minimal() +
   theme(
-    plot.title = element_text(hjust = 0.5, size = 9, face = "bold"),
+    plot.title = element_text(hjust = 0.5, size = 8, face = "bold"),
     axis.text.x = element_text(size = 6, angle = 0, hjust = 0.5),
     axis.text.y = element_text(size = 7),
     axis.title.x = element_text(size = 8),
@@ -390,7 +389,7 @@ p1 + p2
 
 ```{r,eval=FALSE}
 negative_profit_counts <- ship %>%
-  filter(profit < 0) %>%  
+  filter(profit <= 0) %>%  
   group_by(Ship_Type) %>%
   summarise(
     Negative_Profit_Count = n(),
@@ -405,26 +404,26 @@ upper_limit <- max(negative_profit_counts$Negative_Profit_Count) * 1.1
 p1 <- ggplot(data = negative_profit_counts, 
              aes(x = Ship_Type, y = Negative_Profit_Count, fill = Ship_Type)) +
   geom_col_interactive(
-    aes(tooltip = paste0("Number of Negative Profit Voyages: ", scales::comma(Negative_Profit_Count))),
+    aes(tooltip = paste0("Number of Negative and Zero Profit Voyages: ", scales::comma(Negative_Profit_Count))),
     show.legend = FALSE
   ) +
   geom_text(aes(label = scales::comma(Negative_Profit_Count)),  
             vjust = -0.5, size = 3) +
   scale_fill_manual(values = ship_colors) +
   scale_y_continuous(labels = scales::comma) +  
-  coord_cartesian(ylim = c(lower_limit, upper_limit)) +  # 設定 Y 軸範圍
+  coord_cartesian(ylim = c(lower_limit, upper_limit)) +  
   labs(
-    title = "Number of Negative Profit Voyages by Ship Type",
+    title = "Number of Negative and Zero Profit Voyages by Ship Type",
     x = "Ship Type",
-    y = "Number of Voyages with Negative Profit"
+    y = "Number of Voyages with Negative and Zero Profit"
   ) +
   theme_minimal() +
   theme(
-    plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
-    axis.text.x = element_text(size = 10, vjust = 1, hjust = 0.5),
-    axis.text.y = element_text(size = 10),
-    axis.title.x = element_text(size = 14),
-    axis.title.y = element_text(size = 14)
+    plot.title = element_text(hjust = 0.5, size = 6, face = "bold"),
+    axis.text.x = element_text(size = 6, angle = 0, hjust = 0.5),
+    axis.text.y = element_text(size = 7),
+    axis.title.x = element_text(size = 8),
+    axis.title.y = element_text(size = 8)
   )
 
 ship_bin <- ship %>%
@@ -434,6 +433,7 @@ ship_bin <- ship %>%
                            include.lowest = TRUE))  
 
 ship_bin <- ship_bin %>% filter(!is.na(profit_bins))
+
 
 p2 <- ggbarstats(
   data = ship_bin,
@@ -446,18 +446,24 @@ p2 <- ggbarstats(
   ggplot2::scale_y_continuous(labels = scales::percent_format(scale = 1)) +
   ggplot2::scale_fill_manual(values = c("Negative" = "salmon", "Positive" = "lightblue")) + 
   ggplot2::theme(
-    plot.title = ggplot2::element_text(hjust = 0.5, size = 14, face = "bold")
+    plot.title = ggplot2::element_text(hjust = 0.5, size = 9,face = "bold"), 
+    axis.title.x = ggplot2::element_text(size = 9),  
+    axis.title.y = ggplot2::element_text(size = 9),  
+    axis.text.x = ggplot2::element_text(size = 6,hjust = 0.5),  
+    axis.text.y = ggplot2::element_text(size = 8),  
+    legend.text = ggplot2::element_text(size = 9),  
+    legend.title = ggplot2::element_text(size = 9)  
   )
 
 p1 + p2
 ```
 :::
 
-## 3.4 Distrubution of Negative Profit in ship type
+## 3.4 Distrubution of Negative and Zero Profit in ship type
 
 Tanker has the highest number of negative profit voyages in the previous plot but the lowest average loss in this box plot. In contrast, Bulk Carrier has fewer loss-making voyages but the highest average loss, indicating larger financial risks per voyage, with the gap around 30,000 USD compared to Tanker.
 
-The Density Plot further supports this. Tanker’s distribution is closer to zero, reflecting smaller losses, while Bulk Carrier skews left, showing higher loss .
+The Density Plot further prove this. Tanker’s distribution is closer to zero, reflecting smaller losses, while Bulk Carrier skews left, showing higher loss .
 
 This suggests that Tankers experience frequent but moderate losses, while Bulk Carriers face larger but less frequent losses, highlighting different risk profiles for each ship type.
 
@@ -468,7 +474,7 @@ This suggests that Tankers experience frequent but moderate losses, while Bulk C
 #| echo: false
 
 negative_profit_ship <- ship %>%
-  filter(profit < 0) %>%  
+  filter(profit <= 0) %>%  
   mutate(Ship_Type = factor(Ship_Type, 
                             levels = rev(c("Bulk Carrier", "Fish Carrier", "Container Ship", "Tanker"))))
 
@@ -479,7 +485,7 @@ p3 <- ggplot(negative_profit_ship,
   scale_fill_manual(values = ship_colors) +  
   scale_x_continuous(labels = scales::comma) + 
   labs(
-    title = "Distribution of Negative Profit by Ship Type",
+    title = "Density Plot of Negative Profit by Ship Type",
     x = "Profit (USD)",
     y = "Ship Type"
   ) +
@@ -514,11 +520,11 @@ p4 <- ggplot(negative_profit_ship, aes(x = Ship_Type, y = profit, fill = Ship_Ty
   geom_text(data = mean_values, 
             aes(x = Ship_Type, y = mean_profit, 
                 label = paste0(scales::comma(round(mean_profit)))),
-            vjust = 1.5, size = 4, color = "black") + 
+            vjust = 1.5, size = 3, color = "black") + 
   theme_minimal() +
   theme(
     plot.title = element_text(hjust = 0.5, size = 9, face = "bold"),
-    axis.title.x = element_text(size = 8),
+    axis.title.x = element_text(size = 12),
     axis.title.y = element_text(size = 12),
     axis.text.x = ggplot2::element_text(size = 6,hjust = 0.5),
     legend.position = "none"
@@ -531,10 +537,9 @@ p4 + p3
 
 ```{r,eval=FALSE}
 negative_profit_ship <- ship %>%
-  filter(profit < 0) %>%  
+  filter(profit <= 0) %>%  
   mutate(Ship_Type = factor(Ship_Type, 
                             levels = rev(c("Bulk Carrier", "Fish Carrier", "Container Ship", "Tanker"))))
-
 
 
 p3 <- ggplot(negative_profit_ship, 
@@ -543,7 +548,7 @@ p3 <- ggplot(negative_profit_ship,
   scale_fill_manual(values = ship_colors) +  
   scale_x_continuous(labels = scales::comma) + 
   labs(
-    title = "Distribution of Negative Profit by Ship Type",
+    title = "Density Plot of Negative Profit by Ship Type",
     x = "Profit (USD)",
     y = "Ship Type"
   ) +
@@ -578,12 +583,13 @@ p4 <- ggplot(negative_profit_ship, aes(x = Ship_Type, y = profit, fill = Ship_Ty
   geom_text(data = mean_values, 
             aes(x = Ship_Type, y = mean_profit, 
                 label = paste0(scales::comma(round(mean_profit)))),
-            vjust = 1.5, size = 4, color = "black") + 
+            vjust = 1.5, size = 3, color = "black") + 
   theme_minimal() +
   theme(
     plot.title = element_text(hjust = 0.5, size = 9, face = "bold"),
     axis.title.x = element_text(size = 12),
     axis.title.y = element_text(size = 12),
+    axis.text.x = ggplot2::element_text(size = 6,hjust = 0.5),
     legend.position = "none"
   )
 
@@ -591,179 +597,224 @@ p4 + p3
 ```
 :::
 
-## 3.5 Relationship between Revenue and Cost
+## 3.5 Distrubution of Positive Profit in ship type
+
+Based on plots , Bulk Carrier appears to be a high-risk ship type. While it has the potential for higher profits when successful, its advantage over other ship types in positive profits is not as significant as its disadvantage in negative profits. Fish Carrier, on the other hand, maintains a relatively stable profit profile, with a balanced performance in both positive and negative profit scenarios. Selecting Fish Carrier as an investment or operational focus could be a more stable choice.
+
+::: callout-caution
+## 💰However..
+
+The reasons behind the negative profits of bulk carriers are worth exploring. Identifying and addressing these factors can help decrease financial risk and bulk carriers may become a most profitable option due to the higher returns in a positive profit .
+:::
 
 ::: panel-tabset
 ## The plot
 
 ```{r}
 #| echo: false
-ggscatterstats(
-  data = ship,
-  x = Operational_Cost_USD,
-  y = Revenue_per_Voyage_USD,
-  marginal = FALSE,
-  )
-```
+Positive_profit_ship <- ship %>%
+  filter(profit > 0) %>%  
+  mutate(Ship_Type = factor(Ship_Type, 
+                            levels = rev(c("Bulk Carrier", "Fish Carrier", "Container Ship", "Tanker"))))
 
-## The code
 
-```{r,eval=FALSE}
-ggscatterstats(
-  data = ship,
-  x = Operational_Cost_USD,
-  y = Revenue_per_Voyage_USD,
-  marginal = FALSE,
-  )
-```
-:::
-
-## 3.6 Relationship between Efficiency and Profit
-
-::: panel-tabset
-## The plot
-
-```{r}
-#| echo: false
-ggscatterstats(
-  data = ship,
-  x = Efficiency_nm_per_kWh,
-  y = profit,
-  marginal = FALSE,
-  )
-```
-
-## The code
-
-```{r,eval=FALSE}
-ggscatterstats(
-  data = ship,
-  x = Efficiency_nm_per_kWh,
-  y = profit,
-  marginal = FALSE,
-  )
-```
-:::
-
-```{r}
-ship <- ship %>%
-  mutate(Ship_Type = fct_reorder(Ship_Type, Revenue_per_Voyage_USD, median, na.rm = TRUE))
-
-# 計算各 Ship_Type 的中位數
-median_values <- ship %>%
-  group_by(Ship_Type) %>%
-  summarise(Median_Revenue = median(Revenue_per_Voyage_USD, na.rm = TRUE))
-
-# 繪製密度曲線圖
-ggplot(ship, aes(x = Revenue_per_Voyage_USD, fill = Ship_Type)) +
-  geom_density(alpha = 0.5, color = NA) +  # 半透明填充密度圖
-  geom_vline(data = median_values, aes(xintercept = Median_Revenue, color = Ship_Type),
-             linetype = "dashed", linewidth = 1, alpha = 0.7) +  # 加上中位數虛線
-  scale_fill_brewer(palette = "Set1") +  # 設定不同顏色
-  scale_color_brewer(palette = "Set1") +  # 設定中位數虛線顏色
-  scale_x_continuous(labels = scales::comma) +  # 確保 x 軸使用逗號格式
+p5 <- ggplot(Positive_profit_ship, 
+       aes(x = profit, y = Ship_Type, fill = Ship_Type)) +
+  geom_density_ridges(scale = 5, alpha = 0.8, rel_min_height = 0.01) +  
+  scale_fill_manual(values = ship_colors) +  
+  scale_x_continuous(labels = scales::comma) + 
   labs(
-    title = "Revenue Distribution by Ship Type",
-    subtitle = "Density Plot with Median Revenue Lines",
-    x = "Revenue per Voyage (USD)",
-    y = "Density",
-    fill = "Ship Type",
-    color = "Ship Type"
+    title = "Density Plot of Positive Profit by Ship Type",
+    x = "Profit (USD)",
+    y = "Ship Type"
   ) +
   theme_minimal() +
   theme(
-    plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),
-    plot.subtitle = element_text(hjust = 0.5, size = 12),
-    axis.title.y = element_text(angle = 90, vjust = 0.5, hjust = 0.5),
-    legend.position = "top"
+    plot.title = element_text(hjust = 0.5, size = 9, face = "bold"),
+    axis.title.x = element_text(size = 12),
+    axis.title.y = element_text(size = 12),
+    legend.position = "none"  
   )
-```
 
-```{r}
-ship_avg_data <- (ship) %>%
+
+mean_values <- Positive_profit_ship %>%
   group_by(Ship_Type) %>%
-  summarise(
-    Avg_Revenue = mean(Revenue_per_Voyage_USD, na.rm = TRUE),
-    Avg_Cost = mean(Operational_Cost_USD, na.rm = TRUE)
-  )
+  summarise(mean_profit = mean(profit), .groups = "drop")
 
-y_min_cost <- floor(min(ship_avg_data$Avg_Cost) / 1000) * 1000
-y_max_cost <- ceiling(max(ship_avg_data$Avg_Cost) / 1000) * 1000
-y_breaks_cost <- seq(y_min_cost, y_max_cost, by = 2000)
-
-y_min_revenue <- floor(min(ship_avg_data$Avg_Revenue) / 1000) * 1000
-y_max_revenue <- ceiling(max(ship_avg_data$Avg_Revenue) / 1000) * 1000
-y_breaks_revenue <- seq(y_min_revenue, y_max_revenue, by = 10000)
-
-
-p1 <- ggplot((ship_avg_data), 
-             aes(x = Ship_Type, y = Avg_Cost)) +
-  geom_col_interactive(
-    aes(tooltip = paste0( "Avg Revenue: ", scales::comma(Avg_Revenue), " USD",
-                         "\nAvg Cost: ", scales::comma(Avg_Cost), " USD"),
-        data_id = Ship_Type),
-    fill = "#E15759"
+p6 <- ggplot(Positive_profit_ship, aes(x = Ship_Type, y = profit, fill = Ship_Type)) +
+  geom_boxplot(alpha = 0.8, outlier.color = "black", outlier.shape = 16) +  
+  scale_fill_manual(values = ship_colors) +  
+  scale_y_continuous(labels = scales::comma) +  
+  labs(
+    title = "Box Plot of Postive  Profit by Ship Type",
+    x = "Ship Type",
+    y = "Profit (USD)"
   ) +
-  scale_y_continuous(breaks = y_breaks_cost, labels = scales::comma) +  
-  coord_cartesian(ylim = c(y_min_cost - 500, y_max_cost)) +  
-  labs(title = "Average Operational Cost", x = "Ship Type", y = "Avg Cost (USD)") +
+
+  geom_point(data = mean_values, 
+             aes(x = Ship_Type, y = mean_profit), 
+             color = "red", 
+             size = 2) +
+
+  geom_text(data = mean_values, 
+            aes(x = Ship_Type, y = mean_profit, 
+                label = paste0(scales::comma(round(mean_profit)))),
+            vjust = -0.2, size = 3, color = "black") + 
   theme_minimal() +
   theme(
-    axis.text.y = element_text(size = 10, angle = 0, hjust = 1),
-    axis.text.x = element_text(size = 5, angle = 0),
-    plot.title = element_text(hjust = 0.5, size = 10, face = "bold"),
-    axis.title.x = element_text(size = 10),  
-    axis.title.y = element_text(size = 10)
+    plot.title = element_text(hjust = 0.5, size = 9, face = "bold"),
+    axis.title.x = element_text(size = 12),
+    axis.title.y = element_text(size = 12),
+    axis.text.x = ggplot2::element_text(size = 6,hjust = 0.5),
+    legend.position = "none"
   )
 
-p2 <- ggplot((ship_avg_data), 
-             aes(x = Ship_Type, y = Avg_Revenue)) +
-  geom_col_interactive(
-    aes(tooltip = paste0("Avg Revenue: ", scales::comma(Avg_Revenue), " USD",
-                         "\nAvg Cost: ", scales::comma(Avg_Cost), " USD"),
-        data_id = Ship_Type),
-    fill = "lightblue"
-  ) +
-  scale_y_continuous(breaks = y_breaks_revenue, labels = scales::comma) +  
-  coord_cartesian(ylim = c(y_min_revenue - 5000, y_max_revenue)) +  
-  labs(title = "Average Revenue per Voyage", x = "Ship Type", y = "Avg Revenue (USD)") +
-  theme_minimal() +
-  theme(
-    axis.text.y = element_text(size = 10, angle = 0, hjust = 1),
-    axis.text.x = element_text(size = 5, angle = 0),
-    plot.title = element_text(hjust = 0.5, size = 10, face = "bold"),
-    axis.title.x = element_text(size = 10), 
-    axis.title.y = element_text(size = 10)
-  )
-girafe(
-  code = print(p1 + p2), 
-  width_svg = 6,
-  height_svg = 3,
-  options = list(
-    opts_hover(css = "fill: salmon,lightblue"),
-    opts_hover_inv(css = "opacity: 0.3"),
-    opts_selection(type = "single") 
-  )
-)
- 
+p6 + p5
 ```
 
-The relationship between each variable.
+## The code
+
+```{r,eval=FALSE}
+Positive_profit_ship <- ship %>%
+  filter(profit > 0) %>%  
+  mutate(Ship_Type = factor(Ship_Type, 
+                            levels = rev(c("Bulk Carrier", "Fish Carrier", "Container Ship", "Tanker"))))
+
+
+p5 <- ggplot(Positive_profit_ship, 
+       aes(x = profit, y = Ship_Type, fill = Ship_Type)) +
+  geom_density_ridges(scale = 5, alpha = 0.8, rel_min_height = 0.01) +  
+  scale_fill_manual(values = ship_colors) +  
+  scale_x_continuous(labels = scales::comma) + 
+  labs(
+    title = "Density Plot of Positive Profit by Ship Type",
+    x = "Profit (USD)",
+    y = "Ship Type"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 9, face = "bold"),
+    axis.title.x = element_text(size = 12),
+    axis.title.y = element_text(size = 12),
+    legend.position = "none"  
+  )
+
+
+mean_values <- Positive_profit_ship %>%
+  group_by(Ship_Type) %>%
+  summarise(mean_profit = mean(profit), .groups = "drop")
+
+p6 <- ggplot(Positive_profit_ship, aes(x = Ship_Type, y = profit, fill = Ship_Type)) +
+  geom_boxplot(alpha = 0.8, outlier.color = "black", outlier.shape = 16) +  
+  scale_fill_manual(values = ship_colors) +  
+  scale_y_continuous(labels = scales::comma) +  
+  labs(
+    title = "Box Plot of Postive  Profit by Ship Type",
+    x = "Ship Type",
+    y = "Profit (USD)"
+  ) +
+
+  geom_point(data = mean_values, 
+             aes(x = Ship_Type, y = mean_profit), 
+             color = "red", 
+             size = 2) +
+
+  geom_text(data = mean_values, 
+            aes(x = Ship_Type, y = mean_profit, 
+                label = paste0(scales::comma(round(mean_profit)))),
+            vjust = -0.2, size = 3, color = "black") + 
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 9, face = "bold"),
+    axis.title.x = element_text(size = 12),
+    axis.title.y = element_text(size = 12),
+    axis.text.x = ggplot2::element_text(size = 6,hjust = 0.5),
+    legend.position = "none"
+  )
+
+p6 + p5
+```
+:::
+
+## 3.6 Relationship between Revenue and Cost
+
+In a general business case, revenue and cost usually show a positive correlation, because higher operating costs often mean larger business revenue scale. However, in this data, the Pearson correlation coefficient between the two ( 𝑟 r) is only 0.02, and the p-value is 0.22, showing that there is no significant linear relationship between the two.
+
+::: callout-note
+## This may mean 🔍🤔
+
+-   Business model impact: Some ship types or businesses may have a fixed revenue structure, and even if costs increase, revenue will not increase accordingly.
+-   Cost control issues: If the operating efficiency of some ships is low, even if higher costs are invested, revenue cannot be effectively increased.
+-   Data issues: There may be other variables affecting revenue, such as market demand, freight rates, etc., rather than being influenced by costs. Another reason may because this synthetically generated dataset does not align with real-world scenario.
+:::
+
+::: panel-tabset
+## The plot
 
 ```{r}
-ggstatsplot::ggcorrmat(
+#| echo: false
+ggscatterstats(
   data = ship,
-  cor.vars = 1:18,
-  ggcorrplot.args = list(
-    outline.color = "black", 
-    hc.order = TRUE, 
-    tl.cex = 8,       # ✅ 縮小標籤字體
-    tl.srt = 45,      # ✅ 旋轉標籤以避免重疊
-    insig = "pch",    # ✅ 保留所有數值，但用透明度區分不顯著
-
-    lab_size = 3      # ✅ 控制數值大小，避免重疊
-  ),
-  title = "Correlogram for Ship Dataset",
-  subtitle = "All correlation coefficients are shown"
-)
+  x = Operational_Cost_USD,
+  y = Revenue_per_Voyage_USD,
+  marginal = FALSE,
+  )
 ```
+
+## The code
+
+```{r,eval=FALSE}
+ggscatterstats(
+  data = ship,
+  x = Operational_Cost_USD,
+  y = Revenue_per_Voyage_USD,
+  marginal = FALSE,
+  )
+```
+:::
+
+## 3.7 Relationship between Efficiency and Profit
+
+The scatter plot shows that there is no significant relationship between energy efficiency and profit , while higher energy efficiency should bring better economic benefits generally from a business perspective. The expected correlation does not exist in this data set.
+
+::: callout-note
+## This may mean 🔍🤔
+
+-   Other factors (such as freight volume, route selection, freight market fluctuations) may have a greater impact on profits than pure energy efficiency metrics.
+-   High energy efficiency does not necessarily helpful to the profit: Even if the ship's energy efficiency is high, profits may not be improved due to other maintenance costs, rent, labor and other expenses.
+:::
+
+::: panel-tabset
+## The plot
+
+```{r}
+#| echo: false
+ggscatterstats(
+  data = ship,
+  x = Efficiency_nm_per_kWh,
+  y = profit,
+  marginal = FALSE,
+  )
+```
+
+## The code
+
+```{r,eval=FALSE}
+ggscatterstats(
+  data = ship,
+  x = Efficiency_nm_per_kWh,
+  y = profit,
+  marginal = FALSE,
+  )
+```
+:::
+
+# 4. Conclusion🚢💡
+
+Fish Carrier are the most balanced ship type in terms of profitability and risk, while bulk carriers offer high returns but come with significant financial risk. It is worth to develop into the reasons behind this, as Bulk Carriers have the potential to become the most profitable ship type if their financial risk can be decreased.
+
+Additionally, revenue and cost do not show a significant correlation, meaning that increasing operational costs does not necessarily lead to higher revenue. This contradicts basic business principles and may suggest that other factors influence revenue in this industry or this synthetically generated dataset does not align with real-world scenario.
+
+# 5. Reference
+
+ [Kam, T.S. (2025). Visual Statistical Analysis.](https://r4va.netlify.app/chap10#getting-started-1)
