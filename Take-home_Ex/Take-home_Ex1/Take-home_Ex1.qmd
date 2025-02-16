@@ -604,7 +604,7 @@ Based on plots , Bulk Carrier appears to be a high-risk ship type. While it has 
 ::: callout-caution
 ## 💰However..
 
-The reasons behind the negative profits of bulk carriers are worth exploring. Identifying and addressing these factors can help decrease financial risk and bulk carriers may become a most profitable option due to the higher returns in a positive profit .
+The reasons behind the negative profits of container ship and bulk carriers are worth exploring. Identifying and addressing these factors can help decrease financial risk and may become a profitable option due to the higher returns in a positive profit .
 :::
 
 ::: panel-tabset
@@ -811,7 +811,7 @@ ggscatterstats(
 
 # 4. Conclusion🚢💡
 
-Fish Carrier are the most balanced ship type in terms of profitability and risk, while bulk carriers offer high returns but come with significant financial risk. It is worth to develop into the reasons behind this, as Bulk Carriers have the potential to become the most profitable ship type if their financial risk can be decreased.
+Fish Carrier are the most balanced ship type in terms of profitability and risk, while bulk carriers offer high returns but come with significant financial risk. It is worth to develop into the reasons behind this, as Bulk Carriers and Container Ship have the potential to become the profitable ship type if their financial risk can be decreased.
 
 Additionally, revenue and cost do not show a significant correlation, meaning that increasing operational costs does not necessarily lead to higher revenue. This contradicts basic business principles and may suggest that other factors influence revenue in this industry or this synthetically generated dataset does not align with real-world scenario.
 
