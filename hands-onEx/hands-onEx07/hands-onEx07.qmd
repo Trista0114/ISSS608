@@ -11,6 +11,34 @@ execute:
 
 # 1. Overview
 
+------------------------------------------------------------------------
+
+In this chapter, you will learn how to plot functional and truthful choropleth maps by using an R package called [**tmap**](https://cran.r-project.org/web/packages/tmap/) package.
+
+::: callout-note
+## Things you will learn
+
+-   Data Preparation
+
+    -   2.1 Joining the attribute data and geospatial data
+
+-   ⭐3.1 ndefinedPlotting a choropleth map quickly by using *qtm()*
+
+-   3.2 Creating a choropleth map by using *tmap*’s elements
+
+-   3.3 Data classification methods
+
+-   3.4 Change color
+
+-   3.5 Different style and theme of plot
+
+-   3.6 Combine little multiple map
+:::
+
+🛠️can't change the second multiple map to green\
+🛠️There is the NA in mpsz_pop2020\
+🛠️The lengend squeezed !
+
 # 2.Getting Started
 
 ::: panel-tabset
@@ -66,15 +94,16 @@ Before a thematic map can be prepared, you are required to prepare a data table 
 -   AGED: age group 65 and above,
 -   TOTAL: all age group, and
 -   DEPENDENCY: the ratio between young and aged against economy active group
-    -   ::: panel-tabset
-        ## Data wrangling
 
-        The following data wrangling and transformation functions will be used:
+::: panel-tabset
+## Data wrangling
 
-        -   *pivot_wider()* of **tidyr** package, and
-        -   *mutate()*, *filter()*, *group_by()* and *select()* of **dplyr** package
+The following data wrangling and transformation functions will be used:
 
-        ```{r}
+-   *pivot_wider()* of **tidyr** package, and
+-   *mutate()*, *filter()*, *group_by()* and *select()* of **dplyr** package
+
+```{r}
         popdata2020 <- popdata %>%
           filter(Time == 2020) %>%
           group_by(PA, SZ, AG) %>%
@@ -95,42 +124,45 @@ Before a thematic map can be prepared, you are required to prepare a data table 
           select(`PA`, `SZ`, `YOUNG`, 
                `ECONOMY ACTIVE`, `AGED`, 
                `TOTAL`, `DEPENDENCY`)
-        ```
+```
 
-        ## Joining the attribute and geospatial data
+## Joining the attribute and geospatial data
 
-        Connect the population attribute data (popdata2020) and the geographical spatial data (mpsz) to form a complete geographical attribute data frame (mpsz_pop2020), and finally save it in .rds format.
+```         
+    Connect the population attribute data (popdata2020) and the geographical spatial data (mpsz) to form a complete geographical attribute data frame (mpsz_pop2020), and finally save it in .rds format.
+```
 
-        1.  Convert the values ​​of PA and SZ fields to uppercase (uppercase)
+1.  Convert the values ​​of PA and SZ fields to uppercase (uppercase)
 
-            -   Because the SUBZONE_N and PLN_AREA_N fields in geographic data (mpsz) are both uppercase, you need to ensure that the PA and SZ of popdata2020 are also uppercase to avoid matching failures. mutate_at() is used to modify fields in batches, and toupper() converts them to uppercase.
+-   Because the SUBZONE_N and PLN_AREA_N fields in geographic data (mpsz) are both uppercase, you need to ensure that the PA and SZ of popdata2020 are also uppercase to avoid matching failures. mutate_at() is used to modify fields in batches, and toupper() converts them to uppercase.
 
-        ```{r}
+```{r}
         popdata2020 <- popdata2020 %>%
           mutate_at(.vars = vars(PA, SZ), 
                   .funs = funs(toupper)) %>%
           filter(`ECONOMY ACTIVE` > 0)
-        ```
+```
 
-        2.  Use left_join() to merge two datasets
-            -   mpsz is geospatial data (sf object), containing geographic boundaries (polygons). popdata2020 is population attribute data, including population, economic activities and other information. Merged match fields
-            -   mpsz is the left table, which means that even if popdata2020 has no matching data, all records of mpsz will still be retained. popdata2020 is the right table. If SZ cannot match SUBZONE_N, the population data of the district will be NA.
+2.  Use left_join() to merge two datasets
 
-        ```{r}
+-   mpsz is geospatial data (sf object), containing geographic boundaries (polygons). popdata2020 is population attribute data, including population, economic activities and other information. Merged match fields
+-   mpsz is the left table, which means that even if popdata2020 has no matching data, all records of mpsz will still be retained. popdata2020 is the right table. If SZ cannot match SUBZONE_N, the population data of the district will be NA.
+
+```{r}
         mpsz_pop2020 <- left_join(mpsz, popdata2020,
                                   by = c("SUBZONE_N" = "SZ"))
-        ```
+```
 
-        3.  Stored it as .rds format
+3.  Stored it as .rds format
 
-        ```{r}
-        write_rds(mpsz_pop2020, "data/rds/mpszpop2020.rds")
-        ```
-        :::
+```{r}
+write_rds(mpsz_pop2020, "data/rds/mpszpop2020.rds")
+```
+:::
 
 # 3. Choropleth Mapping Geospatial Data Using *tmap*
 
-## 3.1 Plotting a **thematic** map quickly by using *qtm()*
+## 3.1 Plotting a thematic map quickly by using *qtm()*
 
 ::: callout-tip
 ## Things to learn form code
@@ -146,7 +178,7 @@ qtm(mpsz_pop2020,
     fill = "DEPENDENCY")
 ```
 
-## 3.2 Creating a choropleth map by using *tmap*’s elements
+## 🛠️3.2 Creating a choropleth map by using *tmap*’s elements
 
 *The disadvantage of qtm()* is that it makes aesthetics of individual layers harder to control. To draw a high quality cartographic choropleth map as shown in the figure below, **tmap**’s drawing elements should be used.
 
@@ -415,7 +447,7 @@ tm_shape(mpsz_pop2020)+
   tm_borders(alpha = 0.5)
 ```
 
-## 3.5 Map Layouts
+## 🛠️3.5 Map Layouts
 
 Map layout refers to the combination of all map elements into a cohensive map. Map elements include among others the objects to be mapped, the title, the scale bar, the compass, margins and aspects ratios. Colour settings and data classification methods covered in the previous section relate to the palette and break-points are used to affect how the map looks.
 
@@ -426,11 +458,11 @@ Map layout refers to the combination of all map elements into a cohensive map. M
 
 -   tm_fill:
 
-```         
 -   legend.hist = TRUE: Display a histogram of the data in the legend to help understand the distribution of quantities in different categories.
--    legend.is.portrait = TRUE: Legends are arranged vertically (vertically).
+
+-   legend.is.portrait = TRUE: Legends are arranged vertically (vertically).
+
 -   legend.hist.z = 0.1: Set the size of the histogram, a value of 0.1 represents a smaller histogram.
-```
 
 -   tm_layout: set the map title and legend
 
@@ -474,7 +506,7 @@ tm_shape(mpsz_pop2020)+
   tmap_style("classic")
 ```
 
-### 3.5.3 Cartographic Furniture
+### 🛠️3.5.3 Cartographic Furniture
 
 Beside map style, **tmap** also also provides arguments to draw other map furniture such as compass, scale bar and grid lines.
 
@@ -526,7 +558,7 @@ In **tmap**, small multiple maps can be plotted in three ways:
 -   by defining a group-by variable in *tm_facets()*, and
 -   by creating multiple stand-alone maps with *tmap_arrange()*.
 
-### 3.6.1 By assigning multiple values to at least one of the aesthetic arguments
+### 🛠️3.6.1 By assigning multiple values to at least one of the aesthetic arguments
 
 tm_fill(c("YOUNG", "AGED")): Two variables are displayed here at the same time, namely: YOUNG and AGED
 
@@ -560,26 +592,14 @@ tm_shape(mpsz_pop2020)+
 
 ```
 
-### 3.6.2  Defining a group-by variable in *tm_facets()*
+### 🛠️3.6.2 Defining a group-by variable in *tm_facets()*
 
 multiple small choropleth maps are created by using **tm_facets()**.
 
-
-
+There is a NA in the data, so the code can't run. Therefore, I will update later till prof release the file.( do not want to do the change, cause I afraid there will be an error.
 
 ```{r}
-tm_shape(mpsz_pop2020) +
-  tm_fill("DEPENDENCY",
-          style = "quantile",
-          palette = "Blues",
-          thres.poly = 0) + 
-  tm_facets(by="REGION_N", 
-            free.coords=TRUE, 
-            drop.shapes=FALSE) +
-  tm_layout(legend.show = FALSE,
-            title.position = c("center", "center"), 
-            title.size = 20) +
-  tm_borders(alpha = 0.5)
+str(mpsz_pop2020$DEPENDENCY)
 ```
 
 ### 3.6.3 Creating multiple stand-alone maps: *`tmap_arrange()`*
@@ -600,7 +620,7 @@ agedmap <- tm_shape(mpsz_pop2020)+
 tmap_arrange(youngmap, agedmap, asp=1, ncol=2)
 ```
 
-## 3.7 Mappping Spatial Object Meeting a Selection Criterion
+## 🛠️3.7 Mappping Spatial Object Meeting a Selection Criterion
 
 ```{r}
 tm_shape(mpsz_pop2020[mpsz_pop2020$REGION_N=="CENTRAL REGION", ])+
