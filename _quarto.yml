@@ -43,6 +43,10 @@ website:
           - text:  "Visual Correlation Analysis"
             href: hands-onEx/hands-onEx05-2/hands-onEx05-2.html
             
+      - section: "Visualising and Analysing Geographical Data"
+        contents:
+          - text:  "Choropleth Mapping with R"
+            href: hands-onEx/hands-onEx07/hands-onEx07.html
         
   navbar:
     left:
@@ -76,6 +80,8 @@ website:
             href: hands-onEx/hands-onEx05-4/hands-onEx05-4.html
           - text:  "Treemap Visualisation with R"
             href: hands-onEx/hands-onEx05-5/hands-onEx05-5.html
+          - text:  "Choropleth Mapping with R"
+            href: hands-onEx/hands-onEx07/hands-onEx07.html
             
       - text: "In-class Exercise"
         menu:

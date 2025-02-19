@@ -1,0 +1,28 @@
+---
+title: "Hands on Exercise 06: Visualising and Analysing Time-oriented Data"
+author: "Chen.PengWei"
+date-modified: "last-modified"
+execute:
+  echo: true
+  eval: true
+  warning: false
+  freeze: true
+---
+
+# **1. Overview**
+
+# 2. Getting Started
+
+::: panel-tabset
+## Installing Libraries
+
+```{r}
+pacman::p_load(scales, viridis, lubridate, ggthemes, gridExtra, readxl, knitr, data.table, CGPfunctions, ggHoriPlot, tidyverse)
+```
+
+## Importing Data
+
+## Understanding Data
+:::
+
+\

@@ -1,0 +1,15 @@
+{
+  "hash": "6ab04ea7b266668c483efecac7e775a9",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Hands on Exercise 06: Visualising and Analysing Time-oriented Data\"\nauthor: \"Chen.PengWei\"\ndate-modified: \"last-modified\"\nexecute:\n  echo: true\n  eval: true\n  warning: false\n  freeze: true\n---\n\n\n\n\n\n# **1. Overview**\n\n# 2. Getting Started\n\n::: panel-tabset\n## Installing Libraries\n\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\npacman::p_load(scales, viridis, lubridate, ggthemes, gridExtra, readxl, knitr, data.table, CGPfunctions, ggHoriPlot, tidyverse)\n```\n:::\n\n\n\n\n\n## Importing Data\n\n## Understanding Data\n:::\n\n\\\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
