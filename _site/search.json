@@ -28,6 +28,13 @@
     "text": "pacman::p_load(haven,SmartEDA,tidyverse,tidymodels)\n\n\nexam_data &lt;- read_csv(\"C:/Trista0114/ISSS608/hands-onEx/hands-onEx01/Exam_data.csv\")\n\n\nggplot(data = exam_data, \n       aes(x = ENGLISH, y = CLASS)) + \n  geom_boxplot()"
   },
   {
+    "objectID": "hands-onEx/hands-onEx06/hands-onEx06.html",
+    "href": "hands-onEx/hands-onEx06/hands-onEx06.html",
+    "title": "Hands on Exercise 06: Visualising and Analysing Time-oriented Data",
+    "section": "",
+    "text": "1. Overview\n\n\n2. Getting Started\n\nInstalling LibrariesImporting DataUnderstanding Data\n\n\n\npacman::p_load(scales, viridis, lubridate, ggthemes, gridExtra, readxl, knitr, data.table, CGPfunctions, ggHoriPlot, tidyverse)"
+  },
+  {
     "objectID": "hands-onEx/hands-onEx05-4/hands-onEx05-4.html",
     "href": "hands-onEx/hands-onEx05-4/hands-onEx05-4.html",
     "title": "Hands on Exercise 05-4: Visual Multivariate Analysis with Parallel Coordinates Plot",
@@ -1738,6 +1745,150 @@
     ]
   },
   {
+    "objectID": "hands-onEx/hands-onEx07/hands-onEx07.html",
+    "href": "hands-onEx/hands-onEx07/hands-onEx07.html",
+    "title": "Hands on Exercise 07: Choropleth Mapping with R",
+    "section": "",
+    "text": "In this chapter, you will learn how to plot functional and truthful choropleth maps by using an R package called tmap package.\n\n\n\n\n\n\nThings you will learn\n\n\n\n\nData Preparation\n\n2.1 Joining the attribute data and geospatial data\n\n⭐3.1 ndefinedPlotting a choropleth map quickly by using qtm()\n3.2 Creating a choropleth map by using tmap’s elements\n3.3 Data classification methods\n3.4 Change color\n3.5 Different style and theme of plot\n3.6 Combine little multiple map\n\n\n\n🛠️can’t change the second multiple map to green\n🛠️There is the NA in mpsz_pop2020\n🛠️The lengend squeezed !",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Geographical Data",
+      "Choropleth Mapping with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx07/hands-onEx07.html#data-preparation",
+    "href": "hands-onEx/hands-onEx07/hands-onEx07.html#data-preparation",
+    "title": "Hands on Exercise 07: Choropleth Mapping with R",
+    "section": "2.1 Data Preparation",
+    "text": "2.1 Data Preparation\nBefore a thematic map can be prepared, you are required to prepare a data table with year 2020 values. The data table should include the variables PA, SZ, YOUNG, ECONOMY ACTIVE, AGED, TOTAL, DEPENDENCY.\n\nYOUNG: age group 0 to 4 until age groyup 20 to 24,\nECONOMY ACTIVE: age group 25-29 until age group 60-64,\nAGED: age group 65 and above,\nTOTAL: all age group, and\nDEPENDENCY: the ratio between young and aged against economy active group\n\n\nData wranglingJoining the attribute and geospatial data\n\n\nThe following data wrangling and transformation functions will be used:\n\npivot_wider() of tidyr package, and\nmutate(), filter(), group_by() and select() of dplyr package\n\n\n        popdata2020 &lt;- popdata %&gt;%\n          filter(Time == 2020) %&gt;%\n          group_by(PA, SZ, AG) %&gt;%\n          summarise(`POP` = sum(`Pop`)) %&gt;% #Computes the total population (POP) for each PA, SZ, AG group.\n\n          ungroup() %&gt;% #Removes grouping, allowing further transformations.\n\n          pivot_wider(names_from=AG, \n                      values_from=POP) %&gt;% #Converts the dataset from long format (where each row represents a single age group) to wide format, with columns for different age groups.\n          mutate(YOUNG = rowSums(.[3:6])\n                 +rowSums(.[12])) %&gt;%  #Sums the population for young age groups in columns 3 to 6 and column 12.\n        mutate(`ECONOMY ACTIVE` = rowSums(.[7:11])+\n        rowSums(.[13:15]))%&gt;% #sums the population for working-age individuals from columns 7 to 11 and 13 to 15\n        mutate(`AGED`=rowSums(.[16:21])) %&gt;% #All Age Groups\n        mutate(`TOTAL`=rowSums(.[3:21])) %&gt;%  \n        mutate(`DEPENDENCY` = (`YOUNG` + `AGED`)\n        /`ECONOMY ACTIVE`) %&gt;%\n          select(`PA`, `SZ`, `YOUNG`, \n               `ECONOMY ACTIVE`, `AGED`, \n               `TOTAL`, `DEPENDENCY`)\n\n\n\n    Connect the population attribute data (popdata2020) and the geographical spatial data (mpsz) to form a complete geographical attribute data frame (mpsz_pop2020), and finally save it in .rds format.\n\nConvert the values ​​of PA and SZ fields to uppercase (uppercase)\n\n\nBecause the SUBZONE_N and PLN_AREA_N fields in geographic data (mpsz) are both uppercase, you need to ensure that the PA and SZ of popdata2020 are also uppercase to avoid matching failures. mutate_at() is used to modify fields in batches, and toupper() converts them to uppercase.\n\n\n        popdata2020 &lt;- popdata2020 %&gt;%\n          mutate_at(.vars = vars(PA, SZ), \n                  .funs = funs(toupper)) %&gt;%\n          filter(`ECONOMY ACTIVE` &gt; 0)\n\n\nUse left_join() to merge two datasets\n\n\nmpsz is geospatial data (sf object), containing geographic boundaries (polygons). popdata2020 is population attribute data, including population, economic activities and other information. Merged match fields\nmpsz is the left table, which means that even if popdata2020 has no matching data, all records of mpsz will still be retained. popdata2020 is the right table. If SZ cannot match SUBZONE_N, the population data of the district will be NA.\n\n\n        mpsz_pop2020 &lt;- left_join(mpsz, popdata2020,\n                                  by = c(\"SUBZONE_N\" = \"SZ\"))\n\n\nStored it as .rds format\n\n\nwrite_rds(mpsz_pop2020, \"data/rds/mpszpop2020.rds\")",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Geographical Data",
+      "Choropleth Mapping with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx07/hands-onEx07.html#plotting-a-thematic-map-quickly-by-using-qtm",
+    "href": "hands-onEx/hands-onEx07/hands-onEx07.html#plotting-a-thematic-map-quickly-by-using-qtm",
+    "title": "Hands on Exercise 07: Choropleth Mapping with R",
+    "section": "3.1 Plotting a thematic map quickly by using qtm()",
+    "text": "3.1 Plotting a thematic map quickly by using qtm()\n\n\n\n\n\n\nThings to learn form code\n\n\n\ntmap_mode(“plot”): Set the static map mode to display the map in static map (ggplot2-like) format. tmap_mode(“view”): If changed to “view”, an interactive map (Leaflet-based) will be generated, which can be zoomed and clicked to view detailed information.\nfill = “DEPENDENCY”： Fills the map’s color based on the DEPENDENCY field data. The higher the value, the more people that need the support.\n\n\n\ntmap_mode(\"plot\")\nqtm(mpsz_pop2020, \n    fill = \"DEPENDENCY\")",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Geographical Data",
+      "Choropleth Mapping with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx07/hands-onEx07.html#creating-a-choropleth-map-by-using-tmaps-elements",
+    "href": "hands-onEx/hands-onEx07/hands-onEx07.html#creating-a-choropleth-map-by-using-tmaps-elements",
+    "title": "Hands on Exercise 07: Choropleth Mapping with R",
+    "section": "🛠️3.2 Creating a choropleth map by using tmap’s elements",
+    "text": "🛠️3.2 Creating a choropleth map by using tmap’s elements\nThe disadvantage of qtm() is that it makes aesthetics of individual layers harder to control. To draw a high quality cartographic choropleth map as shown in the figure below, tmap’s drawing elements should be used.\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\", \n          style = \"quantile\", \n          palette = \"Blues\",\n          title = \"Dependency ratio\") +\n  tm_layout(main.title = \"Distribution of Dependency Ratio by planning subzone\",\n            main.title.position = \"center\",\n            main.title.size = 1.2,\n            legend.height = 0.45, \n            legend.width = 0.35,\n            frame = TRUE) +\n  tm_borders(alpha = 0.5) +\n  tm_compass(type=\"8star\", size = 2) +\n  tm_scale_bar() +\n  tm_grid(alpha =0.2) +\n  tm_credits(\"Source: Planning Sub-zone boundary from Urban Redevelopment Authorithy (URA)\\n and Population data from Department of Statistics DOS\", \n             position = c(\"left\", \"bottom\"))\n\n\n\n\n\n\n\n\nBelow is the step to draw the plot by using tmap function\n\nDrawing a base mapColoring: tm_polygons()\n\n\nIn the code chunk below, tm_shape() is used to define the input data (i.e mpsz_pop2020) and tm_polygons() is used to draw the planning subzone polygons\n\ntm_shape(mpsz_pop2020) +\n  tm_polygons()\n\n\n\n\n\n\n\n\n\n\nAssign the target variable such as Dependency to tm_polygons().\n\n\n\n\n\n\nThings to learn form code\n\n\n\n\nThe default interval binning used to draw the choropleth map is called “pretty”.\nThe default colour scheme used is YlOrRd of ColorBrewer.\nBy default, Missing value will be shaded in grey.\n\n\n\n\ntm_shape(mpsz_pop2020)+\n  tm_polygons(\"DEPENDENCY\")\n\n\n\n\n\n\n\n\n\nDrawing a choropleth map using tm_fill() and *tm_border()\nActually, tm_polygons() is a wraper of tm_fill() and tm_border(). tm_fill() shades the polygons by using the default colour scheme and tm_borders() adds the borders of the shapefile onto the choropleth map.\nThe alpha argument is used to define transparency number between 0 (totally transparent) and 1 (not transparent). By default, the alpha value of the col is used (normally 1).\nBeside alpha argument, there are three other arguments for tm_borders(), they are:\n\ncol = border colour,\nlwd = border line width. The default is 1, and\nlty = border line type. The default is “solid”.\n\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\") +\n  tm_borders(lwd = 0.1,  alpha = 1)",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Geographical Data",
+      "Choropleth Mapping with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx07/hands-onEx07.html#data-classification-methods-of-tmap",
+    "href": "hands-onEx/hands-onEx07/hands-onEx07.html#data-classification-methods-of-tmap",
+    "title": "Hands on Exercise 07: Choropleth Mapping with R",
+    "section": "3.3 Data classification methods of tmap",
+    "text": "3.3 Data classification methods of tmap\nMost choropleth maps employ some methods of data classification. The point of classification is to take a large number of observations and group them into data ranges or classes.\ntmap provides a total ten data classification methods, namely: fixed, sd, equal, pretty (default), quantile, kmeans, hclust, bclust, fisher, and jenks.\nTo define a data classification method, the style argument of tm_fill() or tm_polygons() will be used.\n\njenksequalquantilekmeans\n\n\nLook for natural breakpoints in the data that minimize variability within each category and maximize variability between categories.\nApplicable scenarios: When the data is unevenly distributed, this method can more effectively reflect the intrinsic structure of the data, such as housing prices, geographical data, etc.\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\",\n          n = 5,\n          style = \"jenks\") +\n  tm_borders(alpha = 0.5)\n\n\n\n\n\n\n\n\n\n\nDivide the data range evenly into N intervals, each interval being equal in width.\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\",\n          n = 5,\n          style = \"equal\") +\n  tm_borders(alpha = 0.5)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCaution\n\n\n\nNotice that the distribution of quantile data classification method are more evenly distributed then equal data classification method.\n\n\n\n\nDivide the data according to its quantile (percentage), for example: -\n\nquartiles\nquintiles\ndeciles\n\nApplicable scenarios: When the data distribution is uneven, this method ensures that the number of data in each interval is similar. For example, house price analysis, income analysis, etc.\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\",\n          n = 5,\n          style = \"quantile\") +\n  tm_borders(alpha = 0.5)\n\n\n\n\n\n\n\n\n\n\nClassify based on the distribution characteristics of the data itself, rather than dividing intervals evenly.\nApplicable scenarios: When the data has obvious natural groupings, such as population age structure, economic status, etc.\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\",\n          n = 5,\n          style = \"kmeans\") +\n  tm_borders(alpha = 0.5)\n\n\n\n\n\n\n\n\n\n\n\n\n3.3.1 Preparing choropleth maps based on different numbers of classes\n\n261020\n\n\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\",\n          n = 2,\n          style = \"jenks\") +\n  tm_borders(alpha = 0.5)\n\n\n\n\n\n\n\n\n\n\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\",\n          n = 6,\n          style = \"jenks\") +\n  tm_borders(alpha = 0.5)\n\n\n\n\n\n\n\n\n\n\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\",\n          n = 10,\n          style = \"jenks\") +\n  tm_borders(alpha = 0.5)\n\n\n\n\n\n\n\n\n\n\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\",\n          n = 20,\n          style = \"jenks\") +\n  tm_borders(alpha = 0.5)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nObservations & Comparisons\n\n\n\n2 Classes (Low granularity)\n\nThe map provides a very generalized view, dividing the areas into just two broad categories.\nIt may hide important variations within the dataset.\nUseful for quick, high-level insights.\n\n6 Classes (Moderate granularity)\n\nA more balanced representation with clearer differentiation.\nIt provides better detail while maintaining readability.\nSuitable for most general analysis.\n\n10 Classes (High granularity)\n\nMore detailed but might introduce complexity.\nThe color variations may become harder to distinguish.\nGood for in-depth analysis.\n\n20 Classes (Over-segmentation)\n\nToo detailed and may create excessive color variations.\nHarder to interpret patterns.\nOnly useful when precise differences matter, such as in scientific analysis.\n\n\n\n\n\n3.3.2 Custome break point\nThe breakpoints can be set explicitly by means of the breaks argument to the tm_fill(). It is important to note that, in tmap the breaks include a minimum and maximum. As a result, in order to end up with n categories, n+1 elements must be specified in the breaks option (the values must be in increasing order).\nNow, get some descriptive statistics on the variable before setting the break points.\n\nsummary(mpsz_pop2020$DEPENDENCY)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's \n 0.1111  0.7147  0.7866  0.8585  0.8763 19.0000      92 \n\n\nWith reference to the results above, we set break point at 0.60, 0.70, 0.80, and 0.90. In addition, we also need to include a minimum and maximum, which we set at 0 and 100. Our breaks vector is thus c(0, 0.60, 0.70, 0.80, 0.90, 1.00).\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\",\n          breaks = c(0, 0.60, 0.70, 0.80, 0.90, 1.00)) +\n  tm_borders(alpha = 0.5)",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Geographical Data",
+      "Choropleth Mapping with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx07/hands-onEx07.html#color-schceme",
+    "href": "hands-onEx/hands-onEx07/hands-onEx07.html#color-schceme",
+    "title": "Hands on Exercise 07: Choropleth Mapping with R",
+    "section": "3.4 Color Schceme",
+    "text": "3.4 Color Schceme\ntmap supports colour ramps either defined by the user or a set of predefined colour ramps from the RColorBrewer package.\nTo change the colour, we assign the preferred colour to palette argument of tm_fill() as shown in the code chunk below.\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\",\n          n = 6,\n          style = \"quantile\",\n          palette = \"Blues\") +\n  tm_borders(alpha = 0.5)\n\n\n\n\n\n\n\n\nTo reverse the colour shading, add a “-” prefix.\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\",\n          style = \"quantile\",\n          palette = \"-Greens\") +\n  tm_borders(alpha = 0.5)",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Geographical Data",
+      "Choropleth Mapping with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx07/hands-onEx07.html#map-layouts",
+    "href": "hands-onEx/hands-onEx07/hands-onEx07.html#map-layouts",
+    "title": "Hands on Exercise 07: Choropleth Mapping with R",
+    "section": "🛠️3.5 Map Layouts",
+    "text": "🛠️3.5 Map Layouts\nMap layout refers to the combination of all map elements into a cohensive map. Map elements include among others the objects to be mapped, the title, the scale bar, the compass, margins and aspects ratios. Colour settings and data classification methods covered in the previous section relate to the palette and break-points are used to affect how the map looks.\n\n3.5.1 Map legend\n\n\n\n\n\n\nThings to learn from code\n\n\n\n\ntm_fill:\nlegend.hist = TRUE: Display a histogram of the data in the legend to help understand the distribution of quantities in different categories.\nlegend.is.portrait = TRUE: Legends are arranged vertically (vertically).\nlegend.hist.z = 0.1: Set the size of the histogram, a value of 0.1 represents a smaller histogram.\ntm_layout: set the map title and legend\n\nlegend.outside = FALSE: The legend is placed inside the map, not outside the map.\nlegend.position = c(“right”, “bottom”)： The legend appears in the lower right corner.\nframe = FALSE: Map borders are not drawn.\n\n\n\n\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\", \n          style = \"jenks\", \n          palette = \"Blues\", \n          legend.hist = TRUE, \n          legend.is.portrait = TRUE,\n          legend.hist.z = 0.1) +\n  tm_layout(main.title = \"Distribution of Dependency Ratio by planning subzone \\n(Jenks classification)\",\n            main.title.position = \"center\",\n            main.title.size = 1,\n            legend.height = 0.45, \n            legend.width = 0.35,\n            legend.outside = FALSE,\n            legend.position = c(\"right\", \"bottom\"),\n            frame = FALSE) +\n  tm_borders(alpha = 0.5)\n\n\n\n\n\n\n\n\n\n\n3.5.2 Map style\ntmap allows a wide variety of layout settings to be changed. They can be called by using tmap_style().\n classic style\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\", \n          style = \"quantile\", \n          palette = \"-Greens\") +\n  tm_borders(alpha = 0.5) +\n  tmap_style(\"classic\")\n\n\n\n\n\n\n\n\n\n\n🛠️3.5.3 Cartographic Furniture\nBeside map style, tmap also also provides arguments to draw other map furniture such as compass, scale bar and grid lines.\nAdd compass\ntm_compass() type = “8star”： Use the 8-way star compass to indicate directions on the map. size = 2: Adjust compass size.\nAdd grid\ntm_grid(alpha = 0.2): Add grid lines (Grid) to the map with an opacity of 0.2 to provide geographical reference points.\ntm_credits() is used to indicate data sources.\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\", \n          style = \"quantile\", \n          palette = \"Blues\",\n          title = \"No. of persons\") +\n  tm_layout(main.title = \"Distribution of Dependency Ratio \\nby planning subzone\",\n            main.title.position = \"center\",\n            main.title.size = 1.2,\n            legend.height = 0.45, \n            legend.width = 0.35,\n            frame = TRUE) +\n  tm_borders(alpha = 0.5) +\n  tm_compass(type=\"8star\", size = 2) +\n  tm_grid(lwd = 0.1, alpha = 0.2) +\n  tm_credits(\"Source: Planning Sub-zone boundary from Urban Redevelopment Authorithy (URA)\\n and Population data from Department of Statistics DOS\", \n             position = c(\"left\", \"bottom\"))\n\n\n\n\n\n\n\n\n\ntmap_mode(\"plot\")\n\nCan reset the default by doing this\n\ntmap_style(\"white\")",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Geographical Data",
+      "Choropleth Mapping with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx07/hands-onEx07.html#drawing-small-multiple-choropleth-maps",
+    "href": "hands-onEx/hands-onEx07/hands-onEx07.html#drawing-small-multiple-choropleth-maps",
+    "title": "Hands on Exercise 07: Choropleth Mapping with R",
+    "section": "3.6 Drawing Small Multiple Choropleth Maps",
+    "text": "3.6 Drawing Small Multiple Choropleth Maps\nSmall multiple maps, also referred to as facet maps, are composed of many maps arrange side-by-side, and sometimes stacked vertically. Small multiple maps enable the visualisation of how spatial relationships change with respect to another variable, such as time.\nIn tmap, small multiple maps can be plotted in three ways:\n\nby assigning multiple values to at least one of the asthetic arguments,\nby defining a group-by variable in tm_facets(), and\nby creating multiple stand-alone maps with tmap_arrange().\n\n\n🛠️3.6.1 By assigning multiple values to at least one of the aesthetic arguments\ntm_fill(c(“YOUNG”, “AGED”)): Two variables are displayed here at the same time, namely: YOUNG and AGED\ntmap_style() is one of the preset styles provided by tmap, you can choose from:\n“classic”: classic style\n“cobalt”: blue background\n“albatross”: gray background\n“white”: white background (suitable for reports or papers)\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(c(\"YOUNG\", \"AGED\"),\n          style = \"equal\", \n          palette = \"Blues\") +\n  tm_layout(legend.position = c(\"right\", \"bottom\")) +\n  tm_borders(alpha = 0.5) +\n  tmap_style(\"white\")\n\n\n\n\n\n\n\n\nIn this example, small multiple choropleth maps are created by assigning multiple values to at least one of the aesthetic arguments.\n???\n\ntm_shape(mpsz_pop2020)+\n  tm_polygons(c(\"DEPENDENCY\", \"AGED\"),\n              style = c(\"equal\", \"quantile\"),\n              palette = list(\"Blues\", \"-Greens\")) \n\n\n\n\n\n\n\n  tm_layout(legend.position = c(\"right\", \"bottom\"))\n\n\n\n🛠️3.6.2 Defining a group-by variable in tm_facets()\nmultiple small choropleth maps are created by using tm_facets().\nThere is a NA in the data, so the code can’t run. Therefore, I will update later till prof release the file.( do not want to do the change, cause I afraid there will be an error.\n\nstr(mpsz_pop2020$DEPENDENCY)\n\n num [1:323] NA 1.161 0.25 0.938 0.771 ...\n\n\n\n\n3.6.3 Creating multiple stand-alone maps: tmap_arrange()\nIn this example, multiple small choropleth maps are created by creating multiple stand-alone maps with tmap_arrange().\n\nyoungmap &lt;- tm_shape(mpsz_pop2020)+ \n  tm_polygons(\"YOUNG\", \n              style = \"quantile\", \n              palette = \"Blues\")\n\nagedmap &lt;- tm_shape(mpsz_pop2020)+ \n  tm_polygons(\"AGED\", \n              style = \"quantile\", \n              palette = \"Blues\")\n\ntmap_arrange(youngmap, agedmap, asp=1, ncol=2)",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Geographical Data",
+      "Choropleth Mapping with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx07/hands-onEx07.html#mappping-spatial-object-meeting-a-selection-criterion",
+    "href": "hands-onEx/hands-onEx07/hands-onEx07.html#mappping-spatial-object-meeting-a-selection-criterion",
+    "title": "Hands on Exercise 07: Choropleth Mapping with R",
+    "section": "🛠️3.7 Mappping Spatial Object Meeting a Selection Criterion",
+    "text": "🛠️3.7 Mappping Spatial Object Meeting a Selection Criterion\n\ntm_shape(mpsz_pop2020[mpsz_pop2020$REGION_N==\"CENTRAL REGION\", ])+\n  tm_fill(\"DEPENDENCY\", \n          style = \"quantile\", \n          palette = \"Blues\", \n          legend.hist = TRUE, \n          legend.is.portrait = TRUE,\n          legend.hist.z = 0.1) +\n  tm_layout(legend.outside = TRUE,\n            legend.height = 0.45, \n            legend.width = 5.0,\n            legend.position = c(\"right\", \"bottom\"),\n            frame = FALSE) +\n  tm_borders(alpha = 0.5)",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Geographical Data",
+      "Choropleth Mapping with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx07/hands-onEx07.html#all-about-tmap-package",
+    "href": "hands-onEx/hands-onEx07/hands-onEx07.html#all-about-tmap-package",
+    "title": "Hands on Exercise 07: Choropleth Mapping with R",
+    "section": "4.1 All about tmap package",
+    "text": "4.1 All about tmap package\n\ntmap: Thematic Maps in R\ntmap\ntmap: get started!\ntmap: changes in version 2.0\ntmap: creating thematic maps in a flexible way (useR!2015)\nExploring and presenting maps with tmap (useR!2017)",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Geographical Data",
+      "Choropleth Mapping with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx07/hands-onEx07.html#geospatial-data-wrangling",
+    "href": "hands-onEx/hands-onEx07/hands-onEx07.html#geospatial-data-wrangling",
+    "title": "Hands on Exercise 07: Choropleth Mapping with R",
+    "section": "4.2 Geospatial data wrangling",
+    "text": "4.2 Geospatial data wrangling\n\nsf: Simple Features for R\nSimple Features for R: StandardizedSupport for Spatial Vector Data\nReading, Writing and Converting Simple Features",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Geographical Data",
+      "Choropleth Mapping with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx07/hands-onEx07.html#data-wrangling-1",
+    "href": "hands-onEx/hands-onEx07/hands-onEx07.html#data-wrangling-1",
+    "title": "Hands on Exercise 07: Choropleth Mapping with R",
+    "section": "4.3 Data wrangling",
+    "text": "4.3 Data wrangling\n\ndplyr\nTidy data\ntidyr: Easily Tidy Data with ‘spread()’ and ‘gather()’ Functions",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Geographical Data",
+      "Choropleth Mapping with R"
+    ]
+  },
+  {
     "objectID": "In-class_Ex/In-class_Ex05/In-class_Ex05.html",
     "href": "In-class_Ex/In-class_Ex05/In-class_Ex05.html",
     "title": "In Class Exercise 5",
@@ -1827,168 +1978,5 @@
     "title": "Take-home Exercise 1: Creating data visualisation: Ship Performance in the Gulf of Guinea",
     "section": "3.7 Relationship between Efficiency and Profit",
     "text": "3.7 Relationship between Efficiency and Profit\nThe scatter plot shows that there is no significant relationship between energy efficiency and profit , while higher energy efficiency should bring better economic benefits generally from a business perspective. The expected correlation does not exist in this data set.\n\n\n\n\n\n\nThis may mean 🔍🤔\n\n\n\n\nOther factors (such as freight volume, route selection, freight market fluctuations) may have a greater impact on profits than pure energy efficiency metrics.\nHigh energy efficiency does not necessarily helpful to the profit: Even if the ship’s energy efficiency is high, profits may not be improved due to other maintenance costs, rent, labor and other expenses.\n\n\n\n\nThe plotThe code\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nggscatterstats(\n  data = ship,\n  x = Efficiency_nm_per_kWh,\n  y = profit,\n  marginal = FALSE,\n  )"
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx07/hands-onEx07.html#data-preparation",
-    "href": "hands-onEx/hands-onEx07/hands-onEx07.html#data-preparation",
-    "title": "Hands on Exercise 07: Choropleth Mapping with R",
-    "section": "2.1 Data Preparation",
-    "text": "2.1 Data Preparation\nBefore a thematic map can be prepared, you are required to prepare a data table with year 2020 values. The data table should include the variables PA, SZ, YOUNG, ECONOMY ACTIVE, AGED, TOTAL, DEPENDENCY.\n\nYOUNG: age group 0 to 4 until age groyup 20 to 24,\nECONOMY ACTIVE: age group 25-29 until age group 60-64,\nAGED: age group 65 and above,\nTOTAL: all age group, and\nDEPENDENCY: the ratio between young and aged against economy active group\n\n\nData wranglingJoining the attribute and geospatial data\n\n\nThe following data wrangling and transformation functions will be used:\n\npivot_wider() of tidyr package, and\nmutate(), filter(), group_by() and select() of dplyr package\n\n\n        popdata2020 &lt;- popdata %&gt;%\n          filter(Time == 2020) %&gt;%\n          group_by(PA, SZ, AG) %&gt;%\n          summarise(`POP` = sum(`Pop`)) %&gt;% #Computes the total population (POP) for each PA, SZ, AG group.\n\n          ungroup() %&gt;% #Removes grouping, allowing further transformations.\n\n          pivot_wider(names_from=AG, \n                      values_from=POP) %&gt;% #Converts the dataset from long format (where each row represents a single age group) to wide format, with columns for different age groups.\n          mutate(YOUNG = rowSums(.[3:6])\n                 +rowSums(.[12])) %&gt;%  #Sums the population for young age groups in columns 3 to 6 and column 12.\n        mutate(`ECONOMY ACTIVE` = rowSums(.[7:11])+\n        rowSums(.[13:15]))%&gt;% #sums the population for working-age individuals from columns 7 to 11 and 13 to 15\n        mutate(`AGED`=rowSums(.[16:21])) %&gt;% #All Age Groups\n        mutate(`TOTAL`=rowSums(.[3:21])) %&gt;%  \n        mutate(`DEPENDENCY` = (`YOUNG` + `AGED`)\n        /`ECONOMY ACTIVE`) %&gt;%\n          select(`PA`, `SZ`, `YOUNG`, \n               `ECONOMY ACTIVE`, `AGED`, \n               `TOTAL`, `DEPENDENCY`)\n\n\n\n    Connect the population attribute data (popdata2020) and the geographical spatial data (mpsz) to form a complete geographical attribute data frame (mpsz_pop2020), and finally save it in .rds format.\n\nConvert the values ​​of PA and SZ fields to uppercase (uppercase)\n\n\nBecause the SUBZONE_N and PLN_AREA_N fields in geographic data (mpsz) are both uppercase, you need to ensure that the PA and SZ of popdata2020 are also uppercase to avoid matching failures. mutate_at() is used to modify fields in batches, and toupper() converts them to uppercase.\n\n\n        popdata2020 &lt;- popdata2020 %&gt;%\n          mutate_at(.vars = vars(PA, SZ), \n                  .funs = funs(toupper)) %&gt;%\n          filter(`ECONOMY ACTIVE` &gt; 0)\n\n\nUse left_join() to merge two datasets\n\n\nmpsz is geospatial data (sf object), containing geographic boundaries (polygons). popdata2020 is population attribute data, including population, economic activities and other information. Merged match fields\nmpsz is the left table, which means that even if popdata2020 has no matching data, all records of mpsz will still be retained. popdata2020 is the right table. If SZ cannot match SUBZONE_N, the population data of the district will be NA.\n\n\n        mpsz_pop2020 &lt;- left_join(mpsz, popdata2020,\n                                  by = c(\"SUBZONE_N\" = \"SZ\"))\n\n\nStored it as .rds format\n\n\nwrite_rds(mpsz_pop2020, \"data/rds/mpszpop2020.rds\")",
-    "crumbs": [
-      "Home",
-      "Visualising and Analysing Geographical Data",
-      "Choropleth Mapping with R"
-    ]
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx06/hands-onEx06.html",
-    "href": "hands-onEx/hands-onEx06/hands-onEx06.html",
-    "title": "Hands on Exercise 06: Visualising and Analysing Time-oriented Data",
-    "section": "",
-    "text": "1. Overview\n\n\n2. Getting Started\n\nInstalling LibrariesImporting DataUnderstanding Data\n\n\n\npacman::p_load(scales, viridis, lubridate, ggthemes, gridExtra, readxl, knitr, data.table, CGPfunctions, ggHoriPlot, tidyverse)"
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx07/hands-onEx07.html#plotting-a-thematic-map-quickly-by-using-qtm",
-    "href": "hands-onEx/hands-onEx07/hands-onEx07.html#plotting-a-thematic-map-quickly-by-using-qtm",
-    "title": "Hands on Exercise 07: Choropleth Mapping with R",
-    "section": "3.1 Plotting a thematic map quickly by using qtm()",
-    "text": "3.1 Plotting a thematic map quickly by using qtm()\n\n\n\n\n\n\nThings to learn form code\n\n\n\ntmap_mode(“plot”): Set the static map mode to display the map in static map (ggplot2-like) format. tmap_mode(“view”): If changed to “view”, an interactive map (Leaflet-based) will be generated, which can be zoomed and clicked to view detailed information.\nfill = “DEPENDENCY”： Fills the map’s color based on the DEPENDENCY field data. The higher the value, the more people that need the support.\n\n\n\ntmap_mode(\"plot\")\nqtm(mpsz_pop2020, \n    fill = \"DEPENDENCY\")",
-    "crumbs": [
-      "Home",
-      "Visualising and Analysing Geographical Data",
-      "Choropleth Mapping with R"
-    ]
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx07/hands-onEx07.html#creating-a-choropleth-map-by-using-tmaps-elements",
-    "href": "hands-onEx/hands-onEx07/hands-onEx07.html#creating-a-choropleth-map-by-using-tmaps-elements",
-    "title": "Hands on Exercise 07: Choropleth Mapping with R",
-    "section": "🛠️3.2 Creating a choropleth map by using tmap’s elements",
-    "text": "🛠️3.2 Creating a choropleth map by using tmap’s elements\nThe disadvantage of qtm() is that it makes aesthetics of individual layers harder to control. To draw a high quality cartographic choropleth map as shown in the figure below, tmap’s drawing elements should be used.\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\", \n          style = \"quantile\", \n          palette = \"Blues\",\n          title = \"Dependency ratio\") +\n  tm_layout(main.title = \"Distribution of Dependency Ratio by planning subzone\",\n            main.title.position = \"center\",\n            main.title.size = 1.2,\n            legend.height = 0.45, \n            legend.width = 0.35,\n            frame = TRUE) +\n  tm_borders(alpha = 0.5) +\n  tm_compass(type=\"8star\", size = 2) +\n  tm_scale_bar() +\n  tm_grid(alpha =0.2) +\n  tm_credits(\"Source: Planning Sub-zone boundary from Urban Redevelopment Authorithy (URA)\\n and Population data from Department of Statistics DOS\", \n             position = c(\"left\", \"bottom\"))\n\n\n\n\n\n\n\n\nBelow is the step to draw the plot by using tmap function\n\nDrawing a base mapColoring: tm_polygons()\n\n\nIn the code chunk below, tm_shape() is used to define the input data (i.e mpsz_pop2020) and tm_polygons() is used to draw the planning subzone polygons\n\ntm_shape(mpsz_pop2020) +\n  tm_polygons()\n\n\n\n\n\n\n\n\n\n\nAssign the target variable such as Dependency to tm_polygons().\n\n\n\n\n\n\nThings to learn form code\n\n\n\n\nThe default interval binning used to draw the choropleth map is called “pretty”.\nThe default colour scheme used is YlOrRd of ColorBrewer.\nBy default, Missing value will be shaded in grey.\n\n\n\n\ntm_shape(mpsz_pop2020)+\n  tm_polygons(\"DEPENDENCY\")\n\n\n\n\n\n\n\n\n\nDrawing a choropleth map using tm_fill() and *tm_border()\nActually, tm_polygons() is a wraper of tm_fill() and tm_border(). tm_fill() shades the polygons by using the default colour scheme and tm_borders() adds the borders of the shapefile onto the choropleth map.\nThe alpha argument is used to define transparency number between 0 (totally transparent) and 1 (not transparent). By default, the alpha value of the col is used (normally 1).\nBeside alpha argument, there are three other arguments for tm_borders(), they are:\n\ncol = border colour,\nlwd = border line width. The default is 1, and\nlty = border line type. The default is “solid”.\n\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\") +\n  tm_borders(lwd = 0.1,  alpha = 1)",
-    "crumbs": [
-      "Home",
-      "Visualising and Analysing Geographical Data",
-      "Choropleth Mapping with R"
-    ]
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx07/hands-onEx07.html#data-classification-methods-of-tmap",
-    "href": "hands-onEx/hands-onEx07/hands-onEx07.html#data-classification-methods-of-tmap",
-    "title": "Hands on Exercise 07: Choropleth Mapping with R",
-    "section": "3.3 Data classification methods of tmap",
-    "text": "3.3 Data classification methods of tmap\nMost choropleth maps employ some methods of data classification. The point of classification is to take a large number of observations and group them into data ranges or classes.\ntmap provides a total ten data classification methods, namely: fixed, sd, equal, pretty (default), quantile, kmeans, hclust, bclust, fisher, and jenks.\nTo define a data classification method, the style argument of tm_fill() or tm_polygons() will be used.\n\njenksequalquantilekmeans\n\n\nLook for natural breakpoints in the data that minimize variability within each category and maximize variability between categories.\nApplicable scenarios: When the data is unevenly distributed, this method can more effectively reflect the intrinsic structure of the data, such as housing prices, geographical data, etc.\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\",\n          n = 5,\n          style = \"jenks\") +\n  tm_borders(alpha = 0.5)\n\n\n\n\n\n\n\n\n\n\nDivide the data range evenly into N intervals, each interval being equal in width.\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\",\n          n = 5,\n          style = \"equal\") +\n  tm_borders(alpha = 0.5)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCaution\n\n\n\nNotice that the distribution of quantile data classification method are more evenly distributed then equal data classification method.\n\n\n\n\nDivide the data according to its quantile (percentage), for example: -\n\nquartiles\nquintiles\ndeciles\n\nApplicable scenarios: When the data distribution is uneven, this method ensures that the number of data in each interval is similar. For example, house price analysis, income analysis, etc.\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\",\n          n = 5,\n          style = \"quantile\") +\n  tm_borders(alpha = 0.5)\n\n\n\n\n\n\n\n\n\n\nClassify based on the distribution characteristics of the data itself, rather than dividing intervals evenly.\nApplicable scenarios: When the data has obvious natural groupings, such as population age structure, economic status, etc.\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\",\n          n = 5,\n          style = \"kmeans\") +\n  tm_borders(alpha = 0.5)\n\n\n\n\n\n\n\n\n\n\n\n\n3.3.1 Preparing choropleth maps based on different numbers of classes\n\n261020\n\n\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\",\n          n = 2,\n          style = \"jenks\") +\n  tm_borders(alpha = 0.5)\n\n\n\n\n\n\n\n\n\n\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\",\n          n = 6,\n          style = \"jenks\") +\n  tm_borders(alpha = 0.5)\n\n\n\n\n\n\n\n\n\n\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\",\n          n = 10,\n          style = \"jenks\") +\n  tm_borders(alpha = 0.5)\n\n\n\n\n\n\n\n\n\n\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\",\n          n = 20,\n          style = \"jenks\") +\n  tm_borders(alpha = 0.5)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nObservations & Comparisons\n\n\n\n2 Classes (Low granularity)\n\nThe map provides a very generalized view, dividing the areas into just two broad categories.\nIt may hide important variations within the dataset.\nUseful for quick, high-level insights.\n\n6 Classes (Moderate granularity)\n\nA more balanced representation with clearer differentiation.\nIt provides better detail while maintaining readability.\nSuitable for most general analysis.\n\n10 Classes (High granularity)\n\nMore detailed but might introduce complexity.\nThe color variations may become harder to distinguish.\nGood for in-depth analysis.\n\n20 Classes (Over-segmentation)\n\nToo detailed and may create excessive color variations.\nHarder to interpret patterns.\nOnly useful when precise differences matter, such as in scientific analysis.\n\n\n\n\n\n3.3.2 Custome break point\nThe breakpoints can be set explicitly by means of the breaks argument to the tm_fill(). It is important to note that, in tmap the breaks include a minimum and maximum. As a result, in order to end up with n categories, n+1 elements must be specified in the breaks option (the values must be in increasing order).\nNow, get some descriptive statistics on the variable before setting the break points.\n\nsummary(mpsz_pop2020$DEPENDENCY)\n\n   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's \n 0.1111  0.7147  0.7866  0.8585  0.8763 19.0000      92 \n\n\nWith reference to the results above, we set break point at 0.60, 0.70, 0.80, and 0.90. In addition, we also need to include a minimum and maximum, which we set at 0 and 100. Our breaks vector is thus c(0, 0.60, 0.70, 0.80, 0.90, 1.00).\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\",\n          breaks = c(0, 0.60, 0.70, 0.80, 0.90, 1.00)) +\n  tm_borders(alpha = 0.5)",
-    "crumbs": [
-      "Home",
-      "Visualising and Analysing Geographical Data",
-      "Choropleth Mapping with R"
-    ]
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx07/hands-onEx07.html#color-schceme",
-    "href": "hands-onEx/hands-onEx07/hands-onEx07.html#color-schceme",
-    "title": "Hands on Exercise 07: Choropleth Mapping with R",
-    "section": "3.4 Color Schceme",
-    "text": "3.4 Color Schceme\ntmap supports colour ramps either defined by the user or a set of predefined colour ramps from the RColorBrewer package.\nTo change the colour, we assign the preferred colour to palette argument of tm_fill() as shown in the code chunk below.\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\",\n          n = 6,\n          style = \"quantile\",\n          palette = \"Blues\") +\n  tm_borders(alpha = 0.5)\n\n\n\n\n\n\n\n\nTo reverse the colour shading, add a “-” prefix.\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\",\n          style = \"quantile\",\n          palette = \"-Greens\") +\n  tm_borders(alpha = 0.5)",
-    "crumbs": [
-      "Home",
-      "Visualising and Analysing Geographical Data",
-      "Choropleth Mapping with R"
-    ]
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx07/hands-onEx07.html#map-layouts",
-    "href": "hands-onEx/hands-onEx07/hands-onEx07.html#map-layouts",
-    "title": "Hands on Exercise 07: Choropleth Mapping with R",
-    "section": "🛠️3.5 Map Layouts",
-    "text": "🛠️3.5 Map Layouts\nMap layout refers to the combination of all map elements into a cohensive map. Map elements include among others the objects to be mapped, the title, the scale bar, the compass, margins and aspects ratios. Colour settings and data classification methods covered in the previous section relate to the palette and break-points are used to affect how the map looks.\n\n3.5.1 Map legend\n\n\n\n\n\n\nThings to learn from code\n\n\n\n\ntm_fill:\nlegend.hist = TRUE: Display a histogram of the data in the legend to help understand the distribution of quantities in different categories.\nlegend.is.portrait = TRUE: Legends are arranged vertically (vertically).\nlegend.hist.z = 0.1: Set the size of the histogram, a value of 0.1 represents a smaller histogram.\ntm_layout: set the map title and legend\n\nlegend.outside = FALSE: The legend is placed inside the map, not outside the map.\nlegend.position = c(“right”, “bottom”)： The legend appears in the lower right corner.\nframe = FALSE: Map borders are not drawn.\n\n\n\n\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\", \n          style = \"jenks\", \n          palette = \"Blues\", \n          legend.hist = TRUE, \n          legend.is.portrait = TRUE,\n          legend.hist.z = 0.1) +\n  tm_layout(main.title = \"Distribution of Dependency Ratio by planning subzone \\n(Jenks classification)\",\n            main.title.position = \"center\",\n            main.title.size = 1,\n            legend.height = 0.45, \n            legend.width = 0.35,\n            legend.outside = FALSE,\n            legend.position = c(\"right\", \"bottom\"),\n            frame = FALSE) +\n  tm_borders(alpha = 0.5)\n\n\n\n\n\n\n\n\n\n\n3.5.2 Map style\ntmap allows a wide variety of layout settings to be changed. They can be called by using tmap_style().\n classic style\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\", \n          style = \"quantile\", \n          palette = \"-Greens\") +\n  tm_borders(alpha = 0.5) +\n  tmap_style(\"classic\")\n\n\n\n\n\n\n\n\n\n\n🛠️3.5.3 Cartographic Furniture\nBeside map style, tmap also also provides arguments to draw other map furniture such as compass, scale bar and grid lines.\nAdd compass\ntm_compass() type = “8star”： Use the 8-way star compass to indicate directions on the map. size = 2: Adjust compass size.\nAdd grid\ntm_grid(alpha = 0.2): Add grid lines (Grid) to the map with an opacity of 0.2 to provide geographical reference points.\ntm_credits() is used to indicate data sources.\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\", \n          style = \"quantile\", \n          palette = \"Blues\",\n          title = \"No. of persons\") +\n  tm_layout(main.title = \"Distribution of Dependency Ratio \\nby planning subzone\",\n            main.title.position = \"center\",\n            main.title.size = 1.2,\n            legend.height = 0.45, \n            legend.width = 0.35,\n            frame = TRUE) +\n  tm_borders(alpha = 0.5) +\n  tm_compass(type=\"8star\", size = 2) +\n  tm_grid(lwd = 0.1, alpha = 0.2) +\n  tm_credits(\"Source: Planning Sub-zone boundary from Urban Redevelopment Authorithy (URA)\\n and Population data from Department of Statistics DOS\", \n             position = c(\"left\", \"bottom\"))\n\n\n\n\n\n\n\n\n\ntmap_mode(\"plot\")\n\nCan reset the default by doing this\n\ntmap_style(\"white\")",
-    "crumbs": [
-      "Home",
-      "Visualising and Analysing Geographical Data",
-      "Choropleth Mapping with R"
-    ]
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx07/hands-onEx07.html#map-legend",
-    "href": "hands-onEx/hands-onEx07/hands-onEx07.html#map-legend",
-    "title": "Hands on Exercise 07: Choropleth Mapping with R",
-    "section": "3.5.1 Map legend",
-    "text": "3.5.1 Map legend\n\n\n\n\n\n\nThings to learn from code\n\n\n\n\ntm_fill:\n\n-   legend.hist = TRUE: Display a histogram of the data in the legend to help understand the distribution of quantities in different categories.\n-    legend.is.portrait = TRUE: Legends are arranged vertically (vertically).\n-   legend.hist.z = 0.1: Set the size of the histogram, a value of 0.1 represents a smaller histogram.\n\ntm_layout: set the map title and legend\n\nlegend.outside = FALSE: The legend is placed inside the map, not outside the map.\nlegend.position = c(“right”, “bottom”)： The legend appears in the lower right corner.\nframe = FALSE: Map borders are not drawn.\n\n\n\n\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\", \n          style = \"jenks\", \n          palette = \"Blues\", \n          legend.hist = TRUE, \n          legend.is.portrait = TRUE,\n          legend.hist.z = 0.1) +\n  tm_layout(main.title = \"Distribution of Dependency Ratio by planning subzone \\n(Jenks classification)\",\n            main.title.position = \"center\",\n            main.title.size = 1,\n            legend.height = 0.45, \n            legend.width = 0.35,\n            legend.outside = FALSE,\n            legend.position = c(\"right\", \"bottom\"),\n            frame = FALSE) +\n  tm_borders(alpha = 0.5)\n\n\n\n\n\n\n\n\n\n3.5.2 Map style\ntmap allows a wide variety of layout settings to be changed. They can be called by using tmap_style().\n classic style\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\", \n          style = \"quantile\", \n          palette = \"-Greens\") +\n  tm_borders(alpha = 0.5) +\n  tmap_style(\"classic\")\n\n\n\n\n\n\n\n\n\n\n3.5.3 Cartographic Furniture\nBeside map style, tmap also also provides arguments to draw other map furniture such as compass, scale bar and grid lines.\nAdd compass\ntm_compass() type = “8star”： Use the 8-way star compass to indicate directions on the map. size = 2: Adjust compass size.\nAdd grid\ntm_grid(alpha = 0.2): Add grid lines (Grid) to the map with an opacity of 0.2 to provide geographical reference points.\ntm_credits() is used to indicate data sources.\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(\"DEPENDENCY\", \n          style = \"quantile\", \n          palette = \"Blues\",\n          title = \"No. of persons\") +\n  tm_layout(main.title = \"Distribution of Dependency Ratio \\nby planning subzone\",\n            main.title.position = \"center\",\n            main.title.size = 1.2,\n            legend.height = 0.45, \n            legend.width = 0.35,\n            frame = TRUE) +\n  tm_borders(alpha = 0.5) +\n  tm_compass(type=\"8star\", size = 2) +\n  tm_grid(lwd = 0.1, alpha = 0.2) +\n  tm_credits(\"Source: Planning Sub-zone boundary from Urban Redevelopment Authorithy (URA)\\n and Population data from Department of Statistics DOS\", \n             position = c(\"left\", \"bottom\"))\n\n\n\n\n\n\n\n\n\ntmap_mode(\"plot\")\n\nCan reset the default by doing this\n\ntmap_style(\"white\")",
-    "crumbs": [
-      "Home",
-      "Visualising and Analysing Geographical Data",
-      "Choropleth Mapping with R"
-    ]
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx07/hands-onEx07.html#drawing-small-multiple-choropleth-maps",
-    "href": "hands-onEx/hands-onEx07/hands-onEx07.html#drawing-small-multiple-choropleth-maps",
-    "title": "Hands on Exercise 07: Choropleth Mapping with R",
-    "section": "3.6 Drawing Small Multiple Choropleth Maps",
-    "text": "3.6 Drawing Small Multiple Choropleth Maps\nSmall multiple maps, also referred to as facet maps, are composed of many maps arrange side-by-side, and sometimes stacked vertically. Small multiple maps enable the visualisation of how spatial relationships change with respect to another variable, such as time.\nIn tmap, small multiple maps can be plotted in three ways:\n\nby assigning multiple values to at least one of the asthetic arguments,\nby defining a group-by variable in tm_facets(), and\nby creating multiple stand-alone maps with tmap_arrange().\n\n\n🛠️3.6.1 By assigning multiple values to at least one of the aesthetic arguments\ntm_fill(c(“YOUNG”, “AGED”)): Two variables are displayed here at the same time, namely: YOUNG and AGED\ntmap_style() is one of the preset styles provided by tmap, you can choose from:\n“classic”: classic style\n“cobalt”: blue background\n“albatross”: gray background\n“white”: white background (suitable for reports or papers)\n\ntm_shape(mpsz_pop2020)+\n  tm_fill(c(\"YOUNG\", \"AGED\"),\n          style = \"equal\", \n          palette = \"Blues\") +\n  tm_layout(legend.position = c(\"right\", \"bottom\")) +\n  tm_borders(alpha = 0.5) +\n  tmap_style(\"white\")\n\n\n\n\n\n\n\n\nIn this example, small multiple choropleth maps are created by assigning multiple values to at least one of the aesthetic arguments.\n???\n\ntm_shape(mpsz_pop2020)+\n  tm_polygons(c(\"DEPENDENCY\", \"AGED\"),\n              style = c(\"equal\", \"quantile\"),\n              palette = list(\"Blues\", \"-Greens\")) \n\n\n\n\n\n\n\n  tm_layout(legend.position = c(\"right\", \"bottom\"))\n\n\n\n🛠️3.6.2 Defining a group-by variable in tm_facets()\nmultiple small choropleth maps are created by using tm_facets().\nThere is a NA in the data, so the code can’t run. Therefore, I will update later till prof release the file.( do not want to do the change, cause I afraid there will be an error.\n\nstr(mpsz_pop2020$DEPENDENCY)\n\n num [1:323] NA 1.161 0.25 0.938 0.771 ...\n\n\n\n\n3.6.3 Creating multiple stand-alone maps: tmap_arrange()\nIn this example, multiple small choropleth maps are created by creating multiple stand-alone maps with tmap_arrange().\n\nyoungmap &lt;- tm_shape(mpsz_pop2020)+ \n  tm_polygons(\"YOUNG\", \n              style = \"quantile\", \n              palette = \"Blues\")\n\nagedmap &lt;- tm_shape(mpsz_pop2020)+ \n  tm_polygons(\"AGED\", \n              style = \"quantile\", \n              palette = \"Blues\")\n\ntmap_arrange(youngmap, agedmap, asp=1, ncol=2)",
-    "crumbs": [
-      "Home",
-      "Visualising and Analysing Geographical Data",
-      "Choropleth Mapping with R"
-    ]
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx07/hands-onEx07.html",
-    "href": "hands-onEx/hands-onEx07/hands-onEx07.html",
-    "title": "Hands on Exercise 07: Choropleth Mapping with R",
-    "section": "",
-    "text": "In this chapter, you will learn how to plot functional and truthful choropleth maps by using an R package called tmap package.\n\n\n\n\n\n\nThings you will learn\n\n\n\n\nData Preparation\n\n2.1 Joining the attribute data and geospatial data\n\n⭐3.1 ndefinedPlotting a choropleth map quickly by using qtm()\n3.2 Creating a choropleth map by using tmap’s elements\n3.3 Data classification methods\n3.4 Change color\n3.5 Different style and theme of plot\n3.6 Combine little multiple map\n\n\n\n🛠️can’t change the second multiple map to green\n🛠️There is the NA in mpsz_pop2020\n🛠️The lengend squeezed !",
-    "crumbs": [
-      "Home",
-      "Visualising and Analysing Geographical Data",
-      "Choropleth Mapping with R"
-    ]
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx07/hands-onEx07.html#mappping-spatial-object-meeting-a-selection-criterion",
-    "href": "hands-onEx/hands-onEx07/hands-onEx07.html#mappping-spatial-object-meeting-a-selection-criterion",
-    "title": "Hands on Exercise 07: Choropleth Mapping with R",
-    "section": "🛠️3.7 Mappping Spatial Object Meeting a Selection Criterion",
-    "text": "🛠️3.7 Mappping Spatial Object Meeting a Selection Criterion\n\ntm_shape(mpsz_pop2020[mpsz_pop2020$REGION_N==\"CENTRAL REGION\", ])+\n  tm_fill(\"DEPENDENCY\", \n          style = \"quantile\", \n          palette = \"Blues\", \n          legend.hist = TRUE, \n          legend.is.portrait = TRUE,\n          legend.hist.z = 0.1) +\n  tm_layout(legend.outside = TRUE,\n            legend.height = 0.45, \n            legend.width = 5.0,\n            legend.position = c(\"right\", \"bottom\"),\n            frame = FALSE) +\n  tm_borders(alpha = 0.5)",
-    "crumbs": [
-      "Home",
-      "Visualising and Analysing Geographical Data",
-      "Choropleth Mapping with R"
-    ]
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx07/hands-onEx07.html#all-about-tmap-package",
-    "href": "hands-onEx/hands-onEx07/hands-onEx07.html#all-about-tmap-package",
-    "title": "Hands on Exercise 07: Choropleth Mapping with R",
-    "section": "4.1 All about tmap package",
-    "text": "4.1 All about tmap package\n\ntmap: Thematic Maps in R\ntmap\ntmap: get started!\ntmap: changes in version 2.0\ntmap: creating thematic maps in a flexible way (useR!2015)\nExploring and presenting maps with tmap (useR!2017)",
-    "crumbs": [
-      "Home",
-      "Visualising and Analysing Geographical Data",
-      "Choropleth Mapping with R"
-    ]
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx07/hands-onEx07.html#geospatial-data-wrangling",
-    "href": "hands-onEx/hands-onEx07/hands-onEx07.html#geospatial-data-wrangling",
-    "title": "Hands on Exercise 07: Choropleth Mapping with R",
-    "section": "4.2 Geospatial data wrangling",
-    "text": "4.2 Geospatial data wrangling\n\nsf: Simple Features for R\nSimple Features for R: StandardizedSupport for Spatial Vector Data\nReading, Writing and Converting Simple Features",
-    "crumbs": [
-      "Home",
-      "Visualising and Analysing Geographical Data",
-      "Choropleth Mapping with R"
-    ]
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx07/hands-onEx07.html#data-wrangling-1",
-    "href": "hands-onEx/hands-onEx07/hands-onEx07.html#data-wrangling-1",
-    "title": "Hands on Exercise 07: Choropleth Mapping with R",
-    "section": "4.3 Data wrangling",
-    "text": "4.3 Data wrangling\n\ndplyr\nTidy data\ntidyr: Easily Tidy Data with ‘spread()’ and ‘gather()’ Functions",
-    "crumbs": [
-      "Home",
-      "Visualising and Analysing Geographical Data",
-      "Choropleth Mapping with R"
-    ]
   }
 ]
