@@ -8,7 +8,7 @@
 
 <meta name="author" content="Chen.PengWei">
 
-<title>Hands on Exercise 07: Choropleth Mapping with R – ISSS608-CourseWork</title>
+<title>Hands on Exercise 07: Visualising and Analysing Time-oriented Data – ISSS608-CourseWork</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -102,6 +102,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../../styles.css">
 </head>
@@ -185,8 +214,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Treemap Visualisation with R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="../../hands-onEx/hands-onEx07/hands-onEx07.html">
+    <a class="dropdown-item" href="../../hands-onEx/hands-onEx08/hands-onEx08.html">
  <span class="dropdown-text">Choropleth Mapping with R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hands-onEx/hands-onEx07/hands-onEx07.html">
+ <span class="dropdown-text">Visualising and Analysing Time-oriented Data</span></a>
   </li>  
     </ul>
   </li>
@@ -243,7 +276,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../hands-onEx/hands-onEx07/hands-onEx07.html">Visualising and Analysing Geographical Data</a></li><li class="breadcrumb-item"><a href="../../hands-onEx/hands-onEx07/hands-onEx07.html">Choropleth Mapping with R</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../hands-onEx/hands-onEx07/hands-onEx07.html">Visualising and Analysing Geographical Data</a></li><li class="breadcrumb-item"><a href="../../hands-onEx/hands-onEx07/hands-onEx07.html">Visualising and Analysing Time-oriented Data</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -396,8 +429,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../hands-onEx/hands-onEx07/hands-onEx07.html" class="sidebar-item-text sidebar-link active">
+  <a href="../../hands-onEx/hands-onEx08/hands-onEx08.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Choropleth Mapping with R</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Visualising and Analysing Geographical Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../hands-onEx/hands-onEx07/hands-onEx07.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Visualising and Analysing Time-oriented Data</span></a>
   </div>
 </li>
       </ul>
@@ -413,49 +463,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">1. Overview</a></li>
-  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">2.Getting Started</a>
+  <li><a href="#getting-started" id="toc-getting-started" class="nav-link" data-scroll-target="#getting-started">2. Getting Started</a>
   <ul class="collapse">
-  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">2.1 Data Preparation</a></li>
+  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">2.1. Data Preparation</a></li>
   </ul></li>
-  <li><a href="#choropleth-mapping-geospatial-data-using-tmap" id="toc-choropleth-mapping-geospatial-data-using-tmap" class="nav-link" data-scroll-target="#choropleth-mapping-geospatial-data-using-tmap">3. Choropleth Mapping Geospatial Data Using <em>tmap</em></a>
+  <li><a href="#building-the-calendar-heatmaps" id="toc-building-the-calendar-heatmaps" class="nav-link" data-scroll-target="#building-the-calendar-heatmaps">3. Building the Calendar Heatmaps</a></li>
+  <li><a href="#building-multiple-calendar-heatmaps" id="toc-building-multiple-calendar-heatmaps" class="nav-link" data-scroll-target="#building-multiple-calendar-heatmaps">4. Building Multiple Calendar Heatmaps</a></li>
+  <li><a href="#plotting-cycle-plot" id="toc-plotting-cycle-plot" class="nav-link" data-scroll-target="#plotting-cycle-plot">5. Plotting Cycle Plot</a>
   <ul class="collapse">
-  <li><a href="#plotting-a-thematic-map-quickly-by-using-qtm" id="toc-plotting-a-thematic-map-quickly-by-using-qtm" class="nav-link" data-scroll-target="#plotting-a-thematic-map-quickly-by-using-qtm">3.1 Plotting a thematic map quickly by using <em>qtm()</em></a></li>
-  <li><a href="#creating-a-choropleth-map-by-using-tmaps-elements" id="toc-creating-a-choropleth-map-by-using-tmaps-elements" class="nav-link" data-scroll-target="#creating-a-choropleth-map-by-using-tmaps-elements">🛠️3.2 Creating a choropleth map by using <em>tmap</em>’s elements</a></li>
-  <li><a href="#data-classification-methods-of-tmap" id="toc-data-classification-methods-of-tmap" class="nav-link" data-scroll-target="#data-classification-methods-of-tmap">3.3 Data classification methods of tmap</a>
-  <ul class="collapse">
-  <li><a href="#preparing-choropleth-maps-based-on-different-numbers-of-classes" id="toc-preparing-choropleth-maps-based-on-different-numbers-of-classes" class="nav-link" data-scroll-target="#preparing-choropleth-maps-based-on-different-numbers-of-classes">3.3.1 Preparing choropleth maps based on different numbers of classes</a></li>
-  <li><a href="#custome-break-point" id="toc-custome-break-point" class="nav-link" data-scroll-target="#custome-break-point">3.3.2 Custome break point</a></li>
+  <li><a href="#data-preparation-1" id="toc-data-preparation-1" class="nav-link" data-scroll-target="#data-preparation-1">5.1 Data Preparation</a></li>
+  <li><a href="#plotting-the-cycle-plot" id="toc-plotting-the-cycle-plot" class="nav-link" data-scroll-target="#plotting-the-cycle-plot">5.2 Plotting the cycle plot</a></li>
   </ul></li>
-  <li><a href="#color-schceme" id="toc-color-schceme" class="nav-link" data-scroll-target="#color-schceme">3.4 Color Schceme</a></li>
-  <li><a href="#map-layouts" id="toc-map-layouts" class="nav-link" data-scroll-target="#map-layouts">🛠️3.5 Map Layouts</a>
-  <ul class="collapse">
-  <li><a href="#map-legend" id="toc-map-legend" class="nav-link" data-scroll-target="#map-legend">3.5.1 Map legend</a></li>
-  <li><a href="#map-style" id="toc-map-style" class="nav-link" data-scroll-target="#map-style">3.5.2 Map style</a></li>
-  <li><a href="#cartographic-furniture" id="toc-cartographic-furniture" class="nav-link" data-scroll-target="#cartographic-furniture">🛠️3.5.3 Cartographic Furniture</a></li>
-  </ul></li>
-  <li><a href="#drawing-small-multiple-choropleth-maps" id="toc-drawing-small-multiple-choropleth-maps" class="nav-link" data-scroll-target="#drawing-small-multiple-choropleth-maps">3.6 Drawing Small Multiple Choropleth Maps</a>
-  <ul class="collapse">
-  <li><a href="#by-assigning-multiple-values-to-at-least-one-of-the-aesthetic-arguments" id="toc-by-assigning-multiple-values-to-at-least-one-of-the-aesthetic-arguments" class="nav-link" data-scroll-target="#by-assigning-multiple-values-to-at-least-one-of-the-aesthetic-arguments">🛠️3.6.1 By assigning multiple values to at least one of the aesthetic arguments</a></li>
-  <li><a href="#defining-a-group-by-variable-in-tm_facets" id="toc-defining-a-group-by-variable-in-tm_facets" class="nav-link" data-scroll-target="#defining-a-group-by-variable-in-tm_facets">🛠️3.6.2 Defining a group-by variable in <em>tm_facets()</em></a></li>
-  <li><a href="#creating-multiple-stand-alone-maps-tmap_arrange" id="toc-creating-multiple-stand-alone-maps-tmap_arrange" class="nav-link" data-scroll-target="#creating-multiple-stand-alone-maps-tmap_arrange">3.6.3 Creating multiple stand-alone maps: <em><code>tmap_arrange()</code></em></a></li>
-  </ul></li>
-  <li><a href="#mappping-spatial-object-meeting-a-selection-criterion" id="toc-mappping-spatial-object-meeting-a-selection-criterion" class="nav-link" data-scroll-target="#mappping-spatial-object-meeting-a-selection-criterion">🛠️3.7 Mappping Spatial Object Meeting a Selection Criterion</a></li>
-  </ul></li>
-  <li><a href="#reference" id="toc-reference" class="nav-link" data-scroll-target="#reference">4. Reference</a>
-  <ul class="collapse">
-  <li><a href="#all-about-tmap-package" id="toc-all-about-tmap-package" class="nav-link" data-scroll-target="#all-about-tmap-package">4.1 All about tmap package</a></li>
-  <li><a href="#geospatial-data-wrangling" id="toc-geospatial-data-wrangling" class="nav-link" data-scroll-target="#geospatial-data-wrangling">4.2 Geospatial data wrangling</a></li>
-  <li><a href="#data-wrangling-1" id="toc-data-wrangling-1" class="nav-link" data-scroll-target="#data-wrangling-1">4.3 Data wrangling</a></li>
-  </ul></li>
+  <li><a href="#plotting-slopegraph" id="toc-plotting-slopegraph" class="nav-link" data-scroll-target="#plotting-slopegraph">6. Plotting Slopegraph</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../hands-onEx/hands-onEx07/hands-onEx07.html">Visualising and Analysing Geographical Data</a></li><li class="breadcrumb-item"><a href="../../hands-onEx/hands-onEx07/hands-onEx07.html">Choropleth Mapping with R</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../hands-onEx/hands-onEx07/hands-onEx07.html">Visualising and Analysing Geographical Data</a></li><li class="breadcrumb-item"><a href="../../hands-onEx/hands-onEx07/hands-onEx07.html">Visualising and Analysing Time-oriented Data</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Hands on Exercise 07: Choropleth Mapping with R</h1>
+<h1 class="title">Hands on Exercise 07: Visualising and Analysing Time-oriented Data</h1>
 </div>
 
 
@@ -473,7 +501,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Modified</div>
     <div class="quarto-title-meta-contents">
-      <p class="date-modified">February 19, 2025</p>
+      <p class="date-modified">February 24, 2025</p>
     </div>
   </div>
     
@@ -486,611 +514,162 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="overview" class="level1">
 <h1>1. Overview</h1>
-<hr>
-<p>In this chapter, you will learn how to plot functional and truthful choropleth maps by using an R package called&nbsp;<a href="https://cran.r-project.org/web/packages/tmap/"><strong>tmap</strong></a>&nbsp;package.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Things you will learn
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<p>By the end of this hands-on exercise you will be able create the followings data visualisation by using R packages:</p>
 <ul>
-<li><p>Data Preparation</p>
-<ul>
-<li>2.1 Joining the attribute data and geospatial data</li>
-</ul></li>
-<li><p>⭐3.1 ndefinedPlotting a choropleth map quickly by using <em>qtm()</em></p></li>
-<li><p>3.2 Creating a choropleth map by using <em>tmap</em>’s elements</p></li>
-<li><p>3.3 Data classification methods</p></li>
-<li><p>3.4 Change color</p></li>
-<li><p>3.5 Different style and theme of plot</p></li>
-<li><p>3.6 Combine little multiple map</p></li>
+<li><p>3 plotting a calender heatmap by using ggplot2 functions,</p></li>
+<li><p>5 plotting a cycle plot by using ggplot2 function,</p></li>
+<li><p>6 plotting a slopegraph</p></li>
 </ul>
-</div>
-</div>
-<p>🛠️can’t change the second multiple map to green<br>
-🛠️There is the NA in mpsz_pop2020<br>
-🛠️The lengend squeezed !</p>
 </section>
 <section id="getting-started" class="level1">
-<h1>2.Getting Started</h1>
+<h1>2. Getting Started</h1>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">Installing Libraries</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Importing <strong>Geospatial Data</strong></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Importing <strong>Attribute Data</strong></a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">Installing Libraries</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">Importing Data</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Understanding Data</a></li></ul>
 <div class="tab-content">
 <div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>In this hands-on exercise, the key R package use is <a href="https://cran.r-project.org/web/packages/tmap/"><strong>tmap</strong></a> package in R. Beside <strong>tmap</strong> package, four other R packages will be used. They are:</p>
-<ul>
-<li><p><a href="https://readr.tidyverse.org/"><strong>readr</strong></a> for importing delimited text file,</p></li>
-<li><p><a href="https://tidyr.tidyverse.org/"><strong>tidyr</strong></a> for tidying data,</p></li>
-<li><p><a href="https://dplyr.tidyverse.org/"><strong>dplyr</strong></a> for wrangling data and</p></li>
-<li><p><a href="https://cran.r-project.org/web/packages/sf/index.html"><strong>sf</strong></a> for handling geospatial data.</p></li>
-</ul>
-<p>Among the four packages, <strong>readr</strong>, <strong>tidyr</strong> and <strong>dplyr</strong> are part of <strong>tidyverse</strong> package.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(sf, tmap, tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(ggplot2,dplyr,scales, viridis, lubridate, ggthemes, gridExtra, readxl, knitr, data.table, CGPfunctions, ggHoriPlot, tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>The code chunk below uses the&nbsp;<em>st_read()</em>&nbsp;function of&nbsp;<strong>sf</strong>&nbsp;package to import&nbsp;<code>MP14_SUBZONE_WEB_PL</code>&nbsp;shapefile into R as a simple feature data frame called&nbsp;<code>mpsz</code>.</p>
+<p>For the purpose of this hands-on exercise, eventlog.csv file will be used. This data file consists of 199,999 rows of time-series cyber attack records by country.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mpsz <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="at">dsn =</span> <span class="st">"data/geospatial"</span>, </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">layer =</span> <span class="st">"MP14_SUBZONE_WEB_PL"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Reading layer `MP14_SUBZONE_WEB_PL' from data source 
-  `C:\Trista0114\ISSS608\hands-onEx\hands-onEx07\data\geospatial' 
-  using driver `ESRI Shapefile'
-Simple feature collection with 323 features and 15 fields
-Geometry type: MULTIPOLYGON
-Dimension:     XY
-Bounding box:  xmin: 2667.538 ymin: 15748.72 xmax: 56396.44 ymax: 50256.33
-Projected CRS: SVY21</code></pre>
-</div>
-</div>
-<p>Only the first ten records are displayed because the dataset is being printed in a truncated format. In R, when working with <strong>sf</strong> (Simple Features) objects or data frames, the default behavior of the print() function is to show only the first few rows (typically 10) to prevent overwhelming the console with too much data.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mpsz</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Simple feature collection with 323 features and 15 fields
-Geometry type: MULTIPOLYGON
-Dimension:     XY
-Bounding box:  xmin: 2667.538 ymin: 15748.72 xmax: 56396.44 ymax: 50256.33
-Projected CRS: SVY21
-First 10 features:
-   OBJECTID SUBZONE_NO       SUBZONE_N SUBZONE_C CA_IND      PLN_AREA_N
-1         1          1    MARINA SOUTH    MSSZ01      Y    MARINA SOUTH
-2         2          1    PEARL'S HILL    OTSZ01      Y          OUTRAM
-3         3          3       BOAT QUAY    SRSZ03      Y SINGAPORE RIVER
-4         4          8  HENDERSON HILL    BMSZ08      N     BUKIT MERAH
-5         5          3         REDHILL    BMSZ03      N     BUKIT MERAH
-6         6          7  ALEXANDRA HILL    BMSZ07      N     BUKIT MERAH
-7         7          9   BUKIT HO SWEE    BMSZ09      N     BUKIT MERAH
-8         8          2     CLARKE QUAY    SRSZ02      Y SINGAPORE RIVER
-9         9         13 PASIR PANJANG 1    QTSZ13      N      QUEENSTOWN
-10       10          7       QUEENSWAY    QTSZ07      N      QUEENSTOWN
-   PLN_AREA_C       REGION_N REGION_C          INC_CRC FMEL_UPD_D   X_ADDR
-1          MS CENTRAL REGION       CR 5ED7EB253F99252E 2014-12-05 31595.84
-2          OT CENTRAL REGION       CR 8C7149B9EB32EEFC 2014-12-05 28679.06
-3          SR CENTRAL REGION       CR C35FEFF02B13E0E5 2014-12-05 29654.96
-4          BM CENTRAL REGION       CR 3775D82C5DDBEFBD 2014-12-05 26782.83
-5          BM CENTRAL REGION       CR 85D9ABEF0A40678F 2014-12-05 26201.96
-6          BM CENTRAL REGION       CR 9D286521EF5E3B59 2014-12-05 25358.82
-7          BM CENTRAL REGION       CR 7839A8577144EFE2 2014-12-05 27680.06
-8          SR CENTRAL REGION       CR 48661DC0FBA09F7A 2014-12-05 29253.21
-9          QT CENTRAL REGION       CR 1F721290C421BFAB 2014-12-05 22077.34
-10         QT CENTRAL REGION       CR 3580D2AFFBEE914C 2014-12-05 24168.31
-     Y_ADDR SHAPE_Leng SHAPE_Area                       geometry
-1  29220.19   5267.381  1630379.3 MULTIPOLYGON (((31495.56 30...
-2  29782.05   3506.107   559816.2 MULTIPOLYGON (((29092.28 30...
-3  29974.66   1740.926   160807.5 MULTIPOLYGON (((29932.33 29...
-4  29933.77   3313.625   595428.9 MULTIPOLYGON (((27131.28 30...
-5  30005.70   2825.594   387429.4 MULTIPOLYGON (((26451.03 30...
-6  29991.38   4428.913  1030378.8 MULTIPOLYGON (((25899.7 297...
-7  30230.86   3275.312   551732.0 MULTIPOLYGON (((27746.95 30...
-8  30222.86   2208.619   290184.7 MULTIPOLYGON (((29351.26 29...
-9  29893.78   6571.323  1084792.3 MULTIPOLYGON (((20996.49 30...
-10 30104.18   3454.239   631644.3 MULTIPOLYGON (((24472.11 29...</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>attacks <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/eventlog.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<p>Next, we will import respopagsex2011to2020.csv file into RStudio and save the file into an R dataframe called popagsex.</p>
+<p>Please examine the imported data frame before further analysis is performed.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>popdata <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/aspatial/respopagesextod2011to2020.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(attacks))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">timestamp</th>
+<th style="text-align: left;">source_country</th>
+<th style="text-align: left;">tz</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">2015-03-12 15:59:16</td>
+<td style="text-align: left;">CN</td>
+<td style="text-align: left;">Asia/Shanghai</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2015-03-12 16:00:48</td>
+<td style="text-align: left;">FR</td>
+<td style="text-align: left;">Europe/Paris</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2015-03-12 16:02:26</td>
+<td style="text-align: left;">CN</td>
+<td style="text-align: left;">Asia/Shanghai</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2015-03-12 16:02:38</td>
+<td style="text-align: left;">US</td>
+<td style="text-align: left;">America/Chicago</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2015-03-12 16:03:22</td>
+<td style="text-align: left;">CN</td>
+<td style="text-align: left;">Asia/Shanghai</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">2015-03-12 16:03:45</td>
+<td style="text-align: left;">CN</td>
+<td style="text-align: left;">Asia/Shanghai</td>
+</tr>
+</tbody>
+</table>
 </div>
+</div>
+<p>There are three columns, namely timestamp, source_country and tz.</p>
+<ul>
+<li>timestamp field stores date-time values in POSIXct format.</li>
+<li>source_country field stores the source of the attack. It is in ISO 3166-1 alpha-2 country code.</li>
+<li>tz field stores time zone of the source IP address.</li>
+</ul>
 </div>
 </div>
 </div>
 <section id="data-preparation" class="level2">
-<h2 class="anchored" data-anchor-id="data-preparation">2.1 Data Preparation</h2>
-<p>Before a thematic map can be prepared, you are required to prepare a data table with year 2020 values. The data table should include the variables PA, SZ, YOUNG, ECONOMY ACTIVE, AGED, TOTAL, DEPENDENCY.</p>
-<ul>
-<li>YOUNG: age group 0 to 4 until age groyup 20 to 24,</li>
-<li>ECONOMY ACTIVE: age group 25-29 until age group 60-64,</li>
-<li>AGED: age group 65 and above,</li>
-<li>TOTAL: all age group, and</li>
-<li>DEPENDENCY: the ratio between young and aged against economy active group</li>
-</ul>
+<h2 class="anchored" data-anchor-id="data-preparation">2.1. Data Preparation</h2>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Data wrangling</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Joining the attribute and geospatial data</a></li></ul>
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-2-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-1" role="tab" aria-controls="tabset-2-1" aria-selected="true">Step 1: Deriving weekday and hour of day fields</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-2-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-2-2" role="tab" aria-controls="tabset-2-2" aria-selected="false">Step 2: Deriving the attacks tibble data frame</a></li></ul>
 <div class="tab-content">
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
-<p>The following data wrangling and transformation functions will be used:</p>
+<p>Two new fields namely wkday and hour need to be derived. In this step, we will write a function to perform the task.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>make_hr_wkday <span class="ot">&lt;-</span> <span class="cf">function</span>(ts, sc, tz) {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  real_times <span class="ot">&lt;-</span> <span class="fu">ymd_hms</span>(ts, </span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">tz =</span> tz[<span class="dv">1</span>], </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                        <span class="at">quiet =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  dt <span class="ot">&lt;-</span> <span class="fu">data.table</span>(<span class="at">source_country =</span> sc,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">wkday =</span> <span class="fu">weekdays</span>(real_times),</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                   <span class="at">hour =</span> <span class="fu">hour</span>(real_times))</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(dt)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  }</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <ul>
-<li><em>pivot_wider()</em> of <strong>tidyr</strong> package, and</li>
-<li><em>mutate()</em>, <em>filter()</em>, <em>group_by()</em> and <em>select()</em> of <strong>dplyr</strong> package</li>
+<li><a href="https://lubridate.tidyverse.org/reference/ymd_hms.html"><code>ymd_hms()</code></a> and <a href="https://lubridate.tidyverse.org/reference/hour.html"><code>hour()</code></a> are from <a href="https://lubridate.tidyverse.org/"><strong>lubridate</strong></a> package, and</li>
+<li><a href="https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/weekdays"><code>weekdays()</code></a> is a <strong>base</strong> R function.</li>
 </ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>        popdata2020 <span class="ot">&lt;-</span> popdata <span class="sc">%&gt;%</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>          <span class="fu">filter</span>(Time <span class="sc">==</span> <span class="dv">2020</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>          <span class="fu">group_by</span>(PA, SZ, AG) <span class="sc">%&gt;%</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>          <span class="fu">summarise</span>(<span class="st">`</span><span class="at">POP</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">sum</span>(<span class="st">`</span><span class="at">Pop</span><span class="st">`</span>)) <span class="sc">%&gt;%</span> <span class="co">#Computes the total population (POP) for each PA, SZ, AG group.</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>          <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> <span class="co">#Removes grouping, allowing further transformations.</span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>          <span class="fu">pivot_wider</span>(<span class="at">names_from=</span>AG, </span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>                      <span class="at">values_from=</span>POP) <span class="sc">%&gt;%</span> <span class="co">#Converts the dataset from long format (where each row represents a single age group) to wide format, with columns for different age groups.</span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate</span>(<span class="at">YOUNG =</span> <span class="fu">rowSums</span>(.[<span class="dv">3</span><span class="sc">:</span><span class="dv">6</span>])</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>                 <span class="sc">+</span><span class="fu">rowSums</span>(.[<span class="dv">12</span>])) <span class="sc">%&gt;%</span>  <span class="co">#Sums the population for young age groups in columns 3 to 6 and column 12.</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="st">`</span><span class="at">ECONOMY ACTIVE</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">rowSums</span>(.[<span class="dv">7</span><span class="sc">:</span><span class="dv">11</span>])<span class="sc">+</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>        <span class="fu">rowSums</span>(.[<span class="dv">13</span><span class="sc">:</span><span class="dv">15</span>]))<span class="sc">%&gt;%</span> <span class="co">#sums the population for working-age individuals from columns 7 to 11 and 13 to 15</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="st">`</span><span class="at">AGED</span><span class="st">`</span><span class="ot">=</span><span class="fu">rowSums</span>(.[<span class="dv">16</span><span class="sc">:</span><span class="dv">21</span>])) <span class="sc">%&gt;%</span> <span class="co">#All Age Groups</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="st">`</span><span class="at">TOTAL</span><span class="st">`</span><span class="ot">=</span><span class="fu">rowSums</span>(.[<span class="dv">3</span><span class="sc">:</span><span class="dv">21</span>])) <span class="sc">%&gt;%</span>  </span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="st">`</span><span class="at">DEPENDENCY</span><span class="st">`</span> <span class="ot">=</span> (<span class="st">`</span><span class="at">YOUNG</span><span class="st">`</span> <span class="sc">+</span> <span class="st">`</span><span class="at">AGED</span><span class="st">`</span>)</span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        <span class="sc">/</span><span class="st">`</span><span class="at">ECONOMY ACTIVE</span><span class="st">`</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>          <span class="fu">select</span>(<span class="st">`</span><span class="at">PA</span><span class="st">`</span>, <span class="st">`</span><span class="at">SZ</span><span class="st">`</span>, <span class="st">`</span><span class="at">YOUNG</span><span class="st">`</span>, </span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>               <span class="st">`</span><span class="at">ECONOMY ACTIVE</span><span class="st">`</span>, <span class="st">`</span><span class="at">AGED</span><span class="st">`</span>, </span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>               <span class="st">`</span><span class="at">TOTAL</span><span class="st">`</span>, <span class="st">`</span><span class="at">DEPENDENCY</span><span class="st">`</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<pre><code>    Connect the population attribute data (popdata2020) and the geographical spatial data (mpsz) to form a complete geographical attribute data frame (mpsz_pop2020), and finally save it in .rds format.</code></pre>
-<ol type="1">
-<li>Convert the values ​​of PA and SZ fields to uppercase (uppercase)</li>
-</ol>
-<ul>
-<li>Because the SUBZONE_N and PLN_AREA_N fields in geographic data (mpsz) are both uppercase, you need to ensure that the PA and SZ of popdata2020 are also uppercase to avoid matching failures. mutate_at() is used to modify fields in batches, and toupper() converts them to uppercase.</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>        popdata2020 <span class="ot">&lt;-</span> popdata2020 <span class="sc">%&gt;%</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>          <span class="fu">mutate_at</span>(<span class="at">.vars =</span> <span class="fu">vars</span>(PA, SZ), </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">.funs =</span> <span class="fu">funs</span>(toupper)) <span class="sc">%&gt;%</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>          <span class="fu">filter</span>(<span class="st">`</span><span class="at">ECONOMY ACTIVE</span><span class="st">`</span> <span class="sc">&gt;</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ol start="2" type="1">
-<li>Use left_join() to merge two datasets</li>
-</ol>
-<ul>
-<li>mpsz is geospatial data (sf object), containing geographic boundaries (polygons). popdata2020 is population attribute data, including population, economic activities and other information. Merged match fields</li>
-<li>mpsz is the left table, which means that even if popdata2020 has no matching data, all records of mpsz will still be retained. popdata2020 is the right table. If SZ cannot match SUBZONE_N, the population data of the district will be NA.</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>        mpsz_pop2020 <span class="ot">&lt;-</span> <span class="fu">left_join</span>(mpsz, popdata2020,</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"SUBZONE_N"</span> <span class="ot">=</span> <span class="st">"SZ"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ol start="3" type="1">
-<li>Stored it as .rds format</li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_rds</span>(mpsz_pop2020, <span class="st">"data/rds/mpszpop2020.rds"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="choropleth-mapping-geospatial-data-using-tmap" class="level1">
-<h1>3. Choropleth Mapping Geospatial Data Using <em>tmap</em></h1>
-<section id="plotting-a-thematic-map-quickly-by-using-qtm" class="level2">
-<h2 class="anchored" data-anchor-id="plotting-a-thematic-map-quickly-by-using-qtm">3.1 Plotting a thematic map quickly by using <em>qtm()</em></h2>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Things to learn form code
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>tmap_mode(“plot”): Set the static map mode to display the map in static map (ggplot2-like) format. tmap_mode(“view”): If changed to “view”, an interactive map (Leaflet-based) will be generated, which can be zoomed and clicked to view detailed information.</p>
-<p>fill = “DEPENDENCY”： Fills the map’s color based on the DEPENDENCY field data. The higher the value, the more people that need the support.</p>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">"plot"</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qtm</span>(mpsz_pop2020, </span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"DEPENDENCY"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="hands-onEx07_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="creating-a-choropleth-map-by-using-tmaps-elements" class="level2">
-<h2 class="anchored" data-anchor-id="creating-a-choropleth-map-by-using-tmaps-elements">🛠️3.2 Creating a choropleth map by using <em>tmap</em>’s elements</h2>
-<p><em>The disadvantage of qtm()</em>&nbsp;is that it makes aesthetics of individual layers harder to control. To draw a high quality cartographic choropleth map as shown in the figure below,&nbsp;<strong>tmap</strong>’s drawing elements should be used.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz_pop2020)<span class="sc">+</span></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="st">"DEPENDENCY"</span>, </span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"quantile"</span>, </span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette =</span> <span class="st">"Blues"</span>,</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">"Dependency ratio"</span>) <span class="sc">+</span></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">main.title =</span> <span class="st">"Distribution of Dependency Ratio by planning subzone"</span>,</span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">main.title.position =</span> <span class="st">"center"</span>,</span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">main.title.size =</span> <span class="fl">1.2</span>,</span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">legend.height =</span> <span class="fl">0.45</span>, </span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">legend.width =</span> <span class="fl">0.35</span>,</span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">frame =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_compass</span>(<span class="at">type=</span><span class="st">"8star"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_scale_bar</span>() <span class="sc">+</span></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_grid</span>(<span class="at">alpha =</span><span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_credits</span>(<span class="st">"Source: Planning Sub-zone boundary from Urban Redevelopment Authorithy (URA)</span><span class="sc">\n</span><span class="st"> and Population data from Department of Statistics DOS"</span>, </span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">c</span>(<span class="st">"left"</span>, <span class="st">"bottom"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="hands-onEx07_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Below is the step to draw the plot by using tmap function</p>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Drawing a base map</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Coloring: <em><code>tm_polygons()</code></em></a></li></ul>
-<div class="tab-content">
-<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
-<p>In the code chunk below,&nbsp;<em>tm_shape()</em>&nbsp;is used to define the input data (i.e&nbsp;<em>mpsz_pop2020</em>) and&nbsp;<em>tm_polygons()</em>&nbsp;is used to draw the planning subzone polygons</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz_pop2020) <span class="sc">+</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="hands-onEx07_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-<p>Assign the target variable such as&nbsp;<em>Dependency</em>&nbsp;to&nbsp;<em>tm_polygons()</em>.</p>
-<div class="callout callout-style-default callout-tip callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Things to learn form code
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<ul>
-<li>The default interval binning used to draw the choropleth map is called “pretty”.</li>
-<li>The default colour scheme used is <code>YlOrRd</code> of ColorBrewer.</li>
-<li>By default, Missing value will be shaded in grey.</li>
-</ul>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz_pop2020)<span class="sc">+</span></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="st">"DEPENDENCY"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="hands-onEx07_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<section id="drawing-a-choropleth-map-using-tm_fill-and-tm_border" class="level4">
-<h4 class="anchored" data-anchor-id="drawing-a-choropleth-map-using-tm_fill-and-tm_border">Drawing a choropleth map using <em>tm_fill()</em> and *tm_border()</h4>
-<p>Actually,&nbsp;<em>tm_polygons()</em>&nbsp;is a wraper of&nbsp;<em>tm_fill()</em>&nbsp;and&nbsp;<em>tm_border()</em>.&nbsp;<em>tm_fill()</em>&nbsp;shades the polygons by using the default colour scheme and&nbsp;<em>tm_borders()</em>&nbsp;adds the borders of the shapefile onto the choropleth map.</p>
-<p>The <em>alpha</em> argument is used to define transparency number between 0 (totally transparent) and 1 (not transparent). By default, the alpha value of the col is used (normally 1).</p>
-<p>Beside <em>alpha</em> argument, there are three other arguments for <em>tm_borders()</em>, they are:</p>
-<ul>
-<li><em>col</em> = border colour,</li>
-<li><em>lwd</em> = border line width. The default is 1, and</li>
-<li><em>lty</em> = border line type. The default is “solid”.</li>
-</ul>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz_pop2020)<span class="sc">+</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="st">"DEPENDENCY"</span>) <span class="sc">+</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">lwd =</span> <span class="fl">0.1</span>,  <span class="at">alpha =</span> <span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="hands-onEx07_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-</div>
-</div>
-</div>
-</section>
-<section id="data-classification-methods-of-tmap" class="level2">
-<h2 class="anchored" data-anchor-id="data-classification-methods-of-tmap">3.3 Data classification methods of tmap</h2>
-<p>Most choropleth maps employ some methods of data classification. The point of classification is to take a large number of observations and group them into data ranges or classes.</p>
-<p><strong>tmap</strong> provides a total ten data classification methods, namely: <em>fixed</em>, <em>sd</em>, <em>equal</em>, <em>pretty</em> (default), <em>quantile</em>, <em>kmeans</em>, <em>hclust</em>, <em>bclust</em>, <em>fisher</em>, and <em>jenks</em>.</p>
-<p>To define a data classification method, the <em>style</em> argument of <em>tm_fill()</em> or <em>tm_polygons()</em> will be used.</p>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">jenks</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">equal</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-3" role="tab" aria-controls="tabset-4-3" aria-selected="false">quantile</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-4" role="tab" aria-controls="tabset-4-4" aria-selected="false">kmeans</a></li></ul>
-<div class="tab-content">
-<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
-<p>Look for natural breakpoints in the data that minimize variability within each category and maximize variability between categories.</p>
-<p>Applicable scenarios: When the data is unevenly distributed, this method can more effectively reflect the intrinsic structure of the data, such as housing prices, geographical data, etc.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz_pop2020)<span class="sc">+</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="st">"DEPENDENCY"</span>,</span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">n =</span> <span class="dv">5</span>,</span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"jenks"</span>) <span class="sc">+</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="hands-onEx07_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
-<p>Divide the data range evenly into N intervals, each interval being equal in width.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz_pop2020)<span class="sc">+</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="st">"DEPENDENCY"</span>,</span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">n =</span> <span class="dv">5</span>,</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"equal"</span>) <span class="sc">+</span></span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="hands-onEx07_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Caution
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Notice that the distribution of quantile data classification method are more evenly distributed then equal data classification method.</p>
-</div>
-</div>
-</div>
-<div id="tabset-4-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-3-tab">
-<p>Divide the data according to its quantile (percentage), for example: -</p>
-<ul>
-<li>quartiles</li>
-<li>quintiles</li>
-<li>deciles</li>
-</ul>
-<p>Applicable scenarios: When the data distribution is uneven, this method ensures that the number of data in each interval is similar. For example, house price analysis, income analysis, etc.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz_pop2020)<span class="sc">+</span></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="st">"DEPENDENCY"</span>,</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">n =</span> <span class="dv">5</span>,</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"quantile"</span>) <span class="sc">+</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="hands-onEx07_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<div id="tabset-4-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-4-tab">
-<p>Classify based on the distribution characteristics of the data itself, rather than dividing intervals evenly.</p>
-<p>Applicable scenarios: When the data has obvious natural groupings, such as population age structure, economic status, etc.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz_pop2020)<span class="sc">+</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="st">"DEPENDENCY"</span>,</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">n =</span> <span class="dv">5</span>,</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"kmeans"</span>) <span class="sc">+</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="hands-onEx07_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<section id="preparing-choropleth-maps-based-on-different-numbers-of-classes" class="level3">
-<h3 class="anchored" data-anchor-id="preparing-choropleth-maps-based-on-different-numbers-of-classes">3.3.1 Preparing choropleth maps based on different numbers of classes</h3>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">2</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">6</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-3" role="tab" aria-controls="tabset-5-3" aria-selected="false">10</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-4" role="tab" aria-controls="tabset-5-4" aria-selected="false">20</a></li></ul>
-<div class="tab-content">
-<div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz_pop2020)<span class="sc">+</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="st">"DEPENDENCY"</span>,</span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">n =</span> <span class="dv">2</span>,</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"jenks"</span>) <span class="sc">+</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="hands-onEx07_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz_pop2020)<span class="sc">+</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="st">"DEPENDENCY"</span>,</span>
-<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">n =</span> <span class="dv">6</span>,</span>
-<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"jenks"</span>) <span class="sc">+</span></span>
-<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="hands-onEx07_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<div id="tabset-5-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-3-tab">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz_pop2020)<span class="sc">+</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="st">"DEPENDENCY"</span>,</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">n =</span> <span class="dv">10</span>,</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"jenks"</span>) <span class="sc">+</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="hands-onEx07_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<div id="tabset-5-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-4-tab">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz_pop2020)<span class="sc">+</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="st">"DEPENDENCY"</span>,</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">n =</span> <span class="dv">20</span>,</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"jenks"</span>) <span class="sc">+</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="hands-onEx07_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Observations &amp; Comparisons
+Things to learn from code
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>2 Classes (Low granularity)</strong></p>
+<p>A function make_hr_wkday is defined, whose purpose is to extract the “day of the week” (wkday) and “hour” (hour) from the timestamp (ts), and store this information together with the source country (sc) in data.table</p>
 <ul>
-<li><p>The map provides a <strong>very generalized</strong> view, dividing the areas into just two broad categories.</p></li>
-<li><p>It may hide important variations within the dataset.</p></li>
-<li><p>Useful for quick, <strong>high-level insights</strong>.</p></li>
-</ul>
-<p><strong>6 Classes (Moderate granularity)</strong></p>
+<li><p>make_hr_wkday:</p>
 <ul>
-<li><p>A more <strong>balanced</strong> representation with clearer differentiation.</p></li>
-<li><p>It provides better detail while maintaining readability.</p></li>
-<li><p>Suitable for most <strong>general analysis</strong>.</p></li>
-</ul>
-<p><strong>10 Classes (High granularity)</strong></p>
+<li><p>ts: timestamp vector</p></li>
+<li><p>sc: source country vector</p></li>
+<li><p>tz: timezone vector</p></li>
+</ul></li>
+<li><p>real_times</p>
 <ul>
-<li><p>More <strong>detailed</strong> but might introduce complexity.</p></li>
-<li><p>The color variations may become harder to distinguish.</p></li>
-<li><p>Good for <strong>in-depth analysis</strong>.</p></li>
-</ul>
-<p><strong>20 Classes (Over-segmentation)</strong></p>
+<li>ymd_hms(ts): Convert ts to datetime format, assuming ts is in YYYY-MM-DD HH:MM:SS format.</li>
+<li>tz = tz[1]: Parse the timestamp using the provided time zone tz[1].</li>
+<li>quiet = TRUE: Quiet mode, no warnings are displayed.</li>
+</ul></li>
+<li><p>datatable</p>
 <ul>
-<li><p><strong>Too detailed</strong> and may create excessive color variations.</p></li>
-<li><p>Harder to interpret patterns.</p></li>
-<li><p>Only useful when <strong>precise differences matter</strong>, such as in scientific analysis.</p></li>
+<li><p>source_country = sc: record source country.</p></li>
+<li><p>wkday = weekdays(real_times): Extract the day of the week of real_times (such as “Monday”, “Tuesday”).</p></li>
+<li><p>hour = hour(real_times): Extract the hour part (0~23) of real_times.</p></li>
+</ul></li>
 </ul>
 </div>
 </div>
-</section>
-<section id="custome-break-point" class="level3">
-<h3 class="anchored" data-anchor-id="custome-break-point">3.3.2 Custome break point</h3>
-<p>The breakpoints can be set explicitly by means of the&nbsp;<em>breaks</em>&nbsp;argument to the&nbsp;<em>tm_fill()</em>. It is important to note that, in&nbsp;<strong>tmap</strong>&nbsp;the breaks include a minimum and maximum. As a result, in order to end up with n categories, <strong>n+1</strong> elements must be specified in the&nbsp;<em>breaks</em>&nbsp;option (the values must be in <strong>increasing</strong> order).</p>
-<p>Now, get some descriptive statistics on the variable before setting the break points.</p>
+</div>
+<div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
+<p>Extract the time information (day of week and hour) from the attacks data frame (tibble) and convert these variables to factor type for subsequent analysis</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mpsz_pop2020<span class="sc">$</span>DEPENDENCY)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max.    NA's 
- 0.1111  0.7147  0.7866  0.8585  0.8763 19.0000      92 </code></pre>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>wkday_levels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'Saturday'</span>, <span class="st">'Friday'</span>, </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>                  <span class="st">'Thursday'</span>, <span class="st">'Wednesday'</span>, </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                  <span class="st">'Tuesday'</span>, <span class="st">'Monday'</span>, </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                  <span class="st">'Sunday'</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#define the order</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>attacks <span class="ot">&lt;-</span> attacks <span class="sc">%&gt;%</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(tz) <span class="sc">%&gt;%</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">do</span>(<span class="fu">make_hr_wkday</span>(.<span class="sc">$</span>timestamp, </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>                   .<span class="sc">$</span>source_country, </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>                   .<span class="sc">$</span>tz)) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">wkday =</span> <span class="fu">factor</span>(</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    wkday, <span class="at">levels =</span> wkday_levels),</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">hour  =</span> <span class="fu">factor</span>(</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>      hour, <span class="at">levels =</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">23</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<p>With reference to the results above, we set break point at 0.60, 0.70, 0.80, and 0.90. In addition, we also need to include a minimum and maximum, which we set at 0 and 100. Our&nbsp;<em>breaks</em>&nbsp;vector is thus c(0, 0.60, 0.70, 0.80, 0.90, 1.00).</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz_pop2020)<span class="sc">+</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="st">"DEPENDENCY"</span>,</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.60</span>, <span class="fl">0.70</span>, <span class="fl">0.80</span>, <span class="fl">0.90</span>, <span class="fl">1.00</span>)) <span class="sc">+</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="hands-onEx07_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="color-schceme" class="level2">
-<h2 class="anchored" data-anchor-id="color-schceme">3.4 Color Schceme</h2>
-<p><strong>tmap</strong>&nbsp;supports colour ramps either defined by the user or a set of predefined colour ramps from the&nbsp;<strong>RColorBrewer</strong>&nbsp;package.</p>
-<p>To change the colour, we assign the preferred colour to&nbsp;<em>palette</em>&nbsp;argument of&nbsp;<em>tm_fill()</em>&nbsp;as shown in the code chunk below.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz_pop2020)<span class="sc">+</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="st">"DEPENDENCY"</span>,</span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">n =</span> <span class="dv">6</span>,</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"quantile"</span>,</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette =</span> <span class="st">"Blues"</span>) <span class="sc">+</span></span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="hands-onEx07_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>To <strong>reverse</strong> the colour shading, add a <strong>“-”</strong> prefix.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz_pop2020)<span class="sc">+</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="st">"DEPENDENCY"</span>,</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"quantile"</span>,</span>
-<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette =</span> <span class="st">"-Greens"</span>) <span class="sc">+</span></span>
-<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="hands-onEx07_files/figure-html/unnamed-chunk-25-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="map-layouts" class="level2">
-<h2 class="anchored" data-anchor-id="map-layouts">🛠️3.5 Map Layouts</h2>
-<p>Map layout refers to the combination of all map elements into a cohensive map. Map elements include among others the objects to be mapped, the title, the scale bar, the compass, margins and aspects ratios. Colour settings and data classification methods covered in the previous section relate to the palette and break-points are used to affect how the map looks.</p>
-<section id="map-legend" class="level3">
-<h3 class="anchored" data-anchor-id="map-legend">3.5.1 Map legend</h3>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -1102,250 +681,294 @@ Things to learn from code
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li><p>tm_fill:</p></li>
-<li><p>legend.hist = TRUE: Display a histogram of the data in the legend to help understand the distribution of quantities in different categories.</p></li>
-<li><p>legend.is.portrait = TRUE: Legends are arranged vertically (vertically).</p></li>
-<li><p>legend.hist.z = 0.1: Set the size of the histogram, a value of 0.1 represents a smaller histogram.</p></li>
-<li><p>tm_layout: set the map title and legend</p>
+<li><p>attacks</p>
 <ul>
-<li><p>legend.outside = FALSE: The legend is placed inside the map, not outside the map.</p></li>
-<li><p>legend.position = c(“right”, “bottom”)： The legend appears in the lower right corner.</p></li>
-<li><p>frame = FALSE: Map borders are not drawn.</p></li>
+<li>group_by(tz): Group by tz (time zone) to ensure that the impact of different time zones is taken into account when processing time.</li>
+<li>do(make_hr_wkday(.<span class="math inline">\(timestamp, .\)</span>source_country, .$tz))：The previously defined make_hr_wkday() function is called here to convert timestamp to day of the week (wkday) and hour (hour).</li>
+<li>do() will apply the make_hr_wkday() function one by one to the data grouped by group_by(), and then merge the results.</li>
+</ul></li>
+<li><p>Ungroup and convert types</p>
+<ul>
+<li><p>ungroup(): Cancel group_by() to ensure that subsequent mutate() acts on the entire data rather than the grouped data.</p></li>
+<li><p>mutate(wkday = factor(wkday, levels = wkday_levels)): Convert wkday to a factor variable and set its order to wkday_levels (Saturday → Friday → … → Sunday).</p></li>
+<li><p>mutate(hour = factor(hour, levels = 0:23)): Convert hour to a factor variable and set its range from 0 to 23, ensuring all hours have appropriate category labels</p></li>
 </ul></li>
 </ul>
 </div>
 </div>
+<p>Table below shows the tidy tibble table after processing.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz_pop2020)<span class="sc">+</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="st">"DEPENDENCY"</span>, </span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"jenks"</span>, </span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette =</span> <span class="st">"Blues"</span>, </span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.hist =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.is.portrait =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.hist.z =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">main.title =</span> <span class="st">"Distribution of Dependency Ratio by planning subzone </span><span class="sc">\n</span><span class="st">(Jenks classification)"</span>,</span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">main.title.position =</span> <span class="st">"center"</span>,</span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">main.title.size =</span> <span class="dv">1</span>,</span>
-<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">legend.height =</span> <span class="fl">0.45</span>, </span>
-<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">legend.width =</span> <span class="fl">0.35</span>,</span>
-<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">legend.outside =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="st">"right"</span>, <span class="st">"bottom"</span>),</span>
-<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">frame =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">head</span>(attacks))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">tz</th>
+<th style="text-align: left;">source_country</th>
+<th style="text-align: left;">wkday</th>
+<th style="text-align: left;">hour</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Africa/Cairo</td>
+<td style="text-align: left;">BG</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">20</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Africa/Cairo</td>
+<td style="text-align: left;">TW</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Africa/Cairo</td>
+<td style="text-align: left;">TW</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Africa/Cairo</td>
+<td style="text-align: left;">CN</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">11</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Africa/Cairo</td>
+<td style="text-align: left;">US</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">15</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Africa/Cairo</td>
+<td style="text-align: left;">CA</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">11</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="building-the-calendar-heatmaps" class="level1">
+<h1>3. Building the Calendar Heatmaps</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>grouped <span class="ot">&lt;-</span> attacks <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(wkday, hour) <span class="sc">%&gt;%</span> <span class="co">#count the numbers of attack </span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> <span class="co">#in order to do the ggplot</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>()</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(grouped, </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>       <span class="fu">aes</span>(hour, </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>           wkday, </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">fill =</span> n)) <span class="sc">+</span> <span class="co">#Set the X-axis (hour), Y-axis (wkday), and use fill to represent the number of attacks (n).</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="fu">geom_tile</span>(<span class="at">color =</span> <span class="st">"white"</span>, </span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">size =</span> <span class="fl">0.1</span>) <span class="sc">+</span> </span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_tufte</span>(<span class="at">base_family =</span> <span class="st">"Helvetica"</span>) <span class="sc">+</span> <span class="co">#set the theme</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="fu">coord_equal</span>() <span class="sc">+</span> <span class="co">#Make sure the X-axis is in equal proportion to the Y-axis </span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="fu">scale_fill_gradient</span>(<span class="at">name =</span> <span class="st">"# of attacks"</span>,</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>                    <span class="at">low =</span> <span class="st">"sky blue"</span>, </span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>                    <span class="at">high =</span> <span class="st">"dark blue"</span>) <span class="sc">+</span> <span class="co">#set the level of the color</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, </span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>     <span class="at">y =</span> <span class="cn">NULL</span>, </span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>     <span class="at">title =</span> <span class="st">"Attacks by weekday and time of day"</span>) <span class="sc">+</span> <span class="co">#hide x and y label</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span>(<span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(), <span class="co">#remove axis ticks</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>      <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>      <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>      <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">6</span>) )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="hands-onEx07_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="hands-onEx07_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="map-style" class="level3">
-<h3 class="anchored" data-anchor-id="map-style">3.5.2 Map style</h3>
-<p><strong>tmap</strong>&nbsp;allows a wide variety of layout settings to be changed. They can be called by using&nbsp;<em>tmap_style()</em>.<br>
-&nbsp;<em>classic</em>&nbsp;style</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz_pop2020)<span class="sc">+</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="st">"DEPENDENCY"</span>, </span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"quantile"</span>, </span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette =</span> <span class="st">"-Greens"</span>) <span class="sc">+</span></span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tmap_style</span>(<span class="st">"classic"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="hands-onEx07_files/figure-html/unnamed-chunk-27-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Things to learn from code
 </div>
 </div>
-</div>
-</section>
-<section id="cartographic-furniture" class="level3">
-<h3 class="anchored" data-anchor-id="cartographic-furniture">🛠️3.5.3 Cartographic Furniture</h3>
-<p>Beside map style,&nbsp;<strong>tmap</strong>&nbsp;also also provides arguments to draw other map furniture such as compass, scale bar and grid lines.</p>
-<p>Add compass<br>
-tm_compass() type = “8star”： Use the 8-way star compass to indicate directions on the map. size = 2: Adjust compass size.</p>
-<p>Add grid<br>
-tm_grid(alpha = 0.2): Add grid lines (Grid) to the map with an opacity of 0.2 to provide geographical reference points.</p>
-<p>tm_credits() is used to indicate data sources.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz_pop2020)<span class="sc">+</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="st">"DEPENDENCY"</span>, </span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"quantile"</span>, </span>
-<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette =</span> <span class="st">"Blues"</span>,</span>
-<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">title =</span> <span class="st">"No. of persons"</span>) <span class="sc">+</span></span>
-<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">main.title =</span> <span class="st">"Distribution of Dependency Ratio </span><span class="sc">\n</span><span class="st">by planning subzone"</span>,</span>
-<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">main.title.position =</span> <span class="st">"center"</span>,</span>
-<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>            <span class="at">main.title.size =</span> <span class="fl">1.2</span>,</span>
-<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">legend.height =</span> <span class="fl">0.45</span>, </span>
-<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">legend.width =</span> <span class="fl">0.35</span>,</span>
-<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">frame =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_compass</span>(<span class="at">type=</span><span class="st">"8star"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_grid</span>(<span class="at">lwd =</span> <span class="fl">0.1</span>, <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_credits</span>(<span class="st">"Source: Planning Sub-zone boundary from Urban Redevelopment Authorithy (URA)</span><span class="sc">\n</span><span class="st"> and Population data from Department of Statistics DOS"</span>, </span>
-<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>             <span class="at">position =</span> <span class="fu">c</span>(<span class="st">"left"</span>, <span class="st">"bottom"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="hands-onEx07_files/figure-html/unnamed-chunk-28-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">"plot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Can reset the default by doing this</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_style</span>(<span class="st">"white"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-</section>
-<section id="drawing-small-multiple-choropleth-maps" class="level2">
-<h2 class="anchored" data-anchor-id="drawing-small-multiple-choropleth-maps">3.6 Drawing Small Multiple Choropleth Maps</h2>
-<p><strong>Small multiple maps</strong>, also referred to as&nbsp;<strong>facet maps</strong>, are composed of many maps arrange side-by-side, and sometimes stacked vertically. Small multiple maps enable the visualisation of how spatial relationships change with respect to another variable, such as time.</p>
-<p>In <strong>tmap</strong>, small multiple maps can be plotted in three ways:</p>
+<div class="callout-body-container callout-body">
 <ul>
-<li>by assigning multiple values to at least one of the asthetic arguments,</li>
-<li>by defining a group-by variable in <em>tm_facets()</em>, and</li>
-<li>by creating multiple stand-alone maps with <em>tmap_arrange()</em>.</li>
+<li>a tibble data table called <em>grouped</em> is derived by aggregating the attack by <em>wkday</em> and <em>hour</em> fields.</li>
+<li>a new field called <em>n</em> is derived by using <code>group_by()</code> and <code>count()</code> functions.</li>
+<li><code>na.omit()</code> is used to exclude missing value.</li>
+<li><code>geom_tile()</code> is used to plot tiles (grids) at each x and y position. <code>color</code> and <code>size</code> arguments are used to specify the border color and line size of the tiles.</li>
+<li><a href="https://jrnold.github.io/ggthemes/reference/theme_tufte.html"><code>theme_tufte()</code></a> of <a href="https://jrnold.github.io/ggthemes/reference/index.html"><strong>ggthemes</strong></a> package is used to remove unnecessary chart junk. To learn which visual components of default ggplot2 have been excluded, you are encouraged to comment out this line to examine the default plot.</li>
+<li><code>coord_equal()</code> is used to ensure the plot will have an aspect ratio of 1:1.</li>
+<li><code>scale_fill_gradient()</code> function is used to creates a two colour gradient (low-high)</li>
 </ul>
-<section id="by-assigning-multiple-values-to-at-least-one-of-the-aesthetic-arguments" class="level3">
-<h3 class="anchored" data-anchor-id="by-assigning-multiple-values-to-at-least-one-of-the-aesthetic-arguments">🛠️3.6.1 By assigning multiple values to at least one of the aesthetic arguments</h3>
-<p>tm_fill(c(“YOUNG”, “AGED”)): Two variables are displayed here at the same time, namely: YOUNG and AGED</p>
-<p>tmap_style() is one of the preset styles provided by tmap, you can choose from:<br>
-“classic”: classic style<br>
-“cobalt”: blue background<br>
-“albatross”: gray background<br>
-“white”: white background (suitable for reports or papers)</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz_pop2020)<span class="sc">+</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="fu">c</span>(<span class="st">"YOUNG"</span>, <span class="st">"AGED"</span>),</span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"equal"</span>, </span>
-<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette =</span> <span class="st">"Blues"</span>) <span class="sc">+</span></span>
-<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(<span class="st">"right"</span>, <span class="st">"bottom"</span>)) <span class="sc">+</span></span>
-<span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tmap_style</span>(<span class="st">"white"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="hands-onEx07_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
 </div>
 </div>
-</div>
-<p>In this example, small multiple choropleth maps are created by assigning multiple values to at least one of the aesthetic arguments.</p>
-<p>???</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz_pop2020)<span class="sc">+</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="fu">c</span>(<span class="st">"DEPENDENCY"</span>, <span class="st">"AGED"</span>),</span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">style =</span> <span class="fu">c</span>(<span class="st">"equal"</span>, <span class="st">"quantile"</span>),</span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">palette =</span> <span class="fu">list</span>(<span class="st">"Blues"</span>, <span class="st">"-Greens"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="hands-onEx07_files/figure-html/unnamed-chunk-32-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(<span class="st">"right"</span>, <span class="st">"bottom"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<p>Then we can simply group the count by hour and wkday and plot it, since we know that we have values for every combination there’s no need to further preprocess the data.</p>
 </section>
-<section id="defining-a-group-by-variable-in-tm_facets" class="level3">
-<h3 class="anchored" data-anchor-id="defining-a-group-by-variable-in-tm_facets">🛠️3.6.2 Defining a group-by variable in <em>tm_facets()</em></h3>
-<p>multiple small choropleth maps are created by using&nbsp;<strong>tm_facets()</strong>.</p>
-<p>There is a NA in the data, so the code can’t run. Therefore, I will update later till prof release the file.( do not want to do the change, cause I afraid there will be an error.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(mpsz_pop2020<span class="sc">$</span>DEPENDENCY)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> num [1:323] NA 1.161 0.25 0.938 0.771 ...</code></pre>
-</div>
-</div>
-</section>
-<section id="creating-multiple-stand-alone-maps-tmap_arrange" class="level3">
-<h3 class="anchored" data-anchor-id="creating-multiple-stand-alone-maps-tmap_arrange">3.6.3 Creating multiple stand-alone maps: <em><code>tmap_arrange()</code></em></h3>
-<p>In this example, multiple small choropleth maps are created by creating multiple stand-alone maps with&nbsp;<strong>tmap_arrange()</strong>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>youngmap <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(mpsz_pop2020)<span class="sc">+</span> </span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="st">"YOUNG"</span>, </span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">style =</span> <span class="st">"quantile"</span>, </span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">palette =</span> <span class="st">"Blues"</span>)</span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>agedmap <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(mpsz_pop2020)<span class="sc">+</span> </span>
-<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="st">"AGED"</span>, </span>
-<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">style =</span> <span class="st">"quantile"</span>, </span>
-<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>              <span class="at">palette =</span> <span class="st">"Blues"</span>)</span>
-<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_arrange</span>(youngmap, agedmap, <span class="at">asp=</span><span class="dv">1</span>, <span class="at">ncol=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="hands-onEx07_files/figure-html/unnamed-chunk-34-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="mappping-spatial-object-meeting-a-selection-criterion" class="level2">
-<h2 class="anchored" data-anchor-id="mappping-spatial-object-meeting-a-selection-criterion">🛠️3.7 Mappping Spatial Object Meeting a Selection Criterion</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(mpsz_pop2020[mpsz_pop2020<span class="sc">$</span>REGION_N<span class="sc">==</span><span class="st">"CENTRAL REGION"</span>, ])<span class="sc">+</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_fill</span>(<span class="st">"DEPENDENCY"</span>, </span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>          <span class="at">style =</span> <span class="st">"quantile"</span>, </span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>          <span class="at">palette =</span> <span class="st">"Blues"</span>, </span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.hist =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.is.portrait =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>          <span class="at">legend.hist.z =</span> <span class="fl">0.1</span>) <span class="sc">+</span></span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">legend.outside =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>            <span class="at">legend.height =</span> <span class="fl">0.45</span>, </span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>            <span class="at">legend.width =</span> <span class="fl">5.0</span>,</span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>            <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="st">"right"</span>, <span class="st">"bottom"</span>),</span>
-<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">frame =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="hands-onEx07_files/figure-html/unnamed-chunk-35-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-</section>
-<section id="reference" class="level1">
-<h1>4. Reference</h1>
-<section id="all-about-tmap-package" class="level2">
-<h2 class="anchored" data-anchor-id="all-about-tmap-package">4.1 All about tmap package</h2>
+<section id="building-multiple-calendar-heatmaps" class="level1">
+<h1>4. Building Multiple Calendar Heatmaps</h1>
+<p>There is the heatmaps for the top four countries with the highest number of attacks.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Step 1: Deriving attack by country object</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Step2:Preparing the tidy data frame</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">Step3: Plotting the Multiple Calender Heatmap by using ggplot2 package</a></li></ul>
+<div class="tab-content">
+<div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
+<p>In order to identify the top 4 countries with the highest number of attacks, you are required to do the followings:</p>
 <ul>
-<li><a href="https://www.jstatsoft.org/article/view/v084i06">tmap: Thematic Maps in R</a></li>
-<li><a href="https://cran.r-project.org/web/packages/tmap/index.html">tmap</a></li>
-<li><a href="https://cran.r-project.org/web/packages/tmap/vignettes/tmap-getstarted.html">tmap: get started!</a></li>
-<li><a href="https://cran.r-project.org/web/packages/tmap/vignettes/tmap-changes-v2.html">tmap: changes in version 2.0</a></li>
-<li><a href="http://von-tijn.nl/tijn/research/presentations/tmap_user2015.pdf">tmap: creating thematic maps in a flexible way (useR!2015)</a></li>
-<li><a href="http://von-tijn.nl/tijn/research/presentations/tmap_user2017.pdf">Exploring and presenting maps with tmap (useR!2017)</a></li>
+<li>count the number of attacks by country,</li>
+<li>calculate the percent of attackes by country, and</li>
+<li>save the results in a tibble data frame.</li>
 </ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>grouped <span class="ot">&lt;-</span> attacks <span class="sc">%&gt;%</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(source_country, wkday, hour) <span class="sc">%&gt;%</span>  <span class="co"># 加入 source_country</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>()</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>attacks_by_country <span class="ot">&lt;-</span> <span class="fu">count</span>(</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  attacks, source_country) <span class="sc">%&gt;%</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">percent =</span> <span class="fu">percent</span>(n<span class="sc">/</span><span class="fu">sum</span>(n))) <span class="sc">%&gt;%</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(n))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
+<p>In this step, you are required to extract the attack records of the top 4 countries from attacks data frame and save the data in a new tibble data frame (i.e.&nbsp;top4_attacks).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>top4 <span class="ot">&lt;-</span> attacks_by_country<span class="sc">$</span>source_country[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>top4_attacks <span class="ot">&lt;-</span> attacks <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(source_country <span class="sc">%in%</span> top4) <span class="sc">%&gt;%</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(source_country, wkday, hour) <span class="sc">%&gt;%</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">source_country =</span> <span class="fu">factor</span>(</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    source_country, <span class="at">levels =</span> top4)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">na.omit</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
+<p>ggplot(top4_attacks, aes(hour, wkday, fill = n)) + geom_tile(color = “white”, size = 0.1) + theme_tufte(base_family = “Helvetica”) + coord_equal() + scale_fill_gradient(name = “# of attacks”, low = “sky blue”, high = “dark blue”) + facet_wrap(~source_country, ncol = 2) + labs(x = NULL, y = NULL, title = “Attacks on top 4 countries by weekday and time of day”) + theme(axis.ticks = element_blank(), axis.text.x = element_text(size = 7), plot.title = element_text(hjust = 0.5), legend.title = element_text(size = 8), legend.text = element_text(size = 6) )</p>
+<pre><code></code></pre>
+</div>
+</div>
+</div>
 </section>
-<section id="geospatial-data-wrangling" class="level2">
-<h2 class="anchored" data-anchor-id="geospatial-data-wrangling">4.2 Geospatial data wrangling</h2>
-<ul>
-<li><a href="https://cran.r-project.org/web/packages/sf/index.html">sf: Simple Features for R</a></li>
-<li><a href="https://journal.r-project.org/archive/2018/RJ-2018-009/RJ-2018-009.pdf">Simple Features for R: StandardizedSupport for Spatial Vector Data</a></li>
-<li><a href="https://cran.r-project.org/web/packages/sf/vignettes/sf2.html">Reading, Writing and Converting Simple Features</a></li>
-</ul>
+<section id="plotting-cycle-plot" class="level1">
+<h1>5. Plotting Cycle Plot</h1>
+<p>In this section, you will learn how to plot a cycle plot showing the time-series patterns and trend of visitor arrivals from Vietnam programmatically by using ggplot2 functions.</p>
+<section id="data-preparation-1" class="level2">
+<h2 class="anchored" data-anchor-id="data-preparation-1">5.1 Data Preparation</h2>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Step1: Importing data</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Step2: <strong>Deriving month and year fields</strong></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-3" role="tab" aria-controls="tabset-4-3" aria-selected="false">Step3: <strong>Extracting the target country and time period</strong></a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-4" role="tab" aria-controls="tabset-4-4" aria-selected="false">Step4: <strong>Computing year average arrivals by month</strong></a></li></ul>
+<div class="tab-content">
+<div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
+<p>For the purpose of this hands-on exercise,&nbsp;<em>arrivals_by_air.xlsx</em>&nbsp;will be used.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>air <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"data/arrivals_by_air.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
+<p>Next, two new fields called&nbsp;<em>month</em>&nbsp;and&nbsp;<em>year</em>&nbsp;are derived from&nbsp;<em>Month-Year</em>&nbsp;field.</p>
+<p><code>Month-Year = "2023-06"</code> → <code>month = "Jun"</code> (June)</p>
+<p><code>Month-Year = "2023-06"</code> → <code>year = 2023</code></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>air<span class="sc">$</span>month <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">month</span>(air<span class="sc">$</span><span class="st">`</span><span class="at">Month-Year</span><span class="st">`</span>), </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">levels=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">12</span>, </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">labels=</span>month.abb, </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">ordered=</span><span class="cn">TRUE</span>) </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>air<span class="sc">$</span>year <span class="ot">&lt;-</span> <span class="fu">year</span>(<span class="fu">ymd</span>(air<span class="sc">$</span><span class="st">`</span><span class="at">Month-Year</span><span class="st">`</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-4-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-3-tab">
+<p>Next, the code chunk below is use to extract data for the target country (i.e.&nbsp;Vietnam) and the year&gt;2010.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>Vietnam <span class="ot">&lt;-</span> air <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="st">`</span><span class="at">Vietnam</span><span class="st">`</span>, </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>         month, </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>         year) <span class="sc">%&gt;%</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(year <span class="sc">&gt;=</span> <span class="dv">2010</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div id="tabset-4-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-4-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>hline.data <span class="ot">&lt;-</span> Vietnam <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(month) <span class="sc">%&gt;%</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">avgvalue =</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">Vietnam</span><span class="st">`</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</div>
+</div>
 </section>
-<section id="data-wrangling-1" class="level2">
-<h2 class="anchored" data-anchor-id="data-wrangling-1">4.3 Data wrangling</h2>
+<section id="plotting-the-cycle-plot" class="level2">
+<h2 class="anchored" data-anchor-id="plotting-the-cycle-plot">5.2 Plotting the cycle plot</h2>
+<p>✅ Shows Vietnam air passenger trends by month (2010-2019).</p>
+<p>✅ The black line represents the annual change in the number of passengers in that month.</p>
+<p>✅ The red dotted line shows the average number of passengers (avgvalue) for that month.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data=</span>Vietnam,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>            <span class="fu">aes</span>(<span class="at">x=</span>year, </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">y=</span><span class="st">`</span><span class="at">Vietnam</span><span class="st">`</span>, </span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">group=</span>month), </span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">colour=</span><span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept=</span>avgvalue), </span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">data=</span>hline.data, <span class="co">#Horizontal line data comes from hline.data, ensuring that each month has a corresponding avgvalue</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">linetype=</span><span class="dv">6</span>, </span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">colour=</span><span class="st">"red"</span>, </span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">size=</span><span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(<span class="sc">~</span>month) <span class="sc">+</span> <span class="co">#Display faceted by month</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">axis.text.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Visitor arrivals from Vietnam by air, Jan 2010-Dec 2019"</span>) <span class="sc">+</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"No. of Visitors"</span>) <span class="sc">+</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_tufte</span>(<span class="at">base_family =</span> <span class="st">"Helvetica"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="hands-onEx07_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="plotting-slopegraph" class="level1">
+<h1>6. Plotting Slopegraph</h1>
+<p>Slopegraph is suitable for comparing trends at two points in time.</p>
+<p>Before getting start, make sure that&nbsp;<strong>CGPfunctions</strong>&nbsp;has been installed and loaded onto R environment. Then, refer to&nbsp;<a href="https://cran.r-project.org/web/packages/CGPfunctions/vignettes/Using-newggslopegraph.html">Using newggslopegraph</a>&nbsp;to learn more about the function. Lastly, read more about&nbsp;<code>newggslopegraph()</code>&nbsp;and its arguments by referring to this&nbsp;<a href="https://www.rdocumentation.org/packages/CGPfunctions/versions/0.6.3/topics/newggslopegraph">link</a>.</p>
+<p>First, Import the data rice.csv.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>rice <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/rice.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, code chunk below will be used to plot a basic slopegraph as shown below.</p>
+<p>Visualizing rice yield changes in 11 Asian countries between 1961 and 1980 (Rice Yield).</p>
 <ul>
-<li><a href="https://dplyr.tidyverse.org/">dplyr</a></li>
-<li><a href="https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html">Tidy data</a></li>
-<li><a href="https://cran.r-project.org/web/packages/tidyr/tidyr.pdf">tidyr: Easily Tidy Data with ‘spread()’ and ‘gather()’ Functions</a></li>
+<li><p><code>Year</code>：X axis → 1961 and 1980。</p></li>
+<li><p><code>Yield</code>：Y axis (rice production)。</p></li>
+<li><p><code>Country</code>：every line represent one country.</p>
+<p>For effective data visualisation design,&nbsp;<code>factor()</code>&nbsp;is used convert the value type of&nbsp;<em>Year</em>&nbsp;field from numeric to factor.</p></li>
 </ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>rice <span class="sc">%&gt;%</span> </span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">factor</span>(Year)) <span class="sc">%&gt;%</span> <span class="co">#Convert Year to a factor because ggslopegraph requires categorical variables to plot years</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Year <span class="sc">%in%</span> <span class="fu">c</span>(<span class="dv">1961</span>, <span class="dv">1980</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">newggslopegraph</span>(Year, Yield, Country,</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">Title =</span> <span class="st">"Rice Yield of Top 11 Asian Counties"</span>,</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>                <span class="at">SubTitle =</span> <span class="st">"1961-1980"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="hands-onEx07_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

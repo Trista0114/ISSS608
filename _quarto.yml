@@ -46,6 +46,10 @@ website:
       - section: "Visualising and Analysing Geographical Data"
         contents:
           - text:  "Choropleth Mapping with R"
+            href: hands-onEx/hands-onEx08/hands-onEx08.html
+      - section: "Visualising and Analysing Geographical Data"
+        contents:
+          - text:  "Visualising and Analysing Time-oriented Data"
             href: hands-onEx/hands-onEx07/hands-onEx07.html
         
   navbar:
@@ -81,6 +85,8 @@ website:
           - text:  "Treemap Visualisation with R"
             href: hands-onEx/hands-onEx05-5/hands-onEx05-5.html
           - text:  "Choropleth Mapping with R"
+            href: hands-onEx/hands-onEx08/hands-onEx08.html
+          - text:  "Visualising and Analysing Time-oriented Data"
             href: hands-onEx/hands-onEx07/hands-onEx07.html
             
       - text: "In-class Exercise"
