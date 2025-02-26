@@ -216,7 +216,7 @@ attacks_by_country <- count(
   arrange(desc(n))
 ```
 
-## Step2:Preparing the tidy data frame 
+## Step2:Preparing the tidy data frame
 
 In this step, you are required to extract the attack records of the top 4 countries from attacks data frame and save the data in a new tibble data frame (i.e. top4_attacks).
 
@@ -234,11 +234,25 @@ top4_attacks <- attacks %>%
 ## Step3: Plotting the Multiple Calender Heatmap by using ggplot2 package
 
 ```{r}
-```
-
-ggplot(top4_attacks, aes(hour, wkday, fill = n)) + geom_tile(color = "white", size = 0.1) + theme_tufte(base_family = "Helvetica") + coord_equal() + scale_fill_gradient(name = "\# of attacks", low = "sky blue", high = "dark blue") + facet_wrap(\~source_country, ncol = 2) + labs(x = NULL, y = NULL, title = "Attacks on top 4 countries by weekday and time of day") + theme(axis.ticks = element_blank(), axis.text.x = element_text(size = 7), plot.title = element_text(hjust = 0.5), legend.title = element_text(size = 8), legend.text = element_text(size = 6) )
-
-```         
+ggplot(top4_attacks, 
+       aes(hour, 
+           wkday, 
+           fill = n)) + 
+  geom_tile(color = "white", 
+          size = 0.1) + 
+  theme_tufte(base_family = "Helvetica") + 
+  coord_equal() +
+  scale_fill_gradient(name = "# of attacks",
+                    low = "sky blue", 
+                    high = "dark blue") +
+  facet_wrap(~source_country, ncol = 2) +
+  labs(x = NULL, y = NULL, 
+     title = "Attacks on top 4 countries by weekday and time of day") +
+  theme(axis.ticks = element_blank(),
+        axis.text.x = element_text(size = 7),
+        plot.title = element_text(hjust = 0.5),
+        legend.title = element_text(size = 8),
+        legend.text = element_text(size = 6) )
 ```
 :::
 
