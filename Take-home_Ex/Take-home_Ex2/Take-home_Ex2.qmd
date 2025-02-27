@@ -1,0 +1,46 @@
+---
+title: "Take-home Exercise 2: 
+Be Tradewise or Otherwise"
+author: "Chen.PengWei"
+date: "February 26, 2025"
+date-modified: "last-modified"
+execute:
+  echo: true
+  eval: true
+  warning: false
+  freeze: true
+---
+
+```{r}
+library(readxl)
+file_path <- "data/outputFile (2).xlsx"
+
+# 設定檔案路徑
+Non_oil_exp <- read_excel(file_path, sheet = 2, skip = 10, col_names = TRUE)
+
+
+Non_oil_exp<- df[46:55, ]
+
+# 只保留 第一欄 和 第 3-14 欄
+Non_oil_exp <- Non_oil_exp[, c(1, 3:14)]
+
+# 設定 A 欄（第一欄）作為 rownames（行標籤）
+rownames(Non_oil_exp) <- Non_oil_exp[[1]]
+
+
+# 查看數據
+head(Non_oil_exp, 10)
+
+```
+
+```{r}
+library(dplyr)
+
+# 假設你的 DataFrame 為 df
+Non_oil_exp2024 <- Non_oil_exp %>%
+  mutate(`2024` = rowSums(select(., starts_with("2024")), na.rm = TRUE))
+
+# 查看結果
+print(Non_oil_exp2024)
+
+```
