@@ -15,10 +15,10 @@ execute:
 pacman::p_load(ggplot2,dplyr,patchwork,tidyverse,tidymodels,ggdist,ggridges, ggthemes,colorspace,scales,ggiraph,ggstatsplot,scales,crosstalk,plotly)
 ```
 
-```{r}
-class(df)
+data Preparation_stackbar
 
-```
+::: panel-tabset
+## 1
 
 ```{r}
 library(readxl)
@@ -26,42 +26,54 @@ file_path <- "data/outputFile (2).xlsx"
 
 # 設定檔案路徑
 Non_oil_exp <- read_excel(file_path, sheet = 2, skip = 10, col_names = TRUE)
-
-
 Non_oil_exp<- Non_oil_exp[46:55, ]
-
 # 只保留 第一欄 和 第 3-14 欄
 Non_oil_exp <- Non_oil_exp[c(1, 3:14)]
-
 # 設定 A 欄（第一欄）作為 rownames（行標籤）
 rownames(Non_oil_exp) <- Non_oil_exp[[1]]
-
 
 # 查看數據
 
 head(Non_oil_exp, 10)
-
-
 ```
 
 ```{r}
-library(dplyr)
+Non_oil_rexp <- read_excel(file_path, sheet = 2, skip = 10, col_names = TRUE)
+
+
+Non_oil_rexp<- Non_oil_rexp[59:68, ]
+
+# 只保留 第一欄 和 第 3-14 欄
+Non_oil_rexp <- Non_oil_rexp[, c(1, 3:14)]
+
+# 設定 A 欄（第一欄）作為 rownames（行標籤）
+rownames(Non_oil_rexp) <- Non_oil_rexp[[1]]
+
 
 # 假設你的 DataFrame 為 df
+Non_oil_rexp2024 <- Non_oil_rexp %>%
+  mutate(`2024` = rowSums(select(., starts_with("2024")), na.rm = TRUE))
+```
+
+## 2
+
+```{r}
 Non_oil_exp2024 <- Non_oil_exp %>%
+  mutate(`2024` = rowSums(select(., starts_with("2024")), na.rm = TRUE))
+print(Non_oil_exp2024)
+```
+
+```{r}
+Non_oil_rexp2024 <- Non_oil_rexp %>%
   mutate(`2024` = rowSums(select(., starts_with("2024")), na.rm = TRUE))
 
 # 查看結果
-print(Non_oil_exp2024)
-
+print(Non_oil_rexp2024)
 ```
 
-stack bar
+## 3
 
 ```{r}
-library(ggplot2)
-library(dplyr)
-
 total_non_oil <- Non_oil_exp2024 %>%
   filter(`Data Series` == "Non-Oil") %>%
   pull(`2024`)  # 取出 2024 年的 Non-Oil 總值
@@ -69,16 +81,74 @@ total_non_oil <- Non_oil_exp2024 %>%
 # 篩選 Non-Oil 內的子類別
 Non_oil_exp2024_stack <- Non_oil_exp2024 %>%
   filter(`Data Series` != "Non-Oil") %>%
-  mutate(Value_Billion = round(`2024` / 1e6, 2)) %>%  # 轉換為 Billion
+  mutate(Value_Billion = round(`2024` / 1e6)) %>%  # 轉換為 Billion
   mutate(Percent = (`2024` / total_non_oil) * 100) %>%
   mutate(`Data Series` = fct_reorder(`Data Series`, Percent, .desc = TRUE))
-
-
-
 ```
+
+```{r}
+total_non_oil_re <- Non_oil_rexp2024 %>%
+  filter(`Data Series` == "Non-Oil") %>%
+  pull(`2024`)  # 取出 2024 年的 Non-Oil 總值
+
+# 篩選 Non-Oil 內的子類別
+Non_oil_rexp2024_stack <- Non_oil_rexp2024 %>%
+  filter(`Data Series` != "Non-Oil") %>%
+  mutate(Value_Billion = round(`2024` / 1e6)) %>%  # 轉換為 Billion
+  mutate(Percent = (`2024` / total_non_oil_re) * 100) %>%
+  mutate(`Data Series` = fct_reorder(`Data Series`, Percent, .desc = TRUE))
+```
+:::
+
+stack bar
+
+單獨的plot
 
 ::: panel-tabset
 ## The plot
+
+```{r}
+# ggplot 圖表
+p1 <- ggplot(Non_oil_exp2024_stack, aes(x = "", y = Percent, fill = `Data Series`,
+                                       text = paste0(`Data Series`, 
+                                                     "<br>Value: $", Value_Billion, "Billion"))) +
+  geom_bar(stat = "identity", width = 0.6) +
+  geom_text(aes(label = paste0(round(Percent, 1), "%")), 
+            position = position_stack(vjust = 0.5), size = 4, color = "black") +
+  labs(x = "Export", y = "Percentage", fill = "Categories in Non-Oil",
+       title = "Composition of NON-OIL DOMESTIC EXPORTS 2024",
+       subtitle = paste0(format(total_non_oil, big.mark = ","))) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5, size = 10, face = "bold"), 
+    axis.title.x = element_text(size = 10),  
+    axis.title.y = element_text(size = 10),  
+    axis.text.x = element_text(size = 10),  
+    axis.text.y = element_text(size = 10),  
+    legend.text = element_text(size = 9),  
+    legend.title = element_text(size = 10)
+  ) +
+  scale_fill_manual(values = c(
+    "Food & Live Animals"= "blue",
+    "Beverages & Tobacco" = "#1f77b4",
+    "Crude Materials (Excl Fuels)" = "#d62728",
+    "Animal & Vegetable Oils Fats & Waxes" = "#2ca02c",
+    "Chemicals & Chemical Products" = "#9467bd",
+    "Manufactured Goods" = "#17becf",
+    "Machinery & Transport Equipment" = "#ff7f0e",
+    "Miscellaneous Manufactured Articles" = "#7f7f7f",
+    "Miscellaneous (Excluding Oil Bunkers)" = "#8c564b"
+  ))
+
+# 🎯 轉換為 plotly，啟用 tooltip
+p_interactive <- ggplotly(p1, tooltip = "text")
+
+# 顯示互動圖表
+p_interactive
+
+```
+
+## The
 
 ```{r}
 # ggplot 圖表
@@ -118,231 +188,10 @@ p_interactive <- ggplotly(p1, tooltip = "text")
 
 # 顯示互動圖表
 p_interactive
-
 ```
-
-## The code
 :::
 
-stack bar2
-
-```{r}
-# 設定檔案路徑
-Non_oil_rexp <- read_excel(file_path, sheet = 2, skip = 10, col_names = TRUE)
-
-
-Non_oil_rexp<- Non_oil_rexp[59:68, ]
-
-# 只保留 第一欄 和 第 3-14 欄
-Non_oil_rexp <- Non_oil_rexp[, c(1, 3:14)]
-
-# 設定 A 欄（第一欄）作為 rownames（行標籤）
-rownames(Non_oil_rexp) <- Non_oil_rexp[[1]]
-
-
-# 假設你的 DataFrame 為 df
-Non_oil_rexp2024 <- Non_oil_rexp %>%
-  mutate(`2024` = rowSums(select(., starts_with("2024")), na.rm = TRUE))
-
-# 查看結果
-print(Non_oil_rexp2024)
-```
-
-```{r}
-# 假設你的 DataFrame 為 df
-Non_oil_rexp2024 <- Non_oil_rexp %>%
-  mutate(`2024` = rowSums(select(., starts_with("2024")), na.rm = TRUE))
-
-# 查看結果
-print(Non_oil_rexp2024)
-```
-
-```{r}
-# ggplot 圖表
-p1 <- ggplot(Non_oil_exp2024_stack, aes(x = "", y = Percent, fill = `Data Series`,
-                                       tooltip= paste0(`Data Series`, 
-                                                     "<br>Value: $", Value_Billion, "Bil"))) +
-  geom_bar(stat = "identity", width = 0.6) +
-  geom_text(aes(label = paste0(round(Percent, 1), "%")), 
-            position = position_stack(vjust = 0.5), size = 4, color = "black") +
-  labs(x = "Export", y = "Percentage", fill = "Categories in Non-Oil",
-       title = "Composition of NON-OIL DOMESTIC EXPORTS 2024",
-       subtitle = paste0(format(total_non_oil, big.mark = ","))) +
-  guides(fill = "none")+
-  theme_minimal() +
-  theme(
-    plot.title = element_text(hjust = 0.5, size = 10, face = "bold"), 
-    axis.title.x = element_text(size = 10),  
-    axis.title.y = element_text(size = 10),  
-    axis.text.x = element_text(size = 10),  
-    axis.text.y = element_text(size = 10),  
-    legend.text = element_text(size = 9),  
-    legend.title = element_text(size = 10)
-  ) +
-  scale_fill_manual(values = c(
-    "Food & Live Animals"= "blue",
-    "Beverages & Tobacco" = "#1f77b4",
-    "Crude Materials (Excl Fuels)" = "#d62728",
-    "Animal & Vegetable Oils Fats & Waxes" = "#2ca02c",
-    "Chemicals & Chemical Products" = "#9467bd",
-    "Manufactured Goods" = "#17becf",
-    "Machinery & Transport Equipment" = "#ff7f0e",
-    "Miscellaneous Manufactured Articles" = "#7f7f7f",
-    "Miscellaneous (Excluding Oil Bunkers)" = "#8c564b"
-  ))
-
-# 🎯 轉換為 plotly，啟用 tooltip
-p1_interactive <- ggplotly(p1, tooltip = "text")%>%
-  layout(showlegend = FALSE)
-
-
-total_non_oil_re <- Non_oil_rexp2024 %>%
-  filter(`Data Series` == "Non-Oil") %>%
-  pull(`2024`)  # 取出 2024 年的 Non-Oil 總值
-
-# 篩選 Non-Oil 內的子類別
-Non_oil_rexp2024_stack <- Non_oil_rexp2024 %>%
-  filter(`Data Series` != "Non-Oil") %>%
-  mutate(Value_Billion = round(`2024` / 1e6, 2)) %>%  # 轉換為 Billion
-  mutate(Percent = (`2024` / total_non_oil_re) * 100) %>%
-  mutate(`Data Series` = fct_reorder(`Data Series`, Percent, .desc = TRUE))
-
-p2 <- ggplot(Non_oil_rexp2024_stack, aes(x = "", y = Percent, fill = `Data Series`,
-                                       text = paste0(`Data Series`, 
-                                                     "<br>Value: $", Value_Billion, "Bil"))) +
-  geom_bar(stat = "identity", width = 0.6) +
-  geom_text(aes(label = paste0(round(Percent, 1), "%")), 
-            position = position_stack(vjust = 0.5), size = 4, color = "black") +
-  labs(x = "Re-Export", y = "Percentage", fill = "Categories in Non-Oil",
-       title = "Composition of NON-OIL DOMESTIC RE-EXPORTS 2024",
-       subtitle = paste0(format(total_non_oil, big.mark = ","))) +
-  theme_minimal() +
-  theme(
-    plot.title = element_text(hjust = 0.5, size = 10, face = "bold"), 
-    axis.title.x = element_text(size = 10),  
-    axis.title.y = element_text(size = 10),  
-    axis.text.x = element_text(size = 10),  
-    axis.text.y = element_text(size = 10),  
-    legend.text = element_text(size = 9),  
-    legend.title = element_text(size = 10)
-  ) +
-  scale_fill_manual(values = c(
-    "Food & Live Animals"= "blue",
-    "Beverages & Tobacco" = "#1f77b4",
-    "Crude Materials (Excl Fuels)" = "#d62728",
-    "Animal & Vegetable Oils Fats & Waxes" = "#2ca02c",
-    "Chemicals & Chemical Products" = "#9467bd",
-    "Manufactured Goods" = "#17becf",
-    "Machinery & Transport Equipment" = "#ff7f0e",
-    "Miscellaneous Manufactured Articles" = "#7f7f7f",
-    "Miscellaneous (Excluding Oil Bunkers)" = "#8c564b"
-  ))
-
-# 🎯 轉換為 plotly，啟用 tooltip
-p2_interactive <- ggplotly(p2,tooltip="text")
-
-combined_plot <- subplot(p1_interactive, p2_interactive, nrows = 1, shareY = FALSE) %>%
-  layout(hovermode = "x unified")
-
-combined_plot
-
-
-
-
-```
-
-```{r}
-library(ggplot2)
-library(plotly)
-
-# ✅ 設定 Non-Oil 總數值
-total_domestic_exports <- format(sum(Non_oil_exp2024_stack$Value_Billion), big.mark = ",")
-total_re_exports <- format(sum(Non_oil_rexp2024_stack$Value_Billion), big.mark = ",")
-
-# ✅ `p1` (DOMESTIC EXPORTS)
-p1 <- ggplot(Non_oil_exp2024_stack, aes(x = "DOMESTIC EXPORTS", y = Percent, fill = `Data Series`)) +
-  geom_bar(stat = "identity", width = 0.6) +
-  geom_text(aes(label = paste0(round(Percent, 1), "%")), 
-            position = position_stack(vjust = 0.5), size = 3.5, color = "black") +  # 🔥 Percentage 字體變小
-  geom_text(aes(y = 103, label = paste0("Total: $", total_domestic_exports, " Bil")),  # 🔥 顯示總數值
-            size = 4.5, fontface = "bold", color = "black") +
-  labs(x = "", y = "Percentage") +
-  guides(fill = "none") +
-  theme_minimal() +
-  theme(
-    plot.title = element_text(hjust = 0.5, size = 14, face = "bold"),  # 🔥 Title 字體大小
-    axis.title.x = element_text(size = 10),  
-    axis.title.y = element_text(size = 10),  
-    axis.text.x = element_text(size = 10),  
-    axis.text.y = element_text(size = 10)
-  ) +
-  scale_fill_manual(values = c(
-    "Food & Live Animals"= "blue",
-    "Beverages & Tobacco" = "#1f77b4",
-    "Crude Materials (Excl Fuels)" = "#d62728",
-    "Animal & Vegetable Oils Fats & Waxes" = "#2ca02c",
-    "Chemicals & Chemical Products" = "#9467bd",
-    "Manufactured Goods" = "#17becf",
-    "Machinery & Transport Equipment" = "#ff7f0e",
-    "Miscellaneous Manufactured Articles" = "#7f7f7f",
-    "Miscellaneous (Excluding Oil Bunkers)" = "#8c564b"
-  ))
-
-p1_interactive <- ggplotly(p1) %>%
-  layout(showlegend = FALSE)
-
-# ✅ `p2` (RE-EXPORTS)
-p2 <- ggplot(Non_oil_rexp2024_stack, aes(x = "RE-EXPORTS", y = Percent, fill = `Data Series`)) +
-  geom_bar(stat = "identity", width = 0.6) +
-  geom_text(aes(label = paste0(round(Percent, 1), "%")), 
-            position = position_stack(vjust = 0.5), size = 3.5, color = "black") +  # 🔥 Percentage 字體變小
-  geom_text(aes(y = 103, label = paste0("Total: $", total_re_exports, " Bil")),  # 🔥 顯示總數值
-            size = 4.5, fontface = "bold", color = "black") +
-  labs(x = "", y = "") +  # 🔥 Y 軸名稱移除
-  theme_minimal() +
-  theme(
-    axis.title.x = element_text(size = 10),  
-    axis.text.x = element_text(size = 10),  
-    axis.text.y = element_blank(),  # 🔥 隱藏 Y 軸刻度
-    axis.ticks.y = element_blank()  # 🔥 隱藏 Y 軸刻度
-  ) +
-  scale_fill_manual(values = c(
-    "Food & Live Animals"= "blue",
-    "Beverages & Tobacco" = "#1f77b4",
-    "Crude Materials (Excl Fuels)" = "#d62728",
-    "Animal & Vegetable Oils Fats & Waxes" = "#2ca02c",
-    "Chemicals & Chemical Products" = "#9467bd",
-    "Manufactured Goods" = "#17becf",
-    "Machinery & Transport Equipment" = "#ff7f0e",
-    "Miscellaneous Manufactured Articles" = "#7f7f7f",
-    "Miscellaneous (Excluding Oil Bunkers)" = "#8c564b"
-  ))
-
-p2_interactive <- ggplotly(p2)
-
-# ✅ `subplot` 合併 `p1` & `p2`
-combined_plot <- subplot(p1_interactive, p2_interactive, nrows = 1, shareY = TRUE) %>%
-  layout(
-    annotations = list(  # 🔥 Title 放在 Bar Chart 上方
-      list(
-        x = 0.5, 
-        y = 1.15, 
-        xref = "paper", 
-        yref = "paper", 
-        text = "<b>Composition of NON-OIL DOMESTIC EXPORTS and RE-EXPORTS 2024</b>", 
-        showarrow = FALSE,
-        font = list(size = 16)
-      )
-    ),
-    hovermode = FALSE,  # 🔥 移除 `tooltip`
-    xaxis = list(title = ""),  
-    yaxis = list(title = "Percentage")
-  )
-
-# ✅ 顯示圖表
-combined_plot
-
-```
+Combine plot
 
 ```{r}
 library(ggplot2)
@@ -370,8 +219,8 @@ p1 <- ggplot(Non_oil_exp2024_stack, aes(
     text = paste0("<b>", `Data Series`, "</b><br>Value: $", Value_Billion, " Billion")
   )) +
   geom_bar(stat = "identity", width = 0.6) +
-  geom_text(aes(label = paste0(round(Percent, 1), "%")), 
-            position = position_stack(vjust = 0.5), size = 3.5, color = "black") +  # 🔥 Percentage 字體變小
+  geom_text(aes(label = ifelse(Percent > 2.8, paste0(round(Percent, 1), "%"), "")),  
+          position = position_stack(vjust = 0.5), size = 3.5, color = "black")  +  # 🔥 Percentage 字體變小
   geom_text(aes(y = -9, label = paste0("($", total_domestic_exports, " Billion)")),  # 🔥 顯示總數值
             size = 3, color = "black") +  # ✅ 調小字體 (像圖片大小)
   labs(x = "", y = "Percentage") +
@@ -390,13 +239,14 @@ p1_interactive <- ggplotly(p1,tooltip = "text") %>%
   layout(showlegend = FALSE)
 
 # ✅ `p2` (RE-EXPORTS)
-p2 <- ggplot(Non_oil_rexp2024_stack, aes(x = "RE-EXPORTS", y = Percent, fill = `Data Series`)) +
+p2 <- ggplot(Non_oil_rexp2024_stack, aes(x = "RE-EXPORTS", y = Percent, fill = `Data Series`,text = paste0("<b>", `Data Series`, "</b><br>Value: $", Value_Billion, " Billion")
+  )) +
   geom_bar(stat = "identity", width = 0.6) +
-  geom_text(aes(label = paste0(round(Percent, 1), "%")), 
-            position = position_stack(vjust = 0.5), size = 3.5, color = "black") +  # 🔥 Percentage 字體變小
+   geom_text(aes(label = ifelse(Percent > 3, paste0(round(Percent, 1), "%"), "")),  
+          position = position_stack(vjust = 0.5), size = 3.5, color = "black") +  # 🔥 Percentage 字體變小
   geom_text(aes(y =-9, label = paste0("($", total_re_exports, " Billion)")),  # 🔥 顯示總數值
             size = 3, color = "black") +  # ✅ 調小字體 (像圖片大小)
-  labs(x = "", y = "", fill = "Non-Oil Product") +  # 🔥 Y 軸名稱移除
+  labs(x = "", y = "", fill = "Non-Oil Product",title = "Composition of NON-OIL DOMESTIC and RE-EXPORTS in 2024") +  # 🔥 Y 軸名稱移除
   theme_minimal() +
   theme(
     axis.title.x = element_text(size = 10),  
@@ -406,22 +256,11 @@ p2 <- ggplot(Non_oil_rexp2024_stack, aes(x = "RE-EXPORTS", y = Percent, fill = `
   ) +
   scale_fill_manual(values = non_oil_colors)
 
-p2_interactive <- ggplotly(p2)
+p2_interactive <- ggplotly(p2,tooltip = "text")
 
 # ✅ `subplot` 合併 `p1` & `p2`
 combined_plot <- subplot(p1_interactive, p2_interactive, nrows = 1, shareY = TRUE) %>%
   layout(
-    annotations = list(  # 🔥 Title 放在 Bar Chart 上方
-      list(
-        x = 0.5,  # ✅ 調整 `x` 讓標題置左
-        y = 1.02,  # ✅ 讓標題位於圖表上方
-        xref = "paper", 
-        yref = "paper", 
-        text = "<b>Composition of NON-OIL DOMESTIC EXPORTS and RE-EXPORTS 2024</b>", 
-        showarrow = FALSE,
-        font = list(size = 11)  # ✅ 確保 `font` 屬性完整
-      )
-    ),
     xaxis = list(title = ""),  
     yaxis = list(title = "Percentage"),font = list(size = 10)
   )
