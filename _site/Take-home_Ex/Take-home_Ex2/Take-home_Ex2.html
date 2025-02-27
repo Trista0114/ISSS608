@@ -1,0 +1,1403 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.6.40">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Chen.PengWei">
+<meta name="dcterms.date" content="2025-02-26">
+
+<title>Take-home Exercise 2: Be Tradewise or Otherwise – ISSS608-CourseWork</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-549806ee2085284f45b00abea8c6df48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap-ddd961a2510921635943dfbbd19534c4.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="../../site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+
+<script src="../../site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<script src="../../site_libs/plotly-binding-4.10.4/plotly.js"></script>
+
+<script src="../../site_libs/typedarray-0.1/typedarray.min.js"></script>
+
+<script src="../../site_libs/jquery-3.5.1/jquery.min.js"></script>
+
+<link href="../../site_libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet">
+
+<script src="../../site_libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+
+<link href="../../site_libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet">
+
+<script src="../../site_libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+
+
+
+<link rel="stylesheet" href="../../styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">ISSS608-CourseWork</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-hands-on-exercise" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Hands-on Exercise</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-hands-on-exercise">    
+        <li>
+    <a class="dropdown-item" href="../../hands-onEx/hands-onEx00/hands-onEx00.html">
+ <span class="dropdown-text">Hands-on Exercise 0</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hands-onEx/hands-onEx01/hands-onEx01.html">
+ <span class="dropdown-text">A Layered Grammar of Graphics-ggplot2 methods</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hands-onEx/hands-onEx02/hands-onEx02.html">
+ <span class="dropdown-text">Beyond ggplot2 Fundamentals</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hands-onEx/hands-onEx03/hands-onEx03.html">
+ <span class="dropdown-text">Programming Interactive Data Visualisation with R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hands-onEx/hands-onEx03-2/hands-onEx03-2.html">
+ <span class="dropdown-text">Programming Animated Statistical Graphics with R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hands-onEx/hands-onEx04/hands-onEx04.html">
+ <span class="dropdown-text">Visualising Distribution</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hands-onEx/hands-onEx04-2/hands-onEx04-2.html">
+ <span class="dropdown-text">Visual Statistical Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hands-onEx/hands-onEx04-3/hands-onEx04-3.html">
+ <span class="dropdown-text">Visualising Uncertainty</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hands-onEx/hands-onEx04-4/hands-onEx04-4.html">
+ <span class="dropdown-text">Funnel Plots for Fair Comparisons</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hands-onEx/hands-onEx05/hands-onEx05.html">
+ <span class="dropdown-text">Creating Ternary Plot with R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hands-onEx/hands-onEx05-2/hands-onEx05-2.html">
+ <span class="dropdown-text">Visual Correlation Analysis</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hands-onEx/hands-onEx05-3/hands-onEx05-3.html">
+ <span class="dropdown-text">Heatmap for Visualising and Analysing Multivariate Data</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hands-onEx/hands-onEx05-4/hands-onEx05-4.html">
+ <span class="dropdown-text">Visual Multivariate Analysis with Parallel Coordinates Plot</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hands-onEx/hands-onEx05-5/hands-onEx05-5.html">
+ <span class="dropdown-text">Treemap Visualisation with R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hands-onEx/hands-onEx08/hands-onEx08.html">
+ <span class="dropdown-text">Choropleth Mapping with R</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../hands-onEx/hands-onEx07/hands-onEx07.html">
+ <span class="dropdown-text">Visualising and Analysing Time-oriented Data</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-in-class-exercise" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">In-class Exercise</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-in-class-exercise">    
+        <li>
+    <a class="dropdown-item" href="https://public.tableau.com/views/In-class_Ex01_17371864504700/1?:language=en-US&amp;:sid=&amp;:display_count=n&amp;:origin=viz_share_link">
+ <span class="dropdown-text">In-class Exercise 1</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../In-class_Ex/In-class_Ex04/In-class_Ex04.html">
+ <span class="dropdown-text">In-class Exercise 4</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../../In-class_Ex/In-class_Ex05/In-class_Ex05.html">
+ <span class="dropdown-text">In-class Exercise 5</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-take-home-exercise" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Take-home Exercise</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-take-home-exercise">    
+        <li>
+    <a class="dropdown-item" href="../../Take-home_Ex/Take-home_Ex1/Take-home_Ex1.html">
+ <span class="dropdown-text">Take-home Exercise 1</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> <i class="bi bi-bi bi-house-fill" role="img">
+</i> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> <i class="bi bi-bi bi-File-earmark-person" role="img">
+</i> 
+<span class="menu-text">About</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Take-home Exercise 2: Be Tradewise or Otherwise</li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">The Building Block</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../hands-onEx/hands-onEx01/hands-onEx01.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">A Layered Grammar of Graphics: ggplot2 methods</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../hands-onEx/hands-onEx02/hands-onEx02.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Beyond ggplot2 Fundamentals</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../hands-onEx/hands-onEx03/hands-onEx03.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programming Interactive Data Visualisation with R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../hands-onEx/hands-onEx03-2/hands-onEx03-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Programming Animated Statistical Graphics with R</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Visual Analytics</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../hands-onEx/hands-onEx04/hands-onEx04.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualising Distribution:ridgeline plot &amp; raincloud plot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../hands-onEx/hands-onEx04-2/hands-onEx04-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visual Statistical Analysis</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../hands-onEx/hands-onEx04-3/hands-onEx04-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualising Uncertainty</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../hands-onEx/hands-onEx04-4/hands-onEx04-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Funnel Plots for Fair Comparisons</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Visualising and Analysing Multivariate Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../hands-onEx/hands-onEx05/hands-onEx05.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Creating Ternary Plot with R</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../hands-onEx/hands-onEx05-3/hands-onEx05-3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Heatmap for Visualising and Analysing Multivariate Data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../hands-onEx/hands-onEx05-4/hands-onEx05-4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visual Multivariate Analysis with Parallel Coordinates Plot</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../hands-onEx/hands-onEx05-5/hands-onEx05-5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Treemap Visualisation with R</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Not So Common Chart</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../hands-onEx/hands-onEx05-2/hands-onEx05-2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visual Correlation Analysis</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">Visualising and Analysing Geographical Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../hands-onEx/hands-onEx08/hands-onEx08.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Choropleth Mapping with R</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">Visualising and Analysing Geographical Data</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../hands-onEx/hands-onEx07/hands-onEx07.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Visualising and Analysing Time-oriented Data</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Take-home Exercise 2: Be Tradewise or Otherwise</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Chen.PengWei </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 26, 2025</p>
+    </div>
+  </div>
+  
+    <div>
+    <div class="quarto-title-meta-heading">Modified</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date-modified">February 27, 2025</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(ggplot2,dplyr,patchwork,tidyverse,tidymodels,ggdist,ggridges, ggthemes,colorspace,scales,ggiraph,ggstatsplot,scales,crosstalk,plotly)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "function"</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>file_path <span class="ot">&lt;-</span> <span class="st">"data/outputFile (2).xlsx"</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 設定檔案路徑</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>Non_oil_exp <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(file_path, <span class="at">sheet =</span> <span class="dv">2</span>, <span class="at">skip =</span> <span class="dv">10</span>, <span class="at">col_names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>Non_oil_exp<span class="ot">&lt;-</span> Non_oil_exp[<span class="dv">46</span><span class="sc">:</span><span class="dv">55</span>, ]</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 只保留 第一欄 和 第 3-14 欄</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>Non_oil_exp <span class="ot">&lt;-</span> Non_oil_exp[<span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span><span class="sc">:</span><span class="dv">14</span>)]</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 設定 A 欄（第一欄）作為 rownames（行標籤）</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(Non_oil_exp) <span class="ot">&lt;-</span> Non_oil_exp[[<span class="dv">1</span>]]</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看數據</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Non_oil_exp, <span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 13
+   `Data Series`          `2024 Dec` `2024 Nov` `2024 Oct` `2024 Sep` `2024 Aug`
+   &lt;chr&gt;                       &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+ 1 Non-Oil                 15227551.  14974329.  14076449.  13893226.  15003706.
+ 2 Food &amp; Live Animals      1256140.    867962     937713.    907651.    997752.
+ 3 Beverages &amp; Tobacco        12836.     11538.     15423.     13129.     15472.
+ 4 Crude Materials (Excl…    227289.    231788.    230642.    201371.    225752.
+ 5 Animal &amp; Vegetable Oi…     16292.     18539.     16745.     14108.     17481.
+ 6 Chemicals &amp; Chemical …   3105808.   3343658.   3213842.   3883404.   3485091.
+ 7 Manufactured Goods        392376.    397968.    418534.    392438.    414134.
+ 8 Machinery &amp; Transport…   6256106.   5844226.   5983682    5465815.   6357348.
+ 9 Miscellaneous Manufac…   2690716.   2739301.   2271051    2466593.   2532624.
+10 Miscellaneous (Exclud…   1269989.   1519349.    988817.    548717.    958051.
+# ℹ 7 more variables: `2024 Jul` &lt;dbl&gt;, `2024 Jun` &lt;dbl&gt;, `2024 May` &lt;dbl&gt;,
+#   `2024 Apr` &lt;dbl&gt;, `2024 Mar` &lt;dbl&gt;, `2024 Feb` &lt;dbl&gt;, `2024 Jan` &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 假設你的 DataFrame 為 df</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>Non_oil_exp2024 <span class="ot">&lt;-</span> Non_oil_exp <span class="sc">%&gt;%</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">2024</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">rowSums</span>(<span class="fu">select</span>(., <span class="fu">starts_with</span>(<span class="st">"2024"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看結果</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Non_oil_exp2024)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 14
+   `Data Series`          `2024 Dec` `2024 Nov` `2024 Oct` `2024 Sep` `2024 Aug`
+   &lt;chr&gt;                       &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+ 1 Non-Oil                 15227551.  14974329.  14076449.  13893226.  15003706.
+ 2 Food &amp; Live Animals      1256140.    867962     937713.    907651.    997752.
+ 3 Beverages &amp; Tobacco        12836.     11538.     15423.     13129.     15472.
+ 4 Crude Materials (Excl…    227289.    231788.    230642.    201371.    225752.
+ 5 Animal &amp; Vegetable Oi…     16292.     18539.     16745.     14108.     17481.
+ 6 Chemicals &amp; Chemical …   3105808.   3343658.   3213842.   3883404.   3485091.
+ 7 Manufactured Goods        392376.    397968.    418534.    392438.    414134.
+ 8 Machinery &amp; Transport…   6256106.   5844226.   5983682    5465815.   6357348.
+ 9 Miscellaneous Manufac…   2690716.   2739301.   2271051    2466593.   2532624.
+10 Miscellaneous (Exclud…   1269989.   1519349.    988817.    548717.    958051.
+# ℹ 8 more variables: `2024 Jul` &lt;dbl&gt;, `2024 Jun` &lt;dbl&gt;, `2024 May` &lt;dbl&gt;,
+#   `2024 Apr` &lt;dbl&gt;, `2024 Mar` &lt;dbl&gt;, `2024 Feb` &lt;dbl&gt;, `2024 Jan` &lt;dbl&gt;,
+#   `2024` &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<p>stack bar</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>total_non_oil <span class="ot">&lt;-</span> Non_oil_exp2024 <span class="sc">%&gt;%</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">Data Series</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Non-Oil"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(<span class="st">`</span><span class="at">2024</span><span class="st">`</span>)  <span class="co"># 取出 2024 年的 Non-Oil 總值</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 篩選 Non-Oil 內的子類別</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>Non_oil_exp2024_stack <span class="ot">&lt;-</span> Non_oil_exp2024 <span class="sc">%&gt;%</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">Data Series</span><span class="st">`</span> <span class="sc">!=</span> <span class="st">"Non-Oil"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Value_Billion =</span> <span class="fu">round</span>(<span class="st">`</span><span class="at">2024</span><span class="st">`</span> <span class="sc">/</span> <span class="fl">1e6</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span>  <span class="co"># 轉換為 Billion</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Percent =</span> (<span class="st">`</span><span class="at">2024</span><span class="st">`</span> <span class="sc">/</span> total_non_oil) <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">Data Series</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">fct_reorder</span>(<span class="st">`</span><span class="at">Data Series</span><span class="st">`</span>, Percent, <span class="at">.desc =</span> <span class="cn">TRUE</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">The plot</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">The code</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot 圖表</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(Non_oil_exp2024_stack, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> Percent, <span class="at">fill =</span> <span class="st">`</span><span class="at">Data Series</span><span class="st">`</span>,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">text =</span> <span class="fu">paste0</span>(<span class="st">`</span><span class="at">Data Series</span><span class="st">`</span>, </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>                                                     <span class="st">"&lt;br&gt;Value: $"</span>, Value_Billion, <span class="st">"Bil"</span>))) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(Percent, <span class="dv">1</span>), <span class="st">"%"</span>)), </span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">position_stack</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>), <span class="at">size =</span> <span class="dv">4</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Export"</span>, <span class="at">y =</span> <span class="st">"Percentage"</span>, <span class="at">fill =</span> <span class="st">"Categories in Non-Oil"</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Composition of NON-OIL DOMESTIC EXPORTS 2024"</span>,</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="fu">paste0</span>(<span class="fu">format</span>(total_non_oil, <span class="at">big.mark =</span> <span class="st">","</span>))) <span class="sc">+</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="st">"bold"</span>), </span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),  </span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),  </span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),  </span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),  </span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>),  </span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>)</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Food &amp; Live Animals"</span><span class="ot">=</span> <span class="st">"blue"</span>,</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Beverages &amp; Tobacco"</span> <span class="ot">=</span> <span class="st">"#1f77b4"</span>,</span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Crude Materials (Excl Fuels)"</span> <span class="ot">=</span> <span class="st">"#d62728"</span>,</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Animal &amp; Vegetable Oils Fats &amp; Waxes"</span> <span class="ot">=</span> <span class="st">"#2ca02c"</span>,</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Chemicals &amp; Chemical Products"</span> <span class="ot">=</span> <span class="st">"#9467bd"</span>,</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Manufactured Goods"</span> <span class="ot">=</span> <span class="st">"#17becf"</span>,</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Machinery &amp; Transport Equipment"</span> <span class="ot">=</span> <span class="st">"#ff7f0e"</span>,</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Miscellaneous Manufactured Articles"</span> <span class="ot">=</span> <span class="st">"#7f7f7f"</span>,</span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Miscellaneous (Excluding Oil Bunkers)"</span> <span class="ot">=</span> <span class="st">"#8c564b"</span></span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="co"># 🎯 轉換為 plotly，啟用 tooltip</span></span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>p_interactive <span class="ot">&lt;-</span> <span class="fu">ggplotly</span>(p1, <span class="at">tooltip =</span> <span class="st">"text"</span>)</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="co"># 顯示互動圖表</span></span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>p_interactive</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-b9e79d4e3000aa82e7e6" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-b9e79d4e3000aa82e7e6">{"x":{"data":[{"orientation":"v","width":0.60000000000000009,"base":59.45920691503882,"x":[1],"y":[40.540792969754278],"text":"Machinery & Transport Equipment<br>Value: $70.38Bil","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(255,127,14,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Machinery & Transport Equipment","legendgroup":"Machinery & Transport Equipment","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":33.861044371530483,"x":[1],"y":[25.598162543508337],"text":"Chemicals & Chemical Products<br>Value: $44.44Bil","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(148,103,189,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Chemicals & Chemical Products","legendgroup":"Chemicals & Chemical Products","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":17.36054288108328,"x":[1],"y":[16.500501490447203],"text":"Miscellaneous Manufactured Articles<br>Value: $28.64Bil","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(127,127,127,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Miscellaneous Manufactured Articles","legendgroup":"Miscellaneous Manufactured Articles","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":10.719596369679921,"x":[1],"y":[6.6409465114033583],"text":"Food & Live Animals<br>Value: $11.53Bil","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,0,255,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Food & Live Animals","legendgroup":"Food & Live Animals","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":4.6289481114843296,"x":[1],"y":[6.0906482581955919],"text":"Miscellaneous (Excluding Oil Bunkers)<br>Value: $10.57Bil","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(140,86,75,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Miscellaneous (Excluding Oil Bunkers)","legendgroup":"Miscellaneous (Excluding Oil Bunkers)","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":1.746164759162806,"x":[1],"y":[2.8827833523215238],"text":"Manufactured Goods<br>Value: $5Bil","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(23,190,207,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Manufactured Goods","legendgroup":"Manufactured Goods","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":0.20632916219574132,"x":[1],"y":[1.5398355969670647],"text":"Crude Materials (Excl Fuels)<br>Value: $2.67Bil","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(214,39,40,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Crude Materials (Excl Fuels)","legendgroup":"Crude Materials (Excl Fuels)","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":0.10075730414072846,"x":[1],"y":[0.10557185805501286],"text":"Beverages & Tobacco<br>Value: $0.18Bil","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(31,119,180,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Beverages & Tobacco","legendgroup":"Beverages & Tobacco","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":0,"x":[1],"y":[0.10075730414072846],"text":"Animal & Vegetable Oils Fats & Waxes<br>Value: $0.17Bil","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(44,160,44,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Animal & Vegetable Oils Fats & Waxes","legendgroup":"Animal & Vegetable Oils Fats & Waxes","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[79.729603399915959],"text":"40.5%","hovertext":"Machinery & Transport Equipment<br>Value: $70.38Bil","textfont":{"size":15.118110236220474,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Machinery & Transport Equipment","legendgroup":"Machinery & Transport Equipment","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[46.660125643284651],"text":"25.6%","hovertext":"Chemicals & Chemical Products<br>Value: $44.44Bil","textfont":{"size":15.118110236220474,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Chemicals & Chemical Products","legendgroup":"Chemicals & Chemical Products","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[25.610793626306879],"text":"16.5%","hovertext":"Miscellaneous Manufactured Articles<br>Value: $28.64Bil","textfont":{"size":15.118110236220474,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Miscellaneous Manufactured Articles","legendgroup":"Miscellaneous Manufactured Articles","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[14.040069625381602],"text":"6.6%","hovertext":"Food & Live Animals<br>Value: $11.53Bil","textfont":{"size":15.118110236220474,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Food & Live Animals","legendgroup":"Food & Live Animals","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[7.6742722405821251],"text":"6.1%","hovertext":"Miscellaneous (Excluding Oil Bunkers)<br>Value: $10.57Bil","textfont":{"size":15.118110236220474,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Miscellaneous (Excluding Oil Bunkers)","legendgroup":"Miscellaneous (Excluding Oil Bunkers)","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[3.1875564353235677],"text":"2.9%","hovertext":"Manufactured Goods<br>Value: $5Bil","textfont":{"size":15.118110236220474,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Manufactured Goods","legendgroup":"Manufactured Goods","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[0.97624696067927363],"text":"1.5%","hovertext":"Crude Materials (Excl Fuels)<br>Value: $2.67Bil","textfont":{"size":15.118110236220474,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Crude Materials (Excl Fuels)","legendgroup":"Crude Materials (Excl Fuels)","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[0.1535432331682349],"text":"0.1%","hovertext":"Beverages & Tobacco<br>Value: $0.18Bil","textfont":{"size":15.118110236220474,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Beverages & Tobacco","legendgroup":"Beverages & Tobacco","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[0.050378652070364231],"text":"0.1%","hovertext":"Animal & Vegetable Oils Fats & Waxes<br>Value: $0.17Bil","textfont":{"size":15.118110236220474,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Animal & Vegetable Oils Fats & Waxes","legendgroup":"Animal & Vegetable Oils Fats & Waxes","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":39.511830635118301,"r":7.3059360730593621,"b":27.164798671647986,"l":44.167704441677053},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"<b> Composition of NON-OIL DOMESTIC EXPORTS 2024 <\/b>","font":{"color":"rgba(0,0,0,1)","family":"","size":13.283520132835198},"x":0.5,"xref":"paper"},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,1.6000000000000001],"tickmode":"array","ticktext":[""],"tickvals":[1],"categoryorder":"array","categoryarray":[""],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":13.283520132835198},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","title":{"text":"Export","font":{"color":"rgba(0,0,0,1)","family":"","size":13.283520132835198}},"hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-4.9999999942396549,104.99999987903276],"tickmode":"array","ticktext":["0","25","50","75","100"],"tickvals":[0,25.000000000000004,50.000000000000014,75,100],"categoryorder":"array","categoryarray":["0","25","50","75","100"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":13.283520132835205},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":{"text":"Percentage","font":{"color":"rgba(0,0,0,1)","family":"","size":13.283520132835198}},"hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.955168119551683},"title":{"text":"Categories in Non-Oil","font":{"color":"rgba(0,0,0,1)","family":"","size":13.283520132835198}}},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"1aac2c99637d":{"x":{},"y":{},"fill":{},"text":{},"type":"bar"},"1aaca0619be":{"x":{},"y":{},"fill":{},"text":{},"label":{}}},"cur_data":"1aac2c99637d","visdat":{"1aac2c99637d":["function (y) ","x"],"1aaca0619be":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+
+</div>
+</div>
+</div>
+<p>stack bar2</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 設定檔案路徑</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>Non_oil_rexp <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(file_path, <span class="at">sheet =</span> <span class="dv">2</span>, <span class="at">skip =</span> <span class="dv">10</span>, <span class="at">col_names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>Non_oil_rexp<span class="ot">&lt;-</span> Non_oil_rexp[<span class="dv">59</span><span class="sc">:</span><span class="dv">68</span>, ]</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 只保留 第一欄 和 第 3-14 欄</span></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>Non_oil_rexp <span class="ot">&lt;-</span> Non_oil_rexp[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span><span class="sc">:</span><span class="dv">14</span>)]</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 設定 A 欄（第一欄）作為 rownames（行標籤）</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(Non_oil_rexp) <span class="ot">&lt;-</span> Non_oil_rexp[[<span class="dv">1</span>]]</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 假設你的 DataFrame 為 df</span></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>Non_oil_rexp2024 <span class="ot">&lt;-</span> Non_oil_rexp <span class="sc">%&gt;%</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">2024</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">rowSums</span>(<span class="fu">select</span>(., <span class="fu">starts_with</span>(<span class="st">"2024"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看結果</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Non_oil_rexp2024)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 14
+   `Data Series`          `2024 Dec` `2024 Nov` `2024 Oct` `2024 Sep` `2024 Aug`
+   &lt;chr&gt;                       &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+ 1 Non-Oil                 36295786.  34563618.  33767516.  32284364.  31448738.
+ 2 Food &amp; Live Animals       183866.    176869     187833.    196489.    196968.
+ 3 Beverages &amp; Tobacco       390234.    373475.    372705.    382478.    398824.
+ 4 Crude Materials (Excl…    112978     131172.    148490.    111129.    125526.
+ 5 Animal &amp; Vegetable Oi…      7609.      5900.      9611.     10329.      6269.
+ 6 Chemicals &amp; Chemical …   2198721.   1966065.   2259290    1941365.   1868729.
+ 7 Manufactured Goods       1116901.   1029677.   1055403.   1000466.   1206006.
+ 8 Machinery &amp; Transport…  28460146.  24990474.  25103550.  25524253.  24076795.
+ 9 Miscellaneous Manufac…   2445296.   2604507.   2529626.   2436480.   2740773.
+10 Miscellaneous (Exclud…   1380036.   3285479    2101007.    681376.    828848.
+# ℹ 8 more variables: `2024 Jul` &lt;dbl&gt;, `2024 Jun` &lt;dbl&gt;, `2024 May` &lt;dbl&gt;,
+#   `2024 Apr` &lt;dbl&gt;, `2024 Mar` &lt;dbl&gt;, `2024 Feb` &lt;dbl&gt;, `2024 Jan` &lt;dbl&gt;,
+#   `2024` &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 假設你的 DataFrame 為 df</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>Non_oil_rexp2024 <span class="ot">&lt;-</span> Non_oil_rexp <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">2024</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">rowSums</span>(<span class="fu">select</span>(., <span class="fu">starts_with</span>(<span class="st">"2024"</span>)), <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 查看結果</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(Non_oil_rexp2024)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 14
+   `Data Series`          `2024 Dec` `2024 Nov` `2024 Oct` `2024 Sep` `2024 Aug`
+   &lt;chr&gt;                       &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;      &lt;dbl&gt;
+ 1 Non-Oil                 36295786.  34563618.  33767516.  32284364.  31448738.
+ 2 Food &amp; Live Animals       183866.    176869     187833.    196489.    196968.
+ 3 Beverages &amp; Tobacco       390234.    373475.    372705.    382478.    398824.
+ 4 Crude Materials (Excl…    112978     131172.    148490.    111129.    125526.
+ 5 Animal &amp; Vegetable Oi…      7609.      5900.      9611.     10329.      6269.
+ 6 Chemicals &amp; Chemical …   2198721.   1966065.   2259290    1941365.   1868729.
+ 7 Manufactured Goods       1116901.   1029677.   1055403.   1000466.   1206006.
+ 8 Machinery &amp; Transport…  28460146.  24990474.  25103550.  25524253.  24076795.
+ 9 Miscellaneous Manufac…   2445296.   2604507.   2529626.   2436480.   2740773.
+10 Miscellaneous (Exclud…   1380036.   3285479    2101007.    681376.    828848.
+# ℹ 8 more variables: `2024 Jul` &lt;dbl&gt;, `2024 Jun` &lt;dbl&gt;, `2024 May` &lt;dbl&gt;,
+#   `2024 Apr` &lt;dbl&gt;, `2024 Mar` &lt;dbl&gt;, `2024 Feb` &lt;dbl&gt;, `2024 Jan` &lt;dbl&gt;,
+#   `2024` &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ggplot 圖表</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(Non_oil_exp2024_stack, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> Percent, <span class="at">fill =</span> <span class="st">`</span><span class="at">Data Series</span><span class="st">`</span>,</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">tooltip=</span> <span class="fu">paste0</span>(<span class="st">`</span><span class="at">Data Series</span><span class="st">`</span>, </span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>                                                     <span class="st">"&lt;br&gt;Value: $"</span>, Value_Billion, <span class="st">"Bil"</span>))) <span class="sc">+</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(Percent, <span class="dv">1</span>), <span class="st">"%"</span>)), </span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">position_stack</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>), <span class="at">size =</span> <span class="dv">4</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Export"</span>, <span class="at">y =</span> <span class="st">"Percentage"</span>, <span class="at">fill =</span> <span class="st">"Categories in Non-Oil"</span>,</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Composition of NON-OIL DOMESTIC EXPORTS 2024"</span>,</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="fu">paste0</span>(<span class="fu">format</span>(total_non_oil, <span class="at">big.mark =</span> <span class="st">","</span>))) <span class="sc">+</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="st">"none"</span>)<span class="sc">+</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="st">"bold"</span>), </span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),  </span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),  </span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),  </span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),  </span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>),  </span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>)</span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Food &amp; Live Animals"</span><span class="ot">=</span> <span class="st">"blue"</span>,</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Beverages &amp; Tobacco"</span> <span class="ot">=</span> <span class="st">"#1f77b4"</span>,</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Crude Materials (Excl Fuels)"</span> <span class="ot">=</span> <span class="st">"#d62728"</span>,</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Animal &amp; Vegetable Oils Fats &amp; Waxes"</span> <span class="ot">=</span> <span class="st">"#2ca02c"</span>,</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Chemicals &amp; Chemical Products"</span> <span class="ot">=</span> <span class="st">"#9467bd"</span>,</span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Manufactured Goods"</span> <span class="ot">=</span> <span class="st">"#17becf"</span>,</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Machinery &amp; Transport Equipment"</span> <span class="ot">=</span> <span class="st">"#ff7f0e"</span>,</span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Miscellaneous Manufactured Articles"</span> <span class="ot">=</span> <span class="st">"#7f7f7f"</span>,</span>
+<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Miscellaneous (Excluding Oil Bunkers)"</span> <span class="ot">=</span> <span class="st">"#8c564b"</span></span>
+<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a><span class="co"># 🎯 轉換為 plotly，啟用 tooltip</span></span>
+<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>p1_interactive <span class="ot">&lt;-</span> <span class="fu">ggplotly</span>(p1, <span class="at">tooltip =</span> <span class="st">"text"</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layout</span>(<span class="at">showlegend =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>total_non_oil_re <span class="ot">&lt;-</span> Non_oil_rexp2024 <span class="sc">%&gt;%</span></span>
+<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">Data Series</span><span class="st">`</span> <span class="sc">==</span> <span class="st">"Non-Oil"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(<span class="st">`</span><span class="at">2024</span><span class="st">`</span>)  <span class="co"># 取出 2024 年的 Non-Oil 總值</span></span>
+<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a><span class="co"># 篩選 Non-Oil 內的子類別</span></span>
+<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>Non_oil_rexp2024_stack <span class="ot">&lt;-</span> Non_oil_rexp2024 <span class="sc">%&gt;%</span></span>
+<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="st">`</span><span class="at">Data Series</span><span class="st">`</span> <span class="sc">!=</span> <span class="st">"Non-Oil"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Value_Billion =</span> <span class="fu">round</span>(<span class="st">`</span><span class="at">2024</span><span class="st">`</span> <span class="sc">/</span> <span class="fl">1e6</span>, <span class="dv">2</span>)) <span class="sc">%&gt;%</span>  <span class="co"># 轉換為 Billion</span></span>
+<span id="cb14-47"><a href="#cb14-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Percent =</span> (<span class="st">`</span><span class="at">2024</span><span class="st">`</span> <span class="sc">/</span> total_non_oil_re) <span class="sc">*</span> <span class="dv">100</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-48"><a href="#cb14-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="st">`</span><span class="at">Data Series</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">fct_reorder</span>(<span class="st">`</span><span class="at">Data Series</span><span class="st">`</span>, Percent, <span class="at">.desc =</span> <span class="cn">TRUE</span>))</span>
+<span id="cb14-49"><a href="#cb14-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-50"><a href="#cb14-50" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(Non_oil_rexp2024_stack, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> Percent, <span class="at">fill =</span> <span class="st">`</span><span class="at">Data Series</span><span class="st">`</span>,</span>
+<span id="cb14-51"><a href="#cb14-51" aria-hidden="true" tabindex="-1"></a>                                       <span class="at">text =</span> <span class="fu">paste0</span>(<span class="st">`</span><span class="at">Data Series</span><span class="st">`</span>, </span>
+<span id="cb14-52"><a href="#cb14-52" aria-hidden="true" tabindex="-1"></a>                                                     <span class="st">"&lt;br&gt;Value: $"</span>, Value_Billion, <span class="st">"Bil"</span>))) <span class="sc">+</span></span>
+<span id="cb14-53"><a href="#cb14-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb14-54"><a href="#cb14-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(Percent, <span class="dv">1</span>), <span class="st">"%"</span>)), </span>
+<span id="cb14-55"><a href="#cb14-55" aria-hidden="true" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">position_stack</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>), <span class="at">size =</span> <span class="dv">4</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb14-56"><a href="#cb14-56" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Re-Export"</span>, <span class="at">y =</span> <span class="st">"Percentage"</span>, <span class="at">fill =</span> <span class="st">"Categories in Non-Oil"</span>,</span>
+<span id="cb14-57"><a href="#cb14-57" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Composition of NON-OIL DOMESTIC RE-EXPORTS 2024"</span>,</span>
+<span id="cb14-58"><a href="#cb14-58" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="fu">paste0</span>(<span class="fu">format</span>(total_non_oil, <span class="at">big.mark =</span> <span class="st">","</span>))) <span class="sc">+</span></span>
+<span id="cb14-59"><a href="#cb14-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb14-60"><a href="#cb14-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb14-61"><a href="#cb14-61" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">10</span>, <span class="at">face =</span> <span class="st">"bold"</span>), </span>
+<span id="cb14-62"><a href="#cb14-62" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),  </span>
+<span id="cb14-63"><a href="#cb14-63" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),  </span>
+<span id="cb14-64"><a href="#cb14-64" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),  </span>
+<span id="cb14-65"><a href="#cb14-65" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),  </span>
+<span id="cb14-66"><a href="#cb14-66" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">9</span>),  </span>
+<span id="cb14-67"><a href="#cb14-67" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>)</span>
+<span id="cb14-68"><a href="#cb14-68" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb14-69"><a href="#cb14-69" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb14-70"><a href="#cb14-70" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Food &amp; Live Animals"</span><span class="ot">=</span> <span class="st">"blue"</span>,</span>
+<span id="cb14-71"><a href="#cb14-71" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Beverages &amp; Tobacco"</span> <span class="ot">=</span> <span class="st">"#1f77b4"</span>,</span>
+<span id="cb14-72"><a href="#cb14-72" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Crude Materials (Excl Fuels)"</span> <span class="ot">=</span> <span class="st">"#d62728"</span>,</span>
+<span id="cb14-73"><a href="#cb14-73" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Animal &amp; Vegetable Oils Fats &amp; Waxes"</span> <span class="ot">=</span> <span class="st">"#2ca02c"</span>,</span>
+<span id="cb14-74"><a href="#cb14-74" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Chemicals &amp; Chemical Products"</span> <span class="ot">=</span> <span class="st">"#9467bd"</span>,</span>
+<span id="cb14-75"><a href="#cb14-75" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Manufactured Goods"</span> <span class="ot">=</span> <span class="st">"#17becf"</span>,</span>
+<span id="cb14-76"><a href="#cb14-76" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Machinery &amp; Transport Equipment"</span> <span class="ot">=</span> <span class="st">"#ff7f0e"</span>,</span>
+<span id="cb14-77"><a href="#cb14-77" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Miscellaneous Manufactured Articles"</span> <span class="ot">=</span> <span class="st">"#7f7f7f"</span>,</span>
+<span id="cb14-78"><a href="#cb14-78" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Miscellaneous (Excluding Oil Bunkers)"</span> <span class="ot">=</span> <span class="st">"#8c564b"</span></span>
+<span id="cb14-79"><a href="#cb14-79" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb14-80"><a href="#cb14-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-81"><a href="#cb14-81" aria-hidden="true" tabindex="-1"></a><span class="co"># 🎯 轉換為 plotly，啟用 tooltip</span></span>
+<span id="cb14-82"><a href="#cb14-82" aria-hidden="true" tabindex="-1"></a>p2_interactive <span class="ot">&lt;-</span> <span class="fu">ggplotly</span>(p2,<span class="at">tooltip=</span><span class="st">"text"</span>)</span>
+<span id="cb14-83"><a href="#cb14-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-84"><a href="#cb14-84" aria-hidden="true" tabindex="-1"></a>combined_plot <span class="ot">&lt;-</span> <span class="fu">subplot</span>(p1_interactive, p2_interactive, <span class="at">nrows =</span> <span class="dv">1</span>, <span class="at">shareY =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb14-85"><a href="#cb14-85" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layout</span>(<span class="at">hovermode =</span> <span class="st">"x unified"</span>)</span>
+<span id="cb14-86"><a href="#cb14-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-87"><a href="#cb14-87" aria-hidden="true" tabindex="-1"></a>combined_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-83515ee2fdcea552530c" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-83515ee2fdcea552530c">{"x":{"data":[{"orientation":"v","width":0.60000000000000009,"base":1.746164759162806,"x":[1],"y":[2.8827833523215238],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(23,190,207,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":0.10075730414072846,"x":[1],"y":[0.10557185805501286],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(31,119,180,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":0,"x":[1],"y":[0.10075730414072846],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(44,160,44,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":17.36054288108328,"x":[1],"y":[16.500501490447203],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(127,127,127,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":4.6289481114843296,"x":[1],"y":[6.0906482581955919],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(140,86,75,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":33.861044371530483,"x":[1],"y":[25.598162543508337],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(148,103,189,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":0.20632916219574132,"x":[1],"y":[1.5398355969670647],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(214,39,40,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":59.45920691503882,"x":[1],"y":[40.540792969754278],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(255,127,14,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":10.719596369679921,"x":[1],"y":[6.6409465114033583],"text":"","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,0,255,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[3.1875564353235677],"text":"2.9%","hovertext":"","textfont":{"size":15.118110236220474,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[0.1535432331682349],"text":"0.1%","hovertext":"","textfont":{"size":15.118110236220474,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[0.050378652070364231],"text":"0.1%","hovertext":"","textfont":{"size":15.118110236220474,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[25.610793626306879],"text":"16.5%","hovertext":"","textfont":{"size":15.118110236220474,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[7.6742722405821251],"text":"6.1%","hovertext":"","textfont":{"size":15.118110236220474,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[46.660125643284651],"text":"25.6%","hovertext":"","textfont":{"size":15.118110236220474,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[0.97624696067927363],"text":"1.5%","hovertext":"","textfont":{"size":15.118110236220474,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[79.729603399915959],"text":"40.5%","hovertext":"","textfont":{"size":15.118110236220474,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[14.040069625381602],"text":"6.6%","hovertext":"","textfont":{"size":15.118110236220474,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":23.914244243674673,"x":[1],"y":[76.085755782307089],"text":"Machinery & Transport Equipment<br>Value: $292.84Bil","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(255,127,14,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Machinery & Transport Equipment","legendgroup":"Machinery & Transport Equipment","showlegend":true,"xaxis":"x2","yaxis":"y2","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":16.399770788855797,"x":[1],"y":[7.5144734548188765],"text":"Miscellaneous Manufactured Articles<br>Value: $28.92Bil","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(127,127,127,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Miscellaneous Manufactured Articles","legendgroup":"Miscellaneous Manufactured Articles","showlegend":true,"xaxis":"x2","yaxis":"y2","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":9.8839682367707997,"x":[1],"y":[6.5158025520849971],"text":"Chemicals & Chemical Products<br>Value: $25.08Bil","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(148,103,189,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Chemicals & Chemical Products","legendgroup":"Chemicals & Chemical Products","showlegend":true,"xaxis":"x2","yaxis":"y2","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":5.3158790424056201,"x":[1],"y":[4.5680891943651796],"text":"Miscellaneous (Excluding Oil Bunkers)<br>Value: $17.58Bil","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(140,86,75,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Miscellaneous (Excluding Oil Bunkers)","legendgroup":"Miscellaneous (Excluding Oil Bunkers)","showlegend":true,"xaxis":"x2","yaxis":"y2","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":2.1425688640226062,"x":[1],"y":[3.173310178383014],"text":"Manufactured Goods<br>Value: $12.21Bil","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(23,190,207,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Manufactured Goods","legendgroup":"Manufactured Goods","showlegend":true,"xaxis":"x2","yaxis":"y2","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":0.99497278799683952,"x":[1],"y":[1.1475960760257666],"text":"Beverages & Tobacco<br>Value: $4.42Bil","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(31,119,180,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Beverages & Tobacco","legendgroup":"Beverages & Tobacco","showlegend":true,"xaxis":"x2","yaxis":"y2","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":0.40864111983492218,"x":[1],"y":[0.58633166816191729],"text":"Food & Live Animals<br>Value: $2.26Bil","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,0,255,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Food & Live Animals","legendgroup":"Food & Live Animals","showlegend":true,"xaxis":"x2","yaxis":"y2","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":0.025112520535338707,"x":[1],"y":[0.38352859929958349],"text":"Crude Materials (Excl Fuels)<br>Value: $1.48Bil","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(214,39,40,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Crude Materials (Excl Fuels)","legendgroup":"Crude Materials (Excl Fuels)","showlegend":true,"xaxis":"x2","yaxis":"y2","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":0,"x":[1],"y":[0.025112520535338707],"text":"Animal & Vegetable Oils Fats & Waxes<br>Value: $0.1Bil","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(44,160,44,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Animal & Vegetable Oils Fats & Waxes","legendgroup":"Animal & Vegetable Oils Fats & Waxes","showlegend":true,"xaxis":"x2","yaxis":"y2","hoverinfo":"text","frame":null},{"x":[1],"y":[61.957122134828218],"text":"76.1%","hovertext":"Machinery & Transport Equipment<br>Value: $292.84Bil","textfont":{"size":15.118110236220474,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Machinery & Transport Equipment","legendgroup":"Machinery & Transport Equipment","showlegend":false,"xaxis":"x2","yaxis":"y2","hoverinfo":"text","frame":null},{"x":[1],"y":[20.157007516265235],"text":"7.5%","hovertext":"Miscellaneous Manufactured Articles<br>Value: $28.92Bil","textfont":{"size":15.118110236220474,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Miscellaneous Manufactured Articles","legendgroup":"Miscellaneous Manufactured Articles","showlegend":false,"xaxis":"x2","yaxis":"y2","hoverinfo":"text","frame":null},{"x":[1],"y":[13.141869512813297],"text":"6.5%","hovertext":"Chemicals & Chemical Products<br>Value: $25.08Bil","textfont":{"size":15.118110236220474,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Chemicals & Chemical Products","legendgroup":"Chemicals & Chemical Products","showlegend":false,"xaxis":"x2","yaxis":"y2","hoverinfo":"text","frame":null},{"x":[1],"y":[7.5999236395882104],"text":"4.6%","hovertext":"Miscellaneous (Excluding Oil Bunkers)<br>Value: $17.58Bil","textfont":{"size":15.118110236220474,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Miscellaneous (Excluding Oil Bunkers)","legendgroup":"Miscellaneous (Excluding Oil Bunkers)","showlegend":false,"xaxis":"x2","yaxis":"y2","hoverinfo":"text","frame":null},{"x":[1],"y":[3.7292239532141132],"text":"3.2%","hovertext":"Manufactured Goods<br>Value: $12.21Bil","textfont":{"size":15.118110236220474,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Manufactured Goods","legendgroup":"Manufactured Goods","showlegend":false,"xaxis":"x2","yaxis":"y2","hoverinfo":"text","frame":null},{"x":[1],"y":[1.5687708260097228],"text":"1.1%","hovertext":"Beverages & Tobacco<br>Value: $4.42Bil","textfont":{"size":15.118110236220474,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Beverages & Tobacco","legendgroup":"Beverages & Tobacco","showlegend":false,"xaxis":"x2","yaxis":"y2","hoverinfo":"text","frame":null},{"x":[1],"y":[0.70180695391588088],"text":"0.6%","hovertext":"Food & Live Animals<br>Value: $2.26Bil","textfont":{"size":15.118110236220474,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Food & Live Animals","legendgroup":"Food & Live Animals","showlegend":false,"xaxis":"x2","yaxis":"y2","hoverinfo":"text","frame":null},{"x":[1],"y":[0.21687682018513044],"text":"0.4%","hovertext":"Crude Materials (Excl Fuels)<br>Value: $1.48Bil","textfont":{"size":15.118110236220474,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Crude Materials (Excl Fuels)","legendgroup":"Crude Materials (Excl Fuels)","showlegend":false,"xaxis":"x2","yaxis":"y2","hoverinfo":"text","frame":null},{"x":[1],"y":[0.012556260267669353],"text":"0%","hovertext":"Animal & Vegetable Oils Fats & Waxes<br>Value: $0.1Bil","textfont":{"size":15.118110236220474,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Animal & Vegetable Oils Fats & Waxes","legendgroup":"Animal & Vegetable Oils Fats & Waxes","showlegend":false,"xaxis":"x2","yaxis":"y2","hoverinfo":"text","frame":null}],"layout":{"xaxis":{"domain":[0,0.47999999999999998],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,1.6000000000000001],"tickmode":"array","ticktext":[""],"tickvals":[1],"categoryorder":"array","categoryarray":[""],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":13.283520132835198},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","hoverformat":".2f"},"xaxis2":{"domain":[0.52000000000000002,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,1.6000000000000001],"tickmode":"array","ticktext":[""],"tickvals":[1],"categoryorder":"array","categoryarray":[""],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":13.283520132835198},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y2","hoverformat":".2f"},"yaxis2":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-5.0000000012990888,105.00000002728085],"tickmode":"array","ticktext":["0","25","50","75","100"],"tickvals":[0,25,50,75,100],"categoryorder":"array","categoryarray":["0","25","50","75","100"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":13.283520132835205},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x2","hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-4.9999999942396549,104.99999987903276],"tickmode":"array","ticktext":["0","25","50","75","100"],"tickvals":[0,25.000000000000004,50.000000000000014,75,100],"categoryorder":"array","categoryarray":["0","25","50","75","100"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":13.283520132835205},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","hoverformat":".2f"},"annotations":[],"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":0.47999999999999998,"y0":0,"y1":1},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.52000000000000002,"x1":1,"y0":0,"y1":1}],"images":[],"margin":{"t":39.511830635118301,"r":7.3059360730593621,"b":27.164798671647986,"l":44.167704441677053},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"title":{"text":"<b> Composition of NON-OIL DOMESTIC RE-EXPORTS 2024 <\/b>","font":{"color":"rgba(0,0,0,1)","family":"","size":13.283520132835198},"x":0.5,"xref":"paper"},"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.955168119551683},"title":{"text":"Categories in Non-Oil","font":{"color":"rgba(0,0,0,1)","family":"","size":13.283520132835198}}},"hovermode":"x unified","barmode":"relative"},"attrs":{"1aac454371cd":{"x":{},"y":{},"fill":{},"tooltip":{},"type":"bar"},"1aac188f7a98":{"x":{},"y":{},"fill":{},"tooltip":{},"label":{}},"1aac21a4274b":{"x":{},"y":{},"fill":{},"text":{},"type":"bar"},"1aac2fd146bf":{"x":{},"y":{},"fill":{},"text":{},"label":{}}},"source":"A","config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"subplot":true,"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ 設定 Non-Oil 總數值</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>total_domestic_exports <span class="ot">&lt;-</span> <span class="fu">format</span>(<span class="fu">sum</span>(Non_oil_exp2024_stack<span class="sc">$</span>Value_Billion), <span class="at">big.mark =</span> <span class="st">","</span>)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>total_re_exports <span class="ot">&lt;-</span> <span class="fu">format</span>(<span class="fu">sum</span>(Non_oil_rexp2024_stack<span class="sc">$</span>Value_Billion), <span class="at">big.mark =</span> <span class="st">","</span>)</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ `p1` (DOMESTIC EXPORTS)</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(Non_oil_exp2024_stack, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">"DOMESTIC EXPORTS"</span>, <span class="at">y =</span> Percent, <span class="at">fill =</span> <span class="st">`</span><span class="at">Data Series</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(Percent, <span class="dv">1</span>), <span class="st">"%"</span>)), </span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">position_stack</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>), <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span>  <span class="co"># 🔥 Percentage 字體變小</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="dv">103</span>, <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"Total: $"</span>, total_domestic_exports, <span class="st">" Bil"</span>)),  <span class="co"># 🔥 顯示總數值</span></span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">size =</span> <span class="fl">4.5</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Percentage"</span>) <span class="sc">+</span></span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>),  <span class="co"># 🔥 Title 字體大小</span></span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),  </span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),  </span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),  </span>
+<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>)</span>
+<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Food &amp; Live Animals"</span><span class="ot">=</span> <span class="st">"blue"</span>,</span>
+<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Beverages &amp; Tobacco"</span> <span class="ot">=</span> <span class="st">"#1f77b4"</span>,</span>
+<span id="cb15-28"><a href="#cb15-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Crude Materials (Excl Fuels)"</span> <span class="ot">=</span> <span class="st">"#d62728"</span>,</span>
+<span id="cb15-29"><a href="#cb15-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Animal &amp; Vegetable Oils Fats &amp; Waxes"</span> <span class="ot">=</span> <span class="st">"#2ca02c"</span>,</span>
+<span id="cb15-30"><a href="#cb15-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Chemicals &amp; Chemical Products"</span> <span class="ot">=</span> <span class="st">"#9467bd"</span>,</span>
+<span id="cb15-31"><a href="#cb15-31" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Manufactured Goods"</span> <span class="ot">=</span> <span class="st">"#17becf"</span>,</span>
+<span id="cb15-32"><a href="#cb15-32" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Machinery &amp; Transport Equipment"</span> <span class="ot">=</span> <span class="st">"#ff7f0e"</span>,</span>
+<span id="cb15-33"><a href="#cb15-33" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Miscellaneous Manufactured Articles"</span> <span class="ot">=</span> <span class="st">"#7f7f7f"</span>,</span>
+<span id="cb15-34"><a href="#cb15-34" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Miscellaneous (Excluding Oil Bunkers)"</span> <span class="ot">=</span> <span class="st">"#8c564b"</span></span>
+<span id="cb15-35"><a href="#cb15-35" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb15-36"><a href="#cb15-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-37"><a href="#cb15-37" aria-hidden="true" tabindex="-1"></a>p1_interactive <span class="ot">&lt;-</span> <span class="fu">ggplotly</span>(p1) <span class="sc">%&gt;%</span></span>
+<span id="cb15-38"><a href="#cb15-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layout</span>(<span class="at">showlegend =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb15-39"><a href="#cb15-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-40"><a href="#cb15-40" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ `p2` (RE-EXPORTS)</span></span>
+<span id="cb15-41"><a href="#cb15-41" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(Non_oil_rexp2024_stack, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">"RE-EXPORTS"</span>, <span class="at">y =</span> Percent, <span class="at">fill =</span> <span class="st">`</span><span class="at">Data Series</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb15-42"><a href="#cb15-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb15-43"><a href="#cb15-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(Percent, <span class="dv">1</span>), <span class="st">"%"</span>)), </span>
+<span id="cb15-44"><a href="#cb15-44" aria-hidden="true" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">position_stack</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>), <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span>  <span class="co"># 🔥 Percentage 字體變小</span></span>
+<span id="cb15-45"><a href="#cb15-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="dv">103</span>, <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"Total: $"</span>, total_re_exports, <span class="st">" Bil"</span>)),  <span class="co"># 🔥 顯示總數值</span></span>
+<span id="cb15-46"><a href="#cb15-46" aria-hidden="true" tabindex="-1"></a>            <span class="at">size =</span> <span class="fl">4.5</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb15-47"><a href="#cb15-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">""</span>) <span class="sc">+</span>  <span class="co"># 🔥 Y 軸名稱移除</span></span>
+<span id="cb15-48"><a href="#cb15-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb15-49"><a href="#cb15-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb15-50"><a href="#cb15-50" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),  </span>
+<span id="cb15-51"><a href="#cb15-51" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),  </span>
+<span id="cb15-52"><a href="#cb15-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),  <span class="co"># 🔥 隱藏 Y 軸刻度</span></span>
+<span id="cb15-53"><a href="#cb15-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>()  <span class="co"># 🔥 隱藏 Y 軸刻度</span></span>
+<span id="cb15-54"><a href="#cb15-54" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb15-55"><a href="#cb15-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(</span>
+<span id="cb15-56"><a href="#cb15-56" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Food &amp; Live Animals"</span><span class="ot">=</span> <span class="st">"blue"</span>,</span>
+<span id="cb15-57"><a href="#cb15-57" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Beverages &amp; Tobacco"</span> <span class="ot">=</span> <span class="st">"#1f77b4"</span>,</span>
+<span id="cb15-58"><a href="#cb15-58" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Crude Materials (Excl Fuels)"</span> <span class="ot">=</span> <span class="st">"#d62728"</span>,</span>
+<span id="cb15-59"><a href="#cb15-59" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Animal &amp; Vegetable Oils Fats &amp; Waxes"</span> <span class="ot">=</span> <span class="st">"#2ca02c"</span>,</span>
+<span id="cb15-60"><a href="#cb15-60" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Chemicals &amp; Chemical Products"</span> <span class="ot">=</span> <span class="st">"#9467bd"</span>,</span>
+<span id="cb15-61"><a href="#cb15-61" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Manufactured Goods"</span> <span class="ot">=</span> <span class="st">"#17becf"</span>,</span>
+<span id="cb15-62"><a href="#cb15-62" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Machinery &amp; Transport Equipment"</span> <span class="ot">=</span> <span class="st">"#ff7f0e"</span>,</span>
+<span id="cb15-63"><a href="#cb15-63" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Miscellaneous Manufactured Articles"</span> <span class="ot">=</span> <span class="st">"#7f7f7f"</span>,</span>
+<span id="cb15-64"><a href="#cb15-64" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Miscellaneous (Excluding Oil Bunkers)"</span> <span class="ot">=</span> <span class="st">"#8c564b"</span></span>
+<span id="cb15-65"><a href="#cb15-65" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb15-66"><a href="#cb15-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-67"><a href="#cb15-67" aria-hidden="true" tabindex="-1"></a>p2_interactive <span class="ot">&lt;-</span> <span class="fu">ggplotly</span>(p2)</span>
+<span id="cb15-68"><a href="#cb15-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-69"><a href="#cb15-69" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ `subplot` 合併 `p1` &amp; `p2`</span></span>
+<span id="cb15-70"><a href="#cb15-70" aria-hidden="true" tabindex="-1"></a>combined_plot <span class="ot">&lt;-</span> <span class="fu">subplot</span>(p1_interactive, p2_interactive, <span class="at">nrows =</span> <span class="dv">1</span>, <span class="at">shareY =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb15-71"><a href="#cb15-71" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layout</span>(</span>
+<span id="cb15-72"><a href="#cb15-72" aria-hidden="true" tabindex="-1"></a>    <span class="at">annotations =</span> <span class="fu">list</span>(  <span class="co"># 🔥 Title 放在 Bar Chart 上方</span></span>
+<span id="cb15-73"><a href="#cb15-73" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(</span>
+<span id="cb15-74"><a href="#cb15-74" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="fl">0.5</span>, </span>
+<span id="cb15-75"><a href="#cb15-75" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="fl">1.15</span>, </span>
+<span id="cb15-76"><a href="#cb15-76" aria-hidden="true" tabindex="-1"></a>        <span class="at">xref =</span> <span class="st">"paper"</span>, </span>
+<span id="cb15-77"><a href="#cb15-77" aria-hidden="true" tabindex="-1"></a>        <span class="at">yref =</span> <span class="st">"paper"</span>, </span>
+<span id="cb15-78"><a href="#cb15-78" aria-hidden="true" tabindex="-1"></a>        <span class="at">text =</span> <span class="st">"&lt;b&gt;Composition of NON-OIL DOMESTIC EXPORTS and RE-EXPORTS 2024&lt;/b&gt;"</span>, </span>
+<span id="cb15-79"><a href="#cb15-79" aria-hidden="true" tabindex="-1"></a>        <span class="at">showarrow =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb15-80"><a href="#cb15-80" aria-hidden="true" tabindex="-1"></a>        <span class="at">font =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">16</span>)</span>
+<span id="cb15-81"><a href="#cb15-81" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb15-82"><a href="#cb15-82" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb15-83"><a href="#cb15-83" aria-hidden="true" tabindex="-1"></a>    <span class="at">hovermode =</span> <span class="cn">FALSE</span>,  <span class="co"># 🔥 移除 `tooltip`</span></span>
+<span id="cb15-84"><a href="#cb15-84" aria-hidden="true" tabindex="-1"></a>    <span class="at">xaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">""</span>),  </span>
+<span id="cb15-85"><a href="#cb15-85" aria-hidden="true" tabindex="-1"></a>    <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Percentage"</span>)</span>
+<span id="cb15-86"><a href="#cb15-86" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb15-87"><a href="#cb15-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-88"><a href="#cb15-88" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ 顯示圖表</span></span>
+<span id="cb15-89"><a href="#cb15-89" aria-hidden="true" tabindex="-1"></a>combined_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-3f28cf0a2cca059c4c63" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-3f28cf0a2cca059c4c63">{"x":{"data":[{"orientation":"v","width":0.60000000000000009,"base":1.746164759162806,"x":[1],"y":[2.8827833523215238],"text":"x: DOMESTIC EXPORTS<br />Percent:  2.8827834<br />Data Series: Manufactured Goods","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(23,190,207,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","mode":"","frame":null},{"orientation":"v","width":0.60000000000000009,"base":0.10075730414072846,"x":[1],"y":[0.10557185805501286],"text":"x: DOMESTIC EXPORTS<br />Percent:  0.1055719<br />Data Series: Beverages & Tobacco","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(31,119,180,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","mode":"","frame":null},{"orientation":"v","width":0.60000000000000009,"base":0,"x":[1],"y":[0.10075730414072846],"text":"x: DOMESTIC EXPORTS<br />Percent:  0.1007573<br />Data Series: Animal & Vegetable Oils Fats & Waxes","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(44,160,44,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","mode":"","frame":null},{"orientation":"v","width":0.60000000000000009,"base":17.36054288108328,"x":[1],"y":[16.500501490447203],"text":"x: DOMESTIC EXPORTS<br />Percent: 16.5005015<br />Data Series: Miscellaneous Manufactured Articles","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(127,127,127,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","mode":"","frame":null},{"orientation":"v","width":0.60000000000000009,"base":4.6289481114843296,"x":[1],"y":[6.0906482581955919],"text":"x: DOMESTIC EXPORTS<br />Percent:  6.0906483<br />Data Series: Miscellaneous (Excluding Oil Bunkers)","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(140,86,75,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","mode":"","frame":null},{"orientation":"v","width":0.60000000000000009,"base":33.861044371530483,"x":[1],"y":[25.598162543508337],"text":"x: DOMESTIC EXPORTS<br />Percent: 25.5981625<br />Data Series: Chemicals & Chemical Products","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(148,103,189,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","mode":"","frame":null},{"orientation":"v","width":0.60000000000000009,"base":0.20632916219574132,"x":[1],"y":[1.5398355969670647],"text":"x: DOMESTIC EXPORTS<br />Percent:  1.5398356<br />Data Series: Crude Materials (Excl Fuels)","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(214,39,40,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","mode":"","frame":null},{"orientation":"v","width":0.60000000000000009,"base":59.45920691503882,"x":[1],"y":[40.540792969754278],"text":"x: DOMESTIC EXPORTS<br />Percent: 40.5407930<br />Data Series: Machinery & Transport Equipment","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(255,127,14,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","mode":"","frame":null},{"orientation":"v","width":0.60000000000000009,"base":10.719596369679921,"x":[1],"y":[6.6409465114033583],"text":"x: DOMESTIC EXPORTS<br />Percent:  6.6409465<br />Data Series: Food & Live Animals","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,0,255,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","mode":"","frame":null},{"x":[1],"y":[3.1875564353235677],"text":"2.9%","hovertext":"x: DOMESTIC EXPORTS<br />Percent:  2.8827834<br />Data Series: Manufactured Goods<br />paste0(round(Percent, 1), \"%\"): 2.9%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[0.1535432331682349],"text":"0.1%","hovertext":"x: DOMESTIC EXPORTS<br />Percent:  0.1055719<br />Data Series: Beverages & Tobacco<br />paste0(round(Percent, 1), \"%\"): 0.1%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[0.050378652070364231],"text":"0.1%","hovertext":"x: DOMESTIC EXPORTS<br />Percent:  0.1007573<br />Data Series: Animal & Vegetable Oils Fats & Waxes<br />paste0(round(Percent, 1), \"%\"): 0.1%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[25.610793626306879],"text":"16.5%","hovertext":"x: DOMESTIC EXPORTS<br />Percent: 16.5005015<br />Data Series: Miscellaneous Manufactured Articles<br />paste0(round(Percent, 1), \"%\"): 16.5%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[7.6742722405821251],"text":"6.1%","hovertext":"x: DOMESTIC EXPORTS<br />Percent:  6.0906483<br />Data Series: Miscellaneous (Excluding Oil Bunkers)<br />paste0(round(Percent, 1), \"%\"): 6.1%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[46.660125643284651],"text":"25.6%","hovertext":"x: DOMESTIC EXPORTS<br />Percent: 25.5981625<br />Data Series: Chemicals & Chemical Products<br />paste0(round(Percent, 1), \"%\"): 25.6%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[0.97624696067927363],"text":"1.5%","hovertext":"x: DOMESTIC EXPORTS<br />Percent:  1.5398356<br />Data Series: Crude Materials (Excl Fuels)<br />paste0(round(Percent, 1), \"%\"): 1.5%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[79.729603399915959],"text":"40.5%","hovertext":"x: DOMESTIC EXPORTS<br />Percent: 40.5407930<br />Data Series: Machinery & Transport Equipment<br />paste0(round(Percent, 1), \"%\"): 40.5%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[14.040069625381602],"text":"6.6%","hovertext":"x: DOMESTIC EXPORTS<br />Percent:  6.6409465<br />Data Series: Food & Live Animals<br />paste0(round(Percent, 1), \"%\"): 6.6%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[103],"text":"Total: $173.58 Bil","hovertext":"x: DOMESTIC EXPORTS<br />y: 103<br />Data Series: Food & Live Animals<br />paste0(\"Total: $\", total_domestic_exports, \" Bil\"): Total: $173.58 Bil","textfont":{"size":17.007874015748033,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":23.914244243674673,"x":[1],"y":[76.085755782307089],"text":"x: RE-EXPORTS<br />Percent: 76.08575578<br />Data Series: Machinery & Transport Equipment","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(255,127,14,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Machinery & Transport Equipment","legendgroup":"Machinery & Transport Equipment","showlegend":true,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":16.399770788855797,"x":[1],"y":[7.5144734548188765],"text":"x: RE-EXPORTS<br />Percent:  7.51447345<br />Data Series: Miscellaneous Manufactured Articles","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(127,127,127,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Miscellaneous Manufactured Articles","legendgroup":"Miscellaneous Manufactured Articles","showlegend":true,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":9.8839682367707997,"x":[1],"y":[6.5158025520849971],"text":"x: RE-EXPORTS<br />Percent:  6.51580255<br />Data Series: Chemicals & Chemical Products","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(148,103,189,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Chemicals & Chemical Products","legendgroup":"Chemicals & Chemical Products","showlegend":true,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":5.3158790424056201,"x":[1],"y":[4.5680891943651796],"text":"x: RE-EXPORTS<br />Percent:  4.56808919<br />Data Series: Miscellaneous (Excluding Oil Bunkers)","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(140,86,75,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Miscellaneous (Excluding Oil Bunkers)","legendgroup":"Miscellaneous (Excluding Oil Bunkers)","showlegend":true,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":2.1425688640226062,"x":[1],"y":[3.173310178383014],"text":"x: RE-EXPORTS<br />Percent:  3.17331018<br />Data Series: Manufactured Goods","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(23,190,207,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Manufactured Goods","legendgroup":"Manufactured Goods","showlegend":true,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":0.99497278799683952,"x":[1],"y":[1.1475960760257666],"text":"x: RE-EXPORTS<br />Percent:  1.14759608<br />Data Series: Beverages & Tobacco","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(31,119,180,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Beverages & Tobacco","legendgroup":"Beverages & Tobacco","showlegend":true,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":0.40864111983492218,"x":[1],"y":[0.58633166816191729],"text":"x: RE-EXPORTS<br />Percent:  0.58633167<br />Data Series: Food & Live Animals","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,0,255,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Food & Live Animals","legendgroup":"Food & Live Animals","showlegend":true,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":0.025112520535338707,"x":[1],"y":[0.38352859929958349],"text":"x: RE-EXPORTS<br />Percent:  0.38352860<br />Data Series: Crude Materials (Excl Fuels)","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(214,39,40,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Crude Materials (Excl Fuels)","legendgroup":"Crude Materials (Excl Fuels)","showlegend":true,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":0,"x":[1],"y":[0.025112520535338707],"text":"x: RE-EXPORTS<br />Percent:  0.02511252<br />Data Series: Animal & Vegetable Oils Fats & Waxes","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(44,160,44,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Animal & Vegetable Oils Fats & Waxes","legendgroup":"Animal & Vegetable Oils Fats & Waxes","showlegend":true,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[61.957122134828218],"text":"76.1%","hovertext":"x: RE-EXPORTS<br />Percent: 76.08575578<br />Data Series: Machinery & Transport Equipment<br />paste0(round(Percent, 1), \"%\"): 76.1%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Machinery & Transport Equipment","legendgroup":"Machinery & Transport Equipment","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[20.157007516265235],"text":"7.5%","hovertext":"x: RE-EXPORTS<br />Percent:  7.51447345<br />Data Series: Miscellaneous Manufactured Articles<br />paste0(round(Percent, 1), \"%\"): 7.5%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Miscellaneous Manufactured Articles","legendgroup":"Miscellaneous Manufactured Articles","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[13.141869512813297],"text":"6.5%","hovertext":"x: RE-EXPORTS<br />Percent:  6.51580255<br />Data Series: Chemicals & Chemical Products<br />paste0(round(Percent, 1), \"%\"): 6.5%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Chemicals & Chemical Products","legendgroup":"Chemicals & Chemical Products","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[7.5999236395882104],"text":"4.6%","hovertext":"x: RE-EXPORTS<br />Percent:  4.56808919<br />Data Series: Miscellaneous (Excluding Oil Bunkers)<br />paste0(round(Percent, 1), \"%\"): 4.6%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Miscellaneous (Excluding Oil Bunkers)","legendgroup":"Miscellaneous (Excluding Oil Bunkers)","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[3.7292239532141132],"text":"3.2%","hovertext":"x: RE-EXPORTS<br />Percent:  3.17331018<br />Data Series: Manufactured Goods<br />paste0(round(Percent, 1), \"%\"): 3.2%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Manufactured Goods","legendgroup":"Manufactured Goods","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[1.5687708260097228],"text":"1.1%","hovertext":"x: RE-EXPORTS<br />Percent:  1.14759608<br />Data Series: Beverages & Tobacco<br />paste0(round(Percent, 1), \"%\"): 1.1%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Beverages & Tobacco","legendgroup":"Beverages & Tobacco","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[0.70180695391588088],"text":"0.6%","hovertext":"x: RE-EXPORTS<br />Percent:  0.58633167<br />Data Series: Food & Live Animals<br />paste0(round(Percent, 1), \"%\"): 0.6%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Food & Live Animals","legendgroup":"Food & Live Animals","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[0.21687682018513044],"text":"0.4%","hovertext":"x: RE-EXPORTS<br />Percent:  0.38352860<br />Data Series: Crude Materials (Excl Fuels)<br />paste0(round(Percent, 1), \"%\"): 0.4%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Crude Materials (Excl Fuels)","legendgroup":"Crude Materials (Excl Fuels)","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[0.012556260267669353],"text":"0%","hovertext":"x: RE-EXPORTS<br />Percent:  0.02511252<br />Data Series: Animal & Vegetable Oils Fats & Waxes<br />paste0(round(Percent, 1), \"%\"): 0%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Animal & Vegetable Oils Fats & Waxes","legendgroup":"Animal & Vegetable Oils Fats & Waxes","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[103],"text":"Total: $384.89 Bil","hovertext":"x: RE-EXPORTS<br />y: 103<br />Data Series: Machinery & Transport Equipment<br />paste0(\"Total: $\", total_re_exports, \" Bil\"): Total: $384.89 Bil","textfont":{"size":17.007874015748033,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Machinery & Transport Equipment","legendgroup":"Machinery & Transport Equipment","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[103],"text":"Total: $384.89 Bil","hovertext":"x: RE-EXPORTS<br />y: 103<br />Data Series: Miscellaneous Manufactured Articles<br />paste0(\"Total: $\", total_re_exports, \" Bil\"): Total: $384.89 Bil","textfont":{"size":17.007874015748033,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Miscellaneous Manufactured Articles","legendgroup":"Miscellaneous Manufactured Articles","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[103],"text":"Total: $384.89 Bil","hovertext":"x: RE-EXPORTS<br />y: 103<br />Data Series: Chemicals & Chemical Products<br />paste0(\"Total: $\", total_re_exports, \" Bil\"): Total: $384.89 Bil","textfont":{"size":17.007874015748033,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Chemicals & Chemical Products","legendgroup":"Chemicals & Chemical Products","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[103],"text":"Total: $384.89 Bil","hovertext":"x: RE-EXPORTS<br />y: 103<br />Data Series: Miscellaneous (Excluding Oil Bunkers)<br />paste0(\"Total: $\", total_re_exports, \" Bil\"): Total: $384.89 Bil","textfont":{"size":17.007874015748033,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Miscellaneous (Excluding Oil Bunkers)","legendgroup":"Miscellaneous (Excluding Oil Bunkers)","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[103],"text":"Total: $384.89 Bil","hovertext":"x: RE-EXPORTS<br />y: 103<br />Data Series: Manufactured Goods<br />paste0(\"Total: $\", total_re_exports, \" Bil\"): Total: $384.89 Bil","textfont":{"size":17.007874015748033,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Manufactured Goods","legendgroup":"Manufactured Goods","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[103],"text":"Total: $384.89 Bil","hovertext":"x: RE-EXPORTS<br />y: 103<br />Data Series: Beverages & Tobacco<br />paste0(\"Total: $\", total_re_exports, \" Bil\"): Total: $384.89 Bil","textfont":{"size":17.007874015748033,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Beverages & Tobacco","legendgroup":"Beverages & Tobacco","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[103],"text":"Total: $384.89 Bil","hovertext":"x: RE-EXPORTS<br />y: 103<br />Data Series: Food & Live Animals<br />paste0(\"Total: $\", total_re_exports, \" Bil\"): Total: $384.89 Bil","textfont":{"size":17.007874015748033,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Food & Live Animals","legendgroup":"Food & Live Animals","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[103],"text":"Total: $384.89 Bil","hovertext":"x: RE-EXPORTS<br />y: 103<br />Data Series: Crude Materials (Excl Fuels)<br />paste0(\"Total: $\", total_re_exports, \" Bil\"): Total: $384.89 Bil","textfont":{"size":17.007874015748033,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Crude Materials (Excl Fuels)","legendgroup":"Crude Materials (Excl Fuels)","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[103],"text":"Total: $384.89 Bil","hovertext":"x: RE-EXPORTS<br />y: 103<br />Data Series: Animal & Vegetable Oils Fats & Waxes<br />paste0(\"Total: $\", total_re_exports, \" Bil\"): Total: $384.89 Bil","textfont":{"size":17.007874015748033,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Animal & Vegetable Oils Fats & Waxes","legendgroup":"Animal & Vegetable Oils Fats & Waxes","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"xaxis":{"domain":[0,0.47999999999999998],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,1.6000000000000001],"tickmode":"array","ticktext":["DOMESTIC EXPORTS"],"tickvals":[1],"categoryorder":"array","categoryarray":["DOMESTIC EXPORTS"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":13.283520132835198},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","hoverformat":".2f","title":""},"xaxis2":{"domain":[0.52000000000000002,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,1.6000000000000001],"tickmode":"array","ticktext":["RE-EXPORTS"],"tickvals":[1],"categoryorder":"array","categoryarray":["RE-EXPORTS"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":13.283520132835198},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-5.1500000000000004,108.15000000000001],"tickmode":"array","ticktext":["0","25","50","75","100"],"tickvals":[0,25,50,75,100],"categoryorder":"array","categoryarray":["0","25","50","75","100"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":13.283520132835205},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":"Percentage","hoverformat":".2f"},"annotations":[{"x":0.5,"y":1.1499999999999999,"xref":"paper","yref":"paper","text":"<b>Composition of NON-OIL DOMESTIC EXPORTS and RE-EXPORTS 2024<\/b>","showarrow":false,"font":{"size":16}}],"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":0.47999999999999998,"y0":0,"y1":1},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.52000000000000002,"x1":1,"y0":0,"y1":1}],"images":[],"margin":{"t":26.228310502283104,"r":7.3059360730593621,"b":27.164798671647986,"l":10.958904109589042},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724},"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"Data Series","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":false,"barmode":"relative"},"attrs":{"1aac1c394cdc":{"x":{},"y":{},"fill":{},"type":"bar"},"1aac4c2e6370":{"x":{},"y":{},"fill":{},"label":{}},"1aac433443bc":{"x":{},"y":{},"fill":{},"label":{}},"1aac6b793813":{"x":{},"y":{},"fill":{},"type":"bar"},"1aac5f89acc":{"x":{},"y":{},"fill":{},"label":{}},"1aac7c2298e":{"x":{},"y":{},"fill":{},"label":{}}},"source":"A","config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"subplot":true,"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>non_oil_colors <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Food &amp; Live Animals"</span><span class="ot">=</span> <span class="st">"blue"</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Beverages &amp; Tobacco"</span> <span class="ot">=</span> <span class="st">"#1f77b4"</span>,</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Crude Materials (Excl Fuels)"</span> <span class="ot">=</span> <span class="st">"#d62728"</span>,</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Animal &amp; Vegetable Oils Fats &amp; Waxes"</span> <span class="ot">=</span> <span class="st">"#2ca02c"</span>,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Chemicals &amp; Chemical Products"</span> <span class="ot">=</span> <span class="st">"#9467bd"</span>,</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Manufactured Goods"</span> <span class="ot">=</span> <span class="st">"#17becf"</span>,</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Machinery &amp; Transport Equipment"</span> <span class="ot">=</span> <span class="st">"#ff7f0e"</span>,</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Miscellaneous Manufactured Articles"</span> <span class="ot">=</span> <span class="st">"#7f7f7f"</span>,</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Miscellaneous (Excluding Oil Bunkers)"</span> <span class="ot">=</span> <span class="st">"#8c564b"</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ 設定 Non-Oil 總數值</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>total_domestic_exports <span class="ot">&lt;-</span> <span class="fu">format</span>(<span class="fu">sum</span>(Non_oil_exp2024_stack<span class="sc">$</span>Value_Billion), <span class="at">big.mark =</span> <span class="st">","</span>)</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>total_re_exports <span class="ot">&lt;-</span> <span class="fu">format</span>(<span class="fu">sum</span>(Non_oil_rexp2024_stack<span class="sc">$</span>Value_Billion), <span class="at">big.mark =</span> <span class="st">","</span>)</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ `p1` (DOMESTIC EXPORTS)</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(Non_oil_exp2024_stack, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">"DOMESTIC EXPORTS"</span>, <span class="at">y =</span> Percent, <span class="at">fill =</span> <span class="st">`</span><span class="at">Data Series</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(Percent, <span class="dv">1</span>), <span class="st">"%"</span>)), </span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">position_stack</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>), <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span>  <span class="co"># 🔥 Percentage 字體變小</span></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">y =</span> <span class="sc">-</span><span class="dv">9</span>, <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"($"</span>, total_domestic_exports, <span class="st">" Billion)"</span>)),  <span class="co"># 🔥 顯示總數值</span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>            <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span>  <span class="co"># ✅ 調小字體 (像圖片大小)</span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Percentage"</span>) <span class="sc">+</span></span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">14</span>, <span class="at">face =</span> <span class="st">"bold"</span>),  <span class="co"># 🔥 Title 字體大小</span></span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),  </span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),  </span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),  </span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>)</span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> non_oil_colors)</span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a>p1_interactive <span class="ot">&lt;-</span> <span class="fu">ggplotly</span>(p1) <span class="sc">%&gt;%</span></span>
+<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layout</span>(<span class="at">showlegend =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ `p2` (RE-EXPORTS)</span></span>
+<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(Non_oil_rexp2024_stack, <span class="fu">aes</span>(<span class="at">x =</span> <span class="st">"RE-EXPORTS"</span>, <span class="at">y =</span> Percent, <span class="at">fill =</span> <span class="st">`</span><span class="at">Data Series</span><span class="st">`</span>)) <span class="sc">+</span></span>
+<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(Percent, <span class="dv">1</span>), <span class="st">"%"</span>)), </span>
+<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">position_stack</span>(<span class="at">vjust =</span> <span class="fl">0.5</span>), <span class="at">size =</span> <span class="fl">3.5</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span>  <span class="co"># 🔥 Percentage 字體變小</span></span>
+<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">y =</span><span class="sc">-</span><span class="dv">9</span>, <span class="at">label =</span> <span class="fu">paste0</span>(<span class="st">"($"</span>, total_re_exports, <span class="st">" Billion)"</span>)),  <span class="co"># 🔥 顯示總數值</span></span>
+<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a>            <span class="at">size =</span> <span class="dv">3</span>, <span class="at">color =</span> <span class="st">"black"</span>) <span class="sc">+</span>  <span class="co"># ✅ 調小字體 (像圖片大小)</span></span>
+<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">""</span>, <span class="at">fill =</span> <span class="st">"Non-Oil Product"</span>) <span class="sc">+</span>  <span class="co"># 🔥 Y 軸名稱移除</span></span>
+<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),  </span>
+<span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>),  </span>
+<span id="cb16-54"><a href="#cb16-54" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),  <span class="co"># 🔥 隱藏 Y 軸刻度</span></span>
+<span id="cb16-55"><a href="#cb16-55" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>()  <span class="co"># 🔥 隱藏 Y 軸刻度</span></span>
+<span id="cb16-56"><a href="#cb16-56" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb16-57"><a href="#cb16-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> non_oil_colors)</span>
+<span id="cb16-58"><a href="#cb16-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-59"><a href="#cb16-59" aria-hidden="true" tabindex="-1"></a>p2_interactive <span class="ot">&lt;-</span> <span class="fu">ggplotly</span>(p2)</span>
+<span id="cb16-60"><a href="#cb16-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-61"><a href="#cb16-61" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ `subplot` 合併 `p1` &amp; `p2`</span></span>
+<span id="cb16-62"><a href="#cb16-62" aria-hidden="true" tabindex="-1"></a>combined_plot <span class="ot">&lt;-</span> <span class="fu">subplot</span>(p1_interactive, p2_interactive, <span class="at">nrows =</span> <span class="dv">1</span>, <span class="at">shareY =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb16-63"><a href="#cb16-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">layout</span>(</span>
+<span id="cb16-64"><a href="#cb16-64" aria-hidden="true" tabindex="-1"></a>    <span class="at">annotations =</span> <span class="fu">list</span>(  <span class="co"># 🔥 Title 放在 Bar Chart 上方</span></span>
+<span id="cb16-65"><a href="#cb16-65" aria-hidden="true" tabindex="-1"></a>      <span class="fu">list</span>(</span>
+<span id="cb16-66"><a href="#cb16-66" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="fl">0.5</span>,  <span class="co"># ✅ 調整 `x` 讓標題置左</span></span>
+<span id="cb16-67"><a href="#cb16-67" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="fl">1.02</span>,  <span class="co"># ✅ 讓標題位於圖表上方</span></span>
+<span id="cb16-68"><a href="#cb16-68" aria-hidden="true" tabindex="-1"></a>        <span class="at">xref =</span> <span class="st">"paper"</span>, </span>
+<span id="cb16-69"><a href="#cb16-69" aria-hidden="true" tabindex="-1"></a>        <span class="at">yref =</span> <span class="st">"paper"</span>, </span>
+<span id="cb16-70"><a href="#cb16-70" aria-hidden="true" tabindex="-1"></a>        <span class="at">text =</span> <span class="st">"&lt;b&gt;Composition of NON-OIL DOMESTIC EXPORTS and RE-EXPORTS 2024&lt;/b&gt;"</span>, </span>
+<span id="cb16-71"><a href="#cb16-71" aria-hidden="true" tabindex="-1"></a>        <span class="at">showarrow =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb16-72"><a href="#cb16-72" aria-hidden="true" tabindex="-1"></a>        <span class="at">font =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">10</span>)  <span class="co"># ✅ 確保 `font` 屬性完整</span></span>
+<span id="cb16-73"><a href="#cb16-73" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb16-74"><a href="#cb16-74" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb16-75"><a href="#cb16-75" aria-hidden="true" tabindex="-1"></a>    <span class="at">xaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">""</span>),  </span>
+<span id="cb16-76"><a href="#cb16-76" aria-hidden="true" tabindex="-1"></a>    <span class="at">yaxis =</span> <span class="fu">list</span>(<span class="at">title =</span> <span class="st">"Percentage"</span>),<span class="at">font =</span> <span class="fu">list</span>(<span class="at">size =</span> <span class="dv">10</span>)</span>
+<span id="cb16-77"><a href="#cb16-77" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb16-78"><a href="#cb16-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-79"><a href="#cb16-79" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ 顯示圖表</span></span>
+<span id="cb16-80"><a href="#cb16-80" aria-hidden="true" tabindex="-1"></a>combined_plot</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="plotly html-widget html-fill-item" id="htmlwidget-fd61a9a3adb69d4eb7cf" style="width:100%;height:464px;"></div>
+<script type="application/json" data-for="htmlwidget-fd61a9a3adb69d4eb7cf">{"x":{"data":[{"orientation":"v","width":0.60000000000000009,"base":1.746164759162806,"x":[1],"y":[2.8827833523215238],"text":"x: DOMESTIC EXPORTS<br />Percent:  2.8827834<br />Data Series: Manufactured Goods","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(23,190,207,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","mode":"","frame":null},{"orientation":"v","width":0.60000000000000009,"base":0.10075730414072846,"x":[1],"y":[0.10557185805501286],"text":"x: DOMESTIC EXPORTS<br />Percent:  0.1055719<br />Data Series: Beverages & Tobacco","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(31,119,180,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","mode":"","frame":null},{"orientation":"v","width":0.60000000000000009,"base":0,"x":[1],"y":[0.10075730414072846],"text":"x: DOMESTIC EXPORTS<br />Percent:  0.1007573<br />Data Series: Animal & Vegetable Oils Fats & Waxes","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(44,160,44,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","mode":"","frame":null},{"orientation":"v","width":0.60000000000000009,"base":17.36054288108328,"x":[1],"y":[16.500501490447203],"text":"x: DOMESTIC EXPORTS<br />Percent: 16.5005015<br />Data Series: Miscellaneous Manufactured Articles","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(127,127,127,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","mode":"","frame":null},{"orientation":"v","width":0.60000000000000009,"base":4.6289481114843296,"x":[1],"y":[6.0906482581955919],"text":"x: DOMESTIC EXPORTS<br />Percent:  6.0906483<br />Data Series: Miscellaneous (Excluding Oil Bunkers)","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(140,86,75,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","mode":"","frame":null},{"orientation":"v","width":0.60000000000000009,"base":33.861044371530483,"x":[1],"y":[25.598162543508337],"text":"x: DOMESTIC EXPORTS<br />Percent: 25.5981625<br />Data Series: Chemicals & Chemical Products","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(148,103,189,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","mode":"","frame":null},{"orientation":"v","width":0.60000000000000009,"base":0.20632916219574132,"x":[1],"y":[1.5398355969670647],"text":"x: DOMESTIC EXPORTS<br />Percent:  1.5398356<br />Data Series: Crude Materials (Excl Fuels)","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(214,39,40,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","mode":"","frame":null},{"orientation":"v","width":0.60000000000000009,"base":59.45920691503882,"x":[1],"y":[40.540792969754278],"text":"x: DOMESTIC EXPORTS<br />Percent: 40.5407930<br />Data Series: Machinery & Transport Equipment","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(255,127,14,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","mode":"","frame":null},{"orientation":"v","width":0.60000000000000009,"base":10.719596369679921,"x":[1],"y":[6.6409465114033583],"text":"x: DOMESTIC EXPORTS<br />Percent:  6.6409465<br />Data Series: Food & Live Animals","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,0,255,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","mode":"","frame":null},{"x":[1],"y":[3.1875564353235677],"text":"2.9%","hovertext":"x: DOMESTIC EXPORTS<br />Percent:  2.8827834<br />Data Series: Manufactured Goods<br />paste0(round(Percent, 1), \"%\"): 2.9%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[0.1535432331682349],"text":"0.1%","hovertext":"x: DOMESTIC EXPORTS<br />Percent:  0.1055719<br />Data Series: Beverages & Tobacco<br />paste0(round(Percent, 1), \"%\"): 0.1%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[0.050378652070364231],"text":"0.1%","hovertext":"x: DOMESTIC EXPORTS<br />Percent:  0.1007573<br />Data Series: Animal & Vegetable Oils Fats & Waxes<br />paste0(round(Percent, 1), \"%\"): 0.1%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[25.610793626306879],"text":"16.5%","hovertext":"x: DOMESTIC EXPORTS<br />Percent: 16.5005015<br />Data Series: Miscellaneous Manufactured Articles<br />paste0(round(Percent, 1), \"%\"): 16.5%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[7.6742722405821251],"text":"6.1%","hovertext":"x: DOMESTIC EXPORTS<br />Percent:  6.0906483<br />Data Series: Miscellaneous (Excluding Oil Bunkers)<br />paste0(round(Percent, 1), \"%\"): 6.1%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[46.660125643284651],"text":"25.6%","hovertext":"x: DOMESTIC EXPORTS<br />Percent: 25.5981625<br />Data Series: Chemicals & Chemical Products<br />paste0(round(Percent, 1), \"%\"): 25.6%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[0.97624696067927363],"text":"1.5%","hovertext":"x: DOMESTIC EXPORTS<br />Percent:  1.5398356<br />Data Series: Crude Materials (Excl Fuels)<br />paste0(round(Percent, 1), \"%\"): 1.5%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[79.729603399915959],"text":"40.5%","hovertext":"x: DOMESTIC EXPORTS<br />Percent: 40.5407930<br />Data Series: Machinery & Transport Equipment<br />paste0(round(Percent, 1), \"%\"): 40.5%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[14.040069625381602],"text":"6.6%","hovertext":"x: DOMESTIC EXPORTS<br />Percent:  6.6409465<br />Data Series: Food & Live Animals<br />paste0(round(Percent, 1), \"%\"): 6.6%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[-9],"text":"($173.58 Billion)","hovertext":"x: DOMESTIC EXPORTS<br />-9: -9<br />Data Series: Food & Live Animals<br />paste0(\"($\", total_domestic_exports, \" Billion)\"): ($173.58 Billion)","textfont":{"size":11.338582677165356,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","showlegend":false,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":23.914244243674673,"x":[1],"y":[76.085755782307089],"text":"x: RE-EXPORTS<br />Percent: 76.08575578<br />Data Series: Machinery & Transport Equipment","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(255,127,14,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Machinery & Transport Equipment","legendgroup":"Machinery & Transport Equipment","showlegend":true,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":16.399770788855797,"x":[1],"y":[7.5144734548188765],"text":"x: RE-EXPORTS<br />Percent:  7.51447345<br />Data Series: Miscellaneous Manufactured Articles","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(127,127,127,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Miscellaneous Manufactured Articles","legendgroup":"Miscellaneous Manufactured Articles","showlegend":true,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":9.8839682367707997,"x":[1],"y":[6.5158025520849971],"text":"x: RE-EXPORTS<br />Percent:  6.51580255<br />Data Series: Chemicals & Chemical Products","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(148,103,189,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Chemicals & Chemical Products","legendgroup":"Chemicals & Chemical Products","showlegend":true,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":5.3158790424056201,"x":[1],"y":[4.5680891943651796],"text":"x: RE-EXPORTS<br />Percent:  4.56808919<br />Data Series: Miscellaneous (Excluding Oil Bunkers)","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(140,86,75,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Miscellaneous (Excluding Oil Bunkers)","legendgroup":"Miscellaneous (Excluding Oil Bunkers)","showlegend":true,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":2.1425688640226062,"x":[1],"y":[3.173310178383014],"text":"x: RE-EXPORTS<br />Percent:  3.17331018<br />Data Series: Manufactured Goods","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(23,190,207,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Manufactured Goods","legendgroup":"Manufactured Goods","showlegend":true,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":0.99497278799683952,"x":[1],"y":[1.1475960760257666],"text":"x: RE-EXPORTS<br />Percent:  1.14759608<br />Data Series: Beverages & Tobacco","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(31,119,180,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Beverages & Tobacco","legendgroup":"Beverages & Tobacco","showlegend":true,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":0.40864111983492218,"x":[1],"y":[0.58633166816191729],"text":"x: RE-EXPORTS<br />Percent:  0.58633167<br />Data Series: Food & Live Animals","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(0,0,255,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Food & Live Animals","legendgroup":"Food & Live Animals","showlegend":true,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":0.025112520535338707,"x":[1],"y":[0.38352859929958349],"text":"x: RE-EXPORTS<br />Percent:  0.38352860<br />Data Series: Crude Materials (Excl Fuels)","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(214,39,40,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Crude Materials (Excl Fuels)","legendgroup":"Crude Materials (Excl Fuels)","showlegend":true,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"v","width":0.60000000000000009,"base":0,"x":[1],"y":[0.025112520535338707],"text":"x: RE-EXPORTS<br />Percent:  0.02511252<br />Data Series: Animal & Vegetable Oils Fats & Waxes","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(44,160,44,1)","line":{"width":1.8897637795275593,"color":"transparent"}},"name":"Animal & Vegetable Oils Fats & Waxes","legendgroup":"Animal & Vegetable Oils Fats & Waxes","showlegend":true,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[61.957122134828218],"text":"76.1%","hovertext":"x: RE-EXPORTS<br />Percent: 76.08575578<br />Data Series: Machinery & Transport Equipment<br />paste0(round(Percent, 1), \"%\"): 76.1%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Machinery & Transport Equipment","legendgroup":"Machinery & Transport Equipment","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[20.157007516265235],"text":"7.5%","hovertext":"x: RE-EXPORTS<br />Percent:  7.51447345<br />Data Series: Miscellaneous Manufactured Articles<br />paste0(round(Percent, 1), \"%\"): 7.5%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Miscellaneous Manufactured Articles","legendgroup":"Miscellaneous Manufactured Articles","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[13.141869512813297],"text":"6.5%","hovertext":"x: RE-EXPORTS<br />Percent:  6.51580255<br />Data Series: Chemicals & Chemical Products<br />paste0(round(Percent, 1), \"%\"): 6.5%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Chemicals & Chemical Products","legendgroup":"Chemicals & Chemical Products","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[7.5999236395882104],"text":"4.6%","hovertext":"x: RE-EXPORTS<br />Percent:  4.56808919<br />Data Series: Miscellaneous (Excluding Oil Bunkers)<br />paste0(round(Percent, 1), \"%\"): 4.6%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Miscellaneous (Excluding Oil Bunkers)","legendgroup":"Miscellaneous (Excluding Oil Bunkers)","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[3.7292239532141132],"text":"3.2%","hovertext":"x: RE-EXPORTS<br />Percent:  3.17331018<br />Data Series: Manufactured Goods<br />paste0(round(Percent, 1), \"%\"): 3.2%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Manufactured Goods","legendgroup":"Manufactured Goods","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[1.5687708260097228],"text":"1.1%","hovertext":"x: RE-EXPORTS<br />Percent:  1.14759608<br />Data Series: Beverages & Tobacco<br />paste0(round(Percent, 1), \"%\"): 1.1%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Beverages & Tobacco","legendgroup":"Beverages & Tobacco","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[0.70180695391588088],"text":"0.6%","hovertext":"x: RE-EXPORTS<br />Percent:  0.58633167<br />Data Series: Food & Live Animals<br />paste0(round(Percent, 1), \"%\"): 0.6%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Food & Live Animals","legendgroup":"Food & Live Animals","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[0.21687682018513044],"text":"0.4%","hovertext":"x: RE-EXPORTS<br />Percent:  0.38352860<br />Data Series: Crude Materials (Excl Fuels)<br />paste0(round(Percent, 1), \"%\"): 0.4%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Crude Materials (Excl Fuels)","legendgroup":"Crude Materials (Excl Fuels)","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[0.012556260267669353],"text":"0%","hovertext":"x: RE-EXPORTS<br />Percent:  0.02511252<br />Data Series: Animal & Vegetable Oils Fats & Waxes<br />paste0(round(Percent, 1), \"%\"): 0%","textfont":{"size":13.228346456692915,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Animal & Vegetable Oils Fats & Waxes","legendgroup":"Animal & Vegetable Oils Fats & Waxes","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[-9],"text":"($384.89 Billion)","hovertext":"x: RE-EXPORTS<br />-9: -9<br />Data Series: Machinery & Transport Equipment<br />paste0(\"($\", total_re_exports, \" Billion)\"): ($384.89 Billion)","textfont":{"size":11.338582677165356,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Machinery & Transport Equipment","legendgroup":"Machinery & Transport Equipment","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[-9],"text":"($384.89 Billion)","hovertext":"x: RE-EXPORTS<br />-9: -9<br />Data Series: Miscellaneous Manufactured Articles<br />paste0(\"($\", total_re_exports, \" Billion)\"): ($384.89 Billion)","textfont":{"size":11.338582677165356,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Miscellaneous Manufactured Articles","legendgroup":"Miscellaneous Manufactured Articles","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[-9],"text":"($384.89 Billion)","hovertext":"x: RE-EXPORTS<br />-9: -9<br />Data Series: Chemicals & Chemical Products<br />paste0(\"($\", total_re_exports, \" Billion)\"): ($384.89 Billion)","textfont":{"size":11.338582677165356,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Chemicals & Chemical Products","legendgroup":"Chemicals & Chemical Products","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[-9],"text":"($384.89 Billion)","hovertext":"x: RE-EXPORTS<br />-9: -9<br />Data Series: Miscellaneous (Excluding Oil Bunkers)<br />paste0(\"($\", total_re_exports, \" Billion)\"): ($384.89 Billion)","textfont":{"size":11.338582677165356,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Miscellaneous (Excluding Oil Bunkers)","legendgroup":"Miscellaneous (Excluding Oil Bunkers)","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[-9],"text":"($384.89 Billion)","hovertext":"x: RE-EXPORTS<br />-9: -9<br />Data Series: Manufactured Goods<br />paste0(\"($\", total_re_exports, \" Billion)\"): ($384.89 Billion)","textfont":{"size":11.338582677165356,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Manufactured Goods","legendgroup":"Manufactured Goods","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[-9],"text":"($384.89 Billion)","hovertext":"x: RE-EXPORTS<br />-9: -9<br />Data Series: Beverages & Tobacco<br />paste0(\"($\", total_re_exports, \" Billion)\"): ($384.89 Billion)","textfont":{"size":11.338582677165356,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Beverages & Tobacco","legendgroup":"Beverages & Tobacco","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[-9],"text":"($384.89 Billion)","hovertext":"x: RE-EXPORTS<br />-9: -9<br />Data Series: Food & Live Animals<br />paste0(\"($\", total_re_exports, \" Billion)\"): ($384.89 Billion)","textfont":{"size":11.338582677165356,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Food & Live Animals","legendgroup":"Food & Live Animals","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[-9],"text":"($384.89 Billion)","hovertext":"x: RE-EXPORTS<br />-9: -9<br />Data Series: Crude Materials (Excl Fuels)<br />paste0(\"($\", total_re_exports, \" Billion)\"): ($384.89 Billion)","textfont":{"size":11.338582677165356,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Crude Materials (Excl Fuels)","legendgroup":"Crude Materials (Excl Fuels)","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1],"y":[-9],"text":"($384.89 Billion)","hovertext":"x: RE-EXPORTS<br />-9: -9<br />Data Series: Animal & Vegetable Oils Fats & Waxes<br />paste0(\"($\", total_re_exports, \" Billion)\"): ($384.89 Billion)","textfont":{"size":11.338582677165356,"color":"rgba(0,0,0,1)"},"type":"scatter","mode":"text","hoveron":"points","name":"Animal & Vegetable Oils Fats & Waxes","legendgroup":"Animal & Vegetable Oils Fats & Waxes","showlegend":false,"xaxis":"x2","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"xaxis":{"domain":[0,0.47999999999999998],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,1.6000000000000001],"tickmode":"array","ticktext":["DOMESTIC EXPORTS"],"tickvals":[1],"categoryorder":"array","categoryarray":["DOMESTIC EXPORTS"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":13.283520132835198},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","hoverformat":".2f","title":""},"xaxis2":{"domain":[0.52000000000000002,1],"automargin":true,"type":"linear","autorange":false,"range":[0.40000000000000002,1.6000000000000001],"tickmode":"array","ticktext":["RE-EXPORTS"],"tickvals":[1],"categoryorder":"array","categoryarray":["RE-EXPORTS"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":13.283520132835198},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"y","hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-14.449999994239654,105.44999987903276],"tickmode":"array","ticktext":["0","25","50","75","100"],"tickvals":[0,25,49.999999999999993,75,100],"categoryorder":"array","categoryarray":["0","25","50","75","100"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.6529680365296811,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":13.283520132835205},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176002,"zeroline":false,"anchor":"x","title":"Percentage","hoverformat":".2f"},"annotations":[{"x":0.5,"y":1.02,"xref":"paper","yref":"paper","text":"<b>Composition of NON-OIL DOMESTIC EXPORTS and RE-EXPORTS 2024<\/b>","showarrow":false,"font":{"size":10}}],"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":0.47999999999999998,"y0":0,"y1":1},{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0.52000000000000002,"x1":1,"y0":0,"y1":1}],"images":[],"margin":{"t":26.228310502283104,"r":7.3059360730593621,"b":27.164798671647986,"l":10.958904109589042},"font":{"color":"rgba(0,0,0,1)","family":"","size":10},"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.68949771689498},"title":{"text":"Non-Oil Product","font":{"color":"rgba(0,0,0,1)","family":"","size":14.611872146118724}}},"hovermode":"closest","barmode":"relative"},"attrs":{"1aac18696e9a":{"x":{},"y":{},"fill":{},"type":"bar"},"1aac7e0a7aa1":{"x":{},"y":{},"fill":{},"label":{}},"1aac215b401e":{"x":{},"y":{},"fill":{},"label":{}},"1aac4acf18ab":{"x":{},"y":{},"fill":{},"type":"bar"},"1aac4bef7d08":{"x":{},"y":{},"fill":{},"label":{}},"1aac64c26972":{"x":{},"y":{},"fill":{},"label":{}}},"source":"A","config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.20000000000000001,"selected":{"opacity":1},"debounce":0},"subplot":true,"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+
+
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
