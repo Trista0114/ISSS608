@@ -32,7 +32,7 @@
     "href": "hands-onEx/hands-onEx07/hands-onEx07.html",
     "title": "Hands on Exercise 07: Visualising and Analysing Time-oriented Data",
     "section": "",
-    "text": "By the end of this hands-on exercise you will be able create the followings data visualisation by using R packages:\n\n3 plotting a calender heatmap by using ggplot2 functions,\n5 plotting a cycle plot by using ggplot2 function,\n6 plotting a slopegraph",
+    "text": "By the end of this hands-on exercise you will be able create the followings data visualisation by using R packages:\n\n3 plotting a calender heatmap by using ggplot2 functions,\n5 plotting a cycle plot by using ggplot2 function,\n6 plotting a slopegraph!",
     "crumbs": [
       "Home",
       "Visualising and Analysing Geographical Data",
