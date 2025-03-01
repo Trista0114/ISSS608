@@ -9,6 +9,8 @@ execute:
   freeze: true
 ---
 
+
+
 # 1. Overview
 
 By the end of this hands-on exercise you will be able create the followings data visualisation by using R packages:
@@ -24,23 +26,33 @@ By the end of this hands-on exercise you will be able create the followings data
 ::: panel-tabset
 ## Installing Libraries
 
+
+
 ```{r}
 pacman::p_load(ggplot2,dplyr,scales, viridis, lubridate, ggthemes, gridExtra, readxl, knitr, data.table, CGPfunctions, ggHoriPlot, tidyverse)
 ```
+
+
 
 ## Importing Data
 
 For the purpose of this hands-on exercise, eventlog.csv file will be used. This data file consists of 199,999 rows of time-series cyber attack records by country.
 
+
+
 ```{r}
 attacks <- read_csv("data/eventlog.csv")
 ```
+
+
 
 ## Understanding Data
 
 Please examine the imported data frame before further analysis is performed.
 
 In order to avoid the NA in the further column, be cautous that your system should be set in English.
+
+
 
 ```{r}
 Sys.setlocale("LC_TIME", "C")  
@@ -50,6 +62,8 @@ Sys.setlocale("LC_TIME", "C")
 ```{r}
 kable(head(attacks))
 ```
+
+
 
 There are three columns, namely timestamp, source_country and tz.
 
@@ -65,6 +79,8 @@ There are three columns, namely timestamp, source_country and tz.
 
 Two new fields namely wkday and hour need to be derived. In this step, we will write a function to perform the task.
 
+
+
 ```{r}
 make_hr_wkday <- function(ts, sc, tz) {
   real_times <- ymd_hms(ts, 
@@ -76,6 +92,8 @@ make_hr_wkday <- function(ts, sc, tz) {
   return(dt)
   }
 ```
+
+
 
 -   [`ymd_hms()`](https://lubridate.tidyverse.org/reference/ymd_hms.html) and [`hour()`](https://lubridate.tidyverse.org/reference/hour.html) are from [**lubridate**](https://lubridate.tidyverse.org/) package, and
 -   [`weekdays()`](https://www.rdocumentation.org/packages/base/versions/3.6.2/topics/weekdays) is a **base** R function.
@@ -112,6 +130,8 @@ A function make_hr_wkday is defined, whose purpose is to extract the "day of the
 
 Extract the time information (day of week and hour) from the attacks data frame (tibble) and convert these variables to factor type for subsequent analysis
 
+
+
 ```{r}
 wkday_levels <- c('Saturday', 'Friday', 
                   'Thursday', 'Wednesday', 
@@ -130,6 +150,8 @@ attacks <- attacks %>%
     hour  = factor(
       hour, levels = 0:23))
 ```
+
+
 
 ::: callout-note
 ## Things to learn from code
@@ -151,12 +173,18 @@ attacks <- attacks %>%
 
 Table below shows the tidy tibble table after processing.
 
+
+
 ```{r}
 kable(head(attacks))
 ```
+
+
 :::::
 
 # 3. Building the Calendar Heatmaps
+
+
 
 ```{r}
 grouped <- attacks %>% 
@@ -183,6 +211,8 @@ theme(axis.ticks = element_blank(), #remove axis ticks
       legend.title = element_text(size = 8),
       legend.text = element_text(size = 6) )
 ```
+
+
 
 ::: callout-tip
 ## Things to learn from code
@@ -211,6 +241,8 @@ In order to identify the top 4 countries with the highest number of attacks, you
 -   calculate the percent of attackes by country, and
 -   save the results in a tibble data frame.
 
+
+
 ```{r}
 grouped <- attacks %>%
   count(source_country, wkday, hour) %>%  # 加入 source_country
@@ -223,9 +255,13 @@ attacks_by_country <- count(
   arrange(desc(n))
 ```
 
+
+
 ## Step2:Preparing the tidy data frame
 
 In this step, you are required to extract the attack records of the top 4 countries from attacks data frame and save the data in a new tibble data frame (i.e. top4_attacks).
+
+
 
 ```{r}
 top4 <- attacks_by_country$source_country[1:4]
@@ -238,7 +274,11 @@ top4_attacks <- attacks %>%
   na.omit()
 ```
 
+
+
 ## Step3: Plotting the Multiple Calender Heatmap by using ggplot2 package
+
+
 
 ```{r}
 ggplot(top4_attacks, 
@@ -261,6 +301,8 @@ ggplot(top4_attacks,
         legend.title = element_text(size = 8),
         legend.text = element_text(size = 6) )
 ```
+
+
 :::
 
 # 5. Plotting Cycle Plot
@@ -274,9 +316,13 @@ In this section, you will learn how to plot a cycle plot showing the time-series
 
 For the purpose of this hands-on exercise, *arrivals_by_air.xlsx* will be used.
 
+
+
 ```{r}
 air <- read_excel("data/arrivals_by_air.xlsx")
 ```
+
+
 
 ## Step2: **Deriving month and year fields**
 
@@ -286,6 +332,8 @@ Next, two new fields called *month* and *year* are derived from *Month-Year
 
 `Month-Year = "2023-06"` → `year = 2023`
 
+
+
 ```{r}
 air$month <- factor(month(air$`Month-Year`), 
                     levels=1:12, 
@@ -294,9 +342,13 @@ air$month <- factor(month(air$`Month-Year`),
 air$year <- year(ymd(air$`Month-Year`))
 ```
 
+
+
 ## Step3: **Extracting the target country and time period**
 
 Next, the code chunk below is use to extract data for the target country (i.e. Vietnam) and the year\>2010.
+
+
 
 ```{r}
 Vietnam <- air %>% 
@@ -306,13 +358,19 @@ Vietnam <- air %>%
   filter(year >= 2010)
 ```
 
+
+
 ## Step4: **Computing year average arrivals by month**
+
+
 
 ```{r}
 hline.data <- Vietnam %>% 
   group_by(month) %>%
   summarise(avgvalue = mean(`Vietnam`))
 ```
+
+
 :::
 
 ## 5.2 Plotting the cycle plot
@@ -322,6 +380,8 @@ hline.data <- Vietnam %>%
 ✅ The black line represents the annual change in the number of passengers in that month.
 
 ✅ The red dotted line shows the average number of passengers (avgvalue) for that month.
+
+
 
 ```{r}
 ggplot() + 
@@ -343,6 +403,8 @@ ggplot() +
   theme_tufte(base_family = "Helvetica")
 ```
 
+
+
 # 6. Plotting Slopegraph
 
 Slopegraph is suitable for comparing trends at two points in time.
@@ -351,9 +413,13 @@ Before getting start, make sure that **CGPfunctions** has been installed and l
 
 First, Import the data rice.csv.
 
+
+
 ```{r}
 rice <- read_csv("data/rice.csv")
 ```
+
+
 
 Next, code chunk below will be used to plot a basic slopegraph as shown below.
 
@@ -367,6 +433,8 @@ Visualizing rice yield changes in 11 Asian countries between 1961 and 1980 (Rice
 
     For effective data visualisation design, `factor()` is used convert the value type of *Year* field from numeric to factor.
 
+
+
 ```{r}
 rice %>% 
   mutate(Year = factor(Year)) %>% #Convert Year to a factor because ggslopegraph requires categorical variables to plot years
@@ -375,3 +443,4 @@ rice %>%
                 Title = "Rice Yield of Top 11 Asian Counties",
                 SubTitle = "1961-1980")
 ```
+
