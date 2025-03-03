@@ -97,6 +97,8 @@ website:
             href: In-class_Ex/In-class_Ex04/In-class_Ex04.html
           - text: "In-class Exercise 5"
             href: In-class_Ex/In-class_Ex05/In-class_Ex05.html
+          - text: "In-class Exercise 6"
+            href: hands-onEx/hands-onEx19/hands-onEx19.html
       - text: "Take-home Exercise"
         menu:
           - text: "Take-home Exercise 1"
