@@ -302,6 +302,7 @@ print(total_trade_year)
 ```{r}
 #| echo: false
 #| fig-height: 6
+#| fig-weight: 6
 # 確保 Year 是字串
 total_trade_long <- total_trade_year %>%
   pivot_longer(cols = -`Data Series`, names_to = "Year", values_to = "Value") %>%
@@ -330,7 +331,7 @@ trade_total <- total_trade_long %>%
 p3 <- ggplot(data = filtered_trade, 
             aes(x = Year, y = Value, fill = `Data Series`)) +
   geom_bar(stat = "identity", position = "dodge") +
-  geom_text(aes(label = round(Value / 1e6)), position = position_dodge(width = 0.9), vjust = -0.5,size = 4)  +
+  geom_text(aes(label = round(Value / 1e6)), position = position_dodge(width = 0.9), vjust = -0.5,size = 3)  +
 
   labs(title = "Total Merchandise Imports and Exports by Year",
        x = "Year",
@@ -338,7 +339,9 @@ p3 <- ggplot(data = filtered_trade,
        fill = "Trade Type") +
   
   theme_minimal() +
-  theme(legend.position = "top",legend.title = element_blank()) +
+  theme(legend.position = "top",legend.title = element_blank(),
+    plot.title = element_text(hjust = 0) 
+  ) +
   scale_y_continuous(labels = function(x) paste0(round(x / 1e6, 1))) +  # Y 軸四捨五入到 Billion
   scale_fill_manual(
     values = c("#4E79A7","#E15759"), 
