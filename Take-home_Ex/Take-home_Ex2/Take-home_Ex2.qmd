@@ -301,7 +301,7 @@ print(total_trade_year)
 
 ```{r}
 #| echo: false
-#| fig-height: 7
+#| fig-height: 6
 # 確保 Year 是字串
 total_trade_long <- total_trade_year %>%
   pivot_longer(cols = -`Data Series`, names_to = "Year", values_to = "Value") %>%
@@ -352,7 +352,7 @@ p4 <- ggplot(data = trade_total, aes(x = Year, y = Trade_Value, group = 1)) +
        x = "Year",
        y = "Value (S$ Billion)",
        fill = "Trade Type") + 
-  geom_point(data = trade_total, aes(x = Year, y = Trade_Value), color = "black", size = 3)+
+  geom_point(data = trade_total, aes(x = Year, y = Trade_Value), color = "black", size = 2)+
   geom_text(aes(label = round(Trade_Value / 1e6)), position = position_dodge(width =1), vjust = 0.8,hjust = -0.5) +
 theme_minimal() + 
   scale_y_continuous(labels = function(x) paste0(round(x / 1e6)))
