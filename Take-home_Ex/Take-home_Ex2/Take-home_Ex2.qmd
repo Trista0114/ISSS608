@@ -357,7 +357,8 @@ p4 <- ggplot(data = trade_total, aes(x = Year, y = Trade_Value, group = 1)) +
        fill = "Trade Type") + 
   geom_point(data = trade_total, aes(x = Year, y = Trade_Value), color = "black", size = 2)+
   geom_text(aes(label = round(Trade_Value / 1e6)), position = position_dodge(width =1), vjust = 0.8,hjust = 1) +
-theme_minimal() + 
+theme_minimal() + theme(
+    plot.title = element_text(size = 12) +
   scale_y_continuous(labels = function(x) paste0(round(x / 1e6)))
 
 
@@ -374,10 +375,12 @@ p5 <- ggplot(data = trade_surplus, aes(x = Year, y = Trade_Surplus, group = 1)) 
   geom_point(color = "lightgreen", size = 2) +  # 綠色點
   geom_text(aes(label = round(Trade_Surplus / 1e6)), vjust = 0.8, hjust = 1.5, color = "black") +  # 顯示數值
 
-  labs(title = "Total Merchandise Trade Surplus (2020-2024)",
+  labs(title = "Total Merchandise Trade Surplus 2020-2024",
        x = "Year",
        y = "Value (S$ Billion)") + 
-  theme_minimal() + 
+  theme_minimal() + theme(
+    plot.title = element_text(size = 12) 
+  )+
   scale_y_continuous(labels = function(x) paste0(round(x / 1e6)))  # Y 軸數字單位為 Billion
 
 # 3️⃣ 顯示圖表
