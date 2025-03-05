@@ -101,6 +101,10 @@ tsibble_longer <- ts_tsibble %>%
 ```
 
 ```{r}
+str(tsibble_longer
+```
+
+```{r}
 #| fig-height: 6
 tsibble_longer %>%
   filter(Country == "Vietnam" |
