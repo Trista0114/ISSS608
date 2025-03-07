@@ -364,7 +364,6 @@ filtered_trade <- total_trade_long %>%
                           "Total Merchandise Exports, (At Current Prices)")
   )
 
-
 trade_total <- total_trade_long %>%
   filter(
     Year %in% c("2020", "2021", "2022", "2023", "2024"),
@@ -374,7 +373,7 @@ trade_total <- total_trade_long %>%
 ```
 :::
 
-### **3.2.2 Make-over Visualisation**
+### 3.2.2 Make-over Visualisation
 
 ::: panel-tabset
 ## The plot
@@ -505,15 +504,15 @@ p3+p4/p5
 ```
 :::
 
-By standardizing the colors for imports and exports, the time-based variations become more visually apparent.
+By standardizing the colors for imports and exports, the time-based variations become more visually apparent. It is quite interesting to see the change between import and export in the trade surplus.
 
 -   In the line charts, it is seen that while 2022 had the highest total trade volume, the trade surplus was at its lowest. This indicates a change of percentage between exports and imports, suggesting that imports increased more significantly in 2022.
--   A decline in total trade in 2023 suggests a possible economic slowdown or global trade disruptions, but the slight recovery in 2024 indicates a rebound.
+-   A decline in total trade in 2023 shows a possible economic slowdown or global trade disruptions, but the slight recovery in 2024 indicates a rebound.
 -   Although the total trade volume decreased in 2023 and 2024, the trade surplus recovered, which may also represent changes in the proportion of imports.
 
 ## 3.3 Major trading partners for trade in services 2023
 
-###  3.3.1 Original Visualisation
+### 3.3.1 Original Visualisation
 
 ![](images/clipboard-2811862282.png)
 
@@ -523,10 +522,8 @@ By standardizing the colors for imports and exports, the time-based variations b
 Procs:
 
 -   **Clear flag and ranking:** The chart marks the national flags of each country, and uses gold, silver, and bronze medals to distinguish the top three, allowing readers to quickly identify major trading partners.
-
 -   The import and export data are displayed side by side for easy comparison:\
     The import and export data of 2023 and 2019 are put together and use different colors, so that people can see changes at a glance and easily observe trends.
-
 -   Visually display the **trade surplus or deficit** of each country:\
     Through side-by-side import and export data, users can easily see whether a country has a trade surplus or deficit.
 
@@ -545,7 +542,7 @@ In the next step, I will:
 -   Display the total trade amount to clarify the ranking method.
 
 ::: panel-tabset
-## Selecting Data 
+## Selecting Data
 
 Select the country instead of the union. Choose the year (2019,2023) that I want to compare.
 
@@ -582,7 +579,7 @@ total_combined_partner <- combined_partner %>%
 ```
 :::
 
-### **3.3.2 Make-over Visualisation**
+### 3.3.2 Make-over Visualisation
 
 ::: panel-tabset
 ## The plot
@@ -624,140 +621,180 @@ total_combined_partner_slope
 The slopegragh, Major Trading Partners for Trade in Services, compares trade volumes between 2019 and 2023 for different countries. Countries with steeper slopes indicate faster growth in trade volume, whereas flatter slopes suggest stability or slow growth.
 
 -   United States' Dominance: The United States is by far the largest trading partner in services, with its trade value almost doubling from 2019 to 2023.
-
 -   Mainland China and Japan have maintained high rankings, with steady growth in service trade volumes.
-
 -   Australia, Hong Kong, and Ireland show consistent trade growth in services.
 
 # 4. Time Series Analysis: Merchandise Trade by Commodity Section
 
+4.1 Introduction
+
+In this section, I would like to conduct a time series analysis for Merchandise Trade by Commodity Section over the past 10 years. This includes autocorrelation analysis and examining the variations in different commodity categories.
+
+The goal of this analysis is to understand the trends in Singapore’s export industries—which industries have been growing, which have stayed stable, and whether there are any seasonal or long-term patterns.
+
+Given the high volatility of oil prices, which may influence overall trade trends, we will focus the autocorrelation analysis on non-oil products to derive a clearer and more reliable picture of industry trends
+
+4.2 Data Preparation
+
+::: panel-tabset
+## Selecting Data
+
+select data from 2015-2024.
+
 ```{r}
-file_path <- "data/outputFile (2).xlsx"
 export_product <- read_excel(file_path, sheet = 2, skip = 10, col_names = TRUE)
 export_product <- export_product[c(44,45,47:55), ]
-# 只保留 第一欄 和 第 3-14 欄
 export_product <- export_product[c(1, 3:122)]
-
 ```
 
-```{r}
+## Convert into long format
 
+Transfer data into month-year format.
+
+```{r}
 export_product_long <- export_product %>%
-  rename(Product = `Data Series`) %>%  # 🔹 修改欄位名稱
+  rename(Product = `Data Series`) %>%  
   pivot_longer(cols = -Product, names_to = "Year", values_to = "Value") 
 
 export_product_long <- export_product_long %>%
   mutate(Year = yearmonth(Year))
 
 export_product_long
-
 ```
 
-export_product_long \<- export_product %\>% rename(Product = `Data Series`) %\>% \# 🔹 修改欄位名稱 pivot_longer(cols = -Product, names_to = "Year", values_to = "Value") %\>% mutate(Year = as.character(Year)) %\>% mutate(Year = as.Date(paste0("01 ", Year), format = "%d %Y %b")) %\>% mutate(Year = yearmonth(Year))
+## Convert to tsibble objective
 
-export_product_long
-
-```{r}
-
-```
-
-```         
-```
-
-export_product_long \<- export_product %\>% rename(Product = `Data Series`) %\>% \# 🔹 修改欄位名稱 pivot_longer(cols = -Product, names_to = "Year", values_to = "Value") %\>% mutate(Year = as.character(Year)) %\>% mutate(Year = as.Date(paste0("01 ", Year), format = "%d %Y %b"))
-
-```{r}
-library(tsibble)
-library(dplyr)
-
-
-
-```
-
-export_product_tsibble \<- export_product_long %\>% mutate(Year = yearmonth(as.character(Year)))
+This step is in order to do the further time series analysis.
 
 ```{r}
 export_product_tsibble <- export_product_long %>%
-  filter(!is.na(Year)) %>%  # 🔹 移除 NA
+  filter(!is.na(Year)) %>%  
   mutate(Year = yearmonth(as.character(Year))) 
 
 export_product_tsibble <- export_product_tsibble %>%
   as_tsibble(index = Year, key = Product)
 
-export_product_tsibble
-
 ```
+:::
+
+## 4.3 Yearly Trends and Changes
+
+### 4.3.1 Slopegraph: compare 2015&2024
+
+::: panel-tabset
+## The plot
 
 ```{r}
 #| fig-height: 6
 #| fig-width: 6
 
 export_product_yearly <- export_product_long %>%
-  mutate(Year = format(Year, "%Y")) %>%  # 只保留年份
-  group_by(Product, Year) %>%  # 依據 Product 和 Year 分組
-  summarise(Value = sum(Value, na.rm = TRUE)) %>%  # 加總 Value
+  mutate(Year = format(Year, "%Y")) %>%  
+  group_by(Product, Year) %>%  
+  summarise(Value = sum(Value, na.rm = TRUE)) %>%  
   ungroup() %>%
-  mutate(Year = as.character(Year),  # 確保 Year 是 character
-         Value = as.numeric(Value))  # 確保 Value 是數值
+  mutate(Year = as.character(Year),  
+         Value = as.numeric(Value))  
 
 export_product_yearly_slope <- export_product_yearly %>%
-  mutate(Year = factor(Year)) %>%  # 轉換 Year 為 Factor
-  filter(Year %in% c(2024, 2015),   # 只篩選 2023 & 2019
-         !is.na(`Product`),      # 移除 NA 值
+  mutate(Year = factor(Year)) %>%  
+  filter(Year %in% c(2024, 2015),   
+         !is.na(`Product`),      
          `Product` != "")%>%  
   newggslopegraph(Year, Value,`Product`,
-                Title = "Major Trading Partners for Trade in Services ",
-                SubTitle = "Comparison between 2019 and 2023",
+                Title = "Merchandise Trade By Commodity Section ",
+                SubTitle = "Comparison between 2015 and 2024",
                 Caption = "Prepared by: Chen Peng-Wei")+
   theme(
     plot.title = element_text(size = 12, face = "bold"))
 export_product_yearly_slope 
-
 ```
 
-```{r}
-export_product_long %>%
-  summarise(missing_years = sum(is.na(Year)), missing_products = sum(is.na(Product)))
+## The code
 
-
-```
-
-```{r}
-#| fig-weight: 30
+```{r,eval=FALSE}
 #| fig-height: 6
+#| fig-width: 6
+
+export_product_yearly <- export_product_long %>%
+  mutate(Year = format(Year, "%Y")) %>%  
+  group_by(Product, Year) %>%  
+  summarise(Value = sum(Value, na.rm = TRUE)) %>%  
+  ungroup() %>%
+  mutate(Year = as.character(Year),  
+         Value = as.numeric(Value))  
+
+export_product_yearly_slope <- export_product_yearly %>%
+  mutate(Year = factor(Year)) %>%  
+  filter(Year %in% c(2024, 2015),   
+         !is.na(`Product`),      
+         `Product` != "")%>%  
+  newggslopegraph(Year, Value,`Product`,
+                Title = "Merchandise Trade By Commodity Section ",
+                SubTitle = "Comparison between 2015 and 2024",
+                Caption = "Prepared by: Chen Peng-Wei")+
+  theme(
+    plot.title = element_text(size = 12, face = "bold"))
+export_product_yearly_slope 
+```
+:::
+
+Based on the slope graph, we can see that the share of petroleum exports has significantly increased over the past decade, and oil bunkers have also shown a raise. It is shown that Singapore may have strengthened its role as a regional energy hub.
+
+Machinery & Transport Equipment remains a major category but has experienced a slight decline, so does the Chemicals & Chemical Products .
+
+Additionally, the graph indictaes that Singapore’s export commodities have distinct tiered groupings, with a significant gap between ranks 1-2 and 3-4 in trade value.
+
+Lastly, Miscellaneous Manufactured Articles have grown, indicating diversification in Singapore’s export industry.
+
+### 4.3.2 Line graph: 10 year trend in Commodity Section
+
+::: panel-tabset
+## The plot
+
+```{r}
+#| echo: false
+#| fig-height: 6
+#| fig-weight: 30
 ggplot(data = export_product_yearly, 
        aes(x = Year, y = Value, color = Product, group = Product)) +
-  geom_line(size = 0.5) +  # 🔹 加上 group 讓線條連接
-  geom_point(size = 1) +  # 加上點，確保數據有顯示
+  geom_line(size = 0.5) +  
+  geom_point(size = 1) +  
   theme_minimal() +
   theme(legend.position = "bottom", 
         legend.box.spacing = unit(0.5, "cm")) +
-  labs(title = "Total Export Value (2015-2024)",
+  labs(title = "Total Export Value in 2015 to 2024",
        x = "Year",
        y = "Value",
-       color = "Product")  # 圖例標題
-
+       color = "Product")  
 ```
 
-```{r}
-export_product_long %>%
-  filter(`Product` == "Food & Live Animals") %>%  # 🔹 確保 Data Series 名稱使用反引號
-  ggplot(aes(x = Year, y = Value)) +  # 🔹 Year 不需要反引號（如果是數值或日期型）
-  geom_line(size = 0.5) 
-```
+## The code
 
-```{r}
-#| fig-weight: -50
-ggplot(data = export_product_long, 
-       aes(x = `Year`, 
-           y = Value,
-           color = `Product`))+
-  geom_line(size = 0.5) +
+```{r,eval=FALSE}
+ggplot(data = export_product_yearly, 
+       aes(x = Year, y = Value, color = Product, group = Product)) +
+  geom_line(size = 0.5) +  
+  geom_point(size = 1) +  
+  theme_minimal() +
   theme(legend.position = "bottom", 
-        legend.box.spacing = unit(0.5, "cm"))
+        legend.box.spacing = unit(0.5, "cm")) +
+  labs(title = "Total Export Value in 2015 to 2024",
+       x = "Year",
+       y = "Value",
+       color = "Product")  
 ```
+:::
 
-can do the year slopegraph
+Through the line chart, we can clearly see the export trends and changes in various commodity categories over the past ten years. The export value of petroleum and oil bunker has increased significantly, but the chart also shows that petroleum products exhibit high volatility, which may be influenced by policies, international political relations, and other factors.
+
+Apart from the notable growth in Food & Live Animals, the increase in other categories are relatively steady.
+
+## 4.4 Seasonality Trends and Changes
+
+### 4.4.1 Multiple line graph: Monthly trend in every Commodity Section
+
+Before performing decomposition, it is good for us to look into the monthly time series data.
 
 ```{r}
 #| fig-height: 6
@@ -772,26 +809,76 @@ ggplot(data = export_product_long,
   theme_bw()
 ```
 
-Machinery & Transport Equipment/ Chemicals & Chemical Products/Miscellaneous Manufactured Articles/Food & Live Animals\
+It is obvious that Oil-related products show significant fluctuations.These fluctuations may be driven by global oil price changes, policy impacts, or supply-demand shifts.Due to this high volatility, oil products will be excluded from further analysis.
+
+Looking at other categories, Beverages & Tobacco show a clear downward trend, indicating a consistent decline in export value over time. Meanwhile, Food & Live Animals experienced a sharp increase around 2018, suggesting a possible policy-driven or market-driven.
+
+Due to the high volatility in oil-related products, we will exclude them from further analysis to focus on more stable trends. In the seasonality analysis, we will focus on the top four categories (excluding oil products):
+
+1.Machinery & Transport Equipment\
+2.Chemicals & Chemical Products\
+3.Miscellaneous Manufactured Articles\
+4.Food & Live Animals
+
+### 4.4.2 Cycle plots: seasonal patterns?
+
+::: panel-tabset
+## The plot
 
 ```{r}
+#| echo: false
 #| fig-height: 8
-#| fig-weight: 5
+#| fig-weight: 8
 export_product_tsibble %>%
   filter(Product == "Machinery & Transport Equipment" |
          Product == "Chemicals & Chemical Products" )%>% 
   gg_subseries(Value) 
 ```
 
-```{r}
+## The code
+
+```{r,eval=FALSE}
 #| fig-height: 8
-#| fig-weight: 5
+#| fig-weight: 8
 export_product_tsibble %>%
-  filter(Product %in% c("Miscellaneous Manufactured Articles", "Food & Live Animals")) %>%
-  gg_subseries(Value)
-
-
+  filter(Product == "Machinery & Transport Equipment" |
+         Product == "Chemicals & Chemical Products" )%>% 
+  gg_subseries(Value) 
 ```
+:::
+
+From the seasonal decomposition plot, there does not appear very obvious seasonal pattern in Machinery & Transport Equipment and Chemicals & Chemical Products. One notable trend is that both categories experience a significant drop in February each year, specially in Machinery & Transport Equipment.
+
+::: panel-tabset
+## The plot
+
+```{r}
+#| echo: false
+#| fig-height: 8
+#| fig-weight: 8
+export_product_tsibble %>%
+  filter(Product == "Miscellaneous Manufactured Articles" |
+         Product == "Food & Live Animals" )%>% 
+  gg_subseries(Value) 
+```
+
+## The code
+
+```{r,eval=FALSE}
+#| fig-height: 8
+#| fig-weight: 8
+export_product_tsibble %>%
+  filter(Product == "Miscellaneous Manufactured Articles" |
+         Product == "Food & Live Animals" )%>% 
+  gg_subseries(Value) 
+```
+:::
+
+Interestingly, Miscellaneous Manufactured Articles also experience a notable drop in February, similar to other categories. However, in Food & Live Animals, February appears to have the highest average export value.
+
+Another interesting pattern is observed in Miscellaneous Manufactured Articles, where the trade value seems to follow a three-month cyclical trend, gradually increasing from March onward. This pattern may indicate bulk purchasing behaviors or industry-specific schedules. These observations suggest that seasonality affects different industries in different ways.
+
+## **4.5 Time series decomposition**
 
 ```{r}
 #| fig-height: 7
@@ -845,4 +932,15 @@ export_product_tsibble  %>%
   model(stl = STL(Value)) %>%
   components() %>%
   autoplot()
+```
+
+```{r}
+#| fig-weight: -50
+ggplot(data = export_product_long, 
+       aes(x = `Year`, 
+           y = Value,
+           color = `Product`))+
+  geom_line(size = 0.5) +
+  theme(legend.position = "bottom", 
+        legend.box.spacing = unit(0.5, "cm"))
 ```
