@@ -11,7 +11,7 @@ execute:
   freeze: true
 ---
 
-# **DataVis Makeover and time series analysis: Singapore's International Trade**
+# DataVis Makeover and time series analysis: Singapore's International Trade
 
 # 1. Introduction
 
@@ -50,7 +50,7 @@ file_path2 <- "data/outputFile (3).xlsx"
 
 # 3. Data Visualisation Makeover
 
-## **3.1 Non-oil Domestic Export and Re-Exports 2024**
+## 3.1 Non-oil Domestic Export and Re-Exports 2024
 
 ### 3.1.1 Original Visualisation
 
@@ -77,7 +77,7 @@ In the further step, I will:
 
 -   Increase the font size of the percentage values to highlight the relative proportions of each category.
 
--   Arrange the order by the value
+-   Arrange the order by the value.
 
 -   Combine it with the Re-exported data. You can take a look of the difference in distribution.
 
@@ -219,7 +219,7 @@ combined_plot
 
 ## The code
 
-```{r}
+```{r,eval=FALSE}
 non_oil_colors <- c(
     "Food & Live Animals"= "blue",
     "Beverages & Tobacco" = "#1f77b4",
@@ -299,7 +299,7 @@ Hover the mouse to check the tooltip. It is clear to see that Singapore has more
 -   Machinery & Transport Equipment is the main product in both export and re-export commodity, accounting for a high value in Singapore total export.
 -   Chemicals & Chemical Products is mainly Singapore's local production, showing the importance of this industry in the domestic economy.
 
-## **3.2 Total Merchandise Trade 2020-2024**
+## 3.2 Total Merchandise Trade 2020-2024
 
 ### 3.2.1 Original Visualisation
 
@@ -326,21 +326,17 @@ In the further step, I will:
 -   Include a trade balance trend line – Show the trade surplus/deficit over time for better economic insights
 -   Add a legend for exports and imports – Ensure that readers can quickly differentiate between the two without confusion.
 
-total trade data
+::: panel-tabset
+## Selecting Data
+
+Select the merchandise trade data (total, Import, Export)from 2020-2024 and combine the data in same year. New column 2020,2021,2022,2023,2024 are created.
 
 ```{r}
-# 設定檔案路徑
 total_trade <- read_excel(file_path, sheet = 2, skip = 10, col_names = TRUE)
 total_trade <- total_trade[c(1,15,28), ]
-# 只保留 第一欄 和 第 3-14 欄
 total_trade <- total_trade[c(1, 3:62)]
-# 設定 A 欄（第一欄）作為 rownames（行標籤）
 rownames(total_trade) <- total_trade[[1]]
 
-head(total_trade, 10)
-```
-
-```{r}
 total_trade_year <- total_trade %>%
   mutate(
     `2024` = rowSums(select(., starts_with("2024")), na.rm = TRUE),
@@ -350,19 +346,17 @@ total_trade_year <- total_trade %>%
     `2020` = rowSums(select(., starts_with("2020")), na.rm = TRUE)
   )
 
-print(total_trade_year)
 ```
 
+## Convert into Long format
+
+Convert the data into long format in order to do the further visualization.
+
 ```{r}
-#| echo: false
-#| fig-height: 6
-#| fig-weight: 5
-# 確保 Year 是字串
 total_trade_long <- total_trade_year %>%
   pivot_longer(cols = -`Data Series`, names_to = "Year", values_to = "Value") %>%
   mutate(Year = as.character(Year))
 
-# 1️⃣ 過濾 Imports & Exports（作為 Bar Chart）
 filtered_trade <- total_trade_long %>%
   filter(
     Year %in% c("2020", "2021", "2022", "2023", "2024"),
@@ -370,18 +364,25 @@ filtered_trade <- total_trade_long %>%
                           "Total Merchandise Exports, (At Current Prices)")
   )
 
-# 2️⃣ 過濾 Total Merchandise Trade（只用來顯示在 tooltip）
+
 trade_total <- total_trade_long %>%
   filter(
     Year %in% c("2020", "2021", "2022", "2023", "2024"),
     `Data Series` == "Total Merchandise Trade, (At Current Prices)"
   ) %>%
-  select(Year, Trade_Value = Value)  # 只保留 Year 和 Trade_Value（總貿易額）
+  select(Year, Trade_Value = Value)  
+```
+:::
 
-# 3️⃣ 合併 Total Merchandise Trade 到 filtered_trade，但不在圖表顯示
+### **3.2.2 Make-over Visualisation**
 
+::: panel-tabset
+## The plot
 
-# 4️⃣ 繪製 Bar Chart，並將 `Total Merchandise Trade` 顯示在 tooltip
+```{r}
+#| echo: false
+#| fig-height: 6
+#| fig-weight: 5
 p3 <- ggplot(data = filtered_trade, 
             aes(x = Year, y = Value, fill = `Data Series`)) +
   geom_bar(stat = "identity", position = "dodge") +
@@ -396,10 +397,10 @@ p3 <- ggplot(data = filtered_trade,
   theme(legend.position = "top",legend.title = element_blank(),
     plot.title = element_text(hjust = 0) 
   ) +
-  scale_y_continuous(labels = function(x) paste0(round(x / 1e6, 1))) +  # Y 軸四捨五入到 Billion
+  scale_y_continuous(labels = function(x) paste0(round(x / 1e6, 1))) + 
   scale_fill_manual(
     values = c("#4E79A7","#E15759"), 
-    labels = c("Exports", "Imports")  # 自訂圖例名稱
+    labels = c("Exports", "Imports")  
   )
 
 
@@ -422,12 +423,12 @@ trade_surplus <- filtered_trade %>%
                          `Total Merchandise Imports, (At Current Prices)`) %>%
   select(Year, Trade_Surplus)
 
-# 2️⃣ 繪製 Trade Surplus 折線圖
+
 p5 <- ggplot(data = trade_surplus, aes(x = Year, y = Trade_Surplus, group = 1)) +
   
-  geom_line(color = "lightgreen", size = 1.2, linetype = "solid") +  # 貿易順差線
-  geom_point(color = "lightgreen", size = 2) +  # 綠色點
-  geom_text(aes(label = round(Trade_Surplus / 1e6)), vjust = 0.8, hjust = 1.5, color = "black") +  # 顯示數值
+  geom_line(color = "lightgreen", size = 1.2, linetype = "solid") +  
+  geom_point(color = "lightgreen", size = 2) +  
+  geom_text(aes(label = round(Trade_Surplus / 1e6)), vjust = 0.8, hjust = 1.5, color = "black") +  
 
   labs(title = "Total Merchandise Trade Surplus 2020-2024",
        x = "Year",
@@ -435,20 +436,120 @@ p5 <- ggplot(data = trade_surplus, aes(x = Year, y = Trade_Surplus, group = 1)) 
   theme_minimal() + theme(
     plot.title = element_text(size = 12) 
   )+
-  scale_y_continuous(labels = function(x) paste0(round(x / 1e6)))  # Y 軸數字單位為 Billion
-
-# 3️⃣ 顯示圖表
-
+  scale_y_continuous(labels = function(x) paste0(round(x / 1e6)))  
 
 p3+p4/p5
 
 ```
 
-slopegraph\
-Data Preparation
+## The code
+
+```{r,eval=FALSE}
+p3 <- ggplot(data = filtered_trade, 
+            aes(x = Year, y = Value, fill = `Data Series`)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  geom_text(aes(label = round(Value / 1e6)), position = position_dodge(width = 0.9), vjust = -0.5,size = 3)  +
+
+  labs(title = "Total Merchandise Imports and Exports",
+       x = "Year",
+       y = "Value (S$ Billion)",
+       fill = "Trade Type") +
+  
+  theme_minimal() +
+  theme(legend.position = "top",legend.title = element_blank(),
+    plot.title = element_text(hjust = 0) 
+  ) +
+  scale_y_continuous(labels = function(x) paste0(round(x / 1e6, 1))) + 
+  scale_fill_manual(
+    values = c("#4E79A7","#E15759"), 
+    labels = c("Exports", "Imports")  
+  )
+
+
+p4 <- ggplot(data = trade_total, aes(x = Year, y = Trade_Value, group = 1)) +
+  geom_line(color = "black", size = 1.2, linetype = "solid")+
+  labs(title = "Total Merchandise Trade 2020-2024",
+       x = "Year",
+       y = "Value (S$ Billion)",
+       fill = "Trade Type") + 
+  geom_point(data = trade_total, aes(x = Year, y = Trade_Value), color = "black", size = 2)+
+  geom_text(aes(label = round(Trade_Value / 1e6)), position = position_dodge(width =1), vjust = 0.8,hjust = 1) +
+theme_minimal() + theme(
+    plot.title = element_text(size = 12) +
+  scale_y_continuous(labels = function(x) paste0(round(x / 1e6))))
+
+
+trade_surplus <- filtered_trade %>%
+  pivot_wider(names_from = `Data Series`, values_from = Value) %>%
+  mutate(Trade_Surplus = `Total Merchandise Exports, (At Current Prices)` - 
+                         `Total Merchandise Imports, (At Current Prices)`) %>%
+  select(Year, Trade_Surplus)
+
+
+p5 <- ggplot(data = trade_surplus, aes(x = Year, y = Trade_Surplus, group = 1)) +
+  
+  geom_line(color = "lightgreen", size = 1.2, linetype = "solid") +  
+  geom_point(color = "lightgreen", size = 2) +  
+  geom_text(aes(label = round(Trade_Surplus / 1e6)), vjust = 0.8, hjust = 1.5, color = "black") +  
+
+  labs(title = "Total Merchandise Trade Surplus 2020-2024",
+       x = "Year",
+       y = "Value (S$ Billion)") + 
+  theme_minimal() + theme(
+    plot.title = element_text(size = 12) 
+  )+
+  scale_y_continuous(labels = function(x) paste0(round(x / 1e6)))  
+
+p3+p4/p5
+
+```
+:::
+
+By standardizing the colors for imports and exports, the time-based variations become more visually apparent.
+
+-   In the line charts, it is seen that while 2022 had the highest total trade volume, the trade surplus was at its lowest. This indicates a change of percentage between exports and imports, suggesting that imports increased more significantly in 2022.
+-   A decline in total trade in 2023 suggests a possible economic slowdown or global trade disruptions, but the slight recovery in 2024 indicates a rebound.
+-   Although the total trade volume decreased in 2023 and 2024, the trade surplus recovered, which may also represent changes in the proportion of imports.
+
+## 3.3 Major trading partners for trade in services 2023
+
+###  3.3.1 Original Visualisation
+
+![](images/clipboard-2811862282.png)
+
+::: callout-note
+## Observation
+
+Procs:
+
+-   **Clear flag and ranking:** The chart marks the national flags of each country, and uses gold, silver, and bronze medals to distinguish the top three, allowing readers to quickly identify major trading partners.
+
+-   The import and export data are displayed side by side for easy comparison:\
+    The import and export data of 2023 and 2019 are put together and use different colors, so that people can see changes at a glance and easily observe trends.
+
+-   Visually display the **trade surplus or deficit** of each country:\
+    Through side-by-side import and export data, users can easily see whether a country has a trade surplus or deficit.
+
+Cons:
+
+-   There is no exact title.
+-   No explanation of the ranking method. Is the ranking based on the total trade volume (total import and export) in 2023, or the data in 2019? Or sort by export amount?
+-   If the comparison units are countries, then the EU should not be ranked as a single entity.
+-   Missing time trend line. Although two time points in 2019 and 2023 are shown, the time trend is not clearly presented.
+:::
+
+In the next step, I will:
+
+-   Focus on ranking based on total trade volume and add a time trend line.
+-   Include a title for a plot.
+-   Display the total trade amount to clarify the ranking method.
+
+::: panel-tabset
+## Selecting Data 
+
+Select the country instead of the union. Choose the year (2019,2023) that I want to compare.
 
 ```{r}
-
 file_path2 <- "data/outputFile (3).xlsx"
 Exports_partner <- read_excel(file_path2, sheet = 4, skip = 10, col_names = TRUE)
 Exports_partner <- Exports_partner[,c(1,2,6)]%>%
@@ -457,7 +558,13 @@ Exports_partner <- Exports_partner[,c(1,2,6)]%>%
 Imports_partner <- read_excel(file_path2, sheet = 8, skip = 10, col_names = TRUE)
 Imports_partner <- Imports_partner[,c(1,2,6)]%>%
   slice(-c(1, 25, 26,45,46,49,54,63))
+```
 
+## Covert data into long format
+
+Combine the export and income value together after coverting data into long format.
+
+```{r}
 Exports_partner_long <- Exports_partner %>%
   pivot_longer(cols = -`Data Series`, names_to = "Year", values_to = "Value") %>%
   mutate(Year = as.character(Year))
@@ -472,16 +579,20 @@ combined_partner <- full_join(Exports_partner_long, Imports_partner_long,
 
 total_combined_partner <- combined_partner %>%
   mutate(total = Value_Exports + Value_Imports)
-
 ```
+:::
 
-The plot
+### **3.3.2 Make-over Visualisation**
+
+::: panel-tabset
+## The plot
 
 ```{r}
+#| echo: false
 total_combined_partner_slope <- total_combined_partner %>%
-  mutate(Year = factor(Year)) %>%  # 轉換 Year 為 Factor
-  filter(Year %in% c(2023, 2019),   # 只篩選 2023 & 2019
-         !is.na(`Data Series`),      # 移除 NA 值
+  mutate(Year = factor(Year)) %>%  
+  filter(Year %in% c(2023, 2019),   
+         !is.na(`Data Series`),      
          `Data Series` != "")%>%  
   newggslopegraph(Year, total,`Data Series`,
                 Title = "Major Trading Partners for Trade in Services ",
@@ -492,7 +603,33 @@ total_combined_partner_slope <- total_combined_partner %>%
 total_combined_partner_slope
 ```
 
-time series analysis
+## The code
+
+```{r,eval=FALSE}
+total_combined_partner_slope <- total_combined_partner %>%
+  mutate(Year = factor(Year)) %>%  
+  filter(Year %in% c(2023, 2019),   
+         !is.na(`Data Series`),      
+         `Data Series` != "")%>%  
+  newggslopegraph(Year, total,`Data Series`,
+                Title = "Major Trading Partners for Trade in Services ",
+                SubTitle = "Comparison between 2019 and 2023",
+                Caption = "Prepared by: Chen Peng-Wei")+
+  theme(
+    plot.title = element_text(size = 12, face = "bold"))
+total_combined_partner_slope
+```
+:::
+
+The slopegragh, Major Trading Partners for Trade in Services, compares trade volumes between 2019 and 2023 for different countries. Countries with steeper slopes indicate faster growth in trade volume, whereas flatter slopes suggest stability or slow growth.
+
+-   United States' Dominance: The United States is by far the largest trading partner in services, with its trade value almost doubling from 2019 to 2023.
+
+-   Mainland China and Japan have maintained high rankings, with steady growth in service trade volumes.
+
+-   Australia, Hong Kong, and Ireland show consistent trade growth in services.
+
+# 4. Time Series Analysis: Merchandise Trade by Commodity Section
 
 ```{r}
 file_path <- "data/outputFile (2).xlsx"
