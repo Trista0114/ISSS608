@@ -685,9 +685,9 @@ export_product_tsibble <- export_product_tsibble %>%
 ## The plot
 
 ```{r}
+#| echo: false
 #| fig-height: 6
 #| fig-width: 6
-
 export_product_yearly <- export_product_long %>%
   mutate(Year = format(Year, "%Y")) %>%  
   group_by(Product, Year) %>%  
@@ -880,7 +880,11 @@ Another interesting pattern is observed in Miscellaneous Manufactured Articles, 
 
 ## **4.5 Time series decomposition**
 
+::: panel-tabset
+## The plot
+
 ```{r}
+#| echo: false
 #| fig-height: 7
 #| fig-weight: 3
 export_product_tsibble %>%
@@ -891,18 +895,45 @@ export_product_tsibble %>%
   mutate(Product = factor(Product, levels = c("Machinery & Transport Equipment",
                                               "Chemicals & Chemical Products",
                                               "Miscellaneous Manufactured Articles",
-                                              "Food & Live Animals"))) %>%  # 🔹 設定 Product 順序
+                                              "Food & Live Animals"))) %>%  
   ACF(Value) %>%
   autoplot()
 ```
 
-```{r}
+## The code
+
+```{r,eval=FALSE}
+#| fig-height: 7
+#| fig-weight: 3
 export_product_tsibble %>%
-  filter(`Product` == "Food & Live Animals") %>%
-  gg_tsdisplay(Value)
+  filter(Product %in% c("Machinery & Transport Equipment",
+                        "Chemicals & Chemical Products",
+                        "Miscellaneous Manufactured Articles",
+                        "Food & Live Animals")) %>%
+  mutate(Product = factor(Product, levels = c("Machinery & Transport Equipment",
+                                              "Chemicals & Chemical Products",
+                                              "Miscellaneous Manufactured Articles",
+                                              "Food & Live Animals"))) %>%  
+  ACF(Value) %>%
+  autoplot()
 ```
+:::
+
+There is an plot of ACFs for 4 selected commodity section. The ACF plot helps us understand how each category's export values correlate with their past values (lags) over time.
+
+-   No strong seasonality was detected in Machinery & Transport Equipment and Chemicals & Chemical Products.
+-   Miscellaneous Manufactured Articles exhibit periodic spikes, confirming the three-month cycle observed in the time series plot.
+-   Food & Live Animals show moderate short-term dependencies, meaning recent exports can help predict near-future trends.
+
+### 4.5.1 STL diagnostics
+
+Based on the ACF results, we will proceed with STL diagnostics only for Miscellaneous Manufactured Articles and Food & Live Animals. The ACF plots indicate that these two categories exhibit some periodic patterns, suggesting a seasonal component in their time series.This makes them suitable for STL decomposition, which helps analyze the trend, seasonality, and residuals separately.
+
+::: panel-tabset
+## The plot
 
 ```{r}
+#| echo: false
 export_product_tsibble  %>%
   filter(`Product` == "Miscellaneous Manufactured Articles") %>%
   model(stl = STL(Value)) %>%
@@ -910,7 +941,30 @@ export_product_tsibble  %>%
   autoplot()
 ```
 
+## The code
+
+```{r,eval=FALSE}
+export_product_tsibble  %>%
+  filter(`Product` == "Miscellaneous Manufactured Articles") %>%
+  model(stl = STL(Value)) %>%
+  components() %>%
+  autoplot()
+```
+:::
+
+This is an STL decomposition plot for Miscellaneous Manufactured Articles, breaking down the time series into trend, seasonality, and remainder (residuals/noise).
+
+-   Strong upward trend since 2021, indicating long-term export growth for Miscellaneous Manufactured Articles.
+
+-   Clear seasonal pattern, meaning exports tend to follow a recurring cycle each year.
+
+-   Some level of randomness, but no extreme volatility, suggesting exports are relatively stable with predictable fluctuations
+
+::: panel-tabset
+## The plot
+
 ```{r}
+#| echo: false
 export_product_tsibble  %>%
   filter(`Product` == "Food & Live Animals") %>%
   model(stl = STL(Value)) %>%
@@ -918,29 +972,21 @@ export_product_tsibble  %>%
   autoplot()
 ```
 
-```{r}
+## The code
+
+```{r,eval=FALSE}
 export_product_tsibble  %>%
-  filter(`Product` == "Machinery & Transport Equipment") %>%
+  filter(`Product` == "Food & Live Animals") %>%
   model(stl = STL(Value)) %>%
   components() %>%
   autoplot()
 ```
+:::
 
-```{r}
-export_product_tsibble  %>%
-  filter(`Product` == "Chemicals & Chemical Products") %>%
-  model(stl = STL(Value)) %>%
-  components() %>%
-  autoplot()
-```
+This is an STL decomposition plot for Food & Live Animals, which breaks down the time series into trend, seasonality, and remainder (residuals/noise).
 
-```{r}
-#| fig-weight: -50
-ggplot(data = export_product_long, 
-       aes(x = `Year`, 
-           y = Value,
-           color = `Product`))+
-  geom_line(size = 0.5) +
-  theme(legend.position = "bottom", 
-        legend.box.spacing = unit(0.5, "cm"))
-```
+-   Strong upward trend in exports from 2018 onward, with a sharp rise around 2019-2021.
+-   Clear seasonal pattern, meaning exports tend to peak and decline in a predictable manner each year.
+-   Some fluctuations in the residuals, but no extreme volatility, suggesting export values are relatively stable with short-term variations.
+
+# 5. Conclusion
