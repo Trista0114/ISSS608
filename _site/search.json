@@ -2045,8 +2045,8 @@
     "objectID": "Take-home_Ex/Take-home_Ex2/Take-home_Ex2.html#objective-and-tasks",
     "href": "Take-home_Ex/Take-home_Ex2/Take-home_Ex2.html#objective-and-tasks",
     "title": "Take-home Exercise 2: Be Tradewise or Otherwise",
-    "section": "1.2 Objective and Tasks",
-    "text": "1.2 Objective and Tasks\nSelect 3 data visualisation from this report pagefrom Statistics Singapore\ncomments on the pros and cons and provide sketches of the make-over"
+    "section": "1.1 Objective and Tasks",
+    "text": "1.1 Objective and Tasks\nAside from the time series analysis, the objective of this take-home exercise is to improve an original visualization by evaluating its strengths and weaknesses and exploring ways to enhance its clarity, effectiveness, and overall impact.\nThe specific tasks are:\n\nselect three data visualisation on this page, comments on the pros and cons and provide sketches of the make-over,\nusing appropriate ggplot2 and others packages create the make-over of the three data visualisation critic above, and\nanalyse the data with either time-series analysis or time-series forecasting methods by compliment the analysis with appropriate data visualisation methods and R packages."
   },
   {
     "objectID": "Take-home_Ex/Take-home_Ex2/Take-home_Ex2.html#non-oil-domestic-export-and-re-exports-2024",

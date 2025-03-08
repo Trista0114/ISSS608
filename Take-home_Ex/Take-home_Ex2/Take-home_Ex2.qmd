@@ -15,12 +15,17 @@ execute:
 
 # 1. Introduction
 
-## 1.1 Background
+Since Mr. Donald Trump took office as the President of the United States on January 20, 2025, global trade has become one of the most closely watched topics. By leveraging data visualization and time-series analysis, this exercise aims to uncover key trade shifts, emerging trends, and possible external influences that have shaped Singapore's trade performance over the past decade.
 
-## 1.2 Objective and Tasks
+## 1.1 Objective and Tasks
 
-Select 3 data visualisation from this [report page](https://www.singstat.gov.sg/modules/infographics/singapore-international-tradec)from Statistics Singapore\
-comments on the pros and cons and provide sketches of the make-over
+Aside from the time series analysis, the objective of this take-home exercise is to improve an original visualization by evaluating its strengths and weaknesses and exploring ways to enhance its clarity, effectiveness, and overall impact.
+
+The specific tasks are:
+
+-   select three data visualisation on [this page](https://www.singstat.gov.sg/modules/infographics/singapore-international-trade), comments on the pros and cons and provide sketches of the make-over,
+-   using appropriate ggplot2 and others packages create the make-over of the three data visualisation critic above, and
+-   analyse the data with either time-series analysis or time-series forecasting methods by compliment the analysis with appropriate data visualisation methods and R packages.
 
 # 2. Getting Started
 
@@ -28,7 +33,7 @@ comments on the pros and cons and provide sketches of the make-over
 ## Installing Libraries
 
 ```{r}
-pacman::p_load(ggplot2,dplyr,patchwork,tidyverse,tidymodels,ggdist,ggridges, ggthemes,colorspace,scales,ggiraph,ggstatsplot,scales,crosstalk,plotly,CGPfunctions,tsibble, feasts, fable, seasonal,readxl)
+pacman::p_load(ggplot2,dplyr,scales,CGPfunctions,patchwork,tidyverse,ggthemes,ggiraph,plotly,tsibble, feasts, fable, seasonal,readxl)
 ```
 
 ```{r}
@@ -37,7 +42,7 @@ Sys.setlocale("LC_TIME", "C")
 
 ## Importing Data
 
-The data used in this report is  [Merchandise Trade by Region/Market](https://www.singstat.gov.sg/find-data/search-by-theme/trade-and-investment/merchandise-trade/latest-data) from [Department of Statistics Singapore, DOS](https://www.singstat.gov.sg/).
+The data used in data visualisation makeover is  [Merchandise Trade by Region/Market](https://www.singstat.gov.sg/find-data/search-by-theme/trade-and-investment/merchandise-trade/latest-data) from [Department of Statistics Singapore, DOS](https://www.singstat.gov.sg/).
 
 outputFile (2) is the Merchandise Trade data and outputFile (3) is the Trade in Services (TIS) data.
 
@@ -303,7 +308,7 @@ Hover the mouse to check the tooltip. It is clear to see that Singapore has more
 
 ### 3.2.1 Original Visualisation
 
-![](images/clipboard-2679122498.png){width="541"}
+![](images/S__56820002.jpg){width="486"}
 
 ::: callout-note
 ## Observation
@@ -514,7 +519,7 @@ By standardizing the colors for imports and exports, the time-based variations b
 
 ### 3.3.1 Original Visualisation
 
-![](images/clipboard-2811862282.png)
+![](images/S__56820001.jpg){width="485"}
 
 ::: callout-note
 ## Observation
@@ -878,7 +883,7 @@ Interestingly, Miscellaneous Manufactured Articles also experience a notable dro
 
 Another interesting pattern is observed in Miscellaneous Manufactured Articles, where the trade value seems to follow a three-month cyclical trend, gradually increasing from March onward. This pattern may indicate bulk purchasing behaviors or industry-specific schedules. These observations suggest that seasonality affects different industries in different ways.
 
-## **4.5 Time series decomposition**
+## 4.5 Time series decomposition
 
 ::: panel-tabset
 ## The plot
@@ -990,3 +995,7 @@ This is an STL decomposition plot for Food & Live Animals, which breaks down the
 -   Some fluctuations in the residuals, but no extreme volatility, suggesting export values are relatively stable with short-term variations.
 
 # 5. Conclusion
+
+​In this exercise, we critically evaluated and enhanced three data visualizations related to Singapore's merchandise trade. By applying principles of clarity, we transformed the original designs to more effectively communicate insights. Subsequently, we conducted time-series analyses on the value of export by commodity sections to identify trend and seasonal pattern. This comprehensive approach not only improved the visual representation of the data but also deepened our understanding of Singapore's trade dynamics over the past decade.
+
+For further research, we can leverage the STL decomposition results to determine whether time forecasting models would be appropriate. This would help in understanding potential growth trends and identifying key periods of fluctuation in Singapore’s export sectors.
