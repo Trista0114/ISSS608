@@ -631,7 +631,7 @@ The slopegragh, Major Trading Partners for Trade in Services, compares trade vol
 
 # 4. Time Series Analysis: Merchandise Trade by Commodity Section
 
-4.1 Introduction
+## 4.1 Introduction
 
 In this section, I would like to conduct a time series analysis for Merchandise Trade by Commodity Section over the past 10 years. This includes autocorrelation analysis and examining the variations in different commodity categories.
 
@@ -639,7 +639,7 @@ The goal of this analysis is to understand the trends in Singapore’s export in
 
 Given the high volatility of oil prices, which may influence overall trade trends, we will focus the autocorrelation analysis on non-oil products to derive a clearer and more reliable picture of industry trends
 
-4.2 Data Preparation
+## 4.2 Data Preparation
 
 ::: panel-tabset
 ## Selecting Data
