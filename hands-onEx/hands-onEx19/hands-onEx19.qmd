@@ -121,7 +121,7 @@ tsibble_longer %>%
   autoplot()
 ```
 
-forecasting \
+forecasting\
 
 ```{r}
 vietnam_ts <- tsibble_longer %>%

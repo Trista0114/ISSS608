@@ -1,5 +1,5 @@
 ---
-title: "Hands on Exercise 07: Choropleth Mapping with R"
+title: "Hands on Exercise 08: Choropleth Mapping with R"
 author: "Chen.PengWei"
 date-modified: "last-modified"
 execute:
