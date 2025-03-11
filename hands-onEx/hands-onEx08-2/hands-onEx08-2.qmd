@@ -11,6 +11,18 @@ execute:
 
 # 1. Overview
 
+Proportional symbol maps (also known as graduate symbol maps) are a class of maps that use the visual variable of size to represent differences in the magnitude of a discrete, abruptly changing phenomenon, e.g. counts of people. Like choropleth maps, you can create classed or unclassed versions of these maps.
+
+::: callout-note
+## Things you will learn
+
+1.generate interactive point symbol map
+
+2.make symbol map in proportional
+
+3\. interactive with facet
+:::
+
 # 2. Getting Started
 
 Before we get started, we need to ensure that **tmap** package of R and other related R packages have been installed and loaded into R.
