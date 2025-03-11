@@ -47,7 +47,9 @@ website:
         contents:
           - text:  "Choropleth Mapping with R"
             href: hands-onEx/hands-onEx08/hands-onEx08.html
-      - section: "Visualising and Analysing Geographical Data"
+          - text:  "Visualising Geospatial Point Data"
+            href: hands-onEx/hands-onEx08-2/hands-onEx08-2.html
+      - section: "Visualising and Analysing Time-series Data"
         contents:
           - text:  "Visualising and Analysing Time-oriented Data"
             href: hands-onEx/hands-onEx07/hands-onEx07.html
@@ -88,6 +90,8 @@ website:
             href: hands-onEx/hands-onEx08/hands-onEx08.html
           - text:  "Visualising and Analysing Time-oriented Data"
             href: hands-onEx/hands-onEx07/hands-onEx07.html
+          - text:  "Visualising Geospatial Point Data"
+            href: hands-onEx/hands-onEx08-2/hands-onEx08-2.html
             
       - text: "In-class Exercise"
         menu:
