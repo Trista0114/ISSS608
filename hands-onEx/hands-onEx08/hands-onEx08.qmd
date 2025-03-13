@@ -22,7 +22,7 @@ In this chapter, you will learn how to plot functional and truthful choropleth m
 
     -   2.1 Joining the attribute data and geospatial data
 
--   ⭐3.1 ndefinedPlotting a choropleth map quickly by using *qtm()*
+-   ⭐3.1 Plotting a choropleth map quickly by using *qtm()*
 
 -   3.2 Creating a choropleth map by using *tmap*’s elements
 
@@ -34,10 +34,6 @@ In this chapter, you will learn how to plot functional and truthful choropleth m
 
 -   3.6 Combine little multiple map
 :::
-
-🛠️can't change the second multiple map to green\
-🛠️There is the NA in mpsz_pop2020\
-🛠️The lengend squeezed !
 
 # 2.Getting Started
 
@@ -241,12 +237,16 @@ Beside *alpha* argument, there are three other arguments for *tm_borders()*, the
 
 -   *col* = border colour,
 -   *lwd* = border line width. The default is 1, and
--   *lty* = border line type. The default is “solid”.
+
+```{r}
+tm_shape(mpsz_pop2020)+
+  tm_fill("DEPENDENCY") 
+```
 
 ```{r}
 tm_shape(mpsz_pop2020)+
   tm_fill("DEPENDENCY") +
-  tm_borders(lwd = 0.1,  alpha = 1)
+  tm_borders(lwd = 0.1,  alpha = 1) 
 ```
 ::::
 
