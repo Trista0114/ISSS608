@@ -112,6 +112,54 @@
     "text": "pacman::p_load(tidyverse, tsibble, feasts, fable, seasonal)\n\nimporting data\n\nts_data &lt;- read_csv(\n  \"data/visitor_arrivals_by_air.csv\")\n\n\nts_data\n\n# A tibble: 144 × 34\n   `Month-Year` `Republic of South Africa` Canada   USA Bangladesh Brunei China\n   &lt;chr&gt;                             &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;\n 1 1/1/2008                           3680   6972 31155       6786   3729 79599\n 2 1/2/2008                           1662   6056 27738       6314   3070 82074\n 3 1/3/2008                           3394   6220 31349       7502   4805 72546\n 4 1/4/2008                           3337   4764 26376       7333   3096 76112\n 5 1/5/2008                           2089   4460 26788       7988   3586 64808\n 6 1/6/2008                           2515   3888 29725       8301   5284 55238\n 7 1/7/2008                           2919   5313 33183       9004   4070 80747\n 8 1/8/2008                           2471   4519 27427       7913   4183 66625\n 9 1/9/2008                           2492   3421 21588       7549   3160 52649\n10 1/10/2008                          3023   4756 25112       7527   2983 54423\n# ℹ 134 more rows\n# ℹ 27 more variables: `Hong Kong SAR (China)` &lt;dbl&gt;, India &lt;dbl&gt;,\n#   Indonesia &lt;dbl&gt;, Japan &lt;dbl&gt;, `South Korea` &lt;dbl&gt;, Kuwait &lt;dbl&gt;,\n#   Malaysia &lt;dbl&gt;, Myanmar &lt;dbl&gt;, Pakistan &lt;dbl&gt;, Philippines &lt;dbl&gt;,\n#   `Saudi Arabia` &lt;dbl&gt;, `Sri Lanka` &lt;dbl&gt;, Taiwan &lt;dbl&gt;, Thailand &lt;dbl&gt;,\n#   `United Arab Emirates` &lt;dbl&gt;, Vietnam &lt;dbl&gt;, `Belgium & Luxembourg` &lt;dbl&gt;,\n#   Finland &lt;dbl&gt;, France &lt;dbl&gt;, Germany &lt;dbl&gt;, Italy &lt;dbl&gt;, …\n\n\nconvert the character to date and put it back\n\nts_data$`Month-Year` &lt;- dmy(\n  ts_data$`Month-Year`)\n\n\nts_data\n\n# A tibble: 144 × 34\n   `Month-Year` `Republic of South Africa` Canada   USA Bangladesh Brunei China\n   &lt;date&gt;                            &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;\n 1 2008-01-01                         3680   6972 31155       6786   3729 79599\n 2 2008-02-01                         1662   6056 27738       6314   3070 82074\n 3 2008-03-01                         3394   6220 31349       7502   4805 72546\n 4 2008-04-01                         3337   4764 26376       7333   3096 76112\n 5 2008-05-01                         2089   4460 26788       7988   3586 64808\n 6 2008-06-01                         2515   3888 29725       8301   5284 55238\n 7 2008-07-01                         2919   5313 33183       9004   4070 80747\n 8 2008-08-01                         2471   4519 27427       7913   4183 66625\n 9 2008-09-01                         2492   3421 21588       7549   3160 52649\n10 2008-10-01                         3023   4756 25112       7527   2983 54423\n# ℹ 134 more rows\n# ℹ 27 more variables: `Hong Kong SAR (China)` &lt;dbl&gt;, India &lt;dbl&gt;,\n#   Indonesia &lt;dbl&gt;, Japan &lt;dbl&gt;, `South Korea` &lt;dbl&gt;, Kuwait &lt;dbl&gt;,\n#   Malaysia &lt;dbl&gt;, Myanmar &lt;dbl&gt;, Pakistan &lt;dbl&gt;, Philippines &lt;dbl&gt;,\n#   `Saudi Arabia` &lt;dbl&gt;, `Sri Lanka` &lt;dbl&gt;, Taiwan &lt;dbl&gt;, Thailand &lt;dbl&gt;,\n#   `United Arab Emirates` &lt;dbl&gt;, Vietnam &lt;dbl&gt;, `Belgium & Luxembourg` &lt;dbl&gt;,\n#   Finland &lt;dbl&gt;, France &lt;dbl&gt;, Germany &lt;dbl&gt;, Italy &lt;dbl&gt;, …\n\n\n\n\nts_data_ts &lt;- ts(ts_data)       \nhead(ts_data_ts)\n\n     Month-Year Republic of South Africa Canada   USA Bangladesh Brunei China\n[1,]      13879                     3680   6972 31155       6786   3729 79599\n[2,]      13910                     1662   6056 27738       6314   3070 82074\n[3,]      13939                     3394   6220 31349       7502   4805 72546\n[4,]      13970                     3337   4764 26376       7333   3096 76112\n[5,]      14000                     2089   4460 26788       7988   3586 64808\n[6,]      14031                     2515   3888 29725       8301   5284 55238\n     Hong Kong SAR (China) India Indonesia Japan South Korea Kuwait Malaysia\n[1,]                 17103 41639     62683 37673       27937    284    31352\n[2,]                 21089 37170     47834 35297       22633    241    35030\n[3,]                 23230 44815     64688 42575       22876    206    37629\n[4,]                 17688 49527     58074 26839       20634    193    37521\n[5,]                 19340 67754     57089 30814       22785    140    38044\n[6,]                 19152 57380     70118 31001       22575    354    40419\n     Myanmar Pakistan Philippines Saudi Arabia Sri Lanka Taiwan Thailand\n[1,]    5269     1395       18622          406      5289  13757    18370\n[2,]    4643     1027       21609          591      4767  13921    16400\n[3,]    6218     1635       28464          626      4988  11181    23387\n[4,]    7324     1232       30131          644      7639  11665    24469\n[5,]    5395     1306       30193          470      5125  11436    21935\n[6,]    5542     1996       25800          772      4791  10689    19900\n     United Arab Emirates Vietnam Belgium & Luxembourg Finland France Germany\n[1,]                 2652   10315                 1341    1179   6918   11982\n[2,]                 2230   13415                 1449    1207   7876   13256\n[3,]                 3353   14320                 1674    1071   8066   15185\n[4,]                 3245   15413                 1426     768   8312   11604\n[5,]                 2856   14424                 1243     690   7066    9853\n[6,]                 4292   21368                 1255     624   5926    9347\n     Italy Netherlands Spain Switzerland United Kingdom Australia New Zealand\n[1,]  2953        4938  1668        4450          41934     71260        7806\n[2,]  2704        4885  1568        4381          44029     45595        4729\n[3,]  2822        5015  2254        5015          49489     53191        6106\n[4,]  3018        4902  1503        5434          35771     56514        7560\n[5,]  2165        4397  1365        4427          24464     57808        9090\n[6,]  2022        4166  1446        3359          22473     63350        9681\n\n\n\nts_tsibble &lt;- ts_data %&gt;%\n  mutate(Month = yearmonth(`Month-Year`)) %&gt;%\n  as_tsibble(index = `Month`)\n\n\n1 Visualising Time-series Data\ntransfer to long data first\n\nts_longer &lt;- ts_data %&gt;%\n  pivot_longer(cols = c(2:34),\n               names_to = \"Country\",\n               values_to = \"Arrivals\")\n\n\nts_longer\n\n# A tibble: 4,752 × 3\n   `Month-Year` Country                  Arrivals\n   &lt;date&gt;       &lt;chr&gt;                       &lt;dbl&gt;\n 1 2008-01-01   Republic of South Africa     3680\n 2 2008-01-01   Canada                       6972\n 3 2008-01-01   USA                         31155\n 4 2008-01-01   Bangladesh                   6786\n 5 2008-01-01   Brunei                       3729\n 6 2008-01-01   China                       79599\n 7 2008-01-01   Hong Kong SAR (China)       17103\n 8 2008-01-01   India                       41639\n 9 2008-01-01   Indonesia                   62683\n10 2008-01-01   Japan                       37673\n# ℹ 4,742 more rows\n\n\n\nts_longer %&gt;%\n  filter(Country == \"Vietnam\") %&gt;%\n  ggplot(aes(x = `Month-Year`, \n             y = Arrivals))+\n  geom_line(size = 0.5)\n\n\n\n\n\n\n\n\nuse facet_wrap() to wrap cause countries have different volume\ncan use fig-height: 20 for adjust quator plot size\n\nggplot(data = ts_longer, \n       aes(x = `Month-Year`, \n           y = Arrivals))+\n  geom_line(size = 0.5) +\n  facet_wrap(~ Country,\n             ncol = 3,\n             scales = \"free_y\") +\n  theme_bw()\n\n\n\n\n\n\n\n\n123\n\nts_tsibble &lt;- ts_data %&gt;%\n  mutate(Month = yearmonth(`Month-Year`)) %&gt;%\n  as_tsibble(index = `Month`)\n\ntsibble_longer &lt;- ts_tsibble %&gt;%\n  pivot_longer(cols = c(2:34),\n               names_to = \"Country\",\n               values_to = \"Arrivals\")\n\n\ntsibble_longer %&gt;%\n  filter(Country == \"Vietnam\" |\n         Country == \"Italy\") %&gt;% \n  gg_subseries(Arrivals)\n\n\n\n\n\n\n\n\nACF\n\n\ntsibble_longer %&gt;%\n  filter(`Country` == \"Vietnam\") %&gt;%\n  ACF(Arrivals) %&gt;% \n  autoplot()\n\n\n\n\n\n\n\n\nforecasting\n\n\nvietnam_ts &lt;- tsibble_longer %&gt;%\n  filter(Country == \"Vietnam\") %&gt;% \n  mutate(Type = if_else(\n    `Month-Year` &gt;= \"2019-01-01\", \n    \"Hold-out\", \"Training\"))\n\n\nvietnam_train &lt;- vietnam_ts %&gt;%\n  filter(`Month-Year` &lt; \"2019-01-01\")"
   },
   {
+    "objectID": "hands-onEx/hands-onEx08-3/hands-onEx08-3.html",
+    "href": "hands-onEx/hands-onEx08-3/hands-onEx08-3.html",
+    "title": "Hands on Exercise 08-3: Analytical Mapping",
+    "section": "",
+    "text": "In this in-class exercise, you will learn:\n\nCreating rate map\nCreating percentile map\nCreating boxmap",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Geographical Data",
+      "Analytical Mapping"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx08-3/hands-onEx08-3.html#visualising-distribution",
+    "href": "hands-onEx/hands-onEx08-3/hands-onEx08-3.html#visualising-distribution",
+    "title": "Hands on Exercise 08-3: Analytical Mapping",
+    "section": "3.1 Visualising distribution",
+    "text": "3.1 Visualising distribution\nPlot a choropleth map showing the distribution of non-function water point by LGA\n\np1 &lt;- tm_shape(NGA_wp) +\n  tm_fill(\"wp_functional\",\n          n = 10,\n          style = \"equal\",\n          palette = \"Blues\") +\n  tm_borders(lwd = 0.1,\n             alpha = 1) +\n  tm_layout(main.title = \"Distribution of functional water point by LGAs\",\n            legend.outside = FALSE)\n\np2 &lt;- tm_shape(NGA_wp) +\n  tm_fill(\"total_wp\",\n          n = 10,\n          style = \"equal\",\n          palette = \"Blues\") +\n  tm_borders(lwd = 0.1,\n             alpha = 1) +\n  tm_layout(main.title = \"Distribution of total  water point by LGAs\",\n            legend.outside = FALSE)\n\ntmap_arrange(p2, p1, nrow = 1)",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Geographical Data",
+      "Analytical Mapping"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx08-3/hands-onEx08-3.html#percentile-map",
+    "href": "hands-onEx/hands-onEx08-3/hands-onEx08-3.html#percentile-map",
+    "title": "Hands on Exercise 08-3: Analytical Mapping",
+    "section": "5.1 Percentile Map",
+    "text": "5.1 Percentile Map\nThe percentile map is a special type of quantile map with six specific categories: 0-1%,1-10%, 10-50%,50-90%,90-99%, and 99-100%. \n\n5.1.1Data Preparation\n\nstep1: Exclude records with NAstep2: Creating customised classification and extracting valuesWhy writing functions?\n\n\n\nNGA_wp &lt;- NGA_wp %&gt;%\n  drop_na()\n\n\n\nst_set_geometry(NULL): Removes the geometry information and ensures that var only contains values.\nvar[,1]: Extract the first column of var (because var is a data.frame or tibble, it needs to be valued this way). quantile(…, percent): Calculate the value of var[,1] at the percentile defined by percent\n\npercent &lt;- c(0,.01,.1,.5,.9,.99,1)\nvar &lt;- NGA_wp[\"pct_functional\"] %&gt;%\n  st_set_geometry(NULL)\nquantile(var[,1], percent)\n\n       0%        1%       10%       50%       90%       99%      100% \n0.0000000 0.0000000 0.2169811 0.4791667 0.8611111 1.0000000 1.0000000 \n\n\n\n\n\n\n\n\nImportant\n\n\n\nWhen variables are extracted from an sf data.frame, the geometry is extracted as well. For mapping and spatial manipulation, this is the expected behavior, but many base R functions cannot deal with the geometry. Specifically, the quantile() gives an error. As a result st_set_geomtry(NULL) is used to drop geomtry field.\n\n\n\n\nWriting a function has three big advantages over using copy-and-paste:\n\nYou can give a function an evocative name that makes your code easier to understand.\nAs requirements change, you only need to update code in one place, instead of many.\nYou eliminate the chance of making incidental mistakes when you copy and paste (i.e. updating a variable name in one place, but not in another).\n\n\n\n\nFirstly, we will write an R function as shown below to extract a variable (i.e. wp_nonfunctional) as a vector out of an sf data.frame.\n\narguments:\n\nvname: variable name (as character, in quotes)\ndf: name of sf data frame\n\nreturns:\n\nv: vector with values (without a column name)\n\n\n✅ Extract single variable from sf data frame ✅ Remove geographical information and turn variables into ordinary vectors ✅ Return pure vector, no column names\n\nget.var &lt;- function(vname,df) {\n  v &lt;- df[vname] %&gt;% \n    st_set_geometry(NULL)\n  v &lt;- unname(v[,1])\n  return(v)\n}\n\n\n\n5.1.2 percentile mapping\n\npercentmap &lt;- function(vnam, df, legtitle=NA, mtitle=\"Percentile Map\"){\n  percent &lt;- c(0,.01,.1,.5,.9,.99,1)\n  var &lt;- get.var(vnam, df)\n  bperc &lt;- quantile(var, percent)\n  tm_shape(df) +\n  tm_polygons() +\n  tm_shape(df) +\n     tm_fill(vnam,\n             title=legtitle,\n             breaks=bperc,\n             palette=\"Blues\",\n          labels=c(\"&lt; 1%\", \"1% - 10%\", \"10% - 50%\", \"50% - 90%\", \"90% - 99%\", \"&gt; 99%\"))  +\n  tm_borders() +\n  tm_layout(main.title = mtitle, \n            title.position = c(\"right\",\"bottom\"))\n}\n\npercentmap(\"total_wp\", NGA_wp)",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Geographical Data",
+      "Analytical Mapping"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx08-3/hands-onEx08-3.html#box-map",
+    "href": "hands-onEx/hands-onEx08-3/hands-onEx08-3.html#box-map",
+    "title": "Hands on Exercise 08-3: Analytical Mapping",
+    "section": "5.2 Box map",
+    "text": "5.2 Box map\n\nggplot(data = NGA_wp,\n       aes(x = \"\",\n           y = wp_nonfunctional)) +\n  geom_boxplot()\n\n\n\n\n\n\n\n\n\nDisplaying summary statistics on a choropleth map by using the basic principles of boxplot.\nTo create a box map, a custom breaks specification will be used. However, there is a complication. The break points for the box map vary depending on whether lower or upper outliers are present.\n\nThe code chunk below is an R function that creating break points for a box map.\n\narguments:\n\nv: vector with observations\nmult: multiplier for IQR (default 1.5)\n\nreturns:\n\nbb: vector with 7 break points compute quartile and fences\n\n\nbb is a numeric vector of length 7, used to store:\nbb[1]: lower bound (minimum value or lofence)\nbb[2]: first critical value (qv[1] or lofence)\nbb[3]: first quartile Q1\nbb[4]: median Q2\nbb[5]: third quartile Q3\nbb[6]: second critical value (qv[5] or upfence)\nbb[7]: upper bound (maximum value or upfence)\nIf lofence is smaller than qv[1], which means there is no outlier, then lofence is directly set to bb[1]. Otherwise, set qv[1] to bb[1] and lofence to bb[2].\n\nboxbreaks &lt;- function(v,mult=1.5) {\n  qv &lt;- unname(quantile(v))\n  iqr &lt;- qv[4] - qv[2]\n  upfence &lt;- qv[4] + mult * iqr\n  lofence &lt;- qv[2] - mult * iqr\n  # initialize break points vector\n  bb &lt;- vector(mode=\"numeric\",length=7)\n  # logic for lower and upper fences\n  if (lofence &lt; qv[1]) {  # no lower outliers\n    bb[1] &lt;- lofence\n    bb[2] &lt;- floor(qv[1])\n  } else {\n    bb[2] &lt;- lofence\n    bb[1] &lt;- qv[1]\n  }\n  if (upfence &gt; qv[5]) { # no upper outliers\n    bb[7] &lt;- upfence\n    bb[6] &lt;- ceiling(qv[5])\n  } else {\n    bb[6] &lt;- upfence\n    bb[7] &lt;- qv[5]\n  }\n  bb[3:5] &lt;- qv[2:4]\n  return(bb)\n}\n\nThe code chunk below is an R function to extract a variable as a vector out of an sf data frame.\n\narguments:\n\nvname: variable name (as character, in quotes)\ndf: name of sf data frame\n\nreturns:\n\nv: vector with values (without a column name)\n\n\n\nget.var &lt;- function(vname,df) {\n  v &lt;- df[vname] %&gt;% st_set_geometry(NULL)\n  v &lt;- unname(v[,1])\n  return(v)\n}\n\nLet’s test the newly created function\n\nvar &lt;- get.var(\"wp_nonfunctional\", NGA_wp) \nboxbreaks(var)\n\n[1] -56.5   0.0  14.0  34.0  61.0 131.5 278.0\n\n\nfinally, we can create a box map.\n\nvnam: variable name (data column name, string format).\ndf: Data frame of sf type, containing geospatial data.\nlegtitle (optional): legend title (default is NA).\nmtitle (optional): map title (default is “Box Map”).\nmult (optional): IQR (interquartile range) multiples used to calculate outliers (default is 1.5).\n\nget.var(vnam, df): Extract the variable vnam from df of type sf and convert it into a pure vector (excluding geographical information).\nboxbreaks(var): Calculate 7 break points of this variable for Box Map visualization\n\nboxmap &lt;- function(vnam, df, \n                   legtitle=NA,\n                   mtitle=\"Box Map\",\n                   mult=1.5){\n  var &lt;- get.var(vnam,df)\n  bb &lt;- boxbreaks(var)\n  tm_shape(df) +\n    tm_polygons() +\n  tm_shape(df) +\n     tm_fill(vnam,title=legtitle,\n             breaks=bb,\n             palette=\"Blues\",\n          labels = c(\"lower outlier\", \n                     \"&lt; 25%\", \n                     \"25% - 50%\", \n                     \"50% - 75%\",\n                     \"&gt; 75%\", \n                     \"upper outlier\"))  +\n  tm_borders() +\n  tm_layout(main.title = mtitle, \n            title.position = c(\"left\",\n                               \"top\"))\n}\ntmap_mode(\"plot\")\nboxmap(\"wp_nonfunctional\", NGA_wp)",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Geographical Data",
+      "Analytical Mapping"
+    ]
+  },
+  {
     "objectID": "hands-onEx/hands-onEx08/hands-onEx08.html",
     "href": "hands-onEx/hands-onEx08/hands-onEx08.html",
     "title": "Hands on Exercise 08: Choropleth Mapping with R",
@@ -2014,6 +2062,18 @@
     ]
   },
   {
+    "objectID": "hands-onEx/hands-onEx08-2/hands-onEx08-2.html",
+    "href": "hands-onEx/hands-onEx08-2/hands-onEx08-2.html",
+    "title": "Hands on Exercise 08-2: Visualising Geospatial Point Data",
+    "section": "",
+    "text": "Proportional symbol maps (also known as graduate symbol maps) are a class of maps that use the visual variable of size to represent differences in the magnitude of a discrete, abruptly changing phenomenon, e.g. counts of people. Like choropleth maps, you can create classed or unclassed versions of these maps.\n\n\n\n\n\n\nThings you will learn\n\n\n\n1.generate interactive point symbol map\n2.make symbol map in proportional\n3. interactive with facet",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Geographical Data",
+      "Visualising Geospatial Point Data"
+    ]
+  },
+  {
     "objectID": "hands-onEx/hands-onEx08-2/hands-onEx08-2.html#data-preparation",
     "href": "hands-onEx/hands-onEx08-2/hands-onEx08-2.html#data-preparation",
     "title": "Hands on Exercise 08-2: Visualising Geospatial Point Data",
@@ -2098,6 +2158,270 @@
     ]
   },
   {
+    "objectID": "hands-onEx/hands-onEx09/hands-onEx09.html#installing-and-launching-r-packages",
+    "href": "hands-onEx/hands-onEx09/hands-onEx09.html#installing-and-launching-r-packages",
+    "title": "Hands on Exercise 09: Modelling, Visualising and Analysing Network Data with R",
+    "section": "2.1 Installing and launching R packages",
+    "text": "2.1 Installing and launching R packages\nIn this hands-on exercise, we need to download igraph, tidygraph, ggraph and visNetwork.( network data modelling and visualisation packages).\nBeside these four packages, tidyverse and lubridate, an R package specially designed to handle and wrangling time data will be installed and launched too.\n\n\nSys.setlocale(\"LC_TIME\", \"C\")  \n\n[1] \"C\"\n\n\n\npacman::p_load(igraph, tidygraph, ggraph, \n               visNetwork, lubridate, clock,\n               tidyverse, graphlayouts)",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Network Data",
+      "Modelling, Visualising and Analysing Network Data with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx09/hands-onEx09.html#wrangling-time",
+    "href": "hands-onEx/hands-onEx09/hands-onEx09.html#wrangling-time",
+    "title": "Hands on Exercise 09: Modelling, Visualising and Analysing Network Data with R",
+    "section": "3.1 Wrangling time",
+    "text": "3.1 Wrangling time\n\nGAStech_edges &lt;- GAStech_edges %&gt;%\n  mutate(SendDate = dmy(SentDate)) %&gt;%\n  mutate(Weekday = wday(SentDate,\n                        label = TRUE,\n                        abbr = FALSE))\n\n\n\n\n\n\n\nThings to learn from the code\n\n\n\n\nboth dmy() and wday() are functions of lubridate package.\ndmy() transforms the SentDate to Date data type.\nwday() returns the day of the week as a decimal number or an ordered factor if label is TRUE. The argument abbr is FALSE keep the daya spells in full, i.e. Monday. The function will create a new column in the data.frame i.e. Weekday and the output of wday() will save in this newly created field.",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Network Data",
+      "Modelling, Visualising and Analysing Network Data with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx09/hands-onEx09.html#wrangling-attributes",
+    "href": "hands-onEx/hands-onEx09/hands-onEx09.html#wrangling-attributes",
+    "title": "Hands on Exercise 09: Modelling, Visualising and Analysing Network Data with R",
+    "section": "3.2 Wrangling attributes",
+    "text": "3.2 Wrangling attributes\nA close examination of GAStech_edges data.frame reveals that it consists of individual e-mail flow records. This is not very useful for visualisation.\n\nglimpse(GAStech_edges)\n\nRows: 9,063\nColumns: 10\n$ source      &lt;dbl&gt; 43, 43, 44, 44, 44, 44, 44, 44, 44, 44, 44, 44, 26, 26, 26…\n$ target      &lt;dbl&gt; 41, 40, 51, 52, 53, 45, 44, 46, 48, 49, 47, 54, 27, 28, 29…\n$ SentDate    &lt;chr&gt; \"6/1/2014\", \"6/1/2014\", \"6/1/2014\", \"6/1/2014\", \"6/1/2014\"…\n$ SentTime    &lt;time&gt; 08:39:00, 08:39:00, 08:58:00, 08:58:00, 08:58:00, 08:58:0…\n$ Subject     &lt;chr&gt; \"GT-SeismicProcessorPro Bug Report\", \"GT-SeismicProcessorP…\n$ MainSubject &lt;chr&gt; \"Work related\", \"Work related\", \"Work related\", \"Work rela…\n$ sourceLabel &lt;chr&gt; \"Sven.Flecha\", \"Sven.Flecha\", \"Kanon.Herrero\", \"Kanon.Herr…\n$ targetLabel &lt;chr&gt; \"Isak.Baza\", \"Lucas.Alcazar\", \"Felix.Resumir\", \"Hideki.Coc…\n$ SendDate    &lt;date&gt; 2014-01-06, 2014-01-06, 2014-01-06, 2014-01-06, 2014-01-0…\n$ Weekday     &lt;ord&gt; Friday, Friday, Friday, Friday, Friday, Friday, Friday, Fr…\n\n\nIn view of this, we will aggregate the individual by date, senders, receivers, main subject and day of the week. A new field called Weight has been added in GAStech_edges_aggregated.\n\nGAStech_edges_aggregated &lt;- GAStech_edges %&gt;%\n  filter(MainSubject == \"Work related\") %&gt;%\n  group_by(source, target, Weekday) %&gt;%\n    summarise(Weight = n()) %&gt;%\n  filter(source!=target) %&gt;%\n  filter(Weight &gt; 1) %&gt;%\n  ungroup()\n\nNow reviewing the data again.\n\nglimpse(GAStech_edges_aggregated)\n\nRows: 1,372\nColumns: 4\n$ source  &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,…\n$ target  &lt;dbl&gt; 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 6,…\n$ Weekday &lt;ord&gt; Sunday, Monday, Tuesday, Wednesday, Friday, Sunday, Monday, Tu…\n$ Weight  &lt;int&gt; 5, 2, 3, 4, 6, 5, 2, 3, 4, 6, 5, 2, 3, 4, 6, 5, 2, 3, 4, 6, 5,…",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Network Data",
+      "Modelling, Visualising and Analysing Network Data with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx09/hands-onEx09.html#the-tbl_graph-object",
+    "href": "hands-onEx/hands-onEx09/hands-onEx09.html#the-tbl_graph-object",
+    "title": "Hands on Exercise 09: Modelling, Visualising and Analysing Network Data with R",
+    "section": "4.1 The tbl_graph object",
+    "text": "4.1 The tbl_graph object\ntbl_graph(): Directly create a network object (applicable to existing nodes and edges).\nas_tbl_graph(): Convert other data formats (such as data.frame, igraph, network) to tbl_graph, suitable for people who already have data but need to convert the format. The purpose of these functions is to make network data easier to operate in tidygraph, and are compatible with tidyverse tools such as dplyr and ggplot2 for network analysis and visualization.\nBelow are network data and objects supported by as_tbl_graph()\n\na node data.frame and an edge data.frame,\ndata.frame, list, matrix from base,\nigraph from igraph,\nnetwork from network,\ndendrogram and hclust from stats,\nNode from data.tree,\nphylo and evonet from ape, and\ngraphNEL, graphAM, graphBAM from graph (in Bioconductor).",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Network Data",
+      "Modelling, Visualising and Analysing Network Data with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx09/hands-onEx09.html#the-dplyr-verbs-in-tidygraph",
+    "href": "hands-onEx/hands-onEx09/hands-onEx09.html#the-dplyr-verbs-in-tidygraph",
+    "title": "Hands on Exercise 09: Modelling, Visualising and Analysing Network Data with R",
+    "section": "4.2 The dplyr verbs in tidygraph",
+    "text": "4.2 The dplyr verbs in tidygraph",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Network Data",
+      "Modelling, Visualising and Analysing Network Data with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx09/hands-onEx09.html#using-tbl_graph-to-build-tidygraph-data-model.",
+    "href": "hands-onEx/hands-onEx09/hands-onEx09.html#using-tbl_graph-to-build-tidygraph-data-model.",
+    "title": "Hands on Exercise 09: Modelling, Visualising and Analysing Network Data with R",
+    "section": "4.3 Using tbl_graph() to build tidygraph data model.",
+    "text": "4.3 Using tbl_graph() to build tidygraph data model.\nIn this section, you will use tbl_graph() of tinygraph package to build an tidygraph’s network graph data.frame.\n\nGAStech_graph &lt;- tbl_graph(nodes = GAStech_nodes,\n                           edges = GAStech_edges_aggregated, \n                           directed = TRUE)\n\nNow reviewing the output tidygraph’s graph object.\n\n\nGAStech_graph\n\n# A tbl_graph: 54 nodes and 1372 edges\n#\n# A directed multigraph with 1 component\n#\n# Node Data: 54 × 4 (active)\n      id label               Department     Title                               \n   &lt;dbl&gt; &lt;chr&gt;               &lt;chr&gt;          &lt;chr&gt;                               \n 1     1 Mat.Bramar          Administration Assistant to CEO                    \n 2     2 Anda.Ribera         Administration Assistant to CFO                    \n 3     3 Rachel.Pantanal     Administration Assistant to CIO                    \n 4     4 Linda.Lagos         Administration Assistant to COO                    \n 5     5 Ruscella.Mies.Haber Administration Assistant to Engineering Group Mana…\n 6     6 Carla.Forluniau     Administration Assistant to IT Group Manager       \n 7     7 Cornelia.Lais       Administration Assistant to Security Group Manager \n 8    44 Kanon.Herrero       Security       Badging Office                      \n 9    45 Varja.Lagos         Security       Badging Office                      \n10    46 Stenig.Fusil        Security       Building Control                    \n# ℹ 44 more rows\n#\n# Edge Data: 1,372 × 4\n   from    to Weekday Weight\n  &lt;int&gt; &lt;int&gt; &lt;ord&gt;    &lt;int&gt;\n1     1     2 Sunday       5\n2     1     2 Monday       2\n3     1     2 Tuesday      3\n# ℹ 1,369 more rows",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Network Data",
+      "Modelling, Visualising and Analysing Network Data with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx09/hands-onEx09.html#reviewing-the-output-tidygraphs-graph-object",
+    "href": "hands-onEx/hands-onEx09/hands-onEx09.html#reviewing-the-output-tidygraphs-graph-object",
+    "title": "Hands on Exercise 09: Modelling, Visualising and Analysing Network Data with R",
+    "section": "4.5 Reviewing the output tidygraph’s graph object",
+    "text": "4.5 Reviewing the output tidygraph’s graph object\n\nThe output above reveals that GAStech_graph is a tbl_graph object with 54 nodes and 4541 edges.\nThe command also prints the first six rows of “Node Data” and the first three of “Edge Data”.\nIt states that the Node Data is active. The notion of an active tibble within a tbl_graph object makes it possible to manipulate the data in one tibble at a time.",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Network Data",
+      "Modelling, Visualising and Analysing Network Data with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx09/hands-onEx09.html#changing-the-active-object",
+    "href": "hands-onEx/hands-onEx09/hands-onEx09.html#changing-the-active-object",
+    "title": "Hands on Exercise 09: Modelling, Visualising and Analysing Network Data with R",
+    "section": "4.6 Changing the active object",
+    "text": "4.6 Changing the active object\nThe nodes tibble data frame is activated by default, but you can change which tibble data frame is active with the activate() function. Thus, if we wanted to rearrange the rows in the edges tibble to list those with the highest “weight” first, we could use activate() and then arrange().\n\nFor example,\n\nGAStech_graph %&gt;%\n  activate(edges) %&gt;%\n  arrange(desc(Weight))\n\n# A tbl_graph: 54 nodes and 1372 edges\n#\n# A directed multigraph with 1 component\n#\n# Edge Data: 1,372 × 4 (active)\n    from    to Weekday   Weight\n   &lt;int&gt; &lt;int&gt; &lt;ord&gt;      &lt;int&gt;\n 1    40    41 Saturday      13\n 2    41    43 Monday        11\n 3    35    31 Tuesday       10\n 4    40    41 Monday        10\n 5    40    43 Monday        10\n 6    36    32 Sunday         9\n 7    40    43 Saturday       9\n 8    41    40 Monday         9\n 9    19    15 Wednesday      8\n10    35    38 Tuesday        8\n# ℹ 1,362 more rows\n#\n# Node Data: 54 × 4\n     id label           Department     Title           \n  &lt;dbl&gt; &lt;chr&gt;           &lt;chr&gt;          &lt;chr&gt;           \n1     1 Mat.Bramar      Administration Assistant to CEO\n2     2 Anda.Ribera     Administration Assistant to CFO\n3     3 Rachel.Pantanal Administration Assistant to CIO\n# ℹ 51 more rows",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Network Data",
+      "Modelling, Visualising and Analysing Network Data with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx09/hands-onEx09.html#plotting-a-basic-network-graph",
+    "href": "hands-onEx/hands-onEx09/hands-onEx09.html#plotting-a-basic-network-graph",
+    "title": "Hands on Exercise 09: Modelling, Visualising and Analysing Network Data with R",
+    "section": "5.1 Plotting a basic network graph",
+    "text": "5.1 Plotting a basic network graph\nThe code chunk below uses ggraph(), geom-edge_link() and geom_node_point() to plot a network graph by using GAStech_graph. Before your get started, it is advisable to read their respective reference guide at least once.\n\nThe basic plotting function is ggraph(), which takes the data to be used for the graph and the type of layout desired. Both of the arguments for ggraph() are built around igraph. Therefore, ggraph() can use either an igraph object or a tbl_graph object.\n\nggraph(GAStech_graph) +\n  geom_edge_link() +\n  geom_node_point()",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Network Data",
+      "Modelling, Visualising and Analysing Network Data with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx09/hands-onEx09.html#changing-the-default-network-graph-theme",
+    "href": "hands-onEx/hands-onEx09/hands-onEx09.html#changing-the-default-network-graph-theme",
+    "title": "Hands on Exercise 09: Modelling, Visualising and Analysing Network Data with R",
+    "section": "5.2 Changing the default network graph theme",
+    "text": "5.2 Changing the default network graph theme\nIn this section, you will use theme_graph() to remove the x and y axes.\n\ng &lt;- ggraph(GAStech_graph) + \n  geom_edge_link(aes()) +\n  geom_node_point(aes())\n\ng + theme_graph()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNote\n\n\n\n\ntheme_graph(), besides removing axes, grids, and border, changes the font to Arial Narrow (this can be overridden).\nThe ggraph theme can be set for a series of plots with the set_graph_style() command run before the graphs are plotted or by using theme_graph() in the individual plots.",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Network Data",
+      "Modelling, Visualising and Analysing Network Data with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx09/hands-onEx09.html#changing-the-coloring-of-the-plot",
+    "href": "hands-onEx/hands-onEx09/hands-onEx09.html#changing-the-coloring-of-the-plot",
+    "title": "Hands on Exercise 09: Modelling, Visualising and Analysing Network Data with R",
+    "section": "5.3 Changing the coloring of the plot",
+    "text": "5.3 Changing the coloring of the plot\nuse theme_graph()\n\ng &lt;- ggraph(GAStech_graph) + \n  geom_edge_link(aes(colour = 'grey50')) +\n  geom_node_point(aes(colour = 'grey40'))\n\ng + theme_graph(background = 'grey10',\n                text_colour = 'white')",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Network Data",
+      "Modelling, Visualising and Analysing Network Data with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx09/hands-onEx09.html#working-with-ggraphs-layouts",
+    "href": "hands-onEx/hands-onEx09/hands-onEx09.html#working-with-ggraphs-layouts",
+    "title": "Hands on Exercise 09: Modelling, Visualising and Analysing Network Data with R",
+    "section": "5.4 Working with ggraph’s layouts",
+    "text": "5.4 Working with ggraph’s layouts\nggraph support many layout for standard used, they are: star, circle, nicely (default), dh, gem, graphopt, grid, mds, spahere, randomly, fr, kk, drl and lgl. Figures below and on the right show layouts supported by ggraph().",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Network Data",
+      "Modelling, Visualising and Analysing Network Data with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx09/hands-onEx09.html#fruchterman-and-reingold-layout",
+    "href": "hands-onEx/hands-onEx09/hands-onEx09.html#fruchterman-and-reingold-layout",
+    "title": "Hands on Exercise 09: Modelling, Visualising and Analysing Network Data with R",
+    "section": "5.5 Fruchterman and Reingold layout",
+    "text": "5.5 Fruchterman and Reingold layout\n\ng &lt;- ggraph(GAStech_graph, \n            layout = \"fr\") +\n  geom_edge_link(aes()) +\n  geom_node_point(aes())\n\ng + theme_graph()",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Network Data",
+      "Modelling, Visualising and Analysing Network Data with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx09/hands-onEx09.html#modifying-network-nodes",
+    "href": "hands-onEx/hands-onEx09/hands-onEx09.html#modifying-network-nodes",
+    "title": "Hands on Exercise 09: Modelling, Visualising and Analysing Network Data with R",
+    "section": "5.6 Modifying network nodes",
+    "text": "5.6 Modifying network nodes\ncolour each node by referring to their respective departments.\ngeom_node_point allows for simple plotting of nodes in different shapes, colours and sizes. In the codes chnuks above colour and size are used.\n\ng &lt;- ggraph(GAStech_graph, \n            layout = \"nicely\") + \n  geom_edge_link(aes()) +\n  geom_node_point(aes(colour = Department, \n                      size = 3))\n\ng + theme_graph()",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Network Data",
+      "Modelling, Visualising and Analysing Network Data with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx09/hands-onEx09.html#modifying-edges",
+    "href": "hands-onEx/hands-onEx09/hands-onEx09.html#modifying-edges",
+    "title": "Hands on Exercise 09: Modelling, Visualising and Analysing Network Data with R",
+    "section": "5.7 Modifying edges",
+    "text": "5.7 Modifying edges\n The thickness of the edges will be mapped with the Weight variable.\n\ng &lt;- ggraph(GAStech_graph, \n            layout = \"nicely\") +\n  geom_edge_link(aes(width=Weight), \n                 alpha=0.2) +\n  scale_edge_width(range = c(0.1, 5)) +\n  geom_node_point(aes(colour = Department), \n                  size = 3)\n\ng + theme_graph()\n\n\n\n\n\n\n\n\nargument width is used to map the width of the line in proportional to the Weight attribute and argument alpha is used to introduce opacity on the line.",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Network Data",
+      "Modelling, Visualising and Analysing Network Data with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx09/hands-onEx09.html#working-with-facet_edges",
+    "href": "hands-onEx/hands-onEx09/hands-onEx09.html#working-with-facet_edges",
+    "title": "Hands on Exercise 09: Modelling, Visualising and Analysing Network Data with R",
+    "section": "6.1 Working with facet_edges()",
+    "text": "6.1 Working with facet_edges()\n\nset_graph_style()\n\ng &lt;- ggraph(GAStech_graph, \n            layout = \"nicely\") + \n  geom_edge_link(aes(width=Weight), \n                 alpha=0.2) +\n  scale_edge_width(range = c(0.1, 5)) +\n  geom_node_point(aes(colour = Department), \n                  size = 2)\n\ng + facet_edges(~Weekday)",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Network Data",
+      "Modelling, Visualising and Analysing Network Data with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx09/hands-onEx09.html#working-with-facet_edges-1",
+    "href": "hands-onEx/hands-onEx09/hands-onEx09.html#working-with-facet_edges-1",
+    "title": "Hands on Exercise 09: Modelling, Visualising and Analysing Network Data with R",
+    "section": "6.2 Working with facet_edges()",
+    "text": "6.2 Working with facet_edges()\n\nuses theme() to change the position of the legend.\n\nset_graph_style()\n\ng &lt;- ggraph(GAStech_graph, \n            layout = \"nicely\") + \n  geom_edge_link(aes(width=Weight), \n                 alpha=0.2) +\n  scale_edge_width(range = c(0.1, 5)) +\n  geom_node_point(aes(colour = Department), \n                  size = 2) +\n  theme(legend.position = 'bottom')\n  \ng + facet_edges(~Weekday)",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Network Data",
+      "Modelling, Visualising and Analysing Network Data with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx09/hands-onEx09.html#a-framed-facet-graph",
+    "href": "hands-onEx/hands-onEx09/hands-onEx09.html#a-framed-facet-graph",
+    "title": "Hands on Exercise 09: Modelling, Visualising and Analysing Network Data with R",
+    "section": "6.3 A framed facet graph",
+    "text": "6.3 A framed facet graph\n\nset_graph_style() \n\ng &lt;- ggraph(GAStech_graph, \n            layout = \"nicely\") + \n  geom_edge_link(aes(width=Weight), \n                 alpha=0.2) +\n  scale_edge_width(range = c(0.1, 5)) +\n  geom_node_point(aes(colour = Department), \n                  size = 2)\n  \ng + facet_edges(~Weekday) +\n  th_foreground(foreground = \"grey80\",  \n                border = TRUE) +\n  theme(legend.position = 'bottom')",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Network Data",
+      "Modelling, Visualising and Analysing Network Data with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx09/hands-onEx09.html#working-with-facet_nodes",
+    "href": "hands-onEx/hands-onEx09/hands-onEx09.html#working-with-facet_nodes",
+    "title": "Hands on Exercise 09: Modelling, Visualising and Analysing Network Data with R",
+    "section": "6.4 Working with facet_nodes()",
+    "text": "6.4 Working with facet_nodes()\n\nset_graph_style()\n\ng &lt;- ggraph(GAStech_graph, \n            layout = \"nicely\") + \n  geom_edge_link(aes(width=Weight), \n                 alpha=0.2) +\n  scale_edge_width(range = c(0.1, 5)) +\n  geom_node_point(aes(colour = Department), \n                  size = 2)\n  \ng + facet_nodes(~Department)+\n  th_foreground(foreground = \"grey80\",  \n                border = TRUE) +\n  theme(legend.position = 'bottom')",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Network Data",
+      "Modelling, Visualising and Analysing Network Data with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx09/hands-onEx09.html#computing-centrality-indices",
+    "href": "hands-onEx/hands-onEx09/hands-onEx09.html#computing-centrality-indices",
+    "title": "Hands on Exercise 09: Modelling, Visualising and Analysing Network Data with R",
+    "section": "7.1 Computing centrality indices",
+    "text": "7.1 Computing centrality indices\nCentrality measures are a collection of statistical indices use to describe the relative important of the actors are to a network. There are four well-known centrality measures, namely: degree, betweenness, closeness and eigenvector. It is beyond the scope of this hands-on exercise to cover the principles and mathematics of these measure here. \n\nmutate() of dplyr is used to perform the computation.\nthe algorithm used, on the other hand, is the centrality_betweenness() of tidygraph.\n\n\ng &lt;- GAStech_graph %&gt;%\n  mutate(betweenness_centrality = centrality_betweenness()) %&gt;%\n  ggraph(layout = \"fr\") + \n  geom_edge_link(aes(width=Weight), \n                 alpha=0.2) +\n  scale_edge_width(range = c(0.1, 5)) +\n  geom_node_point(aes(colour = Department,\n            size=betweenness_centrality))\ng + theme_graph()",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Network Data",
+      "Modelling, Visualising and Analysing Network Data with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx09/hands-onEx09.html#visualising-network-metrics",
+    "href": "hands-onEx/hands-onEx09/hands-onEx09.html#visualising-network-metrics",
+    "title": "Hands on Exercise 09: Modelling, Visualising and Analysing Network Data with R",
+    "section": "7.2 Visualising network metrics",
+    "text": "7.2 Visualising network metrics\nIt is important to note that from ggraph v2.0 onward tidygraph algorithms such as centrality measures can be accessed directly in ggraph calls. This means that it is no longer necessary to precompute and store derived node and edge centrality measures on the graph in order to use them in a plot.\n\n\ng &lt;- GAStech_graph %&gt;%\n  ggraph(layout = \"fr\") + \n  geom_edge_link(aes(width=Weight), \n                 alpha=0.2) +\n  scale_edge_width(range = c(0.1, 5)) +\n  geom_node_point(aes(colour = Department, \n                      size = centrality_betweenness()))\ng + theme_graph()",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Network Data",
+      "Modelling, Visualising and Analysing Network Data with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx09/hands-onEx09.html#visualising-community",
+    "href": "hands-onEx/hands-onEx09/hands-onEx09.html#visualising-community",
+    "title": "Hands on Exercise 09: Modelling, Visualising and Analysing Network Data with R",
+    "section": "7.3 Visualising Community",
+    "text": "7.3 Visualising Community\ntidygraph package inherits many of the community detection algorithms imbedded into igraph and makes them available to us, including Edge-betweenness (group_edge_betweenness), Leading eigenvector (group_leading_eigen), Fast-greedy (group_fast_greedy), Louvain (group_louvain), Walktrap (group_walktrap), Label propagation (group_label_prop), InfoMAP (group_infomap), Spinglass (group_spinglass), and Optimal (group_optimal). Some community algorithms are designed to take into account direction or weight, while others ignore it. Use this link to find out more about community detection functions provided by tidygraph,\nIn the code chunk below group_edge_betweenness() is used.\n\ng &lt;- GAStech_graph %&gt;%\n  mutate(community = as.factor(group_edge_betweenness(weights = Weight, directed = TRUE))) %&gt;%\n  ggraph(layout = \"fr\") + \n  geom_edge_link(aes(width=Weight), \n                 alpha=0.2) +\n  scale_edge_width(range = c(0.1, 5)) +\n  geom_node_point(aes(colour = community))  \n\ng + theme_graph()",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Network Data",
+      "Modelling, Visualising and Analysing Network Data with R"
+    ]
+  },
+  {
     "objectID": "In-class_Ex/In-class_Ex04/In-class_Ex04.html",
     "href": "In-class_Ex/In-class_Ex04/In-class_Ex04.html",
     "title": "In Class Exercise 4",
@@ -2173,77 +2497,5 @@
     "title": "Take-home Exercise 2: Be Tradewise or Otherwise",
     "section": "4.5 Time series decomposition",
     "text": "4.5 Time series decomposition\n\nThe plotThe code\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nexport_product_tsibble %&gt;%\n  filter(Product %in% c(\"Machinery & Transport Equipment\",\n                        \"Chemicals & Chemical Products\",\n                        \"Miscellaneous Manufactured Articles\",\n                        \"Food & Live Animals\")) %&gt;%\n  mutate(Product = factor(Product, levels = c(\"Machinery & Transport Equipment\",\n                                              \"Chemicals & Chemical Products\",\n                                              \"Miscellaneous Manufactured Articles\",\n                                              \"Food & Live Animals\"))) %&gt;%  \n  ACF(Value) %&gt;%\n  autoplot()\n\n\n\n\nThere is an plot of ACFs for 4 selected commodity section. The ACF plot helps us understand how each category’s export values correlate with their past values (lags) over time.\n\nNo strong seasonality was detected in Machinery & Transport Equipment and Chemicals & Chemical Products.\nMiscellaneous Manufactured Articles exhibit periodic spikes, confirming the three-month cycle observed in the time series plot.\nFood & Live Animals show moderate short-term dependencies, meaning recent exports can help predict near-future trends.\n\n\n4.5.1 STL diagnostics\nBased on the ACF results, we will proceed with STL diagnostics only for Miscellaneous Manufactured Articles and Food & Live Animals. The ACF plots indicate that these two categories exhibit some periodic patterns, suggesting a seasonal component in their time series.This makes them suitable for STL decomposition, which helps analyze the trend, seasonality, and residuals separately.\n\nThe plotThe code\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nexport_product_tsibble  %&gt;%\n  filter(`Product` == \"Miscellaneous Manufactured Articles\") %&gt;%\n  model(stl = STL(Value)) %&gt;%\n  components() %&gt;%\n  autoplot()\n\n\n\n\nThis is an STL decomposition plot for Miscellaneous Manufactured Articles, breaking down the time series into trend, seasonality, and remainder (residuals/noise).\n\nStrong upward trend since 2021, indicating long-term export growth for Miscellaneous Manufactured Articles.\nClear seasonal pattern, meaning exports tend to follow a recurring cycle each year.\nSome level of randomness, but no extreme volatility, suggesting exports are relatively stable with predictable fluctuations\n\n\nThe plotThe code\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nexport_product_tsibble  %&gt;%\n  filter(`Product` == \"Food & Live Animals\") %&gt;%\n  model(stl = STL(Value)) %&gt;%\n  components() %&gt;%\n  autoplot()\n\n\n\n\nThis is an STL decomposition plot for Food & Live Animals, which breaks down the time series into trend, seasonality, and remainder (residuals/noise).\n\nStrong upward trend in exports from 2018 onward, with a sharp rise around 2019-2021.\nClear seasonal pattern, meaning exports tend to peak and decline in a predictable manner each year.\nSome fluctuations in the residuals, but no extreme volatility, suggesting export values are relatively stable with short-term variations."
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx08-2/hands-onEx08-2.html",
-    "href": "hands-onEx/hands-onEx08-2/hands-onEx08-2.html",
-    "title": "Hands on Exercise 08-2: Visualising Geospatial Point Data",
-    "section": "",
-    "text": "Proportional symbol maps (also known as graduate symbol maps) are a class of maps that use the visual variable of size to represent differences in the magnitude of a discrete, abruptly changing phenomenon, e.g. counts of people. Like choropleth maps, you can create classed or unclassed versions of these maps.\n\n\n\n\n\n\nThings you will learn\n\n\n\n1.generate interactive point symbol map\n2.make symbol map in proportional\n3. interactive with facet",
-    "crumbs": [
-      "Home",
-      "Visualising and Analysing Geographical Data",
-      "Visualising Geospatial Point Data"
-    ]
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx08-3/hands-onEx08-3.html",
-    "href": "hands-onEx/hands-onEx08-3/hands-onEx08-3.html",
-    "title": "Hands on Exercise 08-3: Analytical Mapping",
-    "section": "",
-    "text": "In this in-class exercise, you will learn:\n\nCreating rate map\nCreating percentile map\nCreating boxmap",
-    "crumbs": [
-      "Home",
-      "Visualising and Analysing Geographical Data",
-      "Analytical Mapping"
-    ]
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx08-3/hands-onEx08-3.html#visualising-distribution-no-color-now",
-    "href": "hands-onEx/hands-onEx08-3/hands-onEx08-3.html#visualising-distribution-no-color-now",
-    "title": "Hands on Exercise 08-3: Analytical Mapping",
-    "section": "🛠️ 3.1 Visualising distribution (no color now",
-    "text": "🛠️ 3.1 Visualising distribution (no color now\nPlot a choropleth map showing the distribution of non-function water point by LGA\n\np1 &lt;- tm_shape(NGA_wp) +\n  tm_fill(\"wp_functional\",\n          n = 10,\n          style = \"equal\",\n          palette = \"Blues\") +\n  tm_borders(lwd = 0.1,\n             alpha = 1) +\n  tm_layout(main.title = \"Distribution of functional water point by LGAs\",\n            legend.outside = FALSE)\n\np2 &lt;- tm_shape(NGA_wp) +\n  tm_fill(\"total_wp\",\n          n = 10,\n          style = \"equal\",\n          palette = \"Blues\") +\n  tm_borders(lwd = 0.1,\n             alpha = 1) +\n  tm_layout(main.title = \"Distribution of total  water point by LGAs\",\n            legend.outside = FALSE)\n\ntmap_arrange(p2, p1, nrow = 1)",
-    "crumbs": [
-      "Home",
-      "Visualising and Analysing Geographical Data",
-      "Analytical Mapping"
-    ]
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx08-3/hands-onEx08-3.html#percentile-map",
-    "href": "hands-onEx/hands-onEx08-3/hands-onEx08-3.html#percentile-map",
-    "title": "Hands on Exercise 08-3: Analytical Mapping",
-    "section": "5.1 Percentile Map",
-    "text": "5.1 Percentile Map\nThe percentile map is a special type of quantile map with six specific categories: 0-1%,1-10%, 10-50%,50-90%,90-99%, and 99-100%. \n\n5.1.1Data Preparation\n\nstep1: Exclude records with NAstep2: Creating customised classification and extracting valuesWhy writing functions?\n\n\n\nNGA_wp &lt;- NGA_wp %&gt;%\n  drop_na()\n\n\n\nst_set_geometry(NULL): Removes the geometry information and ensures that var only contains values.\nvar[,1]: Extract the first column of var (because var is a data.frame or tibble, it needs to be valued this way). quantile(…, percent): Calculate the value of var[,1] at the percentile defined by percent\n\npercent &lt;- c(0,.01,.1,.5,.9,.99,1)\nvar &lt;- NGA_wp[\"pct_functional\"] %&gt;%\n  st_set_geometry(NULL)\nquantile(var[,1], percent)\n\n       0%        1%       10%       50%       90%       99%      100% \n0.0000000 0.0000000 0.2169811 0.4791667 0.8611111 1.0000000 1.0000000 \n\n\n\n\n\n\n\n\nImportant\n\n\n\nWhen variables are extracted from an sf data.frame, the geometry is extracted as well. For mapping and spatial manipulation, this is the expected behavior, but many base R functions cannot deal with the geometry. Specifically, the quantile() gives an error. As a result st_set_geomtry(NULL) is used to drop geomtry field.\n\n\n\n\nWriting a function has three big advantages over using copy-and-paste:\n\nYou can give a function an evocative name that makes your code easier to understand.\nAs requirements change, you only need to update code in one place, instead of many.\nYou eliminate the chance of making incidental mistakes when you copy and paste (i.e. updating a variable name in one place, but not in another).\n\n\n\n\nFirstly, we will write an R function as shown below to extract a variable (i.e. wp_nonfunctional) as a vector out of an sf data.frame.\n\narguments:\n\nvname: variable name (as character, in quotes)\ndf: name of sf data frame\n\nreturns:\n\nv: vector with values (without a column name)\n\n\n✅ Extract single variable from sf data frame ✅ Remove geographical information and turn variables into ordinary vectors ✅ Return pure vector, no column names\n\nget.var &lt;- function(vname,df) {\n  v &lt;- df[vname] %&gt;% \n    st_set_geometry(NULL)\n  v &lt;- unname(v[,1])\n  return(v)\n}\n\n\n\n5.1.2 percentile mapping\n\npercentmap &lt;- function(vnam, df, legtitle=NA, mtitle=\"Percentile Map\"){\n  percent &lt;- c(0,.01,.1,.5,.9,.99,1)\n  var &lt;- get.var(vnam, df)\n  bperc &lt;- quantile(var, percent)\n  tm_shape(df) +\n  tm_polygons() +\n  tm_shape(df) +\n     tm_fill(vnam,\n             title=legtitle,\n             breaks=bperc,\n             palette=\"Blues\",\n          labels=c(\"&lt; 1%\", \"1% - 10%\", \"10% - 50%\", \"50% - 90%\", \"90% - 99%\", \"&gt; 99%\"))  +\n  tm_borders() +\n  tm_layout(main.title = mtitle, \n            title.position = c(\"right\",\"bottom\"))\n}\n\npercentmap(\"total_wp\", NGA_wp)",
-    "crumbs": [
-      "Home",
-      "Visualising and Analysing Geographical Data",
-      "Analytical Mapping"
-    ]
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx08-3/hands-onEx08-3.html#box-map",
-    "href": "hands-onEx/hands-onEx08-3/hands-onEx08-3.html#box-map",
-    "title": "Hands on Exercise 08-3: Analytical Mapping",
-    "section": "5.2 Box map",
-    "text": "5.2 Box map\n\nggplot(data = NGA_wp,\n       aes(x = \"\",\n           y = wp_nonfunctional)) +\n  geom_boxplot()\n\n\n\n\n\n\n\n\n\nDisplaying summary statistics on a choropleth map by using the basic principles of boxplot.\nTo create a box map, a custom breaks specification will be used. However, there is a complication. The break points for the box map vary depending on whether lower or upper outliers are present.\n\nThe code chunk below is an R function that creating break points for a box map.\n\narguments:\n\nv: vector with observations\nmult: multiplier for IQR (default 1.5)\n\nreturns:\n\nbb: vector with 7 break points compute quartile and fences\n\n\nbb is a numeric vector of length 7, used to store:\nbb[1]: lower bound (minimum value or lofence)\nbb[2]: first critical value (qv[1] or lofence)\nbb[3]: first quartile Q1\nbb[4]: median Q2\nbb[5]: third quartile Q3\nbb[6]: second critical value (qv[5] or upfence)\nbb[7]: upper bound (maximum value or upfence)\nIf lofence is smaller than qv[1], which means there is no outlier, then lofence is directly set to bb[1]. Otherwise, set qv[1] to bb[1] and lofence to bb[2].\n\nboxbreaks &lt;- function(v,mult=1.5) {\n  qv &lt;- unname(quantile(v))\n  iqr &lt;- qv[4] - qv[2]\n  upfence &lt;- qv[4] + mult * iqr\n  lofence &lt;- qv[2] - mult * iqr\n  # initialize break points vector\n  bb &lt;- vector(mode=\"numeric\",length=7)\n  # logic for lower and upper fences\n  if (lofence &lt; qv[1]) {  # no lower outliers\n    bb[1] &lt;- lofence\n    bb[2] &lt;- floor(qv[1])\n  } else {\n    bb[2] &lt;- lofence\n    bb[1] &lt;- qv[1]\n  }\n  if (upfence &gt; qv[5]) { # no upper outliers\n    bb[7] &lt;- upfence\n    bb[6] &lt;- ceiling(qv[5])\n  } else {\n    bb[6] &lt;- upfence\n    bb[7] &lt;- qv[5]\n  }\n  bb[3:5] &lt;- qv[2:4]\n  return(bb)\n}\n\nThe code chunk below is an R function to extract a variable as a vector out of an sf data frame.\n\narguments:\n\nvname: variable name (as character, in quotes)\ndf: name of sf data frame\n\nreturns:\n\nv: vector with values (without a column name)\n\n\n\nget.var &lt;- function(vname,df) {\n  v &lt;- df[vname] %&gt;% st_set_geometry(NULL)\n  v &lt;- unname(v[,1])\n  return(v)\n}\n\nLet’s test the newly created function\n\nvar &lt;- get.var(\"wp_nonfunctional\", NGA_wp) \nboxbreaks(var)\n\n[1] -56.5   0.0  14.0  34.0  61.0 131.5 278.0\n\n\nfinally, we can create a box map.\n\nvnam: variable name (data column name, string format).\ndf: Data frame of sf type, containing geospatial data.\nlegtitle (optional): legend title (default is NA).\nmtitle (optional): map title (default is “Box Map”).\nmult (optional): IQR (interquartile range) multiples used to calculate outliers (default is 1.5).\n\nget.var(vnam, df): Extract the variable vnam from df of type sf and convert it into a pure vector (excluding geographical information).\nboxbreaks(var): Calculate 7 break points of this variable for Box Map visualization\n\nboxmap &lt;- function(vnam, df, \n                   legtitle=NA,\n                   mtitle=\"Box Map\",\n                   mult=1.5){\n  var &lt;- get.var(vnam,df)\n  bb &lt;- boxbreaks(var)\n  tm_shape(df) +\n    tm_polygons() +\n  tm_shape(df) +\n     tm_fill(vnam,title=legtitle,\n             breaks=bb,\n             palette=\"Blues\",\n          labels = c(\"lower outlier\", \n                     \"&lt; 25%\", \n                     \"25% - 50%\", \n                     \"50% - 75%\",\n                     \"&gt; 75%\", \n                     \"upper outlier\"))  +\n  tm_borders() +\n  tm_layout(main.title = mtitle, \n            title.position = c(\"left\",\n                               \"top\"))\n}\ntmap_mode(\"plot\")\nboxmap(\"wp_nonfunctional\", NGA_wp)",
-    "crumbs": [
-      "Home",
-      "Visualising and Analysing Geographical Data",
-      "Analytical Mapping"
-    ]
-  },
-  {
-    "objectID": "hands-onEx/hands-onEx08-3/hands-onEx08-3.html#visualising-distribution",
-    "href": "hands-onEx/hands-onEx08-3/hands-onEx08-3.html#visualising-distribution",
-    "title": "Hands on Exercise 08-3: Analytical Mapping",
-    "section": "3.1 Visualising distribution",
-    "text": "3.1 Visualising distribution\nPlot a choropleth map showing the distribution of non-function water point by LGA\n\np1 &lt;- tm_shape(NGA_wp) +\n  tm_fill(\"wp_functional\",\n          n = 10,\n          style = \"equal\",\n          palette = \"Blues\") +\n  tm_borders(lwd = 0.1,\n             alpha = 1) +\n  tm_layout(main.title = \"Distribution of functional water point by LGAs\",\n            legend.outside = FALSE)\n\np2 &lt;- tm_shape(NGA_wp) +\n  tm_fill(\"total_wp\",\n          n = 10,\n          style = \"equal\",\n          palette = \"Blues\") +\n  tm_borders(lwd = 0.1,\n             alpha = 1) +\n  tm_layout(main.title = \"Distribution of total  water point by LGAs\",\n            legend.outside = FALSE)\n\ntmap_arrange(p2, p1, nrow = 1)",
-    "crumbs": [
-      "Home",
-      "Visualising and Analysing Geographical Data",
-      "Analytical Mapping"
-    ]
   }
 ]

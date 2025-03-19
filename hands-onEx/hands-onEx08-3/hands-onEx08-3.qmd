@@ -39,7 +39,7 @@ NGA_wp <- read_rds("data/rds/NGA_wp.rds")
 
 # 3. Basic Choropleth Mapping
 
-## 3.1 Visualising distribution 
+## 3.1 Visualising distribution
 
 Plot a choropleth map showing the distribution of non-function water point by LGA
 
@@ -206,13 +206,13 @@ The code chunk below is an R function that creating break points for a box map.
 
     -   bb: vector with 7 break points compute quartile and fences
 
-bb is a numeric vector of length 7, used to store: \
-bb\[1\]: lower bound (minimum value or lofence) \
-bb\[2\]: first critical value (qv\[1\] or lofence) \
-bb\[3\]: first quartile Q1 \
-bb\[4\]: median Q2 \
-bb\[5\]: third quartile Q3 \
-bb\[6\]: second critical value (qv\[5\] or upfence) \
+bb is a numeric vector of length 7, used to store:\
+bb\[1\]: lower bound (minimum value or lofence)\
+bb\[2\]: first critical value (qv\[1\] or lofence)\
+bb\[3\]: first quartile Q1\
+bb\[4\]: median Q2\
+bb\[5\]: third quartile Q3\
+bb\[6\]: second critical value (qv\[5\] or upfence)\
 bb\[7\]: upper bound (maximum value or upfence)
 
 If lofence is smaller than qv\[1\], which means there is no outlier, then lofence is directly set to bb\[1\]. Otherwise, set qv\[1\] to bb\[1\] and lofence to bb\[2\].
@@ -274,13 +274,13 @@ boxbreaks(var)
 
 finally, we can create a box map.\
 \
-vnam: variable name (data column name, string format). \
-df: Data frame of sf type, containing geospatial data. \
-legtitle (optional): legend title (default is NA). \
-mtitle (optional): map title (default is "Box Map"). \
+vnam: variable name (data column name, string format).\
+df: Data frame of sf type, containing geospatial data.\
+legtitle (optional): legend title (default is NA).\
+mtitle (optional): map title (default is "Box Map").\
 mult (optional): IQR (interquartile range) multiples used to calculate outliers (default is 1.5).\
 \
-get.var(vnam, df): Extract the variable vnam from df of type sf and convert it into a pure vector (excluding geographical information). \
+get.var(vnam, df): Extract the variable vnam from df of type sf and convert it into a pure vector (excluding geographical information).\
 boxbreaks(var): Calculate 7 break points of this variable for Box Map visualization
 
 ```{r}
