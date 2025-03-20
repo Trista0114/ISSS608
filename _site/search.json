@@ -2497,5 +2497,89 @@
     "title": "Take-home Exercise 2: Be Tradewise or Otherwise",
     "section": "4.5 Time series decomposition",
     "text": "4.5 Time series decomposition\n\nThe plotThe code\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nexport_product_tsibble %&gt;%\n  filter(Product %in% c(\"Machinery & Transport Equipment\",\n                        \"Chemicals & Chemical Products\",\n                        \"Miscellaneous Manufactured Articles\",\n                        \"Food & Live Animals\")) %&gt;%\n  mutate(Product = factor(Product, levels = c(\"Machinery & Transport Equipment\",\n                                              \"Chemicals & Chemical Products\",\n                                              \"Miscellaneous Manufactured Articles\",\n                                              \"Food & Live Animals\"))) %&gt;%  \n  ACF(Value) %&gt;%\n  autoplot()\n\n\n\n\nThere is an plot of ACFs for 4 selected commodity section. The ACF plot helps us understand how each category’s export values correlate with their past values (lags) over time.\n\nNo strong seasonality was detected in Machinery & Transport Equipment and Chemicals & Chemical Products.\nMiscellaneous Manufactured Articles exhibit periodic spikes, confirming the three-month cycle observed in the time series plot.\nFood & Live Animals show moderate short-term dependencies, meaning recent exports can help predict near-future trends.\n\n\n4.5.1 STL diagnostics\nBased on the ACF results, we will proceed with STL diagnostics only for Miscellaneous Manufactured Articles and Food & Live Animals. The ACF plots indicate that these two categories exhibit some periodic patterns, suggesting a seasonal component in their time series.This makes them suitable for STL decomposition, which helps analyze the trend, seasonality, and residuals separately.\n\nThe plotThe code\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nexport_product_tsibble  %&gt;%\n  filter(`Product` == \"Miscellaneous Manufactured Articles\") %&gt;%\n  model(stl = STL(Value)) %&gt;%\n  components() %&gt;%\n  autoplot()\n\n\n\n\nThis is an STL decomposition plot for Miscellaneous Manufactured Articles, breaking down the time series into trend, seasonality, and remainder (residuals/noise).\n\nStrong upward trend since 2021, indicating long-term export growth for Miscellaneous Manufactured Articles.\nClear seasonal pattern, meaning exports tend to follow a recurring cycle each year.\nSome level of randomness, but no extreme volatility, suggesting exports are relatively stable with predictable fluctuations\n\n\nThe plotThe code\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nexport_product_tsibble  %&gt;%\n  filter(`Product` == \"Food & Live Animals\") %&gt;%\n  model(stl = STL(Value)) %&gt;%\n  components() %&gt;%\n  autoplot()\n\n\n\n\nThis is an STL decomposition plot for Food & Live Animals, which breaks down the time series into trend, seasonality, and remainder (residuals/noise).\n\nStrong upward trend in exports from 2018 onward, with a sharp rise around 2019-2021.\nClear seasonal pattern, meaning exports tend to peak and decline in a predictable manner each year.\nSome fluctuations in the residuals, but no extreme volatility, suggesting export values are relatively stable with short-term variations."
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx09/hands-onEx09.html",
+    "href": "hands-onEx/hands-onEx09/hands-onEx09.html",
+    "title": "Hands on Exercise 09: Modelling, Visualising and Analysing Network Data with R",
+    "section": "",
+    "text": "By the end of this hands-on exercise, you will be able to:\n\ncreate graph object data frames, manipulate them using appropriate functions of dplyr, lubridate, and tidygraph,\nbuild network graph visualisation using appropriate functions of ggraph,\ncompute network geometrics using tidygraph,\nbuild advanced graph visualisation by incorporating the network geometrics, and\nbuild interactive network visualisation using visNetwork package",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Network Data",
+      "Modelling, Visualising and Analysing Network Data with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx09/hands-onEx09.html#data-preparation-1",
+    "href": "hands-onEx/hands-onEx09/hands-onEx09.html#data-preparation-1",
+    "title": "Hands on Exercise 09: Modelling, Visualising and Analysing Network Data with R",
+    "section": "8.1 Data preparation",
+    "text": "8.1 Data preparation\n\nBefore we can plot the interactive network graph, we need to prepare the data model by using the code chunk below.\n\nGAStech_edges_aggregated &lt;- GAStech_edges %&gt;%\n  left_join(GAStech_nodes, by = c(\"sourceLabel\" = \"label\")) %&gt;%\n  rename(from = id) %&gt;%\n  left_join(GAStech_nodes, by = c(\"targetLabel\" = \"label\")) %&gt;%\n  rename(to = id) %&gt;%\n  filter(MainSubject == \"Work related\") %&gt;%\n  group_by(from, to) %&gt;%\n    summarise(weight = n()) %&gt;%\n  filter(from!=to) %&gt;%\n  filter(weight &gt; 1) %&gt;%\n  ungroup()",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Network Data",
+      "Modelling, Visualising and Analysing Network Data with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx09/hands-onEx09.html#plotting-the-first-interactive-network-graph",
+    "href": "hands-onEx/hands-onEx09/hands-onEx09.html#plotting-the-first-interactive-network-graph",
+    "title": "Hands on Exercise 09: Modelling, Visualising and Analysing Network Data with R",
+    "section": "8.2 Plotting the first interactive network graph",
+    "text": "8.2 Plotting the first interactive network graph",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Network Data",
+      "Modelling, Visualising and Analysing Network Data with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx09/hands-onEx09.html#working-with-layout",
+    "href": "hands-onEx/hands-onEx09/hands-onEx09.html#working-with-layout",
+    "title": "Hands on Exercise 09: Modelling, Visualising and Analysing Network Data with R",
+    "section": "8.3 Working with layout",
+    "text": "8.3 Working with layout\nFruchterman and Reingold layout is used.\n\nvisNetwork(GAStech_nodes,\n           GAStech_edges_aggregated) %&gt;%\n  visIgraphLayout(layout = \"layout_with_fr\")",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Network Data",
+      "Modelling, Visualising and Analysing Network Data with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx09/hands-onEx09.html#working-with-visual-attributes---nodes",
+    "href": "hands-onEx/hands-onEx09/hands-onEx09.html#working-with-visual-attributes---nodes",
+    "title": "Hands on Exercise 09: Modelling, Visualising and Analysing Network Data with R",
+    "section": "8.4 Working with visual attributes - Nodes",
+    "text": "8.4 Working with visual attributes - Nodes\nvisNetwork() looks for a field called “group” in the nodes object and colour the nodes according to the values of the group field.\n\n rename Department field to group\n\nGAStech_nodes &lt;- GAStech_nodes %&gt;%\n  rename(group = Department) \n\n visNetwork shades the nodes by assigning unique colour to each category in the group field.\n\nvisNetwork(GAStech_nodes,\n           GAStech_edges_aggregated) %&gt;%\n  visIgraphLayout(layout = \"layout_with_fr\") %&gt;%\n  visLegend() %&gt;%\n  visLayout(randomSeed = 123)",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Network Data",
+      "Modelling, Visualising and Analysing Network Data with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx09/hands-onEx09.html#working-with-visual-attributes---edges",
+    "href": "hands-onEx/hands-onEx09/hands-onEx09.html#working-with-visual-attributes---edges",
+    "title": "Hands on Exercise 09: Modelling, Visualising and Analysing Network Data with R",
+    "section": "8.5 Working with visual attributes - Edges",
+    "text": "8.5 Working with visual attributes - Edges\nIn the code run below visEdges() is used to symbolise the edges.\n- The argument arrows is used to define where to place the arrow.\n- The smooth argument is used to plot the edges using a smooth curve.\n\n\nvisNetwork(GAStech_nodes,\n           GAStech_edges_aggregated) %&gt;%\n  visIgraphLayout(layout = \"layout_with_fr\") %&gt;%\n  visEdges(arrows = \"to\", \n           smooth = list(enabled = TRUE, \n                         type = \"curvedCW\")) %&gt;%\n  visLegend() %&gt;%\n  visLayout(randomSeed = 123)",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Network Data",
+      "Modelling, Visualising and Analysing Network Data with R"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx09/hands-onEx09.html#interactivity",
+    "href": "hands-onEx/hands-onEx09/hands-onEx09.html#interactivity",
+    "title": "Hands on Exercise 09: Modelling, Visualising and Analysing Network Data with R",
+    "section": "8.6 Interactivity",
+    "text": "8.6 Interactivity\nIn the code chunk below, visOptions() is used to incorporate interactivity features in the data visualisation.\n\nThe argument highlightNearest highlights nearest when clicking a node.\nThe argument nodesIdSelection adds an id node selection creating an HTML select element.\n\n\nvisNetwork(GAStech_nodes,\n           GAStech_edges_aggregated) %&gt;%\n  visIgraphLayout(layout = \"layout_with_fr\") %&gt;%\n  visOptions(highlightNearest = TRUE,\n             nodesIdSelection = TRUE) %&gt;%\n  visLegend() %&gt;%\n  visLayout(randomSeed = 123)",
+    "crumbs": [
+      "Home",
+      "Visualising and Analysing Network Data",
+      "Modelling, Visualising and Analysing Network Data with R"
+    ]
   }
 ]
