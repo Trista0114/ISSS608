@@ -134,7 +134,7 @@ Before getting started, you are advised to read these two articles:
 
 tbl_graph(): Directly create a network object (applicable to existing nodes and edges).
 
-as_tbl_graph(): Convert other data formats (such as data.frame, igraph, network) to **tbl_graph**, suitable for people who already have data but need to convert the format. The purpose of these functions is to make network data easier to operate in tidygraph, and are compatible with tidyverse tools such as dplyr and ggplot2 for network analysis and visualization. \
+as_tbl_graph(): Convert other data formats (such as data.frame, igraph, network) to **tbl_graph**, suitable for people who already have data but need to convert the format. The purpose of these functions is to make network data easier to operate in tidygraph, and are compatible with tidyverse tools such as dplyr and ggplot2 for network analysis and visualization.\
 Below are network data and objects supported by `as_tbl_graph()`
 
 -   a node data.frame and an edge data.frame,
