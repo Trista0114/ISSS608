@@ -1,0 +1,44 @@
+---
+title: "In-class_exercise9"
+author: "Chen.PengWei"
+date-modified: "last-modified"
+execute:
+  echo: true
+  eval: true
+  warning: false
+  freeze: true
+---
+
+```{r}
+pacman::p_load(igraph,tidygraph,ggraph, visNetwork,lubridate,clock,tidyverse,graphlayouts)
+```
+
+## Importing Data
+
+```{r}
+GAStech_nodes <- read_csv("data/GAStech_email_node.csv")
+GAStech_edges <- read_csv("data/GAStech_email_edge-v2.csv")
+
+```
+
+## Wrangling time
+
+```{r}
+GAStech_edges <- GAStech_edges %>%
+  mutate(SendDate = dmy(SentDate)) %>%
+  mutate(Weekday = wday(SentDate,
+                        label = TRUE,
+                        abbr = FALSE))
+```
+
+In view of this, we will aggregate the individual by date, senders, receivers, main subject and day of the week. A new field called *Weight* has been added in GAStech_edges_aggregated.
+
+```{r}
+GAStech_edges_aggregated <- GAStech_edges %>%
+  filter(MainSubject == "Work related") %>%
+  group_by(source, target, Weekday) %>%
+    summarise(Weight = n()) %>%
+  filter(source!=target) %>%
+  filter(Weight > 1) %>%
+  ungroup()
+```

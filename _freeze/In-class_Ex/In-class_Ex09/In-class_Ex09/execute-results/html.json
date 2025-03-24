@@ -1,0 +1,15 @@
+{
+  "hash": "6d59a70da3aa313c7762b0c829a39e59",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"In-class_exercise9\"\nauthor: \"Chen.PengWei\"\ndate-modified: \"last-modified\"\nexecute:\n  echo: true\n  eval: true\n  warning: false\n  freeze: true\n---\n\n::: {.cell}\n\n```{.r .cell-code}\npacman::p_load(igraph,tidygraph,ggraph, visNetwork,lubridate,clock,tidyverse,graphlayouts)\n```\n:::\n\n\n\n\n\n## Importing Data\n\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nGAStech_nodes <- read_csv(\"data/GAStech_email_node.csv\")\nGAStech_edges <- read_csv(\"data/GAStech_email_edge-v2.csv\")\n```\n:::\n\n\n\n\n\n## Wrangling time\n\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nGAStech_edges <- GAStech_edges %>%\n  mutate(SendDate = dmy(SentDate)) %>%\n  mutate(Weekday = wday(SentDate,\n                        label = TRUE,\n                        abbr = FALSE))\n```\n:::\n\n\n\n\n\nIn view of this, we will aggregate the individual by date, senders, receivers, main subject and day of the week. A new field called *Weight* has been added in GAStech_edges_aggregated.\n\n\n\n\n\n::: {.cell}\n\n```{.r .cell-code}\nGAStech_edges_aggregated <- GAStech_edges %>%\n  filter(MainSubject == \"Work related\") %>%\n  group_by(source, target, Weekday) %>%\n    summarise(Weight = n()) %>%\n  filter(source!=target) %>%\n  filter(Weight > 1) %>%\n  ungroup()\n```\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
