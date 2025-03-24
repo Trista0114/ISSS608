@@ -60,6 +60,11 @@ website:
         contents:
           - text:  "Modelling, Visualising and Analysing Network Data with R"
             href: hands-onEx/hands-onEx09/hands-onEx09.html
+            
+      - section: "Information Dashboard Design with R" 
+        contents:
+          - text:  "Information Dashboard Design: R methods"
+            href: hands-onEx/hands-onEx10/hands-onEx10.html
         
   navbar:
     left:
@@ -103,6 +108,8 @@ website:
             href: hands-onEx/hands-onEx08-3/hands-onEx08-3.html
           - text:  "Modelling, Visualising and Analysing Network Data with R"
             href: hands-onEx/hands-onEx09/hands-onEx09.html
+          - text:  "Information Dashboard Design: R methods"
+            href: hands-onEx/hands-onEx10/hands-onEx10.html
             
       - text: "In-class Exercise"
         menu:

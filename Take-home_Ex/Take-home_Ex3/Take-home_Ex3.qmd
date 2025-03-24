@@ -245,16 +245,15 @@ train_r2 <- 1 - sum((train_pred - df_train$Property_Prices)^2) /
 test_r2 <- 1 - sum((test_pred - df_test$Property_Prices)^2) / 
              sum((df_test$Property_Prices - mean(df_test$Property_Prices))^2)
 
-cat(sprintf("Train MSE: %.6f\n", train_mse))
-cat(sprintf("Test MSE: %.6f\n", test_mse))
-cat(sprintf("Train R-squared: %.6f\n", train_r2))
-cat(sprintf("Test R-squared: %.6f\n", test_r2))
+cat(sprintf("Train MSE: %.6f", train_mse))
+cat(sprintf("Test MSE: %.6f", test_mse))
+cat(sprintf("Train R-squared: %.6f", train_r2))
+cat(sprintf("Test R-squared: %.6f", test_r2))
 ```
 
 Visualization for Desicion Tree\
 
 ```{r}
-library(ggplot2)
 residuals <- test_pred - df_test$Property_Prices
 plot_data <- data.frame(Predicted = test_pred, Residuals = residuals)
 ggplot(plot_data, aes(x = Predicted, y = Residuals)) +
@@ -265,11 +264,6 @@ ggplot(plot_data, aes(x = Predicted, y = Residuals)) +
 ```
 
 ```{r}
-# 載入必要套件
-library(ggplot2)
-library(patchwork)
-
-
 # 1. 預測測試集
 train_pred <- predict(pruned_tree, newdata = df_train)
 train_sse <- sum((train_pred - df_train$Property_Prices)^2)
@@ -339,7 +333,8 @@ print(pruned_tree$cptable,20)
 # 轉換為數據框並設置欄位名稱
 cp_table <- as.data.frame(pruned_tree$cptable)
 names(cp_table) <- c("CP", "nsplit", "rel_error", "xerror", "xstd")  # 使用 names() 替代 colnames()
-print(cp_table,20)
+head(pruned_tree$cptable, 20)
+
 ```
 
 # 6. Random Forest

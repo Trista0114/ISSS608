@@ -2672,5 +2672,41 @@
     "title": "Take-home Exercise 3: Prototyping Modules for Visual Analytics Shiny Application",
     "section": "senior",
     "text": "senior\n’’’ ##setting option for user to decide if they want to do parameter tuning ##default is simple bootstrap resampling trctrl &lt;- trainControl(method = “none”)\n##alternative is (repeated) k-fold cross-validation - user input decision on the value of k and the number of repeats cvControl &lt;- trainControl(##default of 10, range: 3-50 method = “cv”, number = 10)\nrepeatcvControl &lt;- trainControl(##default of 10, range: 3-50 method = “repeatedcv”, number = 10, ##default of 3, range: 3-10 repeats = 10)\n##building of model rf_model &lt;- train(Property Prices ~ ., data = df_train, method = “ranger”, trControl = repeatcvControl, #trControl (refer to above objects created) num.trees = 50, #can consider range of 5 to 200 trees importance = “impurity”, #variable importance computation: “impurity”, “permutation” tuneGrid = data.frame(mtry = sqrt(ncol(df_train)), min.node.size = 5, splitrule = “variance”) #splitrule: “variance” (default), “extratrees”, “maxstat”, “beta” #min.node.size: default of 5 for regression trees #mtry: default is square root of number of variables ) ’’’\n’’’ predictions &lt;- predict(rf_model, newdata = df_test)"
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx10/hands-onEx10.html#bullet-chart-in-ggplot2",
+    "href": "hands-onEx/hands-onEx10/hands-onEx10.html#bullet-chart-in-ggplot2",
+    "title": "Hands on Exercise 10: Information Dashboard Design: R methods",
+    "section": "3.1 Bullet chart in ggplot2",
+    "text": "3.1 Bullet chart in ggplot2\nThis picture can help you to check:\n\nWhich products performed (black bars) exceeded the red line (target value)\nWhich products are still performing below the red line?\nWhich products are performing much higher or lower to help make decisions.\n\n\nggplot(product, aes(Product, current)) + \n  geom_col(aes(Product, max(target) * 1.01),\n           fill=\"grey85\", width=0.85) +\n  geom_col(aes(Product, target * 0.75),\n           fill=\"grey60\", width=0.85) +\n  geom_col(aes(Product, target * 0.5),\n           fill=\"grey50\", width=0.85) +\n  geom_col(aes(Product, current), \n           width=0.35,\n           fill = \"black\") + \n  geom_errorbar(aes(y = target,\n                    x = Product, \n                    ymin = target,\n                    ymax= target), \n                width = .4,\n                colour = \"red\",\n                size = 1) +\n  coord_flip()",
+    "crumbs": [
+      "Home",
+      "Information Dashboard Design with R",
+      "Information Dashboard Design: R methods"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx10/hands-onEx10.html#preparing-the-data",
+    "href": "hands-onEx/hands-onEx10/hands-onEx10.html#preparing-the-data",
+    "title": "Hands on Exercise 10: Information Dashboard Design: R methods",
+    "section": "4.1 Preparing the data",
+    "text": "4.1 Preparing the data\n\nstep 1step 2step 3\n\n\nselect the data\n\nsales_report &lt;- coffeechain %&gt;%\n  filter(Date &gt;= \"2013-01-01\") %&gt;%\n  mutate(Month = month(Date)) %&gt;%\n  group_by(Month, Product) %&gt;%\n  summarise(Sales = sum(Sales)) %&gt;%\n  ungroup() %&gt;%\n  select(Month, Product, Sales)\n\n\n\nCompute the minimum, maximum and end othe the month sales.\n\nmins &lt;- group_by(sales_report, Product) %&gt;% \n  slice(which.min(Sales))\nmaxs &lt;- group_by(sales_report, Product) %&gt;% \n  slice(which.max(Sales))\nends &lt;- group_by(sales_report, Product) %&gt;% \n  filter(Month == max(Month))\n\n\n\nThe code chunk below is used to compute the 25 and 75 quantiles.\n\nquarts &lt;- sales_report %&gt;%\n  group_by(Product) %&gt;%\n  summarise(quart1 = quantile(Sales, \n                              0.25),\n            quart2 = quantile(Sales, \n                              0.75)) %&gt;%\n  right_join(sales_report)",
+    "crumbs": [
+      "Home",
+      "Information Dashboard Design with R",
+      "Information Dashboard Design: R methods"
+    ]
+  },
+  {
+    "objectID": "hands-onEx/hands-onEx10/hands-onEx10.html#sparklines-in-ggplot2",
+    "href": "hands-onEx/hands-onEx10/hands-onEx10.html#sparklines-in-ggplot2",
+    "title": "Hands on Exercise 10: Information Dashboard Design: R methods",
+    "section": "4.2 sparklines in ggplot2",
+    "text": "4.2 sparklines in ggplot2\n\nggplot(sales_report, aes(x=Month, y=Sales)) + \n  facet_grid(Product ~ ., scales = \"free_y\") + \n  geom_ribbon(data = quarts, aes(ymin = quart1, max = quart2), \n              fill = 'grey90') +\n  geom_line(size=0.3) +\n  geom_point(data = mins, col = 'red') +\n  geom_point(data = maxs, col = 'blue') +\n  geom_text(data = mins, aes(label = Sales), vjust = -1) +\n  geom_text(data = maxs, aes(label = Sales), vjust = 2.5) +\n  geom_text(data = ends, aes(label = Sales), hjust = 0, nudge_x = 0.5) +\n  geom_text(data = ends, aes(label = Product), hjust = 0, nudge_x = 1.0) +\n  expand_limits(x = max(sales_report$Month) + \n                  (0.25 * (max(sales_report$Month) - min(sales_report$Month)))) +\n  scale_x_continuous(breaks = seq(1, 12, 1)) +\n  scale_y_continuous(expand = c(0.1, 0)) +\n  theme_tufte(base_size = 3, base_family = \"Helvetica\") +\n  theme(axis.title=element_blank(), axis.text.y = element_blank(), \n        axis.ticks = element_blank(), strip.text = element_blank())",
+    "crumbs": [
+      "Home",
+      "Information Dashboard Design with R",
+      "Information Dashboard Design: R methods"
+    ]
   }
 ]
