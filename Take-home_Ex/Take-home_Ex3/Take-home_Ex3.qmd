@@ -300,7 +300,6 @@ Through the cp table, select an optimal CP value to prune the tree to balance fi
 ```{r}
 #| code-fold: true
 #| code-summary: "show the code"
-print(pruned_tree$cptable,20)
 
 cp_table <- as.data.frame(pruned_tree$cptable)
 names(cp_table) <- c("CP", "nsplit", "rel_error", "xerror", "xstd") 
@@ -341,6 +340,8 @@ tree_scatter
 We can also compare the actual and predicted data by using boxplot.
 
 ```{r}
+#| code-fold: true
+#| code-summary: "show the code"
 plot_data <- data.frame(
   Value = c(df_test$Property_Prices, df_test$Predicted),
   Type = rep(c("Actual", "Predicted"), each = nrow(df_test))
@@ -369,15 +370,7 @@ ggplot(plot_data, aes(x = Predicted, y = Residuals)) +
 
 ### 5.4.3 Feature Importance 
 
-I extracted feature importance from the regression tree using pruned_tree. The top features were:
-
--   Size (3768.25)
--   Highest_Floor (2868.25)
--   Parking (1347.7)
--   Units (1126.59)
--   Year (915.63)
-
-A bar plot of feature importance highlighted that Size and Highest_Floor were the most influential predictors of property prices, while features like Bus_Stop had small impact.
+A bar plot of feature importance highlighted Size the most influential predictors of property prices, while features like Bus_Stop had small impact.
 
 ```{r}
 #| code-fold: true
@@ -387,8 +380,6 @@ vi_df <- data.frame(
   Variable = names(vi),
   Importance = as.numeric(vi)
 )
-
-head(vi_df)
 
 ggplot(vi_df, aes(x = reorder(Variable, Importance), y = Importance)) +
   geom_col(fill = "lightblue") +
@@ -488,15 +479,6 @@ rf_model <- train(
   importance = "impurity" 
 )
 
-
-print(rf_model)
-
-# result
-predictions <- predict(rf_model, newdata = df_test)
-mse <- mean((predictions - df_test$`Property_Prices`)^2)
-r_squared <- 1 - sum((predictions - df_test$`Property_Prices`)^2) / 
-                 sum((df_test$`Property_Prices` - mean(df_test$`Property_Prices`))^2)
-
 ```
 
 ## 6.2 Model Evaluation
@@ -508,16 +490,23 @@ If the training set performance (such as R-squared) is much higher than the test
 ```{r}
 #| code-fold: true
 #| code-summary: "show the code"
+
+
+predictions <- predict(rf_model, newdata = df_test)
+mse <- mean((predictions - df_test$`Property_Prices`)^2)
+r_squared <- 1 - sum((predictions - df_test$`Property_Prices`)^2) / 
+                 sum((df_test$`Property_Prices` - mean(df_test$`Property_Prices`))^2)
+
 train_predictions <- predict(rf_model, newdata = df_train)
 train_mse <- mean((train_predictions - df_train$`Property_Prices`)^2)
 train_sst <- sum((df_train$`Property_Prices` - mean(df_train$`Property_Prices`))^2)
 train_sse <- sum((train_predictions - df_train$`Property_Prices`)^2)
 train_r_squared <- 1 - train_sse / train_sst
 
-cat("Test MSE:", mse, "\n")
-cat("Test R-squared:", r_squared, "\n")
-cat("Train MSE:", train_mse, "\n")
-cat("Train R-squared:", train_r_squared, "\n")
+cat("Test MSE:", mse)
+cat("Test R-squared:", r_squared)
+cat("Train MSE:", train_mse)
+cat("Train R-squared:", train_r_squared)
 
 cat("Difference between test and train R-squared:", train_r_squared - r_squared, "\n")
 ```

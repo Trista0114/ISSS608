@@ -1187,153 +1187,9 @@ checking overfitting
 <div class="cell">
 <details class="code-fold">
 <summary>show the code</summary>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(pruned_tree<span class="sc">$</span>cptable,<span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>                         CP nsplit              rel error
-1  0.3670795846422296171419      0 1.00000000000000000000
-2  0.1003165457119542941511      1 0.63292041535777054939
-3  0.0845250028661746199976      2 0.53260386964581618585
-4  0.0281388308466624867399      3 0.44807886677964159361
-5  0.0260673985582108788672      4 0.41994003593297907218
-6  0.0257959142173166781908      5 0.39387263737476818637
-7  0.0190744314014221413855      6 0.36807672315745154634
-8  0.0128091706054450776842      7 0.34900229175602942577
-9  0.0110858501829574421227      8 0.33619312115058430646
-10 0.0082921607342028250814      9 0.32510727096762681576
-11 0.0079783813056597922830     10 0.31681511023342406874
-12 0.0070376586153538672752     11 0.30883672892776425911
-13 0.0062992266808382674920     12 0.30179907031241037796
-14 0.0053719171448853185111     13 0.29549984363157216771
-15 0.0053494261369801451161     14 0.29012792648668683793
-16 0.0048171965268697519713     15 0.28477850034970669801
-17 0.0044386727674974313373     16 0.27996130382283695992
-18 0.0042844595306507611901     17 0.27552263105533952858
-19 0.0042791645098046240947     18 0.27123817152468876479
-20 0.0039114869837295826449     19 0.26695900701488406437
-21 0.0032249226844801750884     20 0.26304752003115450254
-22 0.0029019542550376177525     21 0.25982259734667434437
-23 0.0028709512151682482946     22 0.25692064309163675784
-24 0.0027361167102374641356     23 0.25404969187646853079
-25 0.0026755543713869551700     24 0.25131357516623104020
-26 0.0026218039916410039274     25 0.24863802079484409457
-27 0.0025135394855493441851     27 0.24339441281156207197
-28 0.0024511796987310790173     28 0.24088087332601271218
-29 0.0022157224608904792576     29 0.23842969362728161364
-30 0.0021056208825232067446     30 0.23621397116639114566
-31 0.0020036195531199082684     31 0.23410835028386797751
-32 0.0018931290804605025325     33 0.23010111117762813149
-33 0.0018549259588667252763     34 0.22820798209716761096
-34 0.0018324545031192030538     36 0.22449813017943417992
-35 0.0018305840871973297693     37 0.22266567567631498359
-36 0.0018064660031876908410     38 0.22083509158911765469
-37 0.0018001728964067125870     39 0.21902862558592994802
-38 0.0016510706253484834245     40 0.21722845268952326037
-39 0.0016419263782790399688     41 0.21557738206417478843
-40 0.0016413603116444085411     42 0.21393545568589572570
-41 0.0015938042027966944653     43 0.21229409537425131260
-42 0.0015291879143058278740     44 0.21070029117145461228
-43 0.0015191540709527863885     45 0.20917110325714877161
-44 0.0014909494112878350462     48 0.20461364104429038968
-45 0.0014808607922802048424     49 0.20312269163300256114
-46 0.0014745737211090826756     50 0.20164183084072237473
-47 0.0014727456770618708917     51 0.20016725711961327883
-48 0.0014676651704287055952     52 0.19869451144255140251
-49 0.0014513112417185388987     53 0.19722684627212269670
-50 0.0014251178035184673080     54 0.19577553503040415195
-51 0.0013960496703782278739     55 0.19435041722688570220
-52 0.0013756794183130750288     56 0.19295436755650746674
-53 0.0013574969106531008071     57 0.19157868813819439735
-54 0.0013405982431142773274     58 0.19022119122754130305
-55 0.0013341897193771181523     59 0.18888059298442705369
-56 0.0013214697774807172056     61 0.18621221354567280004
-57 0.0012403717292286313510     62 0.18489074376819208956
-58 0.0012187150572428274379     64 0.18241000030973483770
-59 0.0011912674794337511398     65 0.18119128525249197925
-60 0.0011332432076370903880     66 0.18000001777305824069
-61 0.0011152457061436654110     67 0.17886677456542116049
-62 0.0010916331231870495932     68 0.17775152885927747448
-63 0.0010736758947079939538     69 0.17665989573609042207
-64 0.0010453202551764027677     70 0.17558621984138242378
-65 0.0010383646162291108785     71 0.17454089958620599976
-66 0.0010366832308404353574     72 0.17350253496997691816
-67 0.0010056863202117271357     73 0.17246585173913647759
-68 0.0010000000000000002377     74 0.17146016541892475371
-                   xerror                     xstd
-1  1.00006646258439890751 0.0072551847357398098134
-2  0.63376033066205761379 0.0046167083047174905727
-3  0.53303383713000629385 0.0039373598119528067235
-4  0.44855616735895686986 0.0033575222891534368085
-5  0.42039642819560663067 0.0031685952163750478322
-6  0.39160598553801190258 0.0029997380291296700874
-7  0.36859160372907306957 0.0028409229654614998745
-8  0.35002955521950296358 0.0027294557512563145246
-9  0.33716979320677159526 0.0026829964816704175191
-10 0.32612885150927611866 0.0026347503178766329412
-11 0.31867089821093896873 0.0026344652996842590764
-12 0.30872772339444781720 0.0025973559109406510123
-13 0.30143493212243910317 0.0025069889444570350734
-14 0.29666148894027505323 0.0024660424397112473346
-15 0.29334451988753329488 0.0024274790395798421898
-16 0.28723388599631666240 0.0023723105015182868391
-17 0.27925175636757215702 0.0022878863278181418156
-18 0.27604821307505350569 0.0022687960382464546216
-19 0.27358007327628686145 0.0022509992471458880117
-20 0.26885089182938182173 0.0022247217960401511477
-21 0.26187384427310828050 0.0022089813322381463348
-22 0.25732420259198857115 0.0021861631865195750406
-23 0.25508948874081316394 0.0021776072420315391483
-24 0.24999682658931082768 0.0021616695530319615486
-25 0.24830001604071108567 0.0021575911598965360517
-26 0.24689775896523852294 0.0021616794404946352431
-27 0.24636018831754247227 0.0021601935948442302186
-28 0.24442885637284769706 0.0021523544710569169833
-29 0.23953874364316990464 0.0021278818927898610069
-30 0.23869305650787858708 0.0021165529561349614128
-31 0.23585717938138758831 0.0020998672101937882091
-32 0.23214857564831231640 0.0020393190408512541778
-33 0.23027431099750367283 0.0020329951716139115642
-34 0.22786393644515762213 0.0020233342770100276597
-35 0.22707741644110757129 0.0020128827234284717672
-36 0.22524464329307117283 0.0019517021123406808492
-37 0.22512513042115461781 0.0019518628408380794565
-38 0.21992523652921580624 0.0019180132068852614059
-39 0.21704959314171978768 0.0019060048759792158016
-40 0.21704959314171978768 0.0019060048759792158016
-41 0.21487546320493169927 0.0018984290679932033872
-42 0.21239743279634465400 0.0018865554282236564505
-43 0.20883183445265213196 0.0018702224412410473325
-44 0.20661759771609941594 0.0018579108034373365693
-45 0.20323829654491060159 0.0018474618605487439209
-46 0.20312029850344098802 0.0018400910740843027906
-47 0.20266356881373245868 0.0018384902923661845635
-48 0.20236579776588256574 0.0018364918002489378536
-49 0.20158422441176448991 0.0018291074459122554259
-50 0.19997029054505130463 0.0018185301869977743127
-51 0.19797618933346103343 0.0018133739542235914870
-52 0.19575202369455921292 0.0017979018439688192795
-53 0.19468583186638657723 0.0017888918509636696740
-54 0.19305951680285562966 0.0017786866034382297491
-55 0.19158654821649725997 0.0017520095833455247812
-56 0.19037997099455708505 0.0017474052991350078317
-57 0.18765035992153619726 0.0017291197844766035673
-58 0.18417463409212464498 0.0017181766467484782014
-59 0.18311145358142319473 0.0017111068986410107786
-60 0.18081888256022887740 0.0016997857562196991548
-61 0.17900927990869824891 0.0016875915970987601968
-62 0.17727306770871756325 0.0016730048094779044823
-63 0.17684577384697292013 0.0016701563396694359218
-64 0.17575814445925649898 0.0016629087226037999811
-65 0.17373346231611377921 0.0016531573909112811435
-66 0.17315445304630902590 0.0016505745082595313887
-67 0.17255696245189147686 0.0016485956744997447808
-68 0.17140729325814971218 0.0016419536590182874560</code></pre>
-</div>
-<details class="code-fold">
-<summary>show the code</summary>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>cp_table <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(pruned_tree<span class="sc">$</span>cptable)</span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(cp_table) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"CP"</span>, <span class="st">"nsplit"</span>, <span class="st">"rel_error"</span>, <span class="st">"xerror"</span>, <span class="st">"xstd"</span>) </span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pruned_tree<span class="sc">$</span>cptable, <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>cp_table <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(pruned_tree<span class="sc">$</span>cptable)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(cp_table) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"CP"</span>, <span class="st">"nsplit"</span>, <span class="st">"rel_error"</span>, <span class="st">"xerror"</span>, <span class="st">"xstd"</span>) </span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pruned_tree<span class="sc">$</span>cptable, <span class="dv">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>            CP nsplit rel error    xerror        xstd
@@ -1368,26 +1224,26 @@ checking overfitting
 <div class="cell">
 <details class="code-fold">
 <summary>show the code</summary>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>train_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(pruned_tree, <span class="at">newdata =</span> df_train)</span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>train_sse <span class="ot">&lt;-</span> <span class="fu">sum</span>((train_pred <span class="sc">-</span> df_train<span class="sc">$</span>Property_Prices)<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>train_sst <span class="ot">&lt;-</span> <span class="fu">sum</span>((df_train<span class="sc">$</span>Property_Prices <span class="sc">-</span> <span class="fu">mean</span>(df_train<span class="sc">$</span>Property_Prices))<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>train_r2 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> train_sse <span class="sc">/</span> train_sst</span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>df_test<span class="sc">$</span>Predicted <span class="ot">&lt;-</span> <span class="fu">predict</span>(pruned_tree, <span class="at">newdata =</span> df_test)</span>
-<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>tree_scatter <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_test, <span class="fu">aes</span>(<span class="at">x =</span> Property_Prices, <span class="at">y =</span> Predicted)) <span class="sc">+</span></span>
-<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span>  </span>
-<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Actual Property_Prices"</span>,</span>
-<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Predicted Property_Prices"</span>,</span>
-<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">paste0</span>(<span class="st">"R-squared (train): "</span>, <span class="fu">round</span>(train_r2, <span class="dv">2</span>))</span>
-<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">5</span>),</span>
-<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
-<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>)</span>
-<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a>tree_scatter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>train_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(pruned_tree, <span class="at">newdata =</span> df_train)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>train_sse <span class="ot">&lt;-</span> <span class="fu">sum</span>((train_pred <span class="sc">-</span> df_train<span class="sc">$</span>Property_Prices)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a>train_sst <span class="ot">&lt;-</span> <span class="fu">sum</span>((df_train<span class="sc">$</span>Property_Prices <span class="sc">-</span> <span class="fu">mean</span>(df_train<span class="sc">$</span>Property_Prices))<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>train_r2 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> train_sse <span class="sc">/</span> train_sst</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a>df_test<span class="sc">$</span>Predicted <span class="ot">&lt;-</span> <span class="fu">predict</span>(pruned_tree, <span class="at">newdata =</span> df_test)</span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a>tree_scatter <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_test, <span class="fu">aes</span>(<span class="at">x =</span> Property_Prices, <span class="at">y =</span> Predicted)) <span class="sc">+</span></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>) <span class="sc">+</span>  </span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Actual Property_Prices"</span>,</span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Predicted Property_Prices"</span>,</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">paste0</span>(<span class="st">"R-squared (train): "</span>, <span class="fu">round</span>(train_r2, <span class="dv">2</span>))</span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">5</span>),</span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>)</span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>tree_scatter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -1399,14 +1255,17 @@ checking overfitting
 </div>
 <p>We can also compare the actual and predicted data by using boxplot.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>plot_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Value =</span> <span class="fu">c</span>(df_test<span class="sc">$</span>Property_Prices, df_test<span class="sc">$</span>Predicted),</span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Type =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Actual"</span>, <span class="st">"Predicted"</span>), <span class="at">each =</span> <span class="fu">nrow</span>(df_test))</span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(plot_data, <span class="fu">aes</span>(<span class="at">x =</span> Type, <span class="at">y =</span> Value, <span class="at">fill =</span> Type)) <span class="sc">+</span></span>
-<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Property Prices"</span>, <span class="at">title =</span> <span class="st">"Boxplot of Actual vs Predicted"</span>) <span class="sc">+</span></span>
-<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold">
+<summary>show the code</summary>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>plot_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Value =</span> <span class="fu">c</span>(df_test<span class="sc">$</span>Property_Prices, df_test<span class="sc">$</span>Predicted),</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Type =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"Actual"</span>, <span class="st">"Predicted"</span>), <span class="at">each =</span> <span class="fu">nrow</span>(df_test))</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(plot_data, <span class="fu">aes</span>(<span class="at">x =</span> Type, <span class="at">y =</span> Value, <span class="at">fill =</span> Type)) <span class="sc">+</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Property Prices"</span>, <span class="at">title =</span> <span class="st">"Boxplot of Actual vs Predicted"</span>) <span class="sc">+</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -1422,13 +1281,13 @@ checking overfitting
 <div class="cell">
 <details class="code-fold">
 <summary>show the code</summary>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> test_pred <span class="sc">-</span> df_test<span class="sc">$</span>Property_Prices</span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>plot_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Predicted =</span> test_pred, <span class="at">Residuals =</span> residuals)</span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(plot_data, <span class="fu">aes</span>(<span class="at">x =</span> Predicted, <span class="at">y =</span> Residuals)) <span class="sc">+</span></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Residuals vs Predicted"</span>, <span class="at">x =</span> <span class="st">"Predicted Property Prices"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>) <span class="sc">+</span></span>
-<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> test_pred <span class="sc">-</span> df_test<span class="sc">$</span>Property_Prices</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>plot_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Predicted =</span> test_pred, <span class="at">Residuals =</span> residuals)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(plot_data, <span class="fu">aes</span>(<span class="at">x =</span> Predicted, <span class="at">y =</span> Residuals)) <span class="sc">+</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"red"</span>) <span class="sc">+</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Residuals vs Predicted"</span>, <span class="at">x =</span> <span class="st">"Predicted Property Prices"</span>, <span class="at">y =</span> <span class="st">"Residuals"</span>) <span class="sc">+</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -1441,44 +1300,23 @@ checking overfitting
 </section>
 <section id="feature-importance" class="level3">
 <h3 class="anchored" data-anchor-id="feature-importance">5.4.3 Feature Importance</h3>
-<p>I extracted feature importance from the regression tree using pruned_tree. The top features were:</p>
-<ul>
-<li>Size (3768.25)</li>
-<li>Highest_Floor (2868.25)</li>
-<li>Parking (1347.7)</li>
-<li>Units (1126.59)</li>
-<li>Year (915.63)</li>
-</ul>
-<p>A bar plot of feature importance highlighted that Size and Highest_Floor were the most influential predictors of property prices, while features like Bus_Stop had small impact.</p>
+<p>A bar plot of feature importance highlighted Size the most influential predictors of property prices, while features like Bus_Stop had small impact.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>show the code</summary>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>vi <span class="ot">&lt;-</span> pruned_tree<span class="sc">$</span>variable.importance</span>
-<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>vi_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">names</span>(vi),</span>
-<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Importance =</span> <span class="fu">as.numeric</span>(vi)</span>
-<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(vi_df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>       Variable Importance
-1          Size  7625.0652
-2       Parking  3757.6808
-3 Highest_floor  2858.2476
-4         Units  1347.6960
-5          Year  1126.5924
-6         Floor   915.6281</code></pre>
-</div>
-<details class="code-fold">
-<summary>show the code</summary>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(vi_df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Variable, Importance), <span class="at">y =</span> Importance)) <span class="sc">+</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>) <span class="sc">+</span></span>
-<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">round</span>(Importance, <span class="dv">2</span>)), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.2</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span>  </span>
-<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Importance"</span>, <span class="at">title =</span> <span class="st">"Variable Importance from Regression Tree Model"</span>) <span class="sc">+</span></span>
-<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>vi <span class="ot">&lt;-</span> pruned_tree<span class="sc">$</span>variable.importance</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>vi_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Variable =</span> <span class="fu">names</span>(vi),</span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Importance =</span> <span class="fu">as.numeric</span>(vi)</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(vi_df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Variable, Importance), <span class="at">y =</span> Importance)) <span class="sc">+</span></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"lightblue"</span>) <span class="sc">+</span></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">round</span>(Importance, <span class="dv">2</span>)), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.2</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span>  </span>
+<span id="cb42-10"><a href="#cb42-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb42-11"><a href="#cb42-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Importance"</span>, <span class="at">title =</span> <span class="st">"Variable Importance from Regression Tree Model"</span>) <span class="sc">+</span></span>
+<span id="cb42-12"><a href="#cb42-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb42-13"><a href="#cb42-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -1497,85 +1335,85 @@ checking overfitting
 <h2 class="anchored" data-anchor-id="building-model-1">6.1 Building Model</h2>
 <p>The default is 8:2 for the training and testing data set. The user can choose the seed number and the ratio of training data.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>trainIndex <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(Property_data_analysis<span class="sc">$</span><span class="st">`</span><span class="at">Property_Prices</span><span class="st">`</span>, <span class="at">p =</span> <span class="fl">0.8</span>, <span class="at">list =</span> <span class="cn">FALSE</span>,  <span class="at">times =</span> <span class="dv">1</span>)</span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>df_train <span class="ot">&lt;-</span> Property_data_analysis[trainIndex,]</span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>df_test <span class="ot">&lt;-</span> Property_data_analysis[<span class="sc">-</span>trainIndex,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>trainIndex <span class="ot">&lt;-</span> <span class="fu">createDataPartition</span>(Property_data_analysis<span class="sc">$</span><span class="st">`</span><span class="at">Property_Prices</span><span class="st">`</span>, <span class="at">p =</span> <span class="fl">0.8</span>, <span class="at">list =</span> <span class="cn">FALSE</span>,  <span class="at">times =</span> <span class="dv">1</span>)</span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>df_train <span class="ot">&lt;-</span> Property_data_analysis[trainIndex,]</span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>df_test <span class="ot">&lt;-</span> Property_data_analysis[<span class="sc">-</span>trainIndex,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <details class="code-fold">
 <summary>find the best setting</summary>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">registerDoParallel</span>(<span class="at">cores =</span> <span class="dv">4</span>)</span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>trctrl_none <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"none"</span>)</span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>trctrl_cv <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"cv"</span>, <span class="at">number =</span> <span class="dv">5</span>, <span class="at">verboseIter =</span> <span class="cn">TRUE</span>)  trctrl_repeatedcv <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"repeatedcv"</span>, <span class="at">number =</span> <span class="dv">5</span>, <span class="at">repeats =</span> <span class="dv">3</span>, <span class="at">verboseIter =</span> <span class="cn">TRUE</span>)  </span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>trctrl_boot <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"boot"</span>, <span class="at">number =</span> <span class="dv">5</span>, <span class="at">verboseIter =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>tune_grid <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>( <span class="at">mtry =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>),</span>
-<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>                          <span class="at">min.node.size =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">10</span>), <span class="at">splitrule =</span> <span class="fu">c</span>(<span class="st">"variance"</span>, <span class="st">"extratrees"</span>) )</span>
-<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>evaluate_model <span class="ot">&lt;-</span> <span class="cf">function</span>(tr_control, num_trees, importance_method) </span>
-<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>  { rf_model <span class="ot">&lt;-</span> <span class="fu">train</span>( Property_Prices <span class="sc">~</span> ., <span class="at">data =</span> df_train, <span class="at">method =</span> <span class="st">"ranger"</span>, <span class="at">trControl =</span> tr_control, <span class="at">tuneGrid =</span> tune_grid, <span class="at">num.trees =</span> num_trees, <span class="at">importance =</span> importance_method )</span>
-<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a>  best_params <span class="ot">&lt;-</span> rf_model<span class="sc">$</span>bestTune <span class="fu">cat</span>(<span class="st">"Cross-validation results:</span><span class="sc">\n</span><span class="st">"</span>) </span>
-<span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(cv_results) <span class="fu">cat</span>(<span class="st">"Best parameters:"</span>, best_params<span class="sc">$</span>mtry, best_params<span class="sc">$</span>min.node.size, best_params<span class="sc">$</span>splitrule, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(rf_model, <span class="at">newdata =</span> df_test) mse <span class="ot">&lt;-</span> <span class="fu">mean</span>((predictions <span class="sc">-</span> df_test<span class="sc">$</span><span class="st">`</span><span class="at">Property_Prices</span><span class="st">`</span>)<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a>  sst <span class="ot">&lt;-</span> <span class="fu">sum</span>((df_test<span class="sc">$</span>Property_Prices <span class="sc">-</span> <span class="fu">mean</span>(df_test<span class="sc">$</span><span class="st">`</span><span class="at">Property_Prices</span><span class="st">`</span>))<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a>  sse <span class="ot">&lt;-</span> <span class="fu">sum</span>((predictions <span class="sc">-</span> df_test<span class="sc">$</span>Property_Prices)<span class="sc">^</span><span class="dv">2</span>) r_squared <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> sse <span class="sc">/</span> sst <span class="fu">cat</span>(<span class="st">"Test MSE:"</span>, mse, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>) <span class="fu">cat</span>(<span class="st">"Test R-squared:"</span>, r_squared, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
-<span id="cb48-22"><a href="#cb48-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-23"><a href="#cb48-23" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span>(<span class="fu">list</span>(<span class="at">model =</span> rf_model, <span class="at">cv_results =</span> cv_results, <span class="at">test_mse =</span> mse, <span class="at">test_r_squared =</span> r_squared)) }</span>
-<span id="cb48-24"><a href="#cb48-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-25"><a href="#cb48-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-26"><a href="#cb48-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-27"><a href="#cb48-27" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">=== 5-fold CV, num.trees = 50, importance = impurity ===</span><span class="sc">\n</span><span class="st">"</span>) result_cv_50_impurity <span class="ot">&lt;-</span> <span class="fu">evaluate_model</span>(trctrl_cv, <span class="dv">50</span>, <span class="st">"impurity"</span>)</span>
-<span id="cb48-28"><a href="#cb48-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-29"><a href="#cb48-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-30"><a href="#cb48-30" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">=== Repeated CV (5-fold, 3 repeats), num.trees = 100, importance = permutation ===</span><span class="sc">\n</span><span class="st">"</span>) result_repeatedcv_100_permutation <span class="ot">&lt;-</span> <span class="fu">evaluate_model</span>(trctrl_repeatedcv, <span class="dv">100</span>, <span class="st">"permutation"</span>)</span>
-<span id="cb48-31"><a href="#cb48-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-32"><a href="#cb48-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-33"><a href="#cb48-33" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">=== Bootstrap, num.trees = 200, importance = impurity ===</span><span class="sc">\n</span><span class="st">"</span>) result_boot_200_impurity <span class="ot">&lt;-</span> <span class="fu">evaluate_model</span>(trctrl_boot, <span class="dv">200</span>, <span class="st">"impurity"</span>)</span>
-<span id="cb48-34"><a href="#cb48-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-35"><a href="#cb48-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-36"><a href="#cb48-36" aria-hidden="true" tabindex="-1"></a>results_summary <span class="ot">&lt;-</span> <span class="fu">data.frame</span>( <span class="at">Method =</span> <span class="fu">c</span>(<span class="st">"5-fold CV"</span>, <span class="st">"Repeated CV (5-fold, 3 repeats)"</span>, <span class="st">"Bootstrap"</span>), <span class="at">Num_Trees =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">200</span>), <span class="at">Importance =</span> <span class="fu">c</span>(<span class="st">"impurity"</span>, <span class="st">"permutation"</span>, <span class="st">"impurity"</span>), <span class="at">Test_MSE =</span> <span class="fu">c</span>(result_cv_50_impurity<span class="sc">$</span>test_mse,</span>
-<span id="cb48-37"><a href="#cb48-37" aria-hidden="true" tabindex="-1"></a>               result_repeatedcv_100_permutation<span class="sc">$</span>test_mse, result_boot_200_impurity<span class="sc">$</span>test_mse),</span>
-<span id="cb48-38"><a href="#cb48-38" aria-hidden="true" tabindex="-1"></a>  <span class="at">Test_R_squared =</span> <span class="fu">c</span>(result_cv_50_impurity<span class="sc">$</span>test_r_squared, result_repeatedcv_100_permutation<span class="sc">$</span>test_r_squared,</span>
-<span id="cb48-39"><a href="#cb48-39" aria-hidden="true" tabindex="-1"></a>                     result_boot_200_impurity<span class="sc">$</span>test_r_squared) ) <span class="fu">print</span>(results_summary)</span>
-<span id="cb48-40"><a href="#cb48-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-41"><a href="#cb48-41" aria-hidden="true" tabindex="-1"></a>best_method <span class="ot">&lt;-</span> results_summary[<span class="fu">which.max</span>(results_summary<span class="sc">$</span>Test_R_squared), ] <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Best analysis method:</span><span class="sc">\n</span><span class="st">"</span>) <span class="fu">print</span>(best_method) <span class="st">'''</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">registerDoParallel</span>(<span class="at">cores =</span> <span class="dv">4</span>)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>trctrl_none <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"none"</span>)</span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>trctrl_cv <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"cv"</span>, <span class="at">number =</span> <span class="dv">5</span>, <span class="at">verboseIter =</span> <span class="cn">TRUE</span>)  trctrl_repeatedcv <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"repeatedcv"</span>, <span class="at">number =</span> <span class="dv">5</span>, <span class="at">repeats =</span> <span class="dv">3</span>, <span class="at">verboseIter =</span> <span class="cn">TRUE</span>)  </span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>trctrl_boot <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"boot"</span>, <span class="at">number =</span> <span class="dv">5</span>, <span class="at">verboseIter =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>tune_grid <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>( <span class="at">mtry =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">8</span>),</span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>                          <span class="at">min.node.size =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">10</span>), <span class="at">splitrule =</span> <span class="fu">c</span>(<span class="st">"variance"</span>, <span class="st">"extratrees"</span>) )</span>
+<span id="cb44-10"><a href="#cb44-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-11"><a href="#cb44-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-12"><a href="#cb44-12" aria-hidden="true" tabindex="-1"></a>evaluate_model <span class="ot">&lt;-</span> <span class="cf">function</span>(tr_control, num_trees, importance_method) </span>
+<span id="cb44-13"><a href="#cb44-13" aria-hidden="true" tabindex="-1"></a>  { rf_model <span class="ot">&lt;-</span> <span class="fu">train</span>( Property_Prices <span class="sc">~</span> ., <span class="at">data =</span> df_train, <span class="at">method =</span> <span class="st">"ranger"</span>, <span class="at">trControl =</span> tr_control, <span class="at">tuneGrid =</span> tune_grid, <span class="at">num.trees =</span> num_trees, <span class="at">importance =</span> importance_method )</span>
+<span id="cb44-14"><a href="#cb44-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-15"><a href="#cb44-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-16"><a href="#cb44-16" aria-hidden="true" tabindex="-1"></a>  best_params <span class="ot">&lt;-</span> rf_model<span class="sc">$</span>bestTune <span class="fu">cat</span>(<span class="st">"Cross-validation results:</span><span class="sc">\n</span><span class="st">"</span>) </span>
+<span id="cb44-17"><a href="#cb44-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(cv_results) <span class="fu">cat</span>(<span class="st">"Best parameters:"</span>, best_params<span class="sc">$</span>mtry, best_params<span class="sc">$</span>min.node.size, best_params<span class="sc">$</span>splitrule, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb44-18"><a href="#cb44-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-19"><a href="#cb44-19" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(rf_model, <span class="at">newdata =</span> df_test) mse <span class="ot">&lt;-</span> <span class="fu">mean</span>((predictions <span class="sc">-</span> df_test<span class="sc">$</span><span class="st">`</span><span class="at">Property_Prices</span><span class="st">`</span>)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb44-20"><a href="#cb44-20" aria-hidden="true" tabindex="-1"></a>  sst <span class="ot">&lt;-</span> <span class="fu">sum</span>((df_test<span class="sc">$</span>Property_Prices <span class="sc">-</span> <span class="fu">mean</span>(df_test<span class="sc">$</span><span class="st">`</span><span class="at">Property_Prices</span><span class="st">`</span>))<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb44-21"><a href="#cb44-21" aria-hidden="true" tabindex="-1"></a>  sse <span class="ot">&lt;-</span> <span class="fu">sum</span>((predictions <span class="sc">-</span> df_test<span class="sc">$</span>Property_Prices)<span class="sc">^</span><span class="dv">2</span>) r_squared <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> sse <span class="sc">/</span> sst <span class="fu">cat</span>(<span class="st">"Test MSE:"</span>, mse, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>) <span class="fu">cat</span>(<span class="st">"Test R-squared:"</span>, r_squared, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span>
+<span id="cb44-22"><a href="#cb44-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-23"><a href="#cb44-23" aria-hidden="true" tabindex="-1"></a><span class="fu">return</span>(<span class="fu">list</span>(<span class="at">model =</span> rf_model, <span class="at">cv_results =</span> cv_results, <span class="at">test_mse =</span> mse, <span class="at">test_r_squared =</span> r_squared)) }</span>
+<span id="cb44-24"><a href="#cb44-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-25"><a href="#cb44-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-26"><a href="#cb44-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-27"><a href="#cb44-27" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">=== 5-fold CV, num.trees = 50, importance = impurity ===</span><span class="sc">\n</span><span class="st">"</span>) result_cv_50_impurity <span class="ot">&lt;-</span> <span class="fu">evaluate_model</span>(trctrl_cv, <span class="dv">50</span>, <span class="st">"impurity"</span>)</span>
+<span id="cb44-28"><a href="#cb44-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-29"><a href="#cb44-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-30"><a href="#cb44-30" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">=== Repeated CV (5-fold, 3 repeats), num.trees = 100, importance = permutation ===</span><span class="sc">\n</span><span class="st">"</span>) result_repeatedcv_100_permutation <span class="ot">&lt;-</span> <span class="fu">evaluate_model</span>(trctrl_repeatedcv, <span class="dv">100</span>, <span class="st">"permutation"</span>)</span>
+<span id="cb44-31"><a href="#cb44-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-32"><a href="#cb44-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-33"><a href="#cb44-33" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">=== Bootstrap, num.trees = 200, importance = impurity ===</span><span class="sc">\n</span><span class="st">"</span>) result_boot_200_impurity <span class="ot">&lt;-</span> <span class="fu">evaluate_model</span>(trctrl_boot, <span class="dv">200</span>, <span class="st">"impurity"</span>)</span>
+<span id="cb44-34"><a href="#cb44-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-35"><a href="#cb44-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-36"><a href="#cb44-36" aria-hidden="true" tabindex="-1"></a>results_summary <span class="ot">&lt;-</span> <span class="fu">data.frame</span>( <span class="at">Method =</span> <span class="fu">c</span>(<span class="st">"5-fold CV"</span>, <span class="st">"Repeated CV (5-fold, 3 repeats)"</span>, <span class="st">"Bootstrap"</span>), <span class="at">Num_Trees =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">200</span>), <span class="at">Importance =</span> <span class="fu">c</span>(<span class="st">"impurity"</span>, <span class="st">"permutation"</span>, <span class="st">"impurity"</span>), <span class="at">Test_MSE =</span> <span class="fu">c</span>(result_cv_50_impurity<span class="sc">$</span>test_mse,</span>
+<span id="cb44-37"><a href="#cb44-37" aria-hidden="true" tabindex="-1"></a>               result_repeatedcv_100_permutation<span class="sc">$</span>test_mse, result_boot_200_impurity<span class="sc">$</span>test_mse),</span>
+<span id="cb44-38"><a href="#cb44-38" aria-hidden="true" tabindex="-1"></a>  <span class="at">Test_R_squared =</span> <span class="fu">c</span>(result_cv_50_impurity<span class="sc">$</span>test_r_squared, result_repeatedcv_100_permutation<span class="sc">$</span>test_r_squared,</span>
+<span id="cb44-39"><a href="#cb44-39" aria-hidden="true" tabindex="-1"></a>                     result_boot_200_impurity<span class="sc">$</span>test_r_squared) ) <span class="fu">print</span>(results_summary)</span>
+<span id="cb44-40"><a href="#cb44-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-41"><a href="#cb44-41" aria-hidden="true" tabindex="-1"></a>best_method <span class="ot">&lt;-</span> results_summary[<span class="fu">which.max</span>(results_summary<span class="sc">$</span>Test_R_squared), ] <span class="fu">cat</span>(<span class="st">"</span><span class="sc">\n</span><span class="st">Best analysis method:</span><span class="sc">\n</span><span class="st">"</span>) <span class="fu">print</span>(best_method) <span class="st">'''</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># user can choose to set random seed  (default 1234)</span></span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="co"># user can choose the tuning method :none, cv, repeatedcv, boot(default)</span></span>
-<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="co"># user can choose splitrule: variance(default), extratrees, maxstat, beta</span></span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="co"># user can choose num of tree :5-200 (200 is default)</span></span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="co"># user can choose feature importance :"impurity", "permutation</span></span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>trctrl <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"boot"</span>, <span class="at">number =</span> <span class="dv">5</span>, <span class="at">verboseIter =</span> <span class="cn">TRUE</span>)  <span class="co"># number of boot is default</span></span>
-<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>tune_grid <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
-<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">mtry =</span> <span class="dv">8</span>,  <span class="co"># default</span></span>
-<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">min.node.size =</span> <span class="dv">3</span>,  <span class="co"># default</span></span>
-<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">splitrule =</span> <span class="st">"variance"</span>  </span>
-<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a>rf_model <span class="ot">&lt;-</span> <span class="fu">train</span>(</span>
-<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Property_Prices</span><span class="st">`</span> <span class="sc">~</span> ., </span>
-<span id="cb49-19"><a href="#cb49-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df_train,</span>
-<span id="cb49-20"><a href="#cb49-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"ranger"</span>, </span>
-<span id="cb49-21"><a href="#cb49-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">trControl =</span> trctrl,</span>
-<span id="cb49-22"><a href="#cb49-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">tuneGrid =</span> tune_grid,</span>
-<span id="cb49-23"><a href="#cb49-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">num.trees =</span> <span class="dv">200</span>,  </span>
-<span id="cb49-24"><a href="#cb49-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">importance =</span> <span class="st">"impurity"</span> </span>
-<span id="cb49-25"><a href="#cb49-25" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># user can choose to set random seed  (default 1234)</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="co"># user can choose the tuning method :none, cv, repeatedcv, boot(default)</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co"># user can choose splitrule: variance(default), extratrees, maxstat, beta</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="co"># user can choose num of tree :5-200 (200 is default)</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="co"># user can choose feature importance :"impurity", "permutation</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>trctrl <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(<span class="at">method =</span> <span class="st">"boot"</span>, <span class="at">number =</span> <span class="dv">5</span>, <span class="at">verboseIter =</span> <span class="cn">TRUE</span>)  <span class="co"># number of boot is default</span></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>tune_grid <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">mtry =</span> <span class="dv">8</span>,  <span class="co"># default</span></span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">min.node.size =</span> <span class="dv">3</span>,  <span class="co"># default</span></span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">splitrule =</span> <span class="st">"variance"</span>  </span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a>rf_model <span class="ot">&lt;-</span> <span class="fu">train</span>(</span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a>  <span class="st">`</span><span class="at">Property_Prices</span><span class="st">`</span> <span class="sc">~</span> ., </span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df_train,</span>
+<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"ranger"</span>, </span>
+<span id="cb45-21"><a href="#cb45-21" aria-hidden="true" tabindex="-1"></a>  <span class="at">trControl =</span> trctrl,</span>
+<span id="cb45-22"><a href="#cb45-22" aria-hidden="true" tabindex="-1"></a>  <span class="at">tuneGrid =</span> tune_grid,</span>
+<span id="cb45-23"><a href="#cb45-23" aria-hidden="true" tabindex="-1"></a>  <span class="at">num.trees =</span> <span class="dv">200</span>,  </span>
+<span id="cb45-24"><a href="#cb45-24" aria-hidden="true" tabindex="-1"></a>  <span class="at">importance =</span> <span class="st">"impurity"</span> </span>
+<span id="cb45-25"><a href="#cb45-25" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>+ Resample1: mtry=8, min.node.size=3, splitrule=variance 
 - Resample1: mtry=8, min.node.size=3, splitrule=variance 
@@ -1590,32 +1428,6 @@ checking overfitting
 Aggregating results
 Fitting final model on full training set</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(rf_model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Random Forest 
-
-42117 samples
-   24 predictor
-
-No pre-processing
-Resampling: Bootstrapped (5 reps) 
-Summary of sample sizes: 42117, 42117, 42117, 42117, 42117 
-Resampling results:
-
-  RMSE       Rsquared   MAE       
-  0.1075159  0.9644034  0.07170038
-
-Tuning parameter 'mtry' was held constant at a value of 8
-Tuning
- parameter 'splitrule' was held constant at a value of variance
-
-Tuning parameter 'min.node.size' was held constant at a value of 3</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co"># result</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(rf_model, <span class="at">newdata =</span> df_test)</span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>mse <span class="ot">&lt;-</span> <span class="fu">mean</span>((predictions <span class="sc">-</span> df_test<span class="sc">$</span><span class="st">`</span><span class="at">Property_Prices</span><span class="st">`</span>)<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>r_squared <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>((predictions <span class="sc">-</span> df_test<span class="sc">$</span><span class="st">`</span><span class="at">Property_Prices</span><span class="st">`</span>)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> </span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">sum</span>((df_test<span class="sc">$</span><span class="st">`</span><span class="at">Property_Prices</span><span class="st">`</span> <span class="sc">-</span> <span class="fu">mean</span>(df_test<span class="sc">$</span><span class="st">`</span><span class="at">Property_Prices</span><span class="st">`</span>))<span class="sc">^</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="model-evaluation-1" class="level2">
@@ -1625,41 +1437,46 @@ Tuning parameter 'min.node.size' was held constant at a value of 3</code></pre>
 <div class="cell">
 <details class="code-fold">
 <summary>show the code</summary>
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>train_predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(rf_model, <span class="at">newdata =</span> df_train)</span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>train_mse <span class="ot">&lt;-</span> <span class="fu">mean</span>((train_predictions <span class="sc">-</span> df_train<span class="sc">$</span><span class="st">`</span><span class="at">Property_Prices</span><span class="st">`</span>)<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>train_sst <span class="ot">&lt;-</span> <span class="fu">sum</span>((df_train<span class="sc">$</span><span class="st">`</span><span class="at">Property_Prices</span><span class="st">`</span> <span class="sc">-</span> <span class="fu">mean</span>(df_train<span class="sc">$</span><span class="st">`</span><span class="at">Property_Prices</span><span class="st">`</span>))<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>train_sse <span class="ot">&lt;-</span> <span class="fu">sum</span>((train_predictions <span class="sc">-</span> df_train<span class="sc">$</span><span class="st">`</span><span class="at">Property_Prices</span><span class="st">`</span>)<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>train_r_squared <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> train_sse <span class="sc">/</span> train_sst</span>
-<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Test MSE:"</span>, mse, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(rf_model, <span class="at">newdata =</span> df_test)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>mse <span class="ot">&lt;-</span> <span class="fu">mean</span>((predictions <span class="sc">-</span> df_test<span class="sc">$</span><span class="st">`</span><span class="at">Property_Prices</span><span class="st">`</span>)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>r_squared <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">sum</span>((predictions <span class="sc">-</span> df_test<span class="sc">$</span><span class="st">`</span><span class="at">Property_Prices</span><span class="st">`</span>)<span class="sc">^</span><span class="dv">2</span>) <span class="sc">/</span> </span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">sum</span>((df_test<span class="sc">$</span><span class="st">`</span><span class="at">Property_Prices</span><span class="st">`</span> <span class="sc">-</span> <span class="fu">mean</span>(df_test<span class="sc">$</span><span class="st">`</span><span class="at">Property_Prices</span><span class="st">`</span>))<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>train_predictions <span class="ot">&lt;-</span> <span class="fu">predict</span>(rf_model, <span class="at">newdata =</span> df_train)</span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>train_mse <span class="ot">&lt;-</span> <span class="fu">mean</span>((train_predictions <span class="sc">-</span> df_train<span class="sc">$</span><span class="st">`</span><span class="at">Property_Prices</span><span class="st">`</span>)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>train_sst <span class="ot">&lt;-</span> <span class="fu">sum</span>((df_train<span class="sc">$</span><span class="st">`</span><span class="at">Property_Prices</span><span class="st">`</span> <span class="sc">-</span> <span class="fu">mean</span>(df_train<span class="sc">$</span><span class="st">`</span><span class="at">Property_Prices</span><span class="st">`</span>))<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>train_sse <span class="ot">&lt;-</span> <span class="fu">sum</span>((train_predictions <span class="sc">-</span> df_train<span class="sc">$</span><span class="st">`</span><span class="at">Property_Prices</span><span class="st">`</span>)<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>train_r_squared <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> train_sse <span class="sc">/</span> train_sst</span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Test MSE:"</span>, mse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test MSE: 0.008759057 </code></pre>
+<pre><code>Test MSE: 0.008759057</code></pre>
 </div>
 <details class="code-fold">
 <summary>show the code</summary>
-<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Test R-squared:"</span>, r_squared, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Test R-squared:"</span>, r_squared)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Test R-squared: 0.9728832 </code></pre>
+<pre><code>Test R-squared: 0.9728832</code></pre>
 </div>
 <details class="code-fold">
 <summary>show the code</summary>
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Train MSE:"</span>, train_mse, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Train MSE:"</span>, train_mse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Train MSE: 0.002337131 </code></pre>
+<pre><code>Train MSE: 0.002337131</code></pre>
 </div>
 <details class="code-fold">
 <summary>show the code</summary>
-<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Train R-squared:"</span>, train_r_squared, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Train R-squared:"</span>, train_r_squared)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>Train R-squared: 0.992743 </code></pre>
+<pre><code>Train R-squared: 0.992743</code></pre>
 </div>
 <details class="code-fold">
 <summary>show the code</summary>
-<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Difference between test and train R-squared:"</span>, train_r_squared <span class="sc">-</span> r_squared, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Difference between test and train R-squared:"</span>, train_r_squared <span class="sc">-</span> r_squared, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>Difference between test and train R-squared: 0.01985979 </code></pre>
@@ -1670,11 +1487,11 @@ The training set MSE is lower than the OOB and test sets, indicating that the mo
 <div class="cell">
 <details class="code-fold">
 <summary>show the code</summary>
-<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a>oob_errors <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="fu">seq</span>(<span class="dv">10</span>, <span class="dv">200</span>, <span class="at">by =</span> <span class="dv">10</span>), <span class="cf">function</span>(ntree) {</span>
-<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">ranger</span>(<span class="st">`</span><span class="at">Property_Prices</span><span class="st">`</span> <span class="sc">~</span> ., <span class="at">data =</span> df_train, <span class="at">num.trees =</span> ntree, <span class="at">importance =</span> <span class="st">"impurity"</span>)</span>
-<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(model<span class="sc">$</span>prediction.error)</span>
-<span id="cb64-4"><a href="#cb64-4" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb64-5"><a href="#cb64-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">seq</span>(<span class="dv">10</span>, <span class="dv">200</span>, <span class="at">by =</span> <span class="dv">10</span>), oob_errors, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">xlab =</span> <span class="st">"Number of Trees"</span>, <span class="at">ylab =</span> <span class="st">"OOB MSE"</span>, <span class="at">main =</span> <span class="st">"OOB Error vs Number of Trees"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>oob_errors <span class="ot">&lt;-</span> <span class="fu">sapply</span>(<span class="fu">seq</span>(<span class="dv">10</span>, <span class="dv">200</span>, <span class="at">by =</span> <span class="dv">10</span>), <span class="cf">function</span>(ntree) {</span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">ranger</span>(<span class="st">`</span><span class="at">Property_Prices</span><span class="st">`</span> <span class="sc">~</span> ., <span class="at">data =</span> df_train, <span class="at">num.trees =</span> ntree, <span class="at">importance =</span> <span class="st">"impurity"</span>)</span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(model<span class="sc">$</span>prediction.error)</span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">seq</span>(<span class="dv">10</span>, <span class="dv">200</span>, <span class="at">by =</span> <span class="dv">10</span>), oob_errors, <span class="at">type =</span> <span class="st">"l"</span>, <span class="at">xlab =</span> <span class="st">"Number of Trees"</span>, <span class="at">ylab =</span> <span class="st">"OOB MSE"</span>, <span class="at">main =</span> <span class="st">"OOB Error vs Number of Trees"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -1685,8 +1502,8 @@ The training set MSE is lower than the OOB and test sets, indicating that the mo
 </div>
 <details class="code-fold">
 <summary>show the code</summary>
-<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>oob_mse <span class="ot">&lt;-</span> rf_model<span class="sc">$</span>finalModel<span class="sc">$</span>prediction.error</span>
-<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"OOB MSE:"</span>, oob_mse, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>oob_mse <span class="ot">&lt;-</span> rf_model<span class="sc">$</span>finalModel<span class="sc">$</span>prediction.error</span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"OOB MSE:"</span>, oob_mse, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>OOB MSE: 0.009510285 </code></pre>
@@ -1701,43 +1518,43 @@ The training set MSE is lower than the OOB and test sets, indicating that the mo
 <div class="cell">
 <details class="code-fold">
 <summary>show the code</summary>
-<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>df_test<span class="sc">$</span>Predicted <span class="ot">&lt;-</span> <span class="fu">predict</span>(rf_model, <span class="at">newdata =</span> df_test)</span>
-<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a>rf_scatter <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_test, <span class="fu">aes</span>(<span class="at">x =</span> Property_Prices, <span class="at">y =</span> Predicted)) <span class="sc">+</span></span>
-<span id="cb67-4"><a href="#cb67-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb67-5"><a href="#cb67-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb67-6"><a href="#cb67-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Actual Property_Prices"</span>,</span>
-<span id="cb67-7"><a href="#cb67-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Predicted Property_Prices"</span>,</span>
-<span id="cb67-8"><a href="#cb67-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">paste0</span>(<span class="st">"R-squared (train): "</span>, <span class="fu">round</span>(rf_model<span class="sc">$</span>finalModel<span class="sc">$</span>r.squared, <span class="dv">2</span>))</span>
-<span id="cb67-9"><a href="#cb67-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb67-10"><a href="#cb67-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb67-11"><a href="#cb67-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">5</span>),</span>
-<span id="cb67-12"><a href="#cb67-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
-<span id="cb67-13"><a href="#cb67-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>)</span>
-<span id="cb67-14"><a href="#cb67-14" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb67-15"><a href="#cb67-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb67-16"><a href="#cb67-16" aria-hidden="true" tabindex="-1"></a>df_test<span class="sc">$</span>Residuals <span class="ot">&lt;-</span> df_test<span class="sc">$</span>Predicted <span class="sc">-</span> df_test<span class="sc">$</span>Property_Prices</span>
-<span id="cb67-17"><a href="#cb67-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb67-18"><a href="#cb67-18" aria-hidden="true" tabindex="-1"></a>rf_residuals <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_test, <span class="fu">aes</span>(<span class="at">x =</span> Property_Prices, <span class="at">y =</span> Residuals)) <span class="sc">+</span> </span>
-<span id="cb67-19"><a href="#cb67-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"blue3"</span>) <span class="sc">+</span></span>
-<span id="cb67-20"><a href="#cb67-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb67-21"><a href="#cb67-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Actual Property_Prices"</span>,</span>
-<span id="cb67-22"><a href="#cb67-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Residuals (Predicted - Actual)"</span></span>
-<span id="cb67-23"><a href="#cb67-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
-<span id="cb67-24"><a href="#cb67-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"red4"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
-<span id="cb67-25"><a href="#cb67-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb67-26"><a href="#cb67-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">5</span>),</span>
-<span id="cb67-27"><a href="#cb67-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>)</span>
-<span id="cb67-28"><a href="#cb67-28" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb67-29"><a href="#cb67-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb67-30"><a href="#cb67-30" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> rf_scatter <span class="sc">+</span> rf_residuals <span class="sc">+</span></span>
-<span id="cb67-31"><a href="#cb67-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(</span>
-<span id="cb67-32"><a href="#cb67-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Scatterplot of Predicted vs. Actual Property_Prices"</span>,</span>
-<span id="cb67-33"><a href="#cb67-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">theme =</span> <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">18</span>))</span>
-<span id="cb67-34"><a href="#cb67-34" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb67-35"><a href="#cb67-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb67-36"><a href="#cb67-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb67-37"><a href="#cb67-37" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a>df_test<span class="sc">$</span>Predicted <span class="ot">&lt;-</span> <span class="fu">predict</span>(rf_model, <span class="at">newdata =</span> df_test)</span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>rf_scatter <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_test, <span class="fu">aes</span>(<span class="at">x =</span> Property_Prices, <span class="at">y =</span> Predicted)) <span class="sc">+</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Actual Property_Prices"</span>,</span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Predicted Property_Prices"</span>,</span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="fu">paste0</span>(<span class="st">"R-squared (train): "</span>, <span class="fu">round</span>(rf_model<span class="sc">$</span>finalModel<span class="sc">$</span>r.squared, <span class="dv">2</span>))</span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">5</span>),</span>
+<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>),</span>
+<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>)</span>
+<span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-16"><a href="#cb60-16" aria-hidden="true" tabindex="-1"></a>df_test<span class="sc">$</span>Residuals <span class="ot">&lt;-</span> df_test<span class="sc">$</span>Predicted <span class="sc">-</span> df_test<span class="sc">$</span>Property_Prices</span>
+<span id="cb60-17"><a href="#cb60-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-18"><a href="#cb60-18" aria-hidden="true" tabindex="-1"></a>rf_residuals <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df_test, <span class="fu">aes</span>(<span class="at">x =</span> Property_Prices, <span class="at">y =</span> Residuals)) <span class="sc">+</span> </span>
+<span id="cb60-19"><a href="#cb60-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"blue3"</span>) <span class="sc">+</span></span>
+<span id="cb60-20"><a href="#cb60-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb60-21"><a href="#cb60-21" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Actual Property_Prices"</span>,</span>
+<span id="cb60-22"><a href="#cb60-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Residuals (Predicted - Actual)"</span></span>
+<span id="cb60-23"><a href="#cb60-23" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb60-24"><a href="#cb60-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">"red4"</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">linewidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb60-25"><a href="#cb60-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb60-26"><a href="#cb60-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">5</span>),</span>
+<span id="cb60-27"><a href="#cb60-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">8</span>)</span>
+<span id="cb60-28"><a href="#cb60-28" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb60-29"><a href="#cb60-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-30"><a href="#cb60-30" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> rf_scatter <span class="sc">+</span> rf_residuals <span class="sc">+</span></span>
+<span id="cb60-31"><a href="#cb60-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(</span>
+<span id="cb60-32"><a href="#cb60-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Scatterplot of Predicted vs. Actual Property_Prices"</span>,</span>
+<span id="cb60-33"><a href="#cb60-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">theme =</span> <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">18</span>))</span>
+<span id="cb60-34"><a href="#cb60-34" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb60-35"><a href="#cb60-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-36"><a href="#cb60-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-37"><a href="#cb60-37" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
@@ -1754,17 +1571,17 @@ The training set MSE is lower than the OOB and test sets, indicating that the mo
 <div class="cell">
 <details class="code-fold">
 <summary>show the code</summary>
-<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true" tabindex="-1"></a>vi <span class="ot">&lt;-</span> <span class="fu">varImp</span>(rf_model)</span>
-<span id="cb68-2"><a href="#cb68-2" aria-hidden="true" tabindex="-1"></a>vi_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(vi<span class="sc">$</span>importance)</span>
-<span id="cb68-3"><a href="#cb68-3" aria-hidden="true" tabindex="-1"></a>vi_df<span class="sc">$</span>Variable <span class="ot">&lt;-</span> <span class="fu">rownames</span>(vi_df)</span>
-<span id="cb68-4"><a href="#cb68-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb68-5"><a href="#cb68-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(vi_df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Variable, Overall), <span class="at">y =</span> Overall)) <span class="sc">+</span></span>
-<span id="cb68-6"><a href="#cb68-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
-<span id="cb68-7"><a href="#cb68-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">round</span>(Overall, <span class="dv">2</span>)), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.2</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span>  <span class="co"># </span></span>
-<span id="cb68-8"><a href="#cb68-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
-<span id="cb68-9"><a href="#cb68-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Importance (Overall)"</span>, <span class="at">title =</span> <span class="st">"Variable Importance from Random Forest Model"</span>) <span class="sc">+</span></span>
-<span id="cb68-10"><a href="#cb68-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
-<span id="cb68-11"><a href="#cb68-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>vi <span class="ot">&lt;-</span> <span class="fu">varImp</span>(rf_model)</span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>vi_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(vi<span class="sc">$</span>importance)</span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>vi_df<span class="sc">$</span>Variable <span class="ot">&lt;-</span> <span class="fu">rownames</span>(vi_df)</span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(vi_df, <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">reorder</span>(Variable, Overall), <span class="at">y =</span> Overall)) <span class="sc">+</span></span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">round</span>(Overall, <span class="dv">2</span>)), <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.2</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span>  <span class="co"># </span></span>
+<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>() <span class="sc">+</span></span>
+<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="cn">NULL</span>, <span class="at">y =</span> <span class="st">"Importance (Overall)"</span>, <span class="at">title =</span> <span class="st">"Variable Importance from Random Forest Model"</span>) <span class="sc">+</span></span>
+<span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">12</span>) <span class="sc">+</span></span>
+<span id="cb61-11"><a href="#cb61-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="fl">0.5</span>, <span class="at">face =</span> <span class="st">"bold"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
