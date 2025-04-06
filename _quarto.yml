@@ -129,6 +129,9 @@ website:
             href: Take-home_Ex/Take-home_Ex2/Take-home_Ex2.qmd
           - text: "Take-home Exercise 3"
             href: Take-home_Ex/Take-home_Ex3/Take-home_Ex3.qmd
+      - text: "Group Project"
+        href: "https://isss608group5.netlify.app/"
+    
     right:
       - icon: "bi bi-house-fill" 
         href: index.qmd

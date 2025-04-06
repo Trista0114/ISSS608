@@ -219,7 +219,7 @@ In this section, I developed a regression tree model to predict property prices 
 
 ## 5.1 Building model
 
-First, plit the dataset into training (80%) and testing (20%) sets. Using 1234 as the seed amount. \
+First, plit the dataset into training (80%) and testing (20%) sets. Using 1234 as the seed amount.\
 In this case, Property_Prices is a continuous variable, so method = "anova" is the appropriate choice.
 
 ```{r}
@@ -266,7 +266,7 @@ pruned_tree <- prune(fit_tree, cp = bestcp)
 visTree(pruned_tree, edgesFontSize = 14, nodesFontSize = 16, width = "100%")
 ```
 
-## 5.3 Model Evaluation 
+## 5.3 Model Evaluation
 
 ::: callout-note
 ## checking overfitting
@@ -368,7 +368,7 @@ ggplot(plot_data, aes(x = Predicted, y = Residuals)) +
   theme_minimal()
 ```
 
-### 5.4.3 Feature Importance 
+### 5.4.3 Feature Importance
 
 A bar plot of feature importance highlighted Size the most influential predictors of property prices, while features like Bus_Stop had small impact.
 
@@ -527,9 +527,9 @@ oob_mse <- rf_model$finalModel$prediction.error
 cat("OOB MSE:", oob_mse, "\n")
 ```
 
-## 6.4 visualization
+## 6.3 Visualization
 
-### 6.4.1 Predicted vs Actual Plot
+### 6.3.1 Predicted vs Actual Plot
 
 Based on the chart, the points were closely aligned with the line, confirming the model's high predictive accuracy (test R-squared of 0.972). The residuals were mostly centered around 0 with minimal spread, indicating that the model's predictions were highly accurate and lacked systematic bias.
 
@@ -575,7 +575,7 @@ p <- rf_scatter + rf_residuals +
 p
 ```
 
-### 6.4.2 Feature Importance
+### 6.3.2 Feature Importance
 
 The plot highlighted that Size, Parking, Highest_Floor, Year, and Units were the most influential predictors of property prices, while features like spring had negligible importance (scores close to 0).
 
